@@ -1,4 +1,4 @@
-package com.airong.common.core.utils;
+package com.airong.core.utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,13 +8,11 @@ import java.security.InvalidKeyException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
-
 import javax.crypto.Cipher;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-
-import static com.airong.common.core.utils.ConvertUtils.bytes2HexString;
-import static com.airong.common.core.utils.ConvertUtils.hexString2Bytes;
+import static com.airong.core.utils.ConvertUtils.bytes2HexString;
+import static com.airong.core.utils.ConvertUtils.hexString2Bytes;
 
 /**
  * <pre>

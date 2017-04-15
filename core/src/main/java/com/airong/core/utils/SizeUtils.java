@@ -1,4 +1,4 @@
-package com.airong.common.core.utils;
+package com.airong.core.utils;
 
 import android.util.DisplayMetrics;
 import android.util.TypedValue;

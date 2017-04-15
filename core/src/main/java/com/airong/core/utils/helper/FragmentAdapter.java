@@ -1,4 +1,4 @@
-package com.airong.common.core.utils.helper;
+package com.airong.core.utils.helper;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

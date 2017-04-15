@@ -1,4 +1,4 @@
-package com.airong.common.core.utils;
+package com.airong.core.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

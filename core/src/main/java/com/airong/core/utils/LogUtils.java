@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.airong.common.core.utils;
+package com.airong.core.utils;
 
 import android.util.Log;
 

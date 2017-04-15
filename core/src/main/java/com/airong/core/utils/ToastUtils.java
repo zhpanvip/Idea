@@ -1,10 +1,10 @@
-package com.airong.common.core.utils;
+package com.airong.core.utils;
 
 import android.content.Context;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.airong.common.core.BaseApp;
+import com.airong.core.BaseApp;
 import com.airong.common.core.BuildConfig;
 
 /**

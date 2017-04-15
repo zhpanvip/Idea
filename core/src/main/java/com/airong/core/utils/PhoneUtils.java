@@ -1,4 +1,4 @@
-package com.github.weiss.core.utils;
+package com.airong.core.utils;
 
 import android.annotation.SuppressLint;
 import android.app.PendingIntent;
@@ -12,12 +12,7 @@ import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.util.Xml;
-
-import com.airong.common.core.utils.StringUtils;
-import com.airong.common.core.utils.Utils;
-
 import org.xmlpull.v1.XmlSerializer;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.airong.common.core.utils;
+package com.airong.core.utils;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -16,7 +16,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import java.util.zip.ZipOutputStream;
 
-import static com.airong.common.core.utils.ConstUtils.KB;
+import static com.airong.core.utils.ConstUtils.KB;
 
 /**
  * <pre>

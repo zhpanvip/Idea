@@ -1,4 +1,4 @@
-package com.airong.common.core.utils.helper;
+package com.airong.core.utils.helper;
 
 import android.content.Context;
 import android.graphics.Bitmap;

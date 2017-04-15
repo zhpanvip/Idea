@@ -1,4 +1,4 @@
-package com.airong.common.core.entity;
+package com.airong.core.entity;
 
 /**
  * Created by Weiss on 2017/1/11.

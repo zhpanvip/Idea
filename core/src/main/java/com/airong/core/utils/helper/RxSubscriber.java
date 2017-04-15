@@ -1,12 +1,12 @@
-package com.airong.common.core.utils.helper;
+package com.airong.core.utils.helper;
 
 
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
 
-import com.airong.common.core.entity.HttpResult;
-import com.airong.common.core.utils.ToastUtils;
+import com.airong.core.entity.HttpResult;
+import com.airong.core.utils.ToastUtils;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;

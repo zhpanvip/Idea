@@ -4,9 +4,10 @@ import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 
-import com.airong.common.core.utils.CrashUtils;
-import com.airong.common.core.utils.SPUtils;
-import com.airong.common.core.utils.Utils;
+
+import com.airong.core.utils.SPUtils;
+import com.airong.core.utils.Utils;
+import com.airong.core.utils.CrashUtils;
 import com.squareup.leakcanary.LeakCanary;
 
 

@@ -1,4 +1,4 @@
-package com.airong.common.core.utils;
+package com.airong.core.utils;
 
 import android.graphics.Bitmap;
 import android.os.Environment;
@@ -6,11 +6,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.airong.common.core.utils.helper.GlideCircleTransform;
+import com.airong.core.utils.helper.GlideCircleTransform;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SizeReadyCallback;
-
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;

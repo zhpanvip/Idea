@@ -1,4 +1,4 @@
-package com.airong.common.core.entity;
+package com.airong.core.entity;
 
 import java.io.Serializable;
 import java.util.Map;

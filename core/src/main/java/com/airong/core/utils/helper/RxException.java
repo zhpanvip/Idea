@@ -1,8 +1,8 @@
-package com.airong.common.core.utils.helper;
+package com.airong.core.utils.helper;
 
 import android.util.Log;
 
-import com.airong.common.core.utils.ToastUtils;
+import com.airong.core.utils.ToastUtils;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;

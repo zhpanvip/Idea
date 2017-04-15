@@ -1,4 +1,4 @@
-package com.airong.common.core.cache;
+package com.airong.core.cache;
 
 /**
  * Created by Weiss on 2017/1/10.
