@@ -3,13 +3,10 @@ package com.airong.core;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
-
-
 import com.airong.core.utils.SPUtils;
 import com.airong.core.utils.Utils;
 import com.airong.core.utils.CrashUtils;
 import com.squareup.leakcanary.LeakCanary;
-
 
 public class BaseApp extends Application {
 

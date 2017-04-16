@@ -1,4 +1,4 @@
-package com.airong.common.core.view;
+package com.airong.core.view;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -6,7 +6,8 @@ import android.graphics.drawable.AnimationDrawable;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.airong.common.core.R;
+
+import com.airong.core.R;
 
 /**
  * Created by zhpan on 2017/4/13.

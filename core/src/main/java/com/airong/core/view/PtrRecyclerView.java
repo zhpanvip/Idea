@@ -1,4 +1,4 @@
-package com.airong.common.core.view;
+package com.airong.core.view;
 
 import android.content.Context;
 import android.os.Build;
@@ -12,24 +12,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-
-import com.airong.common.core.BaseCoreActivity;
-import com.airong.common.core.BaseRxActivity;
-import com.airong.common.core.entity.BaseListEntity;
-import com.airong.common.core.utils.LogUtils;
-import com.airong.common.core.utils.helper.RxException;
-import com.airong.common.core.R;
-
+import com.airong.core.BaseCoreActivity;
+import com.airong.core.BaseRxActivity;
+import com.airong.core.R;
+import com.airong.core.entity.BaseListEntity;
+import com.airong.core.utils.LogUtils;
+import com.airong.core.utils.helper.RxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.PtrHandler;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import me.drakeet.multitype.MultiTypeAdapter;
 
@@ -165,11 +164,21 @@ public class PtrRecyclerView extends LinearLayout {
         model.setParam(param);
         compositeDisposable.add(model.getPage(page)
                 .compose(((BaseRxActivity) getContext()).handleResult())
-                .doAfterTerminate(() -> {
+               /* .doAfterTerminate(() -> {
                     if (page == 1) {
                         ptrFrame.refreshComplete();
                     } else {
                         ((BaseCoreActivity) getContext()).dismissProgress();
+                    }
+                })*/
+                .doAfterTerminate(new Action() {
+                    @Override
+                    public void run() throws Exception {
+                        if (page == 1) {
+                            ptrFrame.refreshComplete();
+                        } else {
+                            ((BaseCoreActivity) getContext()).dismissProgress();
+                        }
                     }
                 })
                 .subscribe(new Consumer<List<BaseListEntity>>() {
@@ -185,7 +194,13 @@ public class PtrRecyclerView extends LinearLayout {
                                    adapter.notifyDataSetChanged();
                                }
                            },
-                        new RxException<>(e -> e.printStackTrace()))
-        );
+                        //new RxException<>(e -> e.printStackTrace()))
+                        new RxException<Throwable>(new Consumer<Throwable>() {
+                            @Override
+                            public void accept(@NonNull Throwable throwable) throws Exception {
+                                throwable.printStackTrace();
+                            }
+                        })
+        ));
     }
 }

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/rl_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/colorPrimaryDark">
+
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/back_white"
+            android:layout_marginRight="15dp"/>
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textSize="16sp"
+            android:layout_centerInParent="true"
+            android:textColor="@color/grey_33"/>
+        <RadioGroup
+            android:id="@+id/rg_title_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/rb_left"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:checked="true"
+                android:button="@null"
+                android:text="支出"
+                android:gravity="center"
+                android:textColor="#FFC12F"
+                android:background="@drawable/selector_radio_button_left"/>
+            <RadioButton
+                android:id="@+id/rb_right"
+                android:layout_width="80dp"
+                android:layout_height="30dp"
+                android:button="@null"
+                android:text="收入"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:background="@drawable/selector_radio_button_right"/>
+
+        </RadioGroup>
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"/>
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:layout_marginRight="15dp"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="编辑"/>
+
+    </RelativeLayout>
+    <include layout="@layout/base_line" />
+
+
+
+</LinearLayout>

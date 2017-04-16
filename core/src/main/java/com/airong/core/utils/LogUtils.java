@@ -14,10 +14,8 @@
  * limitations under the License.
  */
 package com.airong.core.utils;
-
 import android.util.Log;
-
-import com.airong.common.core.BuildConfig;
+import com.airong.core.BuildConfig;
 
 
 /**

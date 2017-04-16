@@ -1,4 +1,4 @@
-package com.airong.common.core.view;
+package com.airong.core.view;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.airong.common.core.utils.DensityUtils;
+import com.airong.core.utils.DensityUtils;
 
 /**
  * Created by zhpan on 2017/4/12.

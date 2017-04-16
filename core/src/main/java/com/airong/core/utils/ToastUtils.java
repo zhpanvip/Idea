@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.airong.core.BaseApp;
-import com.airong.common.core.BuildConfig;
+import com.airong.core.BuildConfig;
 
 /**
  * ToastUtils

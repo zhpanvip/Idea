@@ -3,9 +3,7 @@ package com.airong.core.utils;
 import android.annotation.TargetApi;
 import android.content.SharedPreferences;
 import android.os.Build;
-
-import com.airong.common.core.BuildConfig;
-
+import com.airong.core.BuildConfig;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Set;

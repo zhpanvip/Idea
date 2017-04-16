@@ -1,4 +1,4 @@
-package com.airong.common.core.view;
+package com.airong.core.view;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
