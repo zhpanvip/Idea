@@ -3,62 +3,134 @@ package com.cypoem.idea;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+
 import com.airong.core.BaseRxActivity;
+
+import java.lang.reflect.Field;
 
 public class BaseActivity extends BaseRxActivity {
     private LinearLayout parentLinearLayout;//把父类activity和子类activity的view都add到这里
-    public ImageView mIvLeft;   //  TitleBar左边图标（返回键）
-    public TextView tvTitle;    //  TitleBar标题
-    public TextView tvRight;    //  TitleBar右边文字
-    public ImageView ivRight;   //  TitleBar右边图标
-    public RelativeLayout mRlTitleBar;  //  TitleBar所在的布局
-    public RadioGroup mRadioGroup;  //  TitleBar中间部分的单选框 记一笔页面效果
-    public RadioButton mRbLeft;     //  左边单选框
-    public RadioButton mRbRight;    //  右边单选框
+    private TextView mToolbarTitle;
+    private TextView mToolbarSubTitle;
+    private Toolbar mToolbar;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initContentView(R.layout.activity_base);
-        initView();
-        setListener();
+        initToolBar();
     }
 
-    private void setListener() {
-        //  返回键监听事件 结束Activity
-        mIvLeft.setOnClickListener(new View.OnClickListener() {
+
+    private void initToolBar() {
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
+        mToolbarSubTitle = (TextView) findViewById(R.id.toolbar_subtitle);
+         /*
+        toolbar.setLogo(R.mipmap.ic_launcher);
+        toolbar.setTitle("Title");
+        toolbar.setSubtitle("Sub Title");
+        */
+        if (mToolbar != null) {
+            //将Toolbar显示到界面
+            setSupportActionBar(mToolbar);
+        }
+        if (mToolbarTitle != null) {
+            //getTitle()的值是activity的android:lable属性值
+            mToolbarTitle.setText(getTitle());
+            //设置默认的标题不显示
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        /**
+         * 判断是否有Toolbar,并默认显示返回按钮
+         */
+        if (null != getToolbar() && isShowBacking()) {
+            showBack();
+        }
+    }
+
+/******************************************* TollBar相关 ******************************************************/
+    /**
+     * 获取头部标题的TextView
+     *
+     * @return
+     */
+    public TextView getToolbarTitle() {
+        return mToolbarTitle;
+    }
+
+    /**
+     * 获取头部标题的TextView
+     *
+     * @return
+     */
+    public TextView getSubTitle() {
+        return mToolbarSubTitle;
+    }
+
+    /**
+     * 设置头部标题
+     *
+     * @param title
+     */
+    public void setToolBarTitle(CharSequence title) {
+        if (mToolbarTitle != null) {
+            mToolbarTitle.setText(title);
+        } else {
+            getToolbar().setTitle(title);
+            setSupportActionBar(getToolbar());
+        }
+    }
+
+
+    /**
+     * this Activity of tool bar.
+     * 获取头部.
+     *
+     * @return support.v7.widget.Toolbar.
+     */
+    public Toolbar getToolbar() {
+        return (Toolbar) findViewById(R.id.toolbar);
+    }
+
+    /**
+     * 版本号小于21的后退按钮图片
+     */
+    private void showBack() {
+        //setNavigationIcon必须在setSupportActionBar(toolbar);方法后面加入
+        getToolbar().setNavigationIcon(R.drawable.icon_back);
+        getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //ToastUtils.show("finish");
-                finish();
+                onBackPressed();
             }
         });
     }
 
-    private void initView() {
-        mIvLeft = (ImageView) findViewById(R.id.iv_left);
-        tvTitle = (TextView) findViewById(R.id.tv_title);
-        tvRight = (TextView) findViewById(R.id.tv_right);
-        ivRight = (ImageView) findViewById(R.id.iv_right);
-        mRlTitleBar = (RelativeLayout) findViewById(R.id.rl_title_bar);
-        mRadioGroup = (RadioGroup) findViewById(R.id.rg_title_bar);
-        mRbLeft = (RadioButton) findViewById(R.id.rb_left);
-        mRbRight = (RadioButton) findViewById(R.id.rb_right);
+    /**
+     * 是否显示后退按钮,默认显示,可在子类重写该方法.
+     *
+     * @return
+     */
+    protected boolean isShowBacking() {
+        return true;
     }
-
-
-
+/******************************************* TollBar相关结束 ******************************************************/
 
     /**
      * 初始化contentiew
@@ -80,7 +152,8 @@ public class BaseActivity extends BaseRxActivity {
 
     /**
      * 重写setContentView方法，子类Activity会调用该方法
-     * @param layoutResID   子类布局文件的id
+     *
+     * @param layoutResID 子类布局文件的id
      */
     @Override
     public void setContentView(int layoutResID) {
@@ -102,6 +175,7 @@ public class BaseActivity extends BaseRxActivity {
 
     /**
      * 改变系统状态栏颜色
+     *
      * @param activity
      * @param color    color xml文件下的颜色
      */
@@ -123,7 +197,7 @@ public class BaseActivity extends BaseRxActivity {
      * @param activity
      * @param on
      */
-    private void setTranslucentStatus(Activity activity, boolean on) {
+    protected void setTranslucentStatus(Activity activity, boolean on) {
         Window win = activity.getWindow();
         WindowManager.LayoutParams winParams = win.getAttributes();
         final int bits = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
@@ -133,5 +207,34 @@ public class BaseActivity extends BaseRxActivity {
             winParams.flags &= ~bits;
         }
         win.setAttributes(winParams);
+    }
+
+
+    //  设置魅族手机状态栏字体颜色为深色
+    protected static boolean setMeizuStatusBarDarkIcon(Activity activity, boolean dark) {
+        boolean result = false;
+        if (activity != null) {
+            try {
+                WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
+                Field darkFlag = WindowManager.LayoutParams.class
+                        .getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON");
+                Field meizuFlags = WindowManager.LayoutParams.class
+                        .getDeclaredField("meizuFlags");
+                darkFlag.setAccessible(true);
+                meizuFlags.setAccessible(true);
+                int bit = darkFlag.getInt(null);
+                int value = meizuFlags.getInt(lp);
+                if (dark) {
+                    value |= bit;
+                } else {
+                    value &= ~bit;
+                }
+                meizuFlags.setInt(lp, value);
+                activity.getWindow().setAttributes(lp);
+                result = true;
+            } catch (Exception e) {
+            }
+        }
+        return result;
     }
 }
