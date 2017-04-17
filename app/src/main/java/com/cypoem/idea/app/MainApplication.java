@@ -1,4 +1,4 @@
-package com.cypoem.idea;
+package com.cypoem.idea.app;
 
 import com.airong.core.BaseApp;
 

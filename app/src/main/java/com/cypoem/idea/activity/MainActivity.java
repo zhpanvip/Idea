@@ -1,7 +1,11 @@
-package com.cypoem.idea;
+package com.cypoem.idea.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.cypoem.idea.R;
 
 public class MainActivity extends BaseActivity {
 
@@ -21,5 +25,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected boolean isShowBacking() {
         return false;
+    }
+
+    public static void start(Context context){
+        context.startActivity(new Intent(context,MainActivity.class));
     }
 }

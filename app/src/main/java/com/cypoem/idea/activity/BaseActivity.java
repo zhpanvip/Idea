@@ -1,4 +1,4 @@
-package com.cypoem.idea;
+package com.cypoem.idea.activity;
 
 import android.app.Activity;
 import android.os.Build;
@@ -13,11 +13,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.airong.core.BaseRxActivity;
+import com.cypoem.idea.R;
 
 import java.lang.reflect.Field;
 
 public class BaseActivity extends BaseRxActivity {
-    private LinearLayout parentLinearLayout;//把父类activity和子类activity的view都add到这里
+    //把父类activity和子类activity的view都add到这里
+    private LinearLayout parentLinearLayout;
     private TextView mToolbarTitle;
     private TextView mToolbarSubTitle;
     private Toolbar mToolbar;
@@ -132,19 +134,15 @@ public class BaseActivity extends BaseRxActivity {
     }
 /******************************************* TollBar相关结束 ******************************************************/
 
+
     /**
      * 初始化contentiew
      */
     private void initContentView(int layoutResID) {
-        //  初始化ViewGroup
         ViewGroup viewGroup = (ViewGroup) findViewById(android.R.id.content);
-        //  移除viewGroup中的所有布局
         viewGroup.removeAllViews();
-        //  构造线性布局
         parentLinearLayout = new LinearLayout(this);
-        //  设置线性布局垂直排列
         parentLinearLayout.setOrientation(LinearLayout.VERTICAL);
-        //  将构造的香型布局添加到viewGroup
         viewGroup.addView(parentLinearLayout);
         //  将BaseActivity的布局添加到parentLinearLayout
         LayoutInflater.from(this).inflate(layoutResID, parentLinearLayout, true);
@@ -168,9 +166,7 @@ public class BaseActivity extends BaseRxActivity {
 
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
-
         parentLinearLayout.addView(view, params);
-
     }
 
     /**
