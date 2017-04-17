@@ -1,9 +1,7 @@
 package com.airong.core;
 
 import android.os.Bundle;
-
 import com.airong.core.entity.HttpResult;
-
 import io.reactivex.ObservableTransformer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -15,19 +13,19 @@ import io.reactivex.disposables.Disposable;
 
 public abstract class BaseRxFragment extends BaseFragment {
 
-    /*private CompositeDisposable disposables2Stop;// 管理Stop取消订阅者者
+    private CompositeDisposable disposables2Stop;// 管理Stop取消订阅者者
     private CompositeDisposable disposables2Destroy;// 管理Destroy取消订阅者者
 
     protected abstract int getLayoutId();
 
     protected abstract void initView();
 
-    *//**
+    /**
      * Rx优雅处理服务器返回
      *
      * @param <T>
      * @return
-     *//*
+     */
     public <T> ObservableTransformer<HttpResult<T>, T> handleResult() {
         BaseRxActivity baseActivity=(BaseRxActivity) getActivity();
         return baseActivity.handleResult();
@@ -96,5 +94,5 @@ public abstract class BaseRxFragment extends BaseFragment {
         }
         disposables2Destroy.dispose();
         disposables2Destroy = null;
-    }*/
+    }
 }

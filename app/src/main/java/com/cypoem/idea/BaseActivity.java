@@ -3,7 +3,6 @@ package com.cypoem.idea;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.airong.core.BaseRxActivity;
-import com.airong.core.utils.ToastUtils;
 
 public class BaseActivity extends BaseRxActivity {
     private LinearLayout parentLinearLayout;//把父类activity和子类activity的view都add到这里
@@ -45,7 +42,6 @@ public class BaseActivity extends BaseRxActivity {
             public void onClick(View v) {
                 //ToastUtils.show("finish");
                 finish();
-
             }
         });
     }

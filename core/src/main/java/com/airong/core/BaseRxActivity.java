@@ -5,15 +5,9 @@ import android.os.Bundle;
 import com.airong.core.entity.HttpResult;
 
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;
-import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Function;
 
 /**
  * 管理RxJava生命周期，避免内存泄漏
@@ -34,68 +28,32 @@ public abstract class BaseRxActivity extends BaseCoreActivity {
      *
      * @param <T>
      * @return
-     **/
+     */
     public <T> ObservableTransformer<HttpResult<T>, T> handleResult() {
-        return new ObservableTransformer<HttpResult<T>, T>() {
-            @Override
-            public ObservableSource<T> apply(@NonNull Observable<HttpResult<T>> upstream) {
-                return upstream.flatMap(new Function<HttpResult<T>, ObservableSource<?>>() {
-                    @Override
-                    public ObservableSource<?> apply(@NonNull HttpResult<T> tHttpResult) throws Exception {
-                        if (tHttpResult.isSuccess()) {
-                            return createData(tHttpResult.results);
-                        } else if (tHttpResult.isTokenInvalid()) {
+        return upstream ->{
+            return upstream.flatMap(result -> {
+                        if (result.isSuccess()) {
+                            return createData(result.results);
+                        } else if (result.isTokenInvalid()) {
                             //处理token时效
 //                               tokenInvalid();
                         } else {
-                            return Observable.error(new Exception(tHttpResult.msg));
+                            return Observable.error(new Exception(result.msg));
                         }
                         return Observable.empty();
                     }
-                }, new BiFunction<HttpResult<T>, Object, T>() {
-                    @Override
-                    public T apply(@NonNull HttpResult<T> tHttpResult, @NonNull Object o) throws Exception {
-                        return tHttpResult.results;
-                    }
-                });
-            }
+
+            );
         };
-
-        /*return upstream ->{
-                return upstream.flatMap(result -> {
-                            if (result.isSuccess()) {
-                                return createData(result.results);
-                            } else if (result.isTokenInvalid()) {
-                                //处理token时效
-//                               tokenInvalid();
-                            } else {
-                                return Observable.error(new Exception(result.msg));
-                            }
-                            return Observable.empty();
-                        }
-
-                );
-        };*/
     }
 
     private <T> Observable<T> createData(final T t) {
-        /*return Observable.create(subscriber -> {
+        return Observable.create(subscriber -> {
             try {
                 subscriber.onNext(t);
                 subscriber.onComplete();
             } catch (Exception e) {
                 subscriber.onError(e);
-            }
-        });*/
-        return Observable.create(new ObservableOnSubscribe<T>() {
-            @Override
-            public void subscribe(@NonNull ObservableEmitter<T> subscriber) throws Exception {
-                try {
-                    subscriber.onNext(t);
-                    subscriber.onComplete();
-                } catch (Exception e) {
-                    subscriber.onError(e);
-                }
             }
         });
     }

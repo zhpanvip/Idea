@@ -1,12 +1,15 @@
 package com.cypoem.idea;
 
-
-import android.app.Application;
+import com.airong.core.BaseApp;
 
 /**
  * Created by zhpan on 2017/4/16.
  */
 
-public class MainApplication extends Application {
+public class MainApplication extends BaseApp {
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
 }
