@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
 import com.cypoem.idea.R;
+import com.cypoem.idea.module.bean.ListData;
 import com.cypoem.idea.module.wrapper.DataWrapper;
 import com.cypoem.idea.net.DefaultSubscriber;
 import com.cypoem.idea.net.IdeaApi;
-
 import java.util.List;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
