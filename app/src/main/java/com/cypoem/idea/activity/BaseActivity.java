@@ -17,6 +17,8 @@ import com.cypoem.idea.R;
 
 import java.lang.reflect.Field;
 
+import butterknife.ButterKnife;
+
 public class BaseActivity extends BaseRxActivity {
     //把父类activity和子类activity的view都add到这里
     private LinearLayout parentLinearLayout;
@@ -157,16 +159,20 @@ public class BaseActivity extends BaseRxActivity {
     public void setContentView(int layoutResID) {
         //  将子类布局添加到parentLinearLayout
         LayoutInflater.from(this).inflate(layoutResID, parentLinearLayout, true);
+        ButterKnife.bind(this);
+
     }
 
     @Override
     public void setContentView(View view) {
         parentLinearLayout.addView(view);
+        ButterKnife.bind(this);
     }
 
     @Override
     public void setContentView(View view, ViewGroup.LayoutParams params) {
         parentLinearLayout.addView(view, params);
+        ButterKnife.bind(this);
     }
 
     /**
