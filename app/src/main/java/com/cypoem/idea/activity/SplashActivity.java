@@ -7,13 +7,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-
 import com.cypoem.idea.R;
-
 import java.util.concurrent.TimeUnit;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -22,10 +17,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SplashActivity extends BaseActivity {
 
-    @BindView(R.id.iv_splash)
-    ImageView mIvSplash;
-    @BindView(R.id.activity_splash)
-    RelativeLayout activitySplash;
+    private ImageView mIvSplash;
     //  SplashActivity的布局文件
     private RelativeLayout mRelativeLayout;
     private static final float SCALE_END = 1.3F;
@@ -41,7 +33,6 @@ public class SplashActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_splash);
-        ButterKnife.bind(this);
 
         //  初始化View（findViewById）
         initView();
@@ -53,8 +44,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void initView() {
-        //mRelativeLayout = (RelativeLayout) findViewById(R.id.activity_splash);
-        //mIvSplash = (ImageView) findViewById(R.id.iv_splash);
+        mIvSplash = (ImageView) findViewById(R.id.iv_splash);
         getToolbar().setVisibility(View.GONE);
     }
 

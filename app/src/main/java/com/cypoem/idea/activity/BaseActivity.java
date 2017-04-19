@@ -11,12 +11,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.airong.core.BaseRxActivity;
 import com.cypoem.idea.R;
-
 import java.lang.reflect.Field;
-
 import butterknife.ButterKnife;
 
 public class BaseActivity extends BaseRxActivity {
