@@ -36,6 +36,12 @@ public abstract class BaseCoreActivity extends AppCompatActivity {
         mProgressDialog.setMessage(msg);
         mProgressDialog.show();
     }
+    /**
+     * 显示ProgressDialog
+     */
+    public void showProgress() {
+        mProgressDialog.show();
+    }
 
     /**
      * 取消ProgressDialog

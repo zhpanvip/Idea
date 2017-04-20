@@ -43,11 +43,15 @@ public class MainActivity extends BaseActivity {
                             Toast.makeText(MainActivity.this, "第" + (i + 1) + "条数据Password:" + content.get(i).getPsw(), Toast.LENGTH_SHORT).show();
                         }
                     }
+
+                    @Override
+                    public void onFail(DataWrapper response) {
+
+                    }
                 });
     }
 
     private void initView() {
-        getSubTitle().setVisibility(View.GONE);
     }
 
     @Override

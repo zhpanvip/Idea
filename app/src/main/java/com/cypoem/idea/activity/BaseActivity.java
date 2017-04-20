@@ -37,6 +37,7 @@ public class BaseActivity extends BaseRxActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         mToolbarSubTitle = (TextView) findViewById(R.id.toolbar_subtitle);
+        mToolbarSubTitle.setVisibility(View.GONE);
          /*
         toolbar.setLogo(R.mipmap.ic_launcher);
         toolbar.setTitle("Title");
@@ -134,6 +135,7 @@ public class BaseActivity extends BaseRxActivity {
 /******************************************* TollBar相关结束 ******************************************************/
 
 
+
     /**
      * 初始化contentiew
      */
@@ -173,8 +175,7 @@ public class BaseActivity extends BaseRxActivity {
     }
 
     /**
-     * 改变系统状态栏颜色
-     *
+     * 设置状态栏颜色
      * @param activity
      * @param color    color xml文件下的颜色
      */
