@@ -7,6 +7,11 @@ public class BasicResponse {
 
     private int code;
     private String message;
+    private String errMsg;
+
+    public String getErrMsg() {
+        return errMsg;
+    }
 
     public int getCode() {
         return code;

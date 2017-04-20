@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import com.airong.core.utils.ToastUtils;
 import com.airong.core.view.CustomProgressDialog;
 import com.airong.core.view.CustomDialog;

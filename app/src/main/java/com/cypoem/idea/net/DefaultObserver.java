@@ -1,7 +1,7 @@
 package com.cypoem.idea.net;
 
+import android.text.TextUtils;
 import android.widget.Toast;
-
 import com.airong.core.BaseRxActivity;
 import com.airong.core.utils.LogUtils;
 import com.airong.core.utils.ToastUtils;
@@ -9,21 +9,17 @@ import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
 import com.google.gson.JsonParseException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
-
 import org.json.JSONException;
-
 import java.io.InterruptedIOException;
 import java.net.ConnectException;
 import java.text.ParseException;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-
-import static com.cypoem.idea.net.DefaultObserver.FailReason.BAD_NETWORK;
-import static com.cypoem.idea.net.DefaultObserver.FailReason.CONNECT_ERROR;
-import static com.cypoem.idea.net.DefaultObserver.FailReason.CONNECT_TIMEOUT;
-import static com.cypoem.idea.net.DefaultObserver.FailReason.PARSE_ERROR;
-import static com.cypoem.idea.net.DefaultObserver.FailReason.UNKNOWN_ERROR;
+import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.BAD_NETWORK;
+import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.CONNECT_ERROR;
+import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.CONNECT_TIMEOUT;
+import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.PARSE_ERROR;
+import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.UNKNOWN_ERROR;
 
 /**
  * Created by zhpan on 2017/4/18.
@@ -40,17 +36,11 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
         mActivity.showProgress();
     }
 
-    public DefaultObserver(BaseRxActivity activity, boolean isAddInStop) {
-        this.isAddInStop = isAddInStop;
+    public DefaultObserver(BaseRxActivity activity, boolean isShowLoading) {
         mActivity = activity;
-        mActivity.showProgress();
-    }
-
-    public DefaultObserver(BaseRxActivity activity, boolean isAddInStop, boolean isShowLoading) {
-        this.isAddInStop = isAddInStop;
-        mActivity = activity;
-        if (isShowLoading)
+        if (isShowLoading) {
             mActivity.showProgress();
+        }
     }
 
     @Override
@@ -78,48 +68,48 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
 
         mActivity.dismissProgress();
         if (e instanceof HttpException) {     //   HTTP错误
-            onError(BAD_NETWORK);
+            onException(BAD_NETWORK);
         } else if (e instanceof ConnectException) {   //   连接错误
-            onError(CONNECT_ERROR);
+            onException(CONNECT_ERROR);
         } else if (e instanceof InterruptedIOException) {   //  连接超时
-            onError(CONNECT_TIMEOUT);
+            onException(CONNECT_TIMEOUT);
         } else if (e instanceof JsonParseException
                 || e instanceof JSONException
                 || e instanceof ParseException) {   //  解析错误
-            onError(PARSE_ERROR);
+            onException(PARSE_ERROR);
         } else {
-            onError(UNKNOWN_ERROR);
+            onException(UNKNOWN_ERROR);
         }
-        /*else if (e instanceof ServerException) {    //服务器返回的错误
-            ServerException resultException = (ServerException) e;
-            ex = new ApiException(resultException, resultException.getCode());
-            ex.setDisplayMessage(resultException.getMsg());
-            return ex;
-        }*/
     }
 
     @Override
-    public void onComplete() {}
+    public void onComplete() {
+    }
 
     /**
      * 请求成功
-     * @param response  服务器返回的数据
+     * @param response 服务器返回的数据
      */
     abstract public void onSuccess(T response);
 
     /**
-     *  请求失败
-     * @param response  服务器返回的数据
+     * 服务器返回数据，但响应码不为200
+     * @param response 服务器返回的数据
      */
-     public void onFail(T response){
-         ToastUtils.show(response.getMessage(), Toast.LENGTH_SHORT);
-     }
+    public void onFail(T response) {
+        String message = response.getMessage();
+        if (TextUtils.isEmpty(message)) {
+            ToastUtils.show(R.string.response_return_error);
+        } else {
+            ToastUtils.show(message);
+        }
+    }
 
     /**
-     *  请求异常
+     * 请求异常
      * @param reason
      */
-    public void onError(DefaultObserver.FailReason reason) {
+    public void onException(ExceptionReason reason) {
         mActivity.dismissProgress();
         switch (reason) {
             case CONNECT_ERROR:
@@ -145,8 +135,10 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
         }
     }
 
-
-    public enum FailReason {
+    /**
+     *  请求网络失败原因
+     */
+    public enum ExceptionReason {
         /**
          * 解析数据失败
          */
@@ -163,7 +155,6 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
          * 连接超时
          */
         CONNECT_TIMEOUT,
-
         /**
          * 未知错误
          */

@@ -2,7 +2,6 @@ package com.cypoem.idea.module.wrapper;
 
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ListData;
-
 import java.util.List;
 
 
