@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#eee</color>
+    <color name="colorPrimaryDark">#F6F6F6</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="background">#EEEFF3</color>
     <color name="textColor">#F54467</color>
     <color name="background_red">#F4606A</color>
     <color name="textColorGray">#A2A2A2</color>
-    <color name="grey_33">#333333</color>
-    <color name="grey_66">#666666</color>
-    <color name="grey_99">#999999</color>
-    <color name="grey_cc">#CCCCCC</color>
-    <color name="grey_dd">#DDDDDD</color>
-    <color name="grey_ee">#EEEEEE</color>
+
+    <color name="gray_33">#333333</color>
+    <color name="gray_66">#666666</color>
+    <color name="gray_99">#999999</color>
+    <color name="gray_cc">#CCCCCC</color>
+    <color name="gray_dd">#DDDDDD</color>
+    <color name="gray_ee">#EEEEEE</color>
+    <color name="gray_f6">#F6F6F6</color>
     <color name="white">#FFFFFF</color>
 </resources>

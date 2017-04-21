@@ -55,11 +55,16 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     @Override
     public void onNext(T response) {
         mActivity.dismissProgress();
-        if (response.getCode() == 200) {
+        if(!response.isError()){
+            onSuccess(response);
+        }else {
+            onFail(response);
+        }
+        /*if (response.getCode() == 200) {
             onSuccess(response);
         } else {
             onFail(response);
-        }
+        }*/
     }
 
     @Override

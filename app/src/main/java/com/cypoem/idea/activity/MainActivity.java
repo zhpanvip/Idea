@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.Toast;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.bean.ListData;
+import com.cypoem.idea.module.bean.Meizi;
 import com.cypoem.idea.module.wrapper.DataWrapper;
+import com.cypoem.idea.module.wrapper.MeiziWrapper;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import java.util.List;
@@ -31,16 +33,16 @@ public class MainActivity extends BaseActivity {
 
     private void getData() {
         IdeaApi.getApiService()
-                .getData("json")
+                .getMeizi()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<DataWrapper>(this) {
+                .subscribe(new DefaultObserver<MeiziWrapper>(this) {
                     @Override
-                    public void onSuccess(DataWrapper response) {
+                    public void onSuccess(MeiziWrapper response) {
                         Toast.makeText(MainActivity.this, "请求数据成功", Toast.LENGTH_SHORT).show();
-                        List<ListData.ListBean> content = response.getList();
-                        for (int i = 0; i < content.size(); i++) {
-                            Toast.makeText(MainActivity.this, "第" + (i + 1) + "条数据Password:" + content.get(i).getPsw(), Toast.LENGTH_SHORT).show();
+                        List<Meizi.ResultsBean> content = response.getResults();
+                        for (int i = 0; i < content.size()-content.size()+2; i++) {
+                            Toast.makeText(MainActivity.this, "Url:" + content.get(i).getUrl(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
