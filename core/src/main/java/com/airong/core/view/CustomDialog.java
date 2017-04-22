@@ -2,12 +2,17 @@ package com.airong.core.view;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
+import com.airong.core.R;
 import com.airong.core.utils.DensityUtils;
 
 /**
@@ -67,59 +72,47 @@ public class CustomDialog extends Dialog {
 
         public Builder(Context context) {
             this.context = context;
+
+            mDialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog, null);
+            //  计算dialog宽高
+            int measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+            mDialogView.measure(measureSpec, measureSpec);
+            height = mDialogView.getMeasuredHeight();
+            width = mDialogView.getMeasuredWidth();
         }
 
         /**
-         * @param dialogView  关联dialog布局文件的View
+         * @param dialogView 关联dialog布局文件的View
          * @return
          */
-        public Builder setDialogLayout(View dialogView){
-            this.mDialogView =dialogView;
+        public Builder setDialogLayout(View dialogView) {
+            this.mDialogView = dialogView;
             return this;
         }
 
-        public Builder setHeightpx(int val) {
+        public Builder setHeightPx(int val) {
             height = val;
             return this;
         }
 
-        public Builder setWidthpx(int val) {
+        public Builder setWidthPx(int val) {
             width = val;
             return this;
         }
 
-        public Builder setHeightdp(int val) {
+        public Builder setHeightDp(int val) {
             height = DensityUtils.dp2px(context, val);
             return this;
         }
 
-        public Builder setWidthdp(int val) {
+        public Builder setWidthDp(int val) {
             width = DensityUtils.dp2px(context, val);
             return this;
         }
 
         /**
-         * 设置弹窗高度
-         * @param dimenRes
-         * @return
-         */
-        public Builder setHeightDimenRes(int dimenRes) {
-            height = context.getResources().getDimensionPixelOffset(dimenRes);
-            return this;
-        }
-
-        /**
-         * 设置弹窗宽度
-         * @param dimenRes
-         * @return
-         */
-        public Builder setWidthDimenRes(int dimenRes) {
-            width = context.getResources().getDimensionPixelOffset(dimenRes);
-            return this;
-        }
-
-        /**
          * 设置主题
+         *
          * @param resStyle
          * @return
          */
@@ -130,6 +123,7 @@ public class CustomDialog extends Dialog {
 
         /**
          * 设置点击dialog外部是否取消dialog
+         *
          * @param val
          * @return
          */
@@ -140,12 +134,81 @@ public class CustomDialog extends Dialog {
 
         /**
          * 给dialog中的view添加点击事件
-         * @param viewRes   被点击view的id
+         *
+         * @param viewResId 被点击view的id
          * @param listener
          * @return
          */
-        public Builder addViewOnclick(int viewRes,View.OnClickListener listener){
-            mDialogView.findViewById(viewRes).setOnClickListener(listener);
+        public Builder addViewOnclick(int viewResId, View.OnClickListener listener) {
+            mDialogView.findViewById(viewResId).setOnClickListener(listener);
+            return this;
+        }
+
+        /**
+         * 确定键监听
+         * @param confirm
+         * @param listener
+         * @return
+         */
+        public Builder addConfirmClickListener(String confirm, View.OnClickListener listener) {
+            TextView tvConfirm = (TextView) mDialogView.findViewById(R.id.tv_confirm);
+            tvConfirm.setText(confirm);
+            tvConfirm.setOnClickListener(listener);
+            return this;
+        }
+
+        /**
+         * 取消键监听
+         * @param cancel
+         * @param listener
+         * @return
+         */
+        public Builder addCancelClickListener(String cancel, View.OnClickListener listener) {
+            TextView tvCancel = (TextView) mDialogView.findViewById(R.id.tv_cancel);
+            tvCancel.setText(cancel);
+            tvCancel.setOnClickListener(listener);
+            return this;
+        }
+
+        /**
+         * 设置内容
+         * @param content
+         * @return
+         */
+        public Builder setContent(String content) {
+            TextView tvTitle = (TextView) mDialogView.findViewById(R.id.tv_dialog_content);
+            tvTitle.setText(content);
+            return this;
+        }
+
+        /**
+         * 设置取消键颜色
+         * @param color 颜色
+         * @return
+         */
+        public Builder setCancelColor(String color){
+            TextView tvCancel= (TextView) mDialogView.findViewById(R.id.tv_cancel);
+            tvCancel.setTextColor(Color.parseColor(color));
+            return this;
+        }
+        /**
+         * 设置确定键颜色
+         * @param color 颜色
+         * @return
+         */
+        public Builder setConfirmColor(String color){
+            TextView tvCancel= (TextView) mDialogView.findViewById(R.id.tv_confirm);
+            tvCancel.setTextColor(Color.parseColor(color));
+            return this;
+        }
+
+        /**
+         * 显示一个按钮的弹窗
+         * @return
+         */
+        public Builder showOneButton() {
+                mDialogView.findViewById(R.id.tv_cancel).setVisibility(View.GONE);
+                mDialogView.findViewById(R.id.view_dialog).setVisibility(View.GONE);
             return this;
         }
 

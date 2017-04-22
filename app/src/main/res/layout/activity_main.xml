@@ -10,7 +10,17 @@
         android:background="@color/gray_ee"
         android:layout_marginTop="50dp"
         android:layout_margin="20dp"
-        android:text="Click me"/>
+        android:text="Request Network"/>
+
+    <Button
+        android:id="@+id/btn2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_ee"
+        android:layout_marginTop="50dp"
+        android:layout_margin="20dp"
+        android:layout_below="@id/btn"
+        android:text="Show Dialog"/>
     <LinearLayout
         android:id="@+id/ll_tab"
         android:layout_width="match_parent"

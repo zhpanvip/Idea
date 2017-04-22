@@ -2,6 +2,8 @@ package com.cypoem.idea.net;
 
 import android.text.TextUtils;
 import android.widget.Toast;
+
+import com.airong.core.BaseImpl;
 import com.airong.core.BaseRxActivity;
 import com.airong.core.utils.LogUtils;
 import com.airong.core.utils.ToastUtils;
@@ -26,35 +28,34 @@ import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.UNKNOWN_ERROR;
  */
 
 public abstract class DefaultObserver<T extends BasicResponse> implements Observer<T> {
-
-    private BaseRxActivity mActivity;
+    private BaseImpl mBAseImpl;
     //  Activity 是否在执行onStop()时取消订阅
     private boolean isAddInStop = false;
 
-    public DefaultObserver(BaseRxActivity activity) {
-        mActivity = activity;
-        mActivity.showProgress();
+    public DefaultObserver(BaseImpl baseImpl) {
+        mBAseImpl = baseImpl;
+        mBAseImpl.showProgress();
     }
 
-    public DefaultObserver(BaseRxActivity activity, boolean isShowLoading) {
-        mActivity = activity;
+    public DefaultObserver(BaseImpl baseImpl, boolean isShowLoading) {
+        mBAseImpl = baseImpl;
         if (isShowLoading) {
-            mActivity.showProgress();
+            mBAseImpl.showProgress();
         }
     }
 
     @Override
     public void onSubscribe(Disposable d) {
         if (isAddInStop) {    //  在onStop中取消订阅
-            mActivity.addRxStop(d);
+            mBAseImpl.addRxStop(d);
         } else { //  在onDestroy中取消订阅
-            mActivity.addRxDestroy(d);
+            mBAseImpl.addRxDestroy(d);
         }
     }
 
     @Override
     public void onNext(T response) {
-        mActivity.dismissProgress();
+        mBAseImpl.dismissProgress();
         if(!response.isError()){
             onSuccess(response);
         }else {
@@ -71,7 +72,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     public void onError(Throwable e) {
         LogUtils.e("Retrofit", e.getMessage());
 
-        mActivity.dismissProgress();
+        mBAseImpl.dismissProgress();
         if (e instanceof HttpException) {     //   HTTP错误
             onException(BAD_NETWORK);
         } else if (e instanceof ConnectException) {   //   连接错误
@@ -115,7 +116,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
      * @param reason
      */
     public void onException(ExceptionReason reason) {
-        mActivity.dismissProgress();
+        mBAseImpl.dismissProgress();
         switch (reason) {
             case CONNECT_ERROR:
                 ToastUtils.show(R.string.connect_error, Toast.LENGTH_SHORT);

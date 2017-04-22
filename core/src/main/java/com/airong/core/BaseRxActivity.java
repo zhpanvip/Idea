@@ -1,6 +1,7 @@
 package com.airong.core;
 
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.airong.core.entity.HttpResult;
 
@@ -14,7 +15,7 @@ import io.reactivex.disposables.Disposable;
  * RxJava处理服务器返回
  */
 
-public abstract class BaseRxActivity extends BaseCoreActivity {
+public abstract class BaseRxActivity extends AppCompatActivity implements BaseImpl{
 
     private CompositeDisposable disposables2Stop;// 管理Stop取消订阅者者
     private CompositeDisposable disposables2Destroy;// 管理Destroy取消订阅者者
@@ -57,7 +58,7 @@ public abstract class BaseRxActivity extends BaseCoreActivity {
             }
         });
     }
-
+    @Override
     public boolean addRxStop(Disposable disposable) {
         if (disposables2Stop == null) {
             throw new IllegalStateException(
@@ -66,7 +67,7 @@ public abstract class BaseRxActivity extends BaseCoreActivity {
         disposables2Stop.add(disposable);
         return true;
     }
-
+    @Override
     public boolean addRxDestroy(Disposable disposable) {
         if (disposables2Destroy == null) {
             throw new IllegalStateException(
@@ -75,7 +76,7 @@ public abstract class BaseRxActivity extends BaseCoreActivity {
         disposables2Destroy.add(disposable);
         return true;
     }
-
+    @Override
     public void remove(Disposable disposable) {
         if (disposables2Stop == null && disposables2Destroy == null) {
             throw new IllegalStateException("remove should not be called after onDestroy");
@@ -88,6 +89,8 @@ public abstract class BaseRxActivity extends BaseCoreActivity {
         }
     }
 
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (disposables2Destroy != null) {
@@ -95,7 +98,7 @@ public abstract class BaseRxActivity extends BaseCoreActivity {
         }
         disposables2Destroy = new CompositeDisposable();
     }
-
+    @Override
     public void onStart() {
         super.onStart();
         if (disposables2Stop != null) {
@@ -104,6 +107,7 @@ public abstract class BaseRxActivity extends BaseCoreActivity {
         disposables2Stop = new CompositeDisposable();
     }
 
+    @Override
     public void onStop() {
         super.onStop();
         if (disposables2Stop == null) {
@@ -113,6 +117,7 @@ public abstract class BaseRxActivity extends BaseCoreActivity {
         disposables2Stop = null;
     }
 
+    @Override
     public void onDestroy() {
         super.onDestroy();
         if (disposables2Destroy == null) {

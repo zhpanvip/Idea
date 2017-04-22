@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="white_6f">#ffffff</color>
+
+
+    <color name="gray_33">#333333</color>
+    <color name="gray_66">#666666</color>
+    <color name="gray_99">#999999</color>
+    <color name="gray_cc">#CCCCCC</color>
+    <color name="gray_dd">#DDDDDD</color>
+    <color name="gray_ee">#EEEEEE</color>
+    <color name="gray_f6">#F6F6F6</color>
+    <color name="white">#FFFFFF</color>
 </resources>

@@ -11,7 +11,7 @@ import io.reactivex.disposables.Disposable;
  * <p>
  */
 
-public abstract class BaseRxFragment extends BaseFragment {
+public abstract class BaseRxFragment extends BaseFragment implements BaseImpl {
 
     private CompositeDisposable disposables2Stop;// 管理Stop取消订阅者者
     private CompositeDisposable disposables2Destroy;// 管理Destroy取消订阅者者

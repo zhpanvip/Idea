@@ -85,6 +85,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     private Observer<Long> getObserver() {
+
         return new Observer<Long>() {
             @Override
             public void onSubscribe(Disposable d) {

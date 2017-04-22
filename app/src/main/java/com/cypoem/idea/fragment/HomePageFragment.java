@@ -7,7 +7,7 @@ import com.cypoem.idea.R;
  * Created by zhpan on 2017/4/21.
  */
 
-public class HomePageFragment extends BaseRxFragment {
+public class HomePageFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_homepage;
