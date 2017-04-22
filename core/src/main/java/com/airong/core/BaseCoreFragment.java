@@ -7,21 +7,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.airong.core.view.CustomProgressDialog;
+
 import butterknife.ButterKnife;
 
-public abstract class BaseFragment extends Fragment{
+public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
     public View rootView;
     public LayoutInflater inflater;
+
+    //  加载进度的dialog
+    private CustomProgressDialog mProgressDialog;
 
     @Nullable
     @Override
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         this.inflater=inflater;
+        mProgressDialog = CustomProgressDialog.createDialog(getContext());
+        mProgressDialog.setCanceledOnTouchOutside(false);
         if (rootView == null) {
             rootView = inflater.inflate(this.getLayoutId(), container, false);
             ButterKnife.bind(this, rootView);
-            initView();
+            init();
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
         if (parent != null) {
@@ -30,8 +37,32 @@ public abstract class BaseFragment extends Fragment{
         return rootView;
     }
 
+    /**
+     * 显示ProgressDialog
+     */
+    @Override
+    public void showProgress(String msg) {
+        mProgressDialog.setMessage(msg);
+        mProgressDialog.show();
+    }
+    /**
+     * 显示ProgressDialog
+     */
+    @Override
+    public void showProgress() {
+        mProgressDialog.show();
+    }
 
+    /**
+     * 取消ProgressDialog
+     */
+    @Override
+    public void dismissProgress() {
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+        }
+    }
     protected abstract int getLayoutId();
 
-    protected abstract void initView();
+    protected abstract void init();
 }

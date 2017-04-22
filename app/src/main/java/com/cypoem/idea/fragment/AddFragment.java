@@ -14,7 +14,7 @@ public class AddFragment extends BaseFragment {
     }
 
     @Override
-    protected void initView() {
+    protected void init() {
 
     }
 }

@@ -2,11 +2,9 @@ package com.cypoem.idea.fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
-
 import com.airong.core.BaseRxFragment;
 import com.airong.core.utils.ToastUtils;
 import com.airong.core.view.CustomDialog;
-import com.airong.core.view.CustomProgressDialog;
 
 /**
  * Created by zhpan on 2017/4/22.
@@ -14,8 +12,7 @@ import com.airong.core.view.CustomProgressDialog;
 
 public abstract class BaseFragment extends BaseRxFragment {
 
-    //  加载进度的dialog
-    private CustomProgressDialog mProgressDialog;
+
     //  对话框
     private CustomDialog dialog;
     //  对话框布局的View
@@ -23,32 +20,6 @@ public abstract class BaseFragment extends BaseRxFragment {
 
     public void showToast(String msg) {
         ToastUtils.show(msg);
-    }
-
-    /**
-     * 显示ProgressDialog
-     */
-    @Override
-    public void showProgress(String msg) {
-        mProgressDialog.setMessage(msg);
-        mProgressDialog.show();
-    }
-    /**
-     * 显示ProgressDialog
-     */
-    @Override
-    public void showProgress() {
-        mProgressDialog.show();
-    }
-
-    /**
-     * 取消ProgressDialog
-     */
-    @Override
-    public void dismissProgress() {
-        if (mProgressDialog != null) {
-            mProgressDialog.dismiss();
-        }
     }
 
     /**

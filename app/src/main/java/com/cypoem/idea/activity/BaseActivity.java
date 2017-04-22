@@ -12,21 +12,17 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.airong.core.BaseRxActivity;
-import com.airong.core.utils.ToastUtils;
 import com.airong.core.view.CustomDialog;
-import com.airong.core.view.CustomProgressDialog;
 import com.cypoem.idea.R;
 import java.lang.reflect.Field;
 import butterknife.ButterKnife;
 
-public class BaseActivity extends BaseRxActivity {
+public abstract class BaseActivity extends BaseRxActivity {
     //把父类activity和子类activity的view都add到这里
     private LinearLayout parentLinearLayout;
     private TextView mToolbarTitle;
     private TextView mToolbarSubTitle;
     private Toolbar mToolbar;
-    //  加载进度的dialog
-    private CustomProgressDialog mProgressDialog;
     //  对话框
     private CustomDialog dialog;
     //  对话框布局的View
@@ -36,10 +32,15 @@ public class BaseActivity extends BaseRxActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initContentView(R.layout.activity_base);
+        //  注入子Activity布局
+        setContentView(getLayoutId());
         initToolBar();
-        mProgressDialog = CustomProgressDialog.createDialog(this);
-        mProgressDialog.setCanceledOnTouchOutside(false);
+        init();
     }
+
+    protected abstract int getLayoutId();
+
+    protected abstract void init();
 
 
     private void initToolBar() {
@@ -145,7 +146,6 @@ public class BaseActivity extends BaseRxActivity {
 /******************************************* TollBar相关结束 ******************************************************/
 
 
-
     /**
      * 初始化contentiew
      */
@@ -184,65 +184,57 @@ public class BaseActivity extends BaseRxActivity {
         ButterKnife.bind(this);
     }
 
-
-    public void showToast(String msg) {
-        ToastUtils.show(msg);
-    }
-
     /**
-     * 显示ProgressDialog
+     * 设置状态栏颜色
+     *
+     * @param activity
+     * @param color    color xml文件下的颜色
      */
-    public void showProgress(String msg) {
-        mProgressDialog.setMessage(msg);
-        mProgressDialog.show();
-    }
-    /**
-     * 显示ProgressDialog
-     */
-    public void showProgress() {
-        mProgressDialog.show();
-    }
-
-    /**
-     * 取消ProgressDialog
-     */
-    public void dismissProgress() {
-        if (mProgressDialog != null) {
-            mProgressDialog.dismiss();
+    public void setStatusBarColor(Activity activity, int color) {
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(activity, true);
+        }*/
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window statusBar = getWindow();
+            statusBar.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            statusBar.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            statusBar.setStatusBarColor(color);
         }
     }
 
+
     /**
-     *
-     * @param content   内容
-     * @param confirm   确定键文字
-     * @param cancel    取消键文字
-     * @param confirmListener   确定键监听
-     * @param cancelListener    取消键监听
+     * @param content         内容
+     * @param confirm         确定键文字
+     * @param cancel          取消键文字
+     * @param confirmListener 确定键监听
+     * @param cancelListener  取消键监听
      */
+    @Override
     public void showTwoButtonDialog(String content, String confirm, String cancel,
                                     View.OnClickListener confirmListener,
                                     View.OnClickListener cancelListener) {
         dialog = new CustomDialog.Builder(this)
                 .setTheme(com.airong.core.R.style.IdeaDialog)
                 .setContent(content)
-                .addConfirmClickListener(confirm,confirmListener)
-                .addCancelClickListener(cancel,cancelListener)
+                .addConfirmClickListener(confirm, confirmListener)
+                .addCancelClickListener(cancel, cancelListener)
                 .build();
         dialog.show();
     }
 
     /**
-     * @param content   内容
-     * @param confirm   确定键文字
-     * @param cancel    取消键文字
-     * @param confirmColor  确定键颜色
-     * @param cancelColor   取消键颜色
-     * @param confirmListener   确定键监听
-     * @param cancelListener    取消键监听
+     * @param content         内容
+     * @param confirm         确定键文字
+     * @param cancel          取消键文字
+     * @param confirmColor    确定键颜色
+     * @param cancelColor     取消键颜色
+     * @param confirmListener 确定键监听
+     * @param cancelListener  取消键监听
      */
+    @Override
     public void showTwoButtonDialog(String content, String confirm, String cancel,
-                                    String confirmColor,String cancelColor,
+                                    String confirmColor, String cancelColor,
                                     View.OnClickListener confirmListener,
                                     View.OnClickListener cancelListener) {
         dialog = new CustomDialog.Builder(this)
@@ -250,30 +242,32 @@ public class BaseActivity extends BaseRxActivity {
                 .setContent(content)
                 .setConfirmColor(confirmColor)
                 .setCancelColor(cancelColor)
-                .addConfirmClickListener(confirm,confirmListener)
-                .addCancelClickListener(cancel,cancelListener)
+                .addConfirmClickListener(confirm, confirmListener)
+                .addCancelClickListener(cancel, cancelListener)
                 .build();
         dialog.show();
     }
 
     /**
-     *
-     * @param content   内容
-     * @param confirm   按钮文字
-     * @param confirmListener   按钮监听
+     * @param content         内容
+     * @param confirm         按钮文字
+     * @param confirmListener 按钮监听
      */
-    public void showOneButtonDialog(String content,String confirm,View.OnClickListener confirmListener){
+    @Override
+    public void showOneButtonDialog(String content, String confirm, View.OnClickListener confirmListener) {
         dialog = new CustomDialog.Builder(this)
                 .setTheme(com.airong.core.R.style.IdeaDialog)
                 .setContent(content)
-                .addConfirmClickListener(confirm,confirmListener)
+                .addConfirmClickListener(confirm, confirmListener)
                 .showOneButton()
                 .build();
         dialog.show();
     }
 
+
     /**
      * create custom dialog
+     *
      * @param dialogLayoutRes    dialog布局资源文件
      * @param cancelTouchOutside 点击外部是否可以取消
      * @return
@@ -284,10 +278,10 @@ public class BaseActivity extends BaseRxActivity {
         }
         dialogView = LayoutInflater.from(this).inflate(dialogLayoutRes, null);
         //  计算dialog宽高
-        int measureSpec =View.MeasureSpec.makeMeasureSpec(0,View.MeasureSpec.UNSPECIFIED);
-        dialogView.measure(measureSpec,measureSpec);
-        int height=dialogView.getMeasuredHeight();
-        int width=dialogView.getMeasuredWidth();
+        int measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+        dialogView.measure(measureSpec, measureSpec);
+        int height = dialogView.getMeasuredHeight();
+        int width = dialogView.getMeasuredWidth();
 
         dialog = new CustomDialog.Builder(this)
                 .setTheme(com.airong.core.R.style.IdeaDialog)
@@ -316,25 +310,6 @@ public class BaseActivity extends BaseRxActivity {
         }
     }
 
-
-
-
-    /**
-     * 设置状态栏颜色
-     * @param activity
-     * @param color    color xml文件下的颜色
-     */
-    public void setStatusBarColor(Activity activity, int color) {
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(activity, true);
-        }*/
-        if (Build.VERSION.SDK_INT >= 21) {
-            Window statusBar = getWindow();
-            statusBar.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            statusBar.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            statusBar.setStatusBarColor(color);
-        }
-    }
 
     /**
      * 设置系统标题栏的透明度

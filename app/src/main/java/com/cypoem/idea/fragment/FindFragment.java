@@ -26,7 +26,7 @@ public class FindFragment extends BaseFragment {
     }
 
     @Override
-    protected void initView() {
+    protected void init() {
         IdeaApi.getApiService()
                 .getMeizi()
                 .subscribeOn(Schedulers.io())

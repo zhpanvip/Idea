@@ -19,33 +19,21 @@ public class SplashActivity extends BaseActivity {
 
     private ImageView mIvSplash;
     //  SplashActivity的布局文件
-    private RelativeLayout mRelativeLayout;
     private static final float SCALE_END = 1.3F;
     private long ANIMATION_DURATION = 3000;
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        //  设置状态栏透明
-        //setTranslucentStatus(this,true);
-        //  设置状态栏字体颜色为深色，只在魅族手机上起作用
-        setMeizuStatusBarDarkIcon(this, true);
-
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_splash);
-
-        //  初始化View（findViewById）
-        initView();
+    protected int getLayoutId() {
+        return R.layout.activity_splash;
+    }
+    @Override
+    protected void init() {
+        mIvSplash = (ImageView) findViewById(R.id.iv_splash);
+        getToolbar().setVisibility(View.GONE);
 
         //  给启动页面设置动画
         setAnimation();
-
         finishActivity();
-    }
-
-    private void initView() {
-        mIvSplash = (ImageView) findViewById(R.id.iv_splash);
-        getToolbar().setVisibility(View.GONE);
     }
 
     //  启动透明渐变动画
@@ -115,10 +103,6 @@ public class SplashActivity extends BaseActivity {
 
     /**
      * 屏蔽返回键
-     *
-     * @param keyCode
-     * @param event
-     * @return
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
