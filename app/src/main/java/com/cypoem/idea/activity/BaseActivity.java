@@ -3,6 +3,8 @@ package com.cypoem.idea.activity;
 import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -127,12 +129,7 @@ public abstract class BaseActivity extends BaseRxActivity {
     private void showBack() {
         //setNavigationIcon必须在setSupportActionBar(toolbar);方法后面加入
         getToolbar().setNavigationIcon(R.drawable.icon_back);
-        getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        getToolbar().setNavigationOnClickListener((v)-> onBackPressed());
     }
 
     /**
@@ -149,7 +146,7 @@ public abstract class BaseActivity extends BaseRxActivity {
     /**
      * 初始化contentiew
      */
-    private void initContentView(int layoutResID) {
+    private void initContentView(@LayoutRes int layoutResID) {
         ViewGroup viewGroup = (ViewGroup) findViewById(android.R.id.content);
         viewGroup.removeAllViews();
         parentLinearLayout = new LinearLayout(this);
@@ -165,7 +162,7 @@ public abstract class BaseActivity extends BaseRxActivity {
      * @param layoutResID 子类布局文件的id
      */
     @Override
-    public void setContentView(int layoutResID) {
+    public void setContentView(@LayoutRes int layoutResID) {
         //  将子类布局添加到parentLinearLayout
         LayoutInflater.from(this).inflate(layoutResID, parentLinearLayout, true);
         ButterKnife.bind(this);
@@ -190,7 +187,7 @@ public abstract class BaseActivity extends BaseRxActivity {
      * @param activity
      * @param color    color xml文件下的颜色
      */
-    public void setStatusBarColor(Activity activity, int color) {
+    public void setStatusBarColor(Activity activity, @ColorInt int color) {
        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(activity, true);
         }*/
@@ -234,7 +231,7 @@ public abstract class BaseActivity extends BaseRxActivity {
      */
     @Override
     public void showTwoButtonDialog(String content, String confirm, String cancel,
-                                    String confirmColor, String cancelColor,
+                                    @ColorInt int confirmColor, @ColorInt int cancelColor,
                                     View.OnClickListener confirmListener,
                                     View.OnClickListener cancelListener) {
         dialog = new CustomDialog.Builder(this)
@@ -272,7 +269,7 @@ public abstract class BaseActivity extends BaseRxActivity {
      * @param cancelTouchOutside 点击外部是否可以取消
      * @return
      */
-    public View createDialog(Integer dialogLayoutRes, boolean cancelTouchOutside) {
+    public View createDialog(@LayoutRes Integer dialogLayoutRes, boolean cancelTouchOutside) {
         if (dialogLayoutRes == null) {
             dialogLayoutRes = com.airong.core.R.layout.custom_dialog;
         }

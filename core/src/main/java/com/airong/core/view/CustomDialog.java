@@ -186,9 +186,9 @@ public class CustomDialog extends Dialog {
          * @param color 颜色
          * @return
          */
-        public Builder setCancelColor(String color){
+        public Builder setCancelColor(int color){
             TextView tvCancel= (TextView) mDialogView.findViewById(R.id.tv_cancel);
-            tvCancel.setTextColor(Color.parseColor(color));
+            tvCancel.setTextColor(color);
             return this;
         }
         /**
@@ -196,9 +196,9 @@ public class CustomDialog extends Dialog {
          * @param color 颜色
          * @return
          */
-        public Builder setConfirmColor(String color){
+        public Builder setConfirmColor(int color){
             TextView tvCancel= (TextView) mDialogView.findViewById(R.id.tv_confirm);
-            tvCancel.setTextColor(Color.parseColor(color));
+            tvCancel.setTextColor(color);
             return this;
         }
 

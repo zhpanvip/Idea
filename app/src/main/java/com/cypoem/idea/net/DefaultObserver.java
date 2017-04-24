@@ -11,12 +11,17 @@ import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
 import com.google.gson.JsonParseException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
+
 import org.json.JSONException;
+
 import java.io.InterruptedIOException;
 import java.net.ConnectException;
+import java.net.UnknownHostException;
 import java.text.ParseException;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.BAD_NETWORK;
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.CONNECT_ERROR;
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.CONNECT_TIMEOUT;
@@ -56,9 +61,9 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     @Override
     public void onNext(T response) {
         mBAseImpl.dismissProgress();
-        if(!response.isError()){
+        if (!response.isError()) {
             onSuccess(response);
-        }else {
+        } else {
             onFail(response);
         }
         /*if (response.getCode() == 200) {
@@ -75,7 +80,8 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
         mBAseImpl.dismissProgress();
         if (e instanceof HttpException) {     //   HTTP错误
             onException(BAD_NETWORK);
-        } else if (e instanceof ConnectException) {   //   连接错误
+        } else if (e instanceof ConnectException
+                || e instanceof UnknownHostException) {   //   连接错误
             onException(CONNECT_ERROR);
         } else if (e instanceof InterruptedIOException) {   //  连接超时
             onException(CONNECT_TIMEOUT);
@@ -94,12 +100,14 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
 
     /**
      * 请求成功
+     *
      * @param response 服务器返回的数据
      */
     abstract public void onSuccess(T response);
 
     /**
      * 服务器返回数据，但响应码不为200
+     *
      * @param response 服务器返回的数据
      */
     public void onFail(T response) {
@@ -113,6 +121,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
 
     /**
      * 请求异常
+     *
      * @param reason
      */
     public void onException(ExceptionReason reason) {
@@ -142,7 +151,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     }
 
     /**
-     *  请求网络失败原因
+     * 请求网络失败原因
      */
     public enum ExceptionReason {
         /**

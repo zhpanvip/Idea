@@ -1,5 +1,6 @@
 package com.airong.core;
 
+import android.support.annotation.ColorInt;
 import android.view.View;
 
 import io.reactivex.disposables.Disposable;
@@ -46,7 +47,7 @@ public interface BaseImpl {
      * @param cancelListener    取消键监听
      */
     void showTwoButtonDialog(String content, String confirm, String cancel,
-                             String confirmColor,String cancelColor,
+                             @ColorInt int confirmColor, @ColorInt int cancelColor,
                              View.OnClickListener confirmListener,
                              View.OnClickListener cancelListener);
     /**

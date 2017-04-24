@@ -1,6 +1,5 @@
 package com.cypoem.idea.fragment;
 
-import com.airong.core.BaseRxFragment;
 import com.cypoem.idea.R;
 
 /**

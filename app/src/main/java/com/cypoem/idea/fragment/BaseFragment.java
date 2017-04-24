@@ -1,5 +1,6 @@
 package com.cypoem.idea.fragment;
 
+import android.support.annotation.ColorInt;
 import android.view.LayoutInflater;
 import android.view.View;
 import com.airong.core.BaseRxFragment;
@@ -54,7 +55,7 @@ public abstract class BaseFragment extends BaseRxFragment {
      */
     @Override
     public void showTwoButtonDialog(String content, String confirm, String cancel,
-                                    String confirmColor,String cancelColor,
+                                    @ColorInt int confirmColor, @ColorInt int cancelColor,
                                     View.OnClickListener confirmListener,
                                     View.OnClickListener cancelListener) {
         dialog = new CustomDialog.Builder(getContext())
