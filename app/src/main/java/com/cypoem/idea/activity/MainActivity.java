@@ -2,7 +2,10 @@ package com.cypoem.idea.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.airong.core.view.PtrClassicListFooter;
@@ -12,8 +15,13 @@ import com.cypoem.idea.module.bean.Meizi;
 import com.cypoem.idea.module.wrapper.MeiziWrapper;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
+
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -21,7 +29,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity {
-    private PtrFrameLayout mPtrFrame;
+    @BindView(R.id.btn)
+    Button mBtn1;
+    @BindView(R.id.btn2)
+    Button mBtn2;
+    @BindView(R.id.store_house_ptr_frame)
+     PtrFrameLayout mPtrFrame;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
@@ -33,12 +47,12 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initView() {
-        findViewById(R.id.btn).setOnClickListener(v -> getData(true));
-        findViewById(R.id.btn2).setOnClickListener((v) -> show());
+        //findViewById(R.id.btn).setOnClickListener(v -> getData(true));
+        //findViewById(R.id.btn2).setOnClickListener((v) -> show());
     }
 
     private void initPtr() {
-        mPtrFrame= (PtrFrameLayout) findViewById(R.id.store_house_ptr_frame);
+        mPtrFrame = (PtrFrameLayout) findViewById(R.id.store_house_ptr_frame);
         mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
         PtrClassicListHeader header = new PtrClassicListHeader(this);
         header.setLastUpdateTimeRelateObject(this);
@@ -52,12 +66,12 @@ public class MainActivity extends BaseActivity {
         mPtrFrame.setPtrHandler(new PtrDefaultHandler2() {
             @Override
             public void onLoadMoreBegin(PtrFrameLayout frame) {
-                frame.postDelayed((()-> getData(false)), 1000);
+                frame.postDelayed((() -> getData(false)), 1000);
             }
 
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
-                frame.postDelayed((()->getData(false)),1000);
+                frame.postDelayed((() -> getData(false)), 1000);
             }
 
             @Override
@@ -71,7 +85,7 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        mPtrFrame.postDelayed((()->mPtrFrame.autoRefresh()), 1000);
+        mPtrFrame.postDelayed((() -> mPtrFrame.autoRefresh()), 1000);
     }
 
     private void getData(boolean showLoading) {
@@ -80,7 +94,7 @@ public class MainActivity extends BaseActivity {
                 .getMeizi()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<MeiziWrapper>(this,showLoading) {
+                .subscribe(new DefaultObserver<MeiziWrapper>(this, showLoading) {
                     @Override
                     public void onSuccess(MeiziWrapper response) {
                         Toast.makeText(MainActivity.this, "请求数据成功", Toast.LENGTH_SHORT).show();
@@ -112,5 +126,17 @@ public class MainActivity extends BaseActivity {
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, MainActivity.class));
+    }
+
+    @OnClick({R.id.btn, R.id.btn2})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn:
+                getData(true);
+                break;
+            case R.id.btn2:
+                show();
+                break;
+        }
     }
 }

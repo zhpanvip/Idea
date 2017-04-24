@@ -16,7 +16,6 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ButterKnife.bind(this);
         mProgressDialog = CustomProgressDialog.createDialog(this);
         mProgressDialog.setCanceledOnTouchOutside(false);
     }

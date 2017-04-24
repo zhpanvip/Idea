@@ -2,13 +2,13 @@ package com.cypoem.idea.activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import com.cypoem.idea.R;
 import java.util.concurrent.TimeUnit;
+import butterknife.BindView;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -16,8 +16,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 public class SplashActivity extends BaseActivity {
-
-    private ImageView mIvSplash;
+    @BindView(R.id.iv_splash)
+    ImageView mIvSplash;
     //  SplashActivity的布局文件
     private static final float SCALE_END = 1.3F;
     private long ANIMATION_DURATION = 3000;
@@ -26,9 +26,9 @@ public class SplashActivity extends BaseActivity {
     protected int getLayoutId() {
         return R.layout.activity_splash;
     }
+
     @Override
     protected void init() {
-        mIvSplash = (ImageView) findViewById(R.id.iv_splash);
         getToolbar().setVisibility(View.GONE);
 
         //  给启动页面设置动画
