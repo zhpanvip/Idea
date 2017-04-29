@@ -2,12 +2,9 @@ package com.cypoem.idea.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.airong.core.view.PtrClassicListFooter;
 import com.airong.core.view.PtrClassicListHeader;
 import com.cypoem.idea.R;
@@ -15,13 +12,9 @@ import com.cypoem.idea.module.bean.Meizi;
 import com.cypoem.idea.module.wrapper.MeiziWrapper;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
-
 import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -42,13 +35,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void init() {
-        initView();
         initPtr();
-    }
-
-    private void initView() {
-        //findViewById(R.id.btn).setOnClickListener(v -> getData(true));
-        //findViewById(R.id.btn2).setOnClickListener((v) -> show());
     }
 
     private void initPtr() {

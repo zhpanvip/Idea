@@ -3,13 +3,27 @@ package com.cypoem.idea.module;
 /**
  *
  */
-public class BasicResponse {
+public class BasicResponse<T> {
 
     private int code;
     private String message;
     private String errMsg;
 
     private boolean error;
+
+    private T content;
+
+    public void setErrMsg(String errMsg) {
+        this.errMsg = errMsg;
+    }
+
+    public T getContent() {
+        return content;
+    }
+
+    public void setContent(T content) {
+        this.content = content;
+    }
 
     public boolean isError() {
         return error;

@@ -18,7 +18,6 @@ import io.reactivex.schedulers.Schedulers;
 public class SplashActivity extends BaseActivity {
     @BindView(R.id.iv_splash)
     ImageView mIvSplash;
-    //  SplashActivity的布局文件
     private static final float SCALE_END = 1.3F;
     private long ANIMATION_DURATION = 3000;
 
