@@ -1,12 +1,7 @@
 package com.airong.core;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-
-import com.airong.core.entity.HttpResult;
-
 import io.reactivex.Observable;
-import io.reactivex.ObservableTransformer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -19,30 +14,6 @@ public abstract class BaseRxActivity extends BaseCoreActivity implements BaseImp
 
     private CompositeDisposable disposables2Stop;// 管理Stop取消订阅者者
     private CompositeDisposable disposables2Destroy;// 管理Destroy取消订阅者者
-
-    /**
-     * Rx优雅处理服务器返回
-     *
-     * @param <T>
-     * @return
-     */
-    public <T> ObservableTransformer<HttpResult<T>, T> handleResult() {
-        return upstream ->{
-            return upstream.flatMap(result -> {
-                        if (result.isSuccess()) {
-                            return createData(result.results);
-                        } else if (result.isTokenInvalid()) {
-                            //处理token时效
-//                               tokenInvalid();
-                        } else {
-                            return Observable.error(new Exception(result.msg));
-                        }
-                        return Observable.empty();
-                    }
-
-            );
-        };
-    }
 
     private <T> Observable<T> createData(final T t) {
         return Observable.create(subscriber -> {

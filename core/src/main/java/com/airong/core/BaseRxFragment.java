@@ -1,8 +1,6 @@
 package com.airong.core;
 
 import android.os.Bundle;
-import com.airong.core.entity.HttpResult;
-import io.reactivex.ObservableTransformer;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 
@@ -20,16 +18,6 @@ public abstract class BaseRxFragment extends BaseCoreFragment  {
 
     protected abstract void init();
 
-    /**
-     * Rx优雅处理服务器返回
-     *
-     * @param <T>
-     * @return
-     */
-    public <T> ObservableTransformer<HttpResult<T>, T> handleResult() {
-        BaseRxActivity baseActivity=(BaseRxActivity) getActivity();
-        return baseActivity.handleResult();
-    }
 
     public boolean addRxStop(Disposable disposable) {
         if (disposables2Stop == null) {
