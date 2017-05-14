@@ -2,11 +2,12 @@ package com.airong.core.utils;
 
 import android.graphics.Bitmap;
 import android.os.Environment;
+import android.support.annotation.DrawableRes;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.airong.core.utils.helper.GlideCircleTransform;
+import com.airong.core.utils.helper.GlideRoundTransform;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SizeReadyCallback;
@@ -41,11 +42,19 @@ public class ImageLoaderUtil {
     }
 
 
-    public static void loadCircleImg(ImageView v, String url) {
+    public static void loadCircleImg(ImageView v, String url,@DrawableRes int placeholder) {
         Glide.with(v.getContext())
                 .load(url)
+                .placeholder(placeholder)
                 .transform(new GlideCircleTransform(v.getContext()))
-//                .placeholder(R.drawable.head_portrait)
+                .into(v);
+    }
+
+    public static void loadRoundImg(ImageView v, String url,@DrawableRes int placeholder) {
+        Glide.with(v.getContext())
+                .load(url)
+                .transform(new GlideRoundTransform(v.getContext()))
+               .placeholder(placeholder)
                 .into(v);
     }
 

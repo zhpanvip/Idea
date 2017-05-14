@@ -15,9 +15,43 @@
         android:maxLines="1"
         android:textColor="@color/gray_66"
         android:text="subtitle"
+        android:visibility="gone"
         android:paddingRight="10dp"
         android:layout_gravity="right" />
 
+    <RadioGroup
+        android:id="@+id/rg_selector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_left"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bt_item_left_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="最新"
+            android:checked="true"
+            android:textColor="@drawable/selector_text_color_white_red"
+            android:textSize="15sp"/>
+
+
+        <RadioButton
+            android:id="@+id/rb_right"
+            android:layout_width="80dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bt_item_right_selector"
+            android:button="@null"
+            android:gravity="center"
+            android:text="最热"
+            android:textColor="@drawable/selector_text_color_white_red"
+            android:textSize="15sp"/>
+    </RadioGroup>
     <TextView
         android:id="@+id/toolbar_title"
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"

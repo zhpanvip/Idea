@@ -2,32 +2,44 @@ package com.cypoem.idea.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.IdRes;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-import com.airong.core.view.PtrClassicListFooter;
-import com.airong.core.view.PtrClassicListHeader;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import com.cypoem.idea.R;
-import com.cypoem.idea.module.bean.Meizi;
-import com.cypoem.idea.module.wrapper.MeiziWrapper;
-import com.cypoem.idea.net.DefaultObserver;
-import com.cypoem.idea.net.IdeaApi;
-import java.util.List;
+import com.cypoem.idea.fragment.AddFragment;
+import com.cypoem.idea.fragment.FindFragment;
+import com.cypoem.idea.fragment.HomePageFragment;
+import com.cypoem.idea.fragment.MeFragment;
+import com.cypoem.idea.fragment.MessageFragment;
 import butterknife.BindView;
 import butterknife.OnClick;
-import in.srain.cube.views.ptr.PtrDefaultHandler;
-import in.srain.cube.views.ptr.PtrDefaultHandler2;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity {
-    @BindView(R.id.btn)
-    Button mBtn1;
-    @BindView(R.id.btn2)
-    Button mBtn2;
-    @BindView(R.id.store_house_ptr_frame)
-     PtrFrameLayout mPtrFrame;
+    @BindView(R.id.rb_home)
+    RadioButton mRbHome;
+    @BindView(R.id.rb_find)
+    RadioButton mRbFind;
+    @BindView(R.id.rb_add)
+    RadioButton mRbAdd;
+    @BindView(R.id.rb_message)
+    RadioButton mRbMessage;
+    @BindView(R.id.rb_me)
+    RadioButton mRbMe;
+    @BindView(R.id.rg_tab)
+    RadioGroup rgTab;
+    @BindView(R.id.ll_tab)
+    LinearLayout llTab;
+
+    private HomePageFragment mHomePageFragment;
+    private FindFragment mFindFragment;
+    private AddFragment mAddFragment;
+    private MessageFragment mMessageFragment;
+    private MeFragment mMeFragment;
+    private FragmentManager mFragmentManger;
 
     @Override
     protected int getLayoutId() {
@@ -35,47 +47,110 @@ public class MainActivity extends BaseActivity {
     }
 
     public void init() {
-        initPtr();
+        initData();
+        setListener();
+        mRbHome.performClick();
     }
 
-    private void initPtr() {
-        mPtrFrame = (PtrFrameLayout) findViewById(R.id.store_house_ptr_frame);
-        mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
-        PtrClassicListHeader header = new PtrClassicListHeader(this);
-        header.setLastUpdateTimeRelateObject(this);
-        PtrClassicListFooter footer = new PtrClassicListFooter(this);
-        footer.setLastUpdateTimeRelateObject(this);
-        mPtrFrame.setHeaderView(header);
-        mPtrFrame.addPtrUIHandler(header);
-        mPtrFrame.setFooterView(footer);
-        mPtrFrame.addPtrUIHandler(footer);
+    private void initData() {
+        mFragmentManger = getSupportFragmentManager();
+        getToolbar().setVisibility(View.GONE);
+    }
 
-        mPtrFrame.setPtrHandler(new PtrDefaultHandler2() {
-            @Override
-            public void onLoadMoreBegin(PtrFrameLayout frame) {
-                frame.postDelayed((() -> getData(false)), 1000);
-            }
+    private void setListener() {
+        rgTab.setOnCheckedChangeListener((RadioGroup group, @IdRes int checkedId) -> {
 
-            @Override
-            public void onRefreshBegin(PtrFrameLayout frame) {
-                frame.postDelayed((() -> getData(false)), 1000);
+            FragmentTransaction fragmentTransaction = mFragmentManger.beginTransaction();
+            switch (checkedId) {
+                case R.id.rb_home:
+                    hideAllFragment(fragmentTransaction);
+                    if (mHomePageFragment == null) {
+                        mHomePageFragment = HomePageFragment.getInstance(0);
+                        fragmentTransaction.add(R.id.ll_fragment, mHomePageFragment);
+                    } else {
+                        fragmentTransaction.show(mHomePageFragment);
+                    }
+                    break;
+                case R.id.rb_find:
+                    hideAllFragment(fragmentTransaction);
+                    if (mFindFragment == null) {
+                        mFindFragment = new FindFragment();
+                        fragmentTransaction.add(R.id.ll_fragment, mFindFragment);
+                    } else {
+                        fragmentTransaction.show(mFindFragment);
+                    }
+                    break;
+                case R.id.rb_add:
+                    hideAllFragment(fragmentTransaction);
+                    if (mAddFragment == null) {
+                        mAddFragment = new AddFragment();
+                        fragmentTransaction.add(R.id.ll_fragment, mAddFragment);
+                    } else {
+                        fragmentTransaction.show(mAddFragment);
+                    }
+                    break;
+                case R.id.rb_message:
+                    hideAllFragment(fragmentTransaction);
+                    if (mMessageFragment == null) {
+                        mMessageFragment = new MessageFragment();
+                        fragmentTransaction.add(R.id.ll_fragment, mMessageFragment);
+                    } else {
+                        fragmentTransaction.show(mMessageFragment);
+                    }
+                    break;
+                case R.id.rb_me:
+                    hideAllFragment(fragmentTransaction);
+                    if (mMeFragment == null) {
+                        mMeFragment = new MeFragment();
+                        fragmentTransaction.add(R.id.ll_fragment, mMeFragment);
+                    } else {
+                        fragmentTransaction.show(mMeFragment);
+                    }
+                    break;
             }
-
-            @Override
-            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
-                return super.checkCanDoLoadMore(frame, content, footer);
-            }
-
-            @Override
-            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
-            }
+            fragmentTransaction.commit();
         });
-
-        mPtrFrame.postDelayed((() -> mPtrFrame.autoRefresh()), 1000);
     }
 
-    private void getData(boolean showLoading) {
+
+    @Override
+    protected boolean isShowBacking() {
+        return false;
+    }
+
+    public static void start(Context context) {
+        context.startActivity(new Intent(context, MainActivity.class));
+    }
+
+    @OnClick({})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+
+        }
+    }
+
+    private void hideAllFragment(FragmentTransaction fragmentTransaction) {
+        if (mHomePageFragment != null) {
+            fragmentTransaction.hide(mHomePageFragment);
+        }
+        if (mFindFragment != null) {
+            fragmentTransaction.hide(mFindFragment);
+        }
+        if (mAddFragment != null) {
+            fragmentTransaction.hide(mAddFragment);
+        }
+        if (mMessageFragment != null) {
+            fragmentTransaction.hide(mMessageFragment);
+        }
+        if (mMeFragment != null) {
+            fragmentTransaction.hide(mMeFragment);
+        }
+
+
+    }
+
+
+   /* private void getData(boolean showLoading) {
         //  Retrofit请求数据
         IdeaApi.getApiService()
                 .getMeizi()
@@ -91,39 +166,6 @@ public class MainActivity extends BaseActivity {
                         }
                     }
                 });
-    }
+    }*/
 
-
-    @Override
-    public void dismissProgress() {
-        super.dismissProgress();
-        mPtrFrame.refreshComplete();
-    }
-
-    //  显示弹窗
-    private void show() {
-        showTwoButtonDialog("是否退出Dialog？", "确定", "取消",
-                (v) -> dismissDialog(), (v) -> dismissDialog());
-    }
-
-    @Override
-    protected boolean isShowBacking() {
-        return false;
-    }
-
-    public static void start(Context context) {
-        context.startActivity(new Intent(context, MainActivity.class));
-    }
-
-    @OnClick({R.id.btn, R.id.btn2})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.btn:
-                getData(true);
-                break;
-            case R.id.btn2:
-                show();
-                break;
-        }
-    }
 }
