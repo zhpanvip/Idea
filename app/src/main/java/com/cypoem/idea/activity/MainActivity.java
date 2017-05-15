@@ -9,12 +9,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
 import com.cypoem.idea.R;
 import com.cypoem.idea.fragment.AddFragment;
 import com.cypoem.idea.fragment.FindFragment;
 import com.cypoem.idea.fragment.HomePageFragment;
 import com.cypoem.idea.fragment.MeFragment;
 import com.cypoem.idea.fragment.MessageFragment;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -130,23 +132,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private void hideAllFragment(FragmentTransaction fragmentTransaction) {
-        if (mHomePageFragment != null) {
-            fragmentTransaction.hide(mHomePageFragment);
-        }
-        if (mFindFragment != null) {
-            fragmentTransaction.hide(mFindFragment);
-        }
-        if (mAddFragment != null) {
-            fragmentTransaction.hide(mAddFragment);
-        }
-        if (mMessageFragment != null) {
-            fragmentTransaction.hide(mMessageFragment);
-        }
-        if (mMeFragment != null) {
-            fragmentTransaction.hide(mMeFragment);
-        }
-
-
+        if (mHomePageFragment != null) fragmentTransaction.hide(mHomePageFragment);
+        if (mFindFragment != null) fragmentTransaction.hide(mFindFragment);
+        if (mAddFragment != null) fragmentTransaction.hide(mAddFragment);
+        if (mMessageFragment != null) fragmentTransaction.hide(mMessageFragment);
+        if (mMeFragment != null) fragmentTransaction.hide(mMeFragment);
     }
 
 
