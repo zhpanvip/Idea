@@ -5,7 +5,49 @@
     android:orientation="vertical">
     <include layout="@layout/toolbar_layout" />
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="add Fragment"/>
+        android:gravity="center_horizontal"
+        android:layout_marginTop="40dp"
+        android:textSize="18sp"
+        android:textColor="@color/gray_a5"
+        android:text="创作说明"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray_a5"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:textSize="16sp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:text="@string/add_instruction1"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray_a5"
+        android:gravity="center_horizontal"
+        android:textSize="16sp"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
+        android:text="@string/add_instruction2"/>
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="50dp"
+        android:text="发布一个新的作品"
+        android:gravity="center"
+        android:background="@color/green"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:textSize="20sp"
+        android:textColor="@color/green"
+        android:text="参与已有作品创作"
+        android:gravity="center"
+        android:background="@color/gray_dd"/>
 </LinearLayout>
