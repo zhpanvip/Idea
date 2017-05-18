@@ -14,7 +14,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.airong.core.BaseRxActivity;
-import com.airong.core.view.CustomDialog;
+import com.airong.core.dialog.CustomDialog;
 import com.cypoem.idea.R;
 import java.lang.reflect.Field;
 import butterknife.ButterKnife;

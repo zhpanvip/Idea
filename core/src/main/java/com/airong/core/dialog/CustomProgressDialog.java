@@ -1,4 +1,4 @@
-package com.airong.core.view;
+package com.airong.core.dialog;
 
 import android.app.Dialog;
 import android.content.Context;

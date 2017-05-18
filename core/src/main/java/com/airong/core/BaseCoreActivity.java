@@ -3,8 +3,7 @@ package com.airong.core;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import com.airong.core.utils.ToastUtils;
-import com.airong.core.view.CustomProgressDialog;
-import butterknife.ButterKnife;
+import com.airong.core.dialog.CustomProgressDialog;
 
 /**
  * Created by zhpan on 2017/1/10.

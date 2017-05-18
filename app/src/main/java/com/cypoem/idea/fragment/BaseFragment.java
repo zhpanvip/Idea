@@ -6,12 +6,11 @@ import android.view.View;
 
 import com.airong.core.BaseRxFragment;
 import com.airong.core.utils.ToastUtils;
-import com.airong.core.view.CustomDialog;
+import com.airong.core.dialog.CustomDialog;
 import com.airong.core.view.PtrClassicListFooter;
 import com.airong.core.view.PtrClassicListHeader;
 import com.cypoem.idea.R;
 
-import butterknife.BindView;
 import butterknife.Unbinder;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;

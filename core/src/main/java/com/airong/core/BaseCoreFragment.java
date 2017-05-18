@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.airong.core.view.CustomProgressDialog;
+import com.airong.core.dialog.CustomProgressDialog;
 
 import butterknife.ButterKnife;
 
