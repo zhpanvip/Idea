@@ -12,20 +12,20 @@ import com.cypoem.idea.module.bean.Article;
  * Created by zhpan on 2017/5/14.
  */
 
-public class CommonAdapter extends BaseAdapter<Article,CommonViewHolder> {
+public class HomeAdapter extends BaseAdapter<Article,HomeViewHolder> {
 
 
-    public CommonAdapter(Context context) {
+    public HomeAdapter(Context context) {
         super(context);
     }
 
     @Override
-    public CommonViewHolder createCustomViewHolder(ViewGroup parent, int viewType) {
-        return new CommonViewHolder(parent, R.layout.item_common);
+    public HomeViewHolder createCustomViewHolder(ViewGroup parent, int viewType) {
+        return new HomeViewHolder(parent, R.layout.item_common);
     }
 
     @Override
-    public void bindCustomViewHolder(CommonViewHolder holder, int position) {
+    public void bindCustomViewHolder(HomeViewHolder holder, int position) {
         Article item = getItem(position);
         holder.mTvTitle.setText("哈哈哈");
         ImageLoaderUtil.loadRoundImg(holder.imageView,item.getPicUrl(),R.drawable.img_placeholder);

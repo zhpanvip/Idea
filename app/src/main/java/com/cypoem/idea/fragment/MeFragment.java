@@ -5,7 +5,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.cypoem.idea.R;

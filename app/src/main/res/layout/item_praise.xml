@@ -1,12 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="match_parent"
-              android:paddingLeft="15dp"
-              android:paddingRight="15dp">
-    <TextView
-        android:id="@+id/tv_string"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:paddingEnd="15dp"
+        android:paddingStart="15dp">
+
+        <ImageView
+            android:id="@+id/iv_head_pic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/head_pic" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:layout_toRightOf="@id/iv_head_pic"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_notify_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="Ta欣赏了你的《大话西游》作品" />
+
+            <TextView
+                android:id="@+id/tv_notify_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="+字里行间，能看到你对爱情深刻的领悟，这是我十分欣赏的" />
+
+            <TextView
+                android:id="@+id/tv_notify_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2015-05-12 12;14" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
 
 </LinearLayout>

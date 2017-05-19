@@ -17,42 +17,42 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * ÊÖÊÆÍ¼Æ¬¿Ø¼ş Í¼Æ¬Ëõ·Åä¯ÀÀ
+ * æ‰‹åŠ¿å›¾ç‰‡æ§ä»¶ å›¾ç‰‡ç¼©æ”¾æµè§ˆ
  *
  * @author clifford
  */
 public class PinchImageView extends ImageView {
 
 
-    ////////////////////////////////ÅäÖÃ²ÎÊı////////////////////////////////
+    ////////////////////////////////é…ç½®å‚æ•°////////////////////////////////
 
     /**
-     * Í¼Æ¬Ëõ·Å¶¯»­Ê±¼ä
+     * å›¾ç‰‡ç¼©æ”¾åŠ¨ç”»æ—¶é—´
      */
     public static final int SCALE_ANIMATOR_DURATION = 200;
 
     /**
-     * ¹ßĞÔ¶¯»­Ë¥¼õ²ÎÊı
+     * æƒ¯æ€§åŠ¨ç”»è¡°å‡å‚æ•°
      */
     public static final float FLING_DAMPING_FACTOR = 0.9f;
 
     /**
-     * Í¼Æ¬×î´ó·Å´ó±ÈÀı
+     * å›¾ç‰‡æœ€å¤§æ”¾å¤§æ¯”ä¾‹
      */
     private static final float MAX_SCALE = 4f;
 
 
-    ////////////////////////////////¼àÌıÆ÷////////////////////////////////
+    ////////////////////////////////ç›‘å¬å™¨////////////////////////////////
 
     /**
-     * Íâ½çµã»÷ÊÂ¼ş
+     * å¤–ç•Œç‚¹å‡»äº‹ä»¶
      *
      * @see #setOnClickListener(OnClickListener)
      */
     private OnClickListener mOnClickListener;
 
     /**
-     * Íâ½ç³¤°´ÊÂ¼ş
+     * å¤–ç•Œé•¿æŒ‰äº‹ä»¶
      *
      * @see #setOnLongClickListener(OnLongClickListener)
      */
@@ -60,42 +60,42 @@ public class PinchImageView extends ImageView {
 
     @Override
     public void setOnClickListener(OnClickListener l) {
-        //Ä¬ÈÏµÄclick»áÔÚÈÎºÎµã»÷Çé¿öÏÂ¶¼»á´¥·¢£¬ËùÒÔ¸ã³É×Ô¼ºµÄ
+        //é»˜è®¤çš„clickä¼šåœ¨ä»»ä½•ç‚¹å‡»æƒ…å†µä¸‹éƒ½ä¼šè§¦å‘ï¼Œæ‰€ä»¥ææˆè‡ªå·±çš„
         mOnClickListener = l;
     }
 
     @Override
     public void setOnLongClickListener(OnLongClickListener l) {
-        //Ä¬ÈÏµÄlong click»áÔÚÈÎºÎ³¤°´Çé¿öÏÂ¶¼»á´¥·¢£¬ËùÒÔ¸ã³É×Ô¼ºµÄ
+        //é»˜è®¤çš„long clickä¼šåœ¨ä»»ä½•é•¿æŒ‰æƒ…å†µä¸‹éƒ½ä¼šè§¦å‘ï¼Œæ‰€ä»¥ææˆè‡ªå·±çš„
         mOnLongClickListener = l;
     }
 
 
-    ////////////////////////////////¹«¹²×´Ì¬»ñÈ¡////////////////////////////////
+    ////////////////////////////////å…¬å…±çŠ¶æ€è·å–////////////////////////////////
 
     /**
-     * ÊÖÊÆ×´Ì¬£º×ÔÓÉ×´Ì¬
+     * æ‰‹åŠ¿çŠ¶æ€ï¼šè‡ªç”±çŠ¶æ€
      *
      * @see #getPinchMode()
      */
     public static final int PINCH_MODE_FREE = 0;
 
     /**
-     * ÊÖÊÆ×´Ì¬£ºµ¥Ö¸¹ö¶¯×´Ì¬
+     * æ‰‹åŠ¿çŠ¶æ€ï¼šå•æŒ‡æ»šåŠ¨çŠ¶æ€
      *
      * @see #getPinchMode()
      */
     public static final int PINCH_MODE_SCROLL = 1;
 
     /**
-     * ÊÖÊÆ×´Ì¬£ºË«Ö¸Ëõ·Å×´Ì¬
+     * æ‰‹åŠ¿çŠ¶æ€ï¼šåŒæŒ‡ç¼©æ”¾çŠ¶æ€
      *
      * @see #getPinchMode()
      */
     public static final int PINCH_MODE_SCALE = 2;
 
     /**
-     * Íâ²ã±ä»»¾ØÕó£¬Èç¹ûÊÇµ¥Î»¾ØÕó£¬ÄÇÃ´Í¼Æ¬ÊÇfit center×´Ì¬
+     * å¤–å±‚å˜æ¢çŸ©é˜µï¼Œå¦‚æœæ˜¯å•ä½çŸ©é˜µï¼Œé‚£ä¹ˆå›¾ç‰‡æ˜¯fit centerçŠ¶æ€
      *
      * @see #getOuterMatrix(Matrix)
      * @see #outerMatrixTo(Matrix, long)
@@ -103,7 +103,7 @@ public class PinchImageView extends ImageView {
     private Matrix mOuterMatrix = new Matrix();
 
     /**
-     * ¾ØĞÎÕÚÕÖ
+     * çŸ©å½¢é®ç½©
      *
      * @see #getMask()
      * @see #zoomMaskTo(RectF, long)
@@ -111,7 +111,7 @@ public class PinchImageView extends ImageView {
     private RectF mMask;
 
     /**
-     * µ±Ç°ÊÖÊÆ×´Ì¬
+     * å½“å‰æ‰‹åŠ¿çŠ¶æ€
      *
      * @see #getPinchMode()
      * @see #PINCH_MODE_FREE
@@ -121,13 +121,13 @@ public class PinchImageView extends ImageView {
     private int mPinchMode = PINCH_MODE_FREE;
 
     /**
-     * »ñÈ¡Íâ²¿±ä»»¾ØÕó.
+     * è·å–å¤–éƒ¨å˜æ¢çŸ©é˜µ.
      *
-     * Íâ²¿±ä»»¾ØÕó¼ÇÂ¼ÁËÍ¼Æ¬ÊÖÊÆ²Ù×÷µÄ×îÖÕ½á¹û,ÊÇÏà¶ÔÓÚÍ¼Æ¬fit center×´Ì¬µÄ±ä»».
-     * Ä¬ÈÏÖµÎªµ¥Î»¾ØÕó,´ËÊ±Í¼Æ¬Îªfit center×´Ì¬.
+     * å¤–éƒ¨å˜æ¢çŸ©é˜µè®°å½•äº†å›¾ç‰‡æ‰‹åŠ¿æ“ä½œçš„æœ€ç»ˆç»“æœ,æ˜¯ç›¸å¯¹äºå›¾ç‰‡fit centerçŠ¶æ€çš„å˜æ¢.
+     * é»˜è®¤å€¼ä¸ºå•ä½çŸ©é˜µ,æ­¤æ—¶å›¾ç‰‡ä¸ºfit centerçŠ¶æ€.
      *
-     * @param matrix ÓÃÓÚÌî³ä½á¹ûµÄ¶ÔÏó
-     * @return Èç¹û´«ÁËmatrix²ÎÊıÔò½«matrixÌî³äºó·µ»Ø,·ñÔònewÒ»¸öÌî³ä·µ»Ø
+     * @param matrix ç”¨äºå¡«å……ç»“æœçš„å¯¹è±¡
+     * @return å¦‚æœä¼ äº†matrixå‚æ•°åˆ™å°†matrixå¡«å……åè¿”å›,å¦åˆ™newä¸€ä¸ªå¡«å……è¿”å›
      */
     public Matrix getOuterMatrix(Matrix matrix) {
         if (matrix == null) {
@@ -139,13 +139,13 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * »ñÈ¡ÄÚ²¿±ä»»¾ØÕó.
+     * è·å–å†…éƒ¨å˜æ¢çŸ©é˜µ.
      *
-     * ÄÚ²¿±ä»»¾ØÕóÊÇÔ­Í¼µ½fit center×´Ì¬µÄ±ä»»,µ±Ô­Í¼³ß´ç±ä»¯»òÕß¿Ø¼ş´óĞ¡±ä»¯¶¼»á·¢Éú¸Ä±ä
-     * µ±ÉĞÎ´²¼¾Ö»òÕßÔ­Í¼²»´æÔÚÊ±,ÆäÖµÎŞÒâÒå.ËùÒÔÔÚµ÷ÓÃÇ°ĞèÒªÈ·±£Ç°ÖÃÌõ¼şÓĞĞ§,·ñÔò½«Ó°Ïì¼ÆËã½á¹û.
+     * å†…éƒ¨å˜æ¢çŸ©é˜µæ˜¯åŸå›¾åˆ°fit centerçŠ¶æ€çš„å˜æ¢,å½“åŸå›¾å°ºå¯¸å˜åŒ–æˆ–è€…æ§ä»¶å¤§å°å˜åŒ–éƒ½ä¼šå‘ç”Ÿæ”¹å˜
+     * å½“å°šæœªå¸ƒå±€æˆ–è€…åŸå›¾ä¸å­˜åœ¨æ—¶,å…¶å€¼æ— æ„ä¹‰.æ‰€ä»¥åœ¨è°ƒç”¨å‰éœ€è¦ç¡®ä¿å‰ç½®æ¡ä»¶æœ‰æ•ˆ,å¦åˆ™å°†å½±å“è®¡ç®—ç»“æœ.
      *
-     * @param matrix ÓÃÓÚÌî³ä½á¹ûµÄ¶ÔÏó
-     * @return Èç¹û´«ÁËmatrix²ÎÊıÔò½«matrixÌî³äºó·µ»Ø,·ñÔònewÒ»¸öÌî³ä·µ»Ø
+     * @param matrix ç”¨äºå¡«å……ç»“æœçš„å¯¹è±¡
+     * @return å¦‚æœä¼ äº†matrixå‚æ•°åˆ™å°†matrixå¡«å……åè¿”å›,å¦åˆ™newä¸€ä¸ªå¡«å……è¿”å›
      */
     public Matrix getInnerMatrix(Matrix matrix) {
         if (matrix == null) {
@@ -154,13 +154,13 @@ public class PinchImageView extends ImageView {
             matrix.reset();
         }
         if (isReady()) {
-            //Ô­Í¼´óĞ¡
+            //åŸå›¾å¤§å°
             RectF tempSrc = MathUtils.rectFTake(0, 0, getDrawable().getIntrinsicWidth(), getDrawable().getIntrinsicHeight());
-            //¿Ø¼ş´óĞ¡
+            //æ§ä»¶å¤§å°
             RectF tempDst = MathUtils.rectFTake(0, 0, getWidth(), getHeight());
-            //¼ÆËãfit center¾ØÕó
+            //è®¡ç®—fit centerçŸ©é˜µ
             matrix.setRectToRect(tempSrc, tempDst, Matrix.ScaleToFit.CENTER);
-            //ÊÍ·ÅÁÙÊ±¶ÔÏó
+            //é‡Šæ”¾ä¸´æ—¶å¯¹è±¡
             MathUtils.rectFGiven(tempDst);
             MathUtils.rectFGiven(tempSrc);
         }
@@ -168,32 +168,32 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * »ñÈ¡Í¼Æ¬×Ü±ä»»¾ØÕó.
+     * è·å–å›¾ç‰‡æ€»å˜æ¢çŸ©é˜µ.
      *
-     * ×Ü±ä»»¾ØÕóÎªÄÚ²¿±ä»»¾ØÕóxÍâ²¿±ä»»¾ØÕó,¾ö¶¨ÁËÔ­Í¼µ½Ëù¼û×îÖÕ×´Ì¬µÄ±ä»»
-     * µ±ÉĞÎ´²¼¾Ö»òÕßÔ­Í¼²»´æÔÚÊ±,ÆäÖµÎŞÒâÒå.ËùÒÔÔÚµ÷ÓÃÇ°ĞèÒªÈ·±£Ç°ÖÃÌõ¼şÓĞĞ§,·ñÔò½«Ó°Ïì¼ÆËã½á¹û.
+     * æ€»å˜æ¢çŸ©é˜µä¸ºå†…éƒ¨å˜æ¢çŸ©é˜µxå¤–éƒ¨å˜æ¢çŸ©é˜µ,å†³å®šäº†åŸå›¾åˆ°æ‰€è§æœ€ç»ˆçŠ¶æ€çš„å˜æ¢
+     * å½“å°šæœªå¸ƒå±€æˆ–è€…åŸå›¾ä¸å­˜åœ¨æ—¶,å…¶å€¼æ— æ„ä¹‰.æ‰€ä»¥åœ¨è°ƒç”¨å‰éœ€è¦ç¡®ä¿å‰ç½®æ¡ä»¶æœ‰æ•ˆ,å¦åˆ™å°†å½±å“è®¡ç®—ç»“æœ.
      *
-     * @param matrix ÓÃÓÚÌî³ä½á¹ûµÄ¶ÔÏó
-     * @return Èç¹û´«ÁËmatrix²ÎÊıÔò½«matrixÌî³äºó·µ»Ø,·ñÔònewÒ»¸öÌî³ä·µ»Ø
+     * @param matrix ç”¨äºå¡«å……ç»“æœçš„å¯¹è±¡
+     * @return å¦‚æœä¼ äº†matrixå‚æ•°åˆ™å°†matrixå¡«å……åè¿”å›,å¦åˆ™newä¸€ä¸ªå¡«å……è¿”å›
      *
      * @see #getOuterMatrix(Matrix)
      * @see #getInnerMatrix(Matrix)
      */
     public Matrix getCurrentImageMatrix(Matrix matrix) {
-        //»ñÈ¡ÄÚ²¿±ä»»¾ØÕó
+        //è·å–å†…éƒ¨å˜æ¢çŸ©é˜µ
         matrix = getInnerMatrix(matrix);
-        //³ËÉÏÍâ²¿±ä»»¾ØÕó
+        //ä¹˜ä¸Šå¤–éƒ¨å˜æ¢çŸ©é˜µ
         matrix.postConcat(mOuterMatrix);
         return matrix;
     }
 
     /**
-     * »ñÈ¡µ±Ç°±ä»»ºóµÄÍ¼Æ¬Î»ÖÃºÍ³ß´ç
+     * è·å–å½“å‰å˜æ¢åçš„å›¾ç‰‡ä½ç½®å’Œå°ºå¯¸
      *
-     * µ±ÉĞÎ´²¼¾Ö»òÕßÔ­Í¼²»´æÔÚÊ±,ÆäÖµÎŞÒâÒå.ËùÒÔÔÚµ÷ÓÃÇ°ĞèÒªÈ·±£Ç°ÖÃÌõ¼şÓĞĞ§,·ñÔò½«Ó°Ïì¼ÆËã½á¹û.
+     * å½“å°šæœªå¸ƒå±€æˆ–è€…åŸå›¾ä¸å­˜åœ¨æ—¶,å…¶å€¼æ— æ„ä¹‰.æ‰€ä»¥åœ¨è°ƒç”¨å‰éœ€è¦ç¡®ä¿å‰ç½®æ¡ä»¶æœ‰æ•ˆ,å¦åˆ™å°†å½±å“è®¡ç®—ç»“æœ.
      *
-     * @param rectF ÓÃÓÚÌî³ä½á¹ûµÄ¶ÔÏó
-     * @return Èç¹û´«ÁËrectF²ÎÊıÔò½«rectFÌî³äºó·µ»Ø,·ñÔònewÒ»¸öÌî³ä·µ»Ø
+     * @param rectF ç”¨äºå¡«å……ç»“æœçš„å¯¹è±¡
+     * @return å¦‚æœä¼ äº†rectFå‚æ•°åˆ™å°†rectFå¡«å……åè¿”å›,å¦åˆ™newä¸€ä¸ªå¡«å……è¿”å›
      *
      * @see #getCurrentImageMatrix(Matrix)
      */
@@ -206,23 +206,23 @@ public class PinchImageView extends ImageView {
         if (!isReady()) {
             return rectF;
         } else {
-            //ÉêÇëÒ»¸ö¿Õmatrix
+            //ç”³è¯·ä¸€ä¸ªç©ºmatrix
             Matrix matrix = MathUtils.matrixTake();
-            //»ñÈ¡µ±Ç°×Ü±ä»»¾ØÕó
+            //è·å–å½“å‰æ€»å˜æ¢çŸ©é˜µ
             getCurrentImageMatrix(matrix);
-            //¶ÔÔ­Í¼¾ØĞÎ½øĞĞ±ä»»µÃµ½µ±Ç°ÏÔÊ¾¾ØĞÎ
+            //å¯¹åŸå›¾çŸ©å½¢è¿›è¡Œå˜æ¢å¾—åˆ°å½“å‰æ˜¾ç¤ºçŸ©å½¢
             rectF.set(0, 0, getDrawable().getIntrinsicWidth(), getDrawable().getIntrinsicHeight());
             matrix.mapRect(rectF);
-            //ÊÍ·ÅÁÙÊ±matrix
+            //é‡Šæ”¾ä¸´æ—¶matrix
             MathUtils.matrixGiven(matrix);
             return rectF;
         }
     }
 
     /**
-     * »ñÈ¡µ±Ç°ÉèÖÃµÄmask
+     * è·å–å½“å‰è®¾ç½®çš„mask
      *
-     * @return ·µ»Øµ±Ç°µÄmask¶ÔÏó¸±±¾,Èç¹ûµ±Ç°Ã»ÓĞÉèÖÃmaskÔò·µ»Ønull
+     * @return è¿”å›å½“å‰çš„maskå¯¹è±¡å‰¯æœ¬,å¦‚æœå½“å‰æ²¡æœ‰è®¾ç½®maskåˆ™è¿”å›null
      */
     public RectF getMask() {
         if (mMask != null) {
@@ -233,7 +233,7 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * »ñÈ¡µ±Ç°ÊÖÊÆ×´Ì¬
+     * è·å–å½“å‰æ‰‹åŠ¿çŠ¶æ€
      *
      * @see #PINCH_MODE_FREE
      * @see #PINCH_MODE_SCROLL
@@ -244,7 +244,7 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * ÓëViewPager½áºÏµÄÊ±ºòÊ¹ÓÃ
+     * ä¸ViewPagerç»“åˆçš„æ—¶å€™ä½¿ç”¨
      * @param direction
      * @return
      */
@@ -268,7 +268,7 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * ÓëViewPager½áºÏµÄÊ±ºòÊ¹ÓÃ
+     * ä¸ViewPagerç»“åˆçš„æ—¶å€™ä½¿ç”¨
      * @param direction
      * @return
      */
@@ -292,16 +292,16 @@ public class PinchImageView extends ImageView {
     }
 
 
-    ////////////////////////////////¹«¹²×´Ì¬ÉèÖÃ////////////////////////////////
+    ////////////////////////////////å…¬å…±çŠ¶æ€è®¾ç½®////////////////////////////////
 
     /**
-     * Ö´ĞĞµ±Ç°outerMatrixµ½Ö¸¶¨outerMatrix½¥±äµÄ¶¯»­
+     * æ‰§è¡Œå½“å‰outerMatrixåˆ°æŒ‡å®šouterMatrixæ¸å˜çš„åŠ¨ç”»
      *
-     * µ÷ÓÃ´Ë·½·¨»áÍ£Ö¹ÕıÔÚ½øĞĞÖĞµÄÊÖÊÆÒÔ¼°ÊÖÊÆ¶¯»­.
-     * µ±durationÎª0Ê±,outerMatrixÖµ»á±»Á¢¼´ÉèÖÃ¶ø²»»áÆô¶¯¶¯»­.
+     * è°ƒç”¨æ­¤æ–¹æ³•ä¼šåœæ­¢æ­£åœ¨è¿›è¡Œä¸­çš„æ‰‹åŠ¿ä»¥åŠæ‰‹åŠ¿åŠ¨ç”».
+     * å½“durationä¸º0æ—¶,outerMatrixå€¼ä¼šè¢«ç«‹å³è®¾ç½®è€Œä¸ä¼šå¯åŠ¨åŠ¨ç”».
      *
-     * @param endMatrix ¶¯»­Ä¿±ê¾ØÕó
-     * @param duration ¶¯»­³ÖĞøÊ±¼ä
+     * @param endMatrix åŠ¨ç”»ç›®æ ‡çŸ©é˜µ
+     * @param duration åŠ¨ç”»æŒç»­æ—¶é—´
      *
      * @see #getOuterMatrix(Matrix)
      */
@@ -309,31 +309,31 @@ public class PinchImageView extends ImageView {
         if (endMatrix == null) {
             return;
         }
-        //½«ÊÖÊÆÉèÖÃÎªPINCH_MODE_FREE½«Í£Ö¹ºóĞøÊÖÊÆµÄ´¥·¢
+        //å°†æ‰‹åŠ¿è®¾ç½®ä¸ºPINCH_MODE_FREEå°†åœæ­¢åç»­æ‰‹åŠ¿çš„è§¦å‘
         mPinchMode = PINCH_MODE_FREE;
-        //Í£Ö¹ËùÓĞÕıÔÚ½øĞĞµÄ¶¯»­
+        //åœæ­¢æ‰€æœ‰æ­£åœ¨è¿›è¡Œçš„åŠ¨ç”»
         cancelAllAnimator();
-        //Èç¹ûÊ±¼ä²»ºÏ·¨Á¢¼´Ö´ĞĞ½á¹û
+        //å¦‚æœæ—¶é—´ä¸åˆæ³•ç«‹å³æ‰§è¡Œç»“æœ
         if (duration <= 0) {
             mOuterMatrix.set(endMatrix);
             dispatchOuterMatrixChanged();
             invalidate();
         } else {
-            //´´½¨¾ØÕó±ä»¯¶¯»­
+            //åˆ›å»ºçŸ©é˜µå˜åŒ–åŠ¨ç”»
             mScaleAnimator = new ScaleAnimator(mOuterMatrix, endMatrix, duration);
             mScaleAnimator.start();
         }
     }
 
     /**
-     * Ö´ĞĞµ±Ç°maskµ½Ö¸¶¨maskµÄ±ä»¯¶¯»­
+     * æ‰§è¡Œå½“å‰maskåˆ°æŒ‡å®šmaskçš„å˜åŒ–åŠ¨ç”»
      *
-     * µ÷ÓÃ´Ë·½·¨²»»áÍ£Ö¹ÊÖÊÆÒÔ¼°ÊÖÊÆÏà¹Ø¶¯»­,µ«»áÍ£Ö¹ÕıÔÚ½øĞĞµÄmask¶¯»­.
-     * µ±Ç°maskÎªnullÊ±,Ôò²»Ö´ĞĞ¶¯»­Á¢¼´ÉèÖÃÎªÄ¿±êmask.
-     * µ±durationÎª0Ê±,Á¢¼´½«µ±Ç°maskÉèÖÃÎªÄ¿±êmask,²»»áÖ´ĞĞ¶¯»­.
+     * è°ƒç”¨æ­¤æ–¹æ³•ä¸ä¼šåœæ­¢æ‰‹åŠ¿ä»¥åŠæ‰‹åŠ¿ç›¸å…³åŠ¨ç”»,ä½†ä¼šåœæ­¢æ­£åœ¨è¿›è¡Œçš„maskåŠ¨ç”».
+     * å½“å‰maskä¸ºnullæ—¶,åˆ™ä¸æ‰§è¡ŒåŠ¨ç”»ç«‹å³è®¾ç½®ä¸ºç›®æ ‡mask.
+     * å½“durationä¸º0æ—¶,ç«‹å³å°†å½“å‰maskè®¾ç½®ä¸ºç›®æ ‡mask,ä¸ä¼šæ‰§è¡ŒåŠ¨ç”».
      *
-     * @param mask ¶¯»­Ä¿±êmask
-     * @param duration ¶¯»­³ÖĞøÊ±¼ä
+     * @param mask åŠ¨ç”»ç›®æ ‡mask
+     * @param duration åŠ¨ç”»æŒç»­æ—¶é—´
      *
      * @see #getMask()
      */
@@ -341,12 +341,12 @@ public class PinchImageView extends ImageView {
         if (mask == null) {
             return;
         }
-        //Í£Ö¹mask¶¯»­
+        //åœæ­¢maskåŠ¨ç”»
         if (mMaskAnimator != null) {
             mMaskAnimator.cancel();
             mMaskAnimator = null;
         }
-        //Èç¹ûdurationÎª0»òÕßÖ®Ç°Ã»ÓĞÉèÖÃ¹ımask,²»Ö´ĞĞ¶¯»­,Á¢¼´ÉèÖÃ
+        //å¦‚æœdurationä¸º0æˆ–è€…ä¹‹å‰æ²¡æœ‰è®¾ç½®è¿‡mask,ä¸æ‰§è¡ŒåŠ¨ç”»,ç«‹å³è®¾ç½®
         if (duration <= 0 || mMask == null) {
             if (mMask == null) {
                 mMask = new RectF();
@@ -354,52 +354,52 @@ public class PinchImageView extends ImageView {
             mMask.set(mask);
             invalidate();
         } else {
-            //Ö´ĞĞmask¶¯»­
+            //æ‰§è¡ŒmaskåŠ¨ç”»
             mMaskAnimator = new MaskAnimator(mMask, mask, duration);
             mMaskAnimator.start();
         }
     }
 
     /**
-     * ÖØÖÃËùÓĞ×´Ì¬
+     * é‡ç½®æ‰€æœ‰çŠ¶æ€
      *
-     * ÖØÖÃÎ»ÖÃµ½fit center×´Ì¬,Çå¿Õmask,Í£Ö¹ËùÓĞÊÖÊÆ,Í£Ö¹ËùÓĞ¶¯»­.
-     * µ«²»Çå¿Õdrawable,ÒÔ¼°ÊÂ¼ş°ó¶¨Ïà¹ØÊı¾İ.
+     * é‡ç½®ä½ç½®åˆ°fit centerçŠ¶æ€,æ¸…ç©ºmask,åœæ­¢æ‰€æœ‰æ‰‹åŠ¿,åœæ­¢æ‰€æœ‰åŠ¨ç”».
+     * ä½†ä¸æ¸…ç©ºdrawable,ä»¥åŠäº‹ä»¶ç»‘å®šç›¸å…³æ•°æ®.
      */
     public void reset() {
-        //ÖØÖÃÎ»ÖÃµ½fit
+        //é‡ç½®ä½ç½®åˆ°fit
         mOuterMatrix.reset();
         dispatchOuterMatrixChanged();
-        //Çå¿Õmask
+        //æ¸…ç©ºmask
         mMask = null;
-        //Í£Ö¹ËùÓĞÊÖÊÆ
+        //åœæ­¢æ‰€æœ‰æ‰‹åŠ¿
         mPinchMode = PINCH_MODE_FREE;
         mLastMovePoint.set(0, 0);
         mScaleCenter.set(0, 0);
         mScaleBase = 0;
-        //Í£Ö¹ËùÓĞ¶¯»­
+        //åœæ­¢æ‰€æœ‰åŠ¨ç”»
         if (mMaskAnimator != null) {
             mMaskAnimator.cancel();
             mMaskAnimator = null;
         }
         cancelAllAnimator();
-        //ÖØ»æ
+        //é‡ç»˜
         invalidate();
     }
 
 
-    ////////////////////////////////¶ÔÍâ¹ã²¥ÊÂ¼ş////////////////////////////////
+    ////////////////////////////////å¯¹å¤–å¹¿æ’­äº‹ä»¶////////////////////////////////
 
     /**
-     * Íâ²¿¾ØÕó±ä»¯ÊÂ¼şÍ¨Öª¼àÌıÆ÷
+     * å¤–éƒ¨çŸ©é˜µå˜åŒ–äº‹ä»¶é€šçŸ¥ç›‘å¬å™¨
      */
     public interface OuterMatrixChangedListener {
 
         /**
-         * Íâ²¿¾ØÕó±ä»¯»Øµ÷
+         * å¤–éƒ¨çŸ©é˜µå˜åŒ–å›è°ƒ
          *
-         * Íâ²¿¾ØÕóµÄÈÎºÎ±ä»¯ºó¶¼ÊÕµ½´Ë»Øµ÷.
-         * Íâ²¿¾ØÕó±ä»¯ºó,×Ü±ä»¯¾ØÕó,Í¼Æ¬µÄÕ¹Ê¾Î»ÖÃ¶¼½«·¢Éú±ä»¯.
+         * å¤–éƒ¨çŸ©é˜µçš„ä»»ä½•å˜åŒ–åéƒ½æ”¶åˆ°æ­¤å›è°ƒ.
+         * å¤–éƒ¨çŸ©é˜µå˜åŒ–å,æ€»å˜åŒ–çŸ©é˜µ,å›¾ç‰‡çš„å±•ç¤ºä½ç½®éƒ½å°†å‘ç”Ÿå˜åŒ–.
          *
          * @param pinchImageView
          *
@@ -411,7 +411,7 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * ËùÓĞOuterMatrixChangedListener¼àÌıÁĞ±í
+     * æ‰€æœ‰OuterMatrixChangedListenerç›‘å¬åˆ—è¡¨
      *
      * @see #addOuterMatrixChangedListener(OuterMatrixChangedListener)
      * @see #removeOuterMatrixChangedListener(OuterMatrixChangedListener)
@@ -419,16 +419,16 @@ public class PinchImageView extends ImageView {
     private List<OuterMatrixChangedListener> mOuterMatrixChangedListeners;
 
     /**
-     * µ±mOuterMatrixChangedListeners±»Ëø¶¨²»ÔÊĞíĞŞ¸ÄÊ±,ÁÙÊ±½«ĞŞ¸ÄĞ´µ½Õâ¸ö¸±±¾ÖĞ
+     * å½“mOuterMatrixChangedListenersè¢«é”å®šä¸å…è®¸ä¿®æ”¹æ—¶,ä¸´æ—¶å°†ä¿®æ”¹å†™åˆ°è¿™ä¸ªå‰¯æœ¬ä¸­
      *
      * @see #mOuterMatrixChangedListeners
      */
     private List<OuterMatrixChangedListener> mOuterMatrixChangedListenersCopy;
 
     /**
-     * mOuterMatrixChangedListenersµÄĞŞ¸ÄËø¶¨
+     * mOuterMatrixChangedListenersçš„ä¿®æ”¹é”å®š
      *
-     * µ±½øÈëdispatchOuterMatrixChanged·½·¨Ê±,±»¼Ó1,ÍË³öÇ°±»¼õ1
+     * å½“è¿›å…¥dispatchOuterMatrixChangedæ–¹æ³•æ—¶,è¢«åŠ 1,é€€å‡ºå‰è¢«å‡1
      *
      * @see #dispatchOuterMatrixChanged()
      * @see #addOuterMatrixChangedListener(OuterMatrixChangedListener)
@@ -437,7 +437,7 @@ public class PinchImageView extends ImageView {
     private int mDispatchOuterMatrixChangedLock;
 
     /**
-     * Ìí¼ÓÍâ²¿¾ØÕó±ä»¯¼àÌı
+     * æ·»åŠ å¤–éƒ¨çŸ©é˜µå˜åŒ–ç›‘å¬
      *
      * @param listener
      */
@@ -445,15 +445,15 @@ public class PinchImageView extends ImageView {
         if (listener == null) {
             return;
         }
-        //Èç¹û¼àÌıÁĞ±íÃ»ÓĞ±»ĞŞ¸ÄËø¶¨Ö±½Ó½«¼àÌıÌí¼Óµ½¼àÌıÁĞ±í
+        //å¦‚æœç›‘å¬åˆ—è¡¨æ²¡æœ‰è¢«ä¿®æ”¹é”å®šç›´æ¥å°†ç›‘å¬æ·»åŠ åˆ°ç›‘å¬åˆ—è¡¨
         if (mDispatchOuterMatrixChangedLock == 0) {
             if (mOuterMatrixChangedListeners == null) {
                 mOuterMatrixChangedListeners = new ArrayList<OuterMatrixChangedListener>();
             }
             mOuterMatrixChangedListeners.add(listener);
         } else {
-            //Èç¹û¼àÌıÁĞ±íĞŞ¸Ä±»Ëø¶¨,ÄÇÃ´³¢ÊÔÔÚ¼àÌıÁĞ±í¸±±¾ÉÏÌí¼Ó
-            //¼àÌıÁĞ±í¸±±¾½«»áÔÚËø¶¨±»½â³ıÊ±Ìæ»»µ½¼àÌıÁĞ±íÀï
+            //å¦‚æœç›‘å¬åˆ—è¡¨ä¿®æ”¹è¢«é”å®š,é‚£ä¹ˆå°è¯•åœ¨ç›‘å¬åˆ—è¡¨å‰¯æœ¬ä¸Šæ·»åŠ 
+            //ç›‘å¬åˆ—è¡¨å‰¯æœ¬å°†ä¼šåœ¨é”å®šè¢«è§£é™¤æ—¶æ›¿æ¢åˆ°ç›‘å¬åˆ—è¡¨é‡Œ
             if (mOuterMatrixChangedListenersCopy == null) {
                 if (mOuterMatrixChangedListeners != null) {
                     mOuterMatrixChangedListenersCopy = new ArrayList<OuterMatrixChangedListener>(mOuterMatrixChangedListeners);
@@ -466,7 +466,7 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * É¾³ıÍâ²¿¾ØÕó±ä»¯¼àÌı
+     * åˆ é™¤å¤–éƒ¨çŸ©é˜µå˜åŒ–ç›‘å¬
      *
      * @param listener
      */
@@ -474,14 +474,14 @@ public class PinchImageView extends ImageView {
         if (listener == null) {
             return;
         }
-        //Èç¹û¼àÌıÁĞ±íÃ»ÓĞ±»ĞŞ¸ÄËø¶¨Ö±½ÓÔÚ¼àÌıÁĞ±íÊı¾İ½á¹¹ÉÏĞŞ¸Ä
+        //å¦‚æœç›‘å¬åˆ—è¡¨æ²¡æœ‰è¢«ä¿®æ”¹é”å®šç›´æ¥åœ¨ç›‘å¬åˆ—è¡¨æ•°æ®ç»“æ„ä¸Šä¿®æ”¹
         if (mDispatchOuterMatrixChangedLock == 0) {
             if (mOuterMatrixChangedListeners != null) {
                 mOuterMatrixChangedListeners.remove(listener);
             }
         } else {
-            //Èç¹û¼àÌıÁĞ±í±»ĞŞ¸ÄËø¶¨,ÄÇÃ´¾ÍÔÚÆä¸±±¾ÉÏĞŞ¸Ä
-            //Æä¸±±¾½«»áÔÚËø¶¨½â³ıÊ±Ìæ»»»Ø¼àÌıÁĞ±í
+            //å¦‚æœç›‘å¬åˆ—è¡¨è¢«ä¿®æ”¹é”å®š,é‚£ä¹ˆå°±åœ¨å…¶å‰¯æœ¬ä¸Šä¿®æ”¹
+            //å…¶å‰¯æœ¬å°†ä¼šåœ¨é”å®šè§£é™¤æ—¶æ›¿æ¢å›ç›‘å¬åˆ—è¡¨
             if (mOuterMatrixChangedListenersCopy == null) {
                 if (mOuterMatrixChangedListeners != null) {
                     mOuterMatrixChangedListenersCopy = new ArrayList<OuterMatrixChangedListener>(mOuterMatrixChangedListeners);
@@ -494,9 +494,9 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * ´¥·¢Íâ²¿¾ØÕóĞŞ¸ÄÊÂ¼ş
+     * è§¦å‘å¤–éƒ¨çŸ©é˜µä¿®æ”¹äº‹ä»¶
      *
-     * ĞèÒªÔÚÃ¿´Î¸øÍâ²¿¾ØÕóÉèÖÃÖµÊ±¶¼µ÷ÓÃ´Ë·½·¨.
+     * éœ€è¦åœ¨æ¯æ¬¡ç»™å¤–éƒ¨çŸ©é˜µè®¾ç½®å€¼æ—¶éƒ½è°ƒç”¨æ­¤æ–¹æ³•.
      *
      * @see #mOuterMatrix
      */
@@ -504,40 +504,40 @@ public class PinchImageView extends ImageView {
         if (mOuterMatrixChangedListeners == null) {
             return;
         }
-        //Ôö¼ÓËø
-        //ÕâÀïÖ®ËùÒÔÓÃ¼ÆÊıÆ÷×öËø¶¨ÊÇÒòÎª¿ÉÄÜÔÚËø¶¨ÆÚ¼äÓÖ¼ä½Óµ÷ÓÃÁË´Ë·½·¨²úÉúµİ¹é
-        //Ê¹ÓÃbooleanÎŞ·¨ÅĞ¶Ïµİ¹é½áÊø
+        //å¢åŠ é”
+        //è¿™é‡Œä¹‹æ‰€ä»¥ç”¨è®¡æ•°å™¨åšé”å®šæ˜¯å› ä¸ºå¯èƒ½åœ¨é”å®šæœŸé—´åˆé—´æ¥è°ƒç”¨äº†æ­¤æ–¹æ³•äº§ç”Ÿé€’å½’
+        //ä½¿ç”¨booleanæ— æ³•åˆ¤æ–­é€’å½’ç»“æŸ
         mDispatchOuterMatrixChangedLock++;
-        //ÔÚÁĞ±íÑ­»·¹ı³ÌÖĞ²»ÔÊĞíĞŞ¸ÄÁĞ±í,·ñÔò½«Òı·¢±ÀÀ£
+        //åœ¨åˆ—è¡¨å¾ªç¯è¿‡ç¨‹ä¸­ä¸å…è®¸ä¿®æ”¹åˆ—è¡¨,å¦åˆ™å°†å¼•å‘å´©æºƒ
         for (OuterMatrixChangedListener listener : mOuterMatrixChangedListeners) {
             listener.onOuterMatrixChanged(this);
         }
-        //¼õËø
+        //å‡é”
         mDispatchOuterMatrixChangedLock--;
-        //Èç¹ûÊÇµİ¹éµÄÇé¿ö,mDispatchOuterMatrixChangedLock¿ÉÄÜ´óÓÚ1,Ö»ÓĞ¼õµ½0²ÅÄÜËãÁĞ±íµÄËø¶¨½â³ı
+        //å¦‚æœæ˜¯é€’å½’çš„æƒ…å†µ,mDispatchOuterMatrixChangedLockå¯èƒ½å¤§äº1,åªæœ‰å‡åˆ°0æ‰èƒ½ç®—åˆ—è¡¨çš„é”å®šè§£é™¤
         if (mDispatchOuterMatrixChangedLock == 0) {
-            //Èç¹ûÆÚ¼äÓĞĞŞ¸ÄÁĞ±í,ÄÇÃ´¸±±¾½«²»Îªnull
+            //å¦‚æœæœŸé—´æœ‰ä¿®æ”¹åˆ—è¡¨,é‚£ä¹ˆå‰¯æœ¬å°†ä¸ä¸ºnull
             if (mOuterMatrixChangedListenersCopy != null) {
-                //½«¸±±¾Ìæ»»µôÕıÊ½µÄÁĞ±í
+                //å°†å‰¯æœ¬æ›¿æ¢æ‰æ­£å¼çš„åˆ—è¡¨
                 mOuterMatrixChangedListeners = mOuterMatrixChangedListenersCopy;
-                //Çå¿Õ¸±±¾
+                //æ¸…ç©ºå‰¯æœ¬
                 mOuterMatrixChangedListenersCopy = null;
             }
         }
     }
 
 
-    ////////////////////////////////ÓÃÓÚÖØÔØ¶¨ÖÆ////////////////////////////////
+    ////////////////////////////////ç”¨äºé‡è½½å®šåˆ¶////////////////////////////////
 
     /**
-     * »ñÈ¡Í¼Æ¬×î´ó¿É·Å´óµÄ±ÈÀı
+     * è·å–å›¾ç‰‡æœ€å¤§å¯æ”¾å¤§çš„æ¯”ä¾‹
      *
-     * Èç¹û·Å´ó´óÓÚÕâ¸ö±ÈÀıÔò²»±»ÔÊĞí.
-     * ÔÚË«ÊÖËõ·Å¹ı³ÌÖĞÈç¹ûÍ¼Æ¬·Å´ó±ÈÀı´óÓÚÕâ¸öÖµ,ÊÖÖ¸ÊÍ·Å½«»Øµ¯µ½Õâ¸ö±ÈÀı.
-     * ÔÚË«»÷·Å´ó¹ı³ÌÖĞ²»ÔÊĞí·Å´ó±ÈÀı´óÓÚÕâ¸öÖµ.
-     * ¸²¸Ç´Ë·½·¨¿ÉÒÔ¶¨ÖÆ²»Í¬Çé¿öÊ¹ÓÃ²»Í¬µÄ×î´ó¿É·Å´ó±ÈÀı.
+     * å¦‚æœæ”¾å¤§å¤§äºè¿™ä¸ªæ¯”ä¾‹åˆ™ä¸è¢«å…è®¸.
+     * åœ¨åŒæ‰‹ç¼©æ”¾è¿‡ç¨‹ä¸­å¦‚æœå›¾ç‰‡æ”¾å¤§æ¯”ä¾‹å¤§äºè¿™ä¸ªå€¼,æ‰‹æŒ‡é‡Šæ”¾å°†å›å¼¹åˆ°è¿™ä¸ªæ¯”ä¾‹.
+     * åœ¨åŒå‡»æ”¾å¤§è¿‡ç¨‹ä¸­ä¸å…è®¸æ”¾å¤§æ¯”ä¾‹å¤§äºè¿™ä¸ªå€¼.
+     * è¦†ç›–æ­¤æ–¹æ³•å¯ä»¥å®šåˆ¶ä¸åŒæƒ…å†µä½¿ç”¨ä¸åŒçš„æœ€å¤§å¯æ”¾å¤§æ¯”ä¾‹.
      *
-     * @return Ëõ·Å±ÈÀı
+     * @return ç¼©æ”¾æ¯”ä¾‹
      *
      * @see #scaleEnd()
      * @see #doubleTap(float, float)
@@ -547,14 +547,14 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * ¼ÆËãË«»÷Ö®ºóÍ¼Æ¬½ÓÏÂÀ´Ó¦¸Ã±»Ëõ·ÅµÄ±ÈÀı
+     * è®¡ç®—åŒå‡»ä¹‹åå›¾ç‰‡æ¥ä¸‹æ¥åº”è¯¥è¢«ç¼©æ”¾çš„æ¯”ä¾‹
      *
-     * Èç¹ûÖµ´óÓÚgetMaxScale»òÕßĞ¡ÓÚfit center³ß´ç£¬ÔòÊµ¼ÊÊ¹ÓÃÈ¡±ß½çÖµ.
-     * Í¨¹ı¸²¸Ç´Ë·½·¨¿ÉÒÔ¶¨ÖÆ²»Í¬µÄÍ¼Æ¬±»Ë«»÷Ê±Ê¹ÓÃ²»Í¬µÄ·Å´ó²ßÂÔ.
+     * å¦‚æœå€¼å¤§äºgetMaxScaleæˆ–è€…å°äºfit centerå°ºå¯¸ï¼Œåˆ™å®é™…ä½¿ç”¨å–è¾¹ç•Œå€¼.
+     * é€šè¿‡è¦†ç›–æ­¤æ–¹æ³•å¯ä»¥å®šåˆ¶ä¸åŒçš„å›¾ç‰‡è¢«åŒå‡»æ—¶ä½¿ç”¨ä¸åŒçš„æ”¾å¤§ç­–ç•¥.
      *
-     * @param innerScale µ±Ç°ÄÚ²¿¾ØÕóµÄËõ·ÅÖµ
-     * @param outerScale µ±Ç°Íâ²¿¾ØÕóµÄËõ·ÅÖµ
-     * @return ½ÓÏÂÀ´µÄËõ·Å±ÈÀı
+     * @param innerScale å½“å‰å†…éƒ¨çŸ©é˜µçš„ç¼©æ”¾å€¼
+     * @param outerScale å½“å‰å¤–éƒ¨çŸ©é˜µçš„ç¼©æ”¾å€¼
+     * @return æ¥ä¸‹æ¥çš„ç¼©æ”¾æ¯”ä¾‹
      *
      * @see #doubleTap(float, float)
      * @see #getMaxScale()
@@ -569,7 +569,7 @@ public class PinchImageView extends ImageView {
     }
 
 
-    ////////////////////////////////³õÊ¼»¯////////////////////////////////
+    ////////////////////////////////åˆå§‹åŒ–////////////////////////////////
 
     public PinchImageView(Context context) {
         super(context);
@@ -587,26 +587,26 @@ public class PinchImageView extends ImageView {
     }
 
     private void initView() {
-        //Ç¿ÖÆÉèÖÃÍ¼Æ¬scaleTypeÎªmatrix
+        //å¼ºåˆ¶è®¾ç½®å›¾ç‰‡scaleTypeä¸ºmatrix
         super.setScaleType(ScaleType.MATRIX);
     }
 
-    //²»ÔÊĞíÉèÖÃscaleType£¬Ö»ÄÜÓÃÄÚ²¿ÉèÖÃµÄmatrix
+    //ä¸å…è®¸è®¾ç½®scaleTypeï¼Œåªèƒ½ç”¨å†…éƒ¨è®¾ç½®çš„matrix
     @Override
     public void setScaleType(ScaleType scaleType) {}
 
 
-    ////////////////////////////////»æÖÆ////////////////////////////////
+    ////////////////////////////////ç»˜åˆ¶////////////////////////////////
 
     @Override
     protected void onDraw(Canvas canvas) {
-        //ÔÚ»æÖÆÇ°ÉèÖÃ±ä»»¾ØÕó
+        //åœ¨ç»˜åˆ¶å‰è®¾ç½®å˜æ¢çŸ©é˜µ
         if (isReady()) {
             Matrix matrix = MathUtils.matrixTake();
             setImageMatrix(getCurrentImageMatrix(matrix));
             MathUtils.matrixGiven(matrix);
         }
-        //¶ÔÍ¼Ïñ×öÕÚÕÖ´¦Àí
+        //å¯¹å›¾åƒåšé®ç½©å¤„ç†
         if (mMask != null) {
             canvas.save();
             canvas.clipRect(mMask);
@@ -618,14 +618,14 @@ public class PinchImageView extends ImageView {
     }
 
 
-    ////////////////////////////////ÓĞĞ§ĞÔÅĞ¶Ï////////////////////////////////
+    ////////////////////////////////æœ‰æ•ˆæ€§åˆ¤æ–­////////////////////////////////
 
     /**
-     * ÅĞ¶Ïµ±Ç°Çé¿öÊÇ·ñÄÜÖ´ĞĞÊÖÊÆÏà¹Ø¼ÆËã
+     * åˆ¤æ–­å½“å‰æƒ…å†µæ˜¯å¦èƒ½æ‰§è¡Œæ‰‹åŠ¿ç›¸å…³è®¡ç®—
      *
-     * °üÀ¨:ÊÇ·ñÓĞÍ¼Æ¬,Í¼Æ¬ÊÇ·ñÓĞ³ß´ç,¿Ø¼şÊÇ·ñÓĞ³ß´ç.
+     * åŒ…æ‹¬:æ˜¯å¦æœ‰å›¾ç‰‡,å›¾ç‰‡æ˜¯å¦æœ‰å°ºå¯¸,æ§ä»¶æ˜¯å¦æœ‰å°ºå¯¸.
      *
-     * @return ÊÇ·ñÄÜÖ´ĞĞÊÖÊÆÏà¹Ø¼ÆËã
+     * @return æ˜¯å¦èƒ½æ‰§è¡Œæ‰‹åŠ¿ç›¸å…³è®¡ç®—
      */
     private boolean isReady() {
         return getDrawable() != null && getDrawable().getIntrinsicWidth() > 0 && getDrawable().getIntrinsicHeight() > 0
@@ -633,52 +633,52 @@ public class PinchImageView extends ImageView {
     }
 
 
-    ////////////////////////////////mask¶¯»­´¦Àí////////////////////////////////
+    ////////////////////////////////maskåŠ¨ç”»å¤„ç†////////////////////////////////
 
     /**
-     * maskĞŞ¸ÄµÄ¶¯»­
+     * maskä¿®æ”¹çš„åŠ¨ç”»
      *
-     * ºÍÍ¼Æ¬µÄ¶¯»­Ïà»¥¶ÀÁ¢.
+     * å’Œå›¾ç‰‡çš„åŠ¨ç”»ç›¸äº’ç‹¬ç«‹.
      *
      * @see #zoomMaskTo(RectF, long)
      */
     private MaskAnimator mMaskAnimator;
 
     /**
-     * mask±ä»»¶¯»­
+     * maskå˜æ¢åŠ¨ç”»
      *
-     * ½«mask´ÓÒ»¸örect¶¯»­µ½ÁíÍâÒ»¸örect
+     * å°†maskä»ä¸€ä¸ªrectåŠ¨ç”»åˆ°å¦å¤–ä¸€ä¸ªrect
      */
     private class MaskAnimator extends ValueAnimator implements ValueAnimator.AnimatorUpdateListener {
 
         /**
-         * ¿ªÊ¼mask
+         * å¼€å§‹mask
          */
         private float[] mStart = new float[4];
 
         /**
-         * ½áÊømask
+         * ç»“æŸmask
          */
         private float[] mEnd = new float[4];
 
         /**
-         * ÖĞ¼ä½á¹ûmask
+         * ä¸­é—´ç»“æœmask
          */
         private float[] mResult = new float[4];
 
         /**
-         * ´´½¨mask±ä»»¶¯»­
+         * åˆ›å»ºmaskå˜æ¢åŠ¨ç”»
          *
-         * @param start ¶¯»­ÆğÊ¼×´Ì¬
-         * @param end ¶¯»­ÖÕµã×´Ì¬
-         * @param duration ¶¯»­³ÖĞøÊ±¼ä
+         * @param start åŠ¨ç”»èµ·å§‹çŠ¶æ€
+         * @param end åŠ¨ç”»ç»ˆç‚¹çŠ¶æ€
+         * @param duration åŠ¨ç”»æŒç»­æ—¶é—´
          */
         public MaskAnimator(RectF start, RectF end, long duration) {
             super();
             setFloatValues(0, 1f);
             setDuration(duration);
             addUpdateListener(this);
-            //½«ÆğµãÖÕµã¿½±´µ½Êı×é·½±ã¼ÆËã
+            //å°†èµ·ç‚¹ç»ˆç‚¹æ‹·è´åˆ°æ•°ç»„æ–¹ä¾¿è®¡ç®—
             mStart[0] = start.left;
             mStart[1] = start.top;
             mStart[2] = start.right;
@@ -691,32 +691,32 @@ public class PinchImageView extends ImageView {
 
 
         public void onAnimationUpdate(ValueAnimator animation) {
-            //»ñÈ¡¶¯»­½ø¶È,0-1·¶Î§
+            //è·å–åŠ¨ç”»è¿›åº¦,0-1èŒƒå›´
             float value = (Float) animation.getAnimatedValue();
-            //¸ù¾İ½ø¶È¶ÔÆğµãÖÕµãÖ®¼ä×ö²åÖµ
+            //æ ¹æ®è¿›åº¦å¯¹èµ·ç‚¹ç»ˆç‚¹ä¹‹é—´åšæ’å€¼
             for (int i = 0; i < 4; i++) {
                 mResult[i] = mStart[i] + (mEnd[i] - mStart[i]) * value;
             }
-            //ÆÚ¼ämaskÓĞ¿ÉÄÜ±»ÖÃ¿ÕÁË,ËùÒÔÅĞ¶ÏÒ»ÏÂ
+            //æœŸé—´maskæœ‰å¯èƒ½è¢«ç½®ç©ºäº†,æ‰€ä»¥åˆ¤æ–­ä¸€ä¸‹
             if (mMask == null) {
                 mMask = new RectF();
             }
-            //ÉèÖÃĞÂµÄmask²¢»æÖÆ
+            //è®¾ç½®æ–°çš„maskå¹¶ç»˜åˆ¶
             mMask.set(mResult[0], mResult[1], mResult[2], mResult[3]);
             invalidate();
         }
     }
 
 
-    ////////////////////////////////ÊÖÊÆ¶¯»­´¦Àí////////////////////////////////
+    ////////////////////////////////æ‰‹åŠ¿åŠ¨ç”»å¤„ç†////////////////////////////////
 
     /**
-     * ÔÚµ¥Ö¸Ä£Ê½ÏÂ:
-     * ¼ÇÂ¼ÉÏÒ»´ÎÊÖÖ¸µÄÎ»ÖÃ,ÓÃÓÚ¼ÆËãĞÂµÄÎ»ÖÃºÍÉÏÒ»´ÎÎ»ÖÃµÄ²îÖµ.
+     * åœ¨å•æŒ‡æ¨¡å¼ä¸‹:
+     * è®°å½•ä¸Šä¸€æ¬¡æ‰‹æŒ‡çš„ä½ç½®,ç”¨äºè®¡ç®—æ–°çš„ä½ç½®å’Œä¸Šä¸€æ¬¡ä½ç½®çš„å·®å€¼.
      *
-     * Ë«Ö¸Ä£Ê½ÏÂ:
-     * ¼ÇÂ¼Á½¸öÊÖÖ¸µÄÖĞµã,×÷ÎªºÍmScaleCenter°ó¶¨µÄµã.
-     * Õâ¸ö°ó¶¨¿ÉÒÔ±£Ö¤mScaleCenterÎŞÂÛÈçºÎ¶¼»á¸úËæÕâ¸öÖĞµã.
+     * åŒæŒ‡æ¨¡å¼ä¸‹:
+     * è®°å½•ä¸¤ä¸ªæ‰‹æŒ‡çš„ä¸­ç‚¹,ä½œä¸ºå’ŒmScaleCenterç»‘å®šçš„ç‚¹.
+     * è¿™ä¸ªç»‘å®šå¯ä»¥ä¿è¯mScaleCenteræ— è®ºå¦‚ä½•éƒ½ä¼šè·Ÿéšè¿™ä¸ªä¸­ç‚¹.
      *
      * @see #mScaleCenter
      * @see #scale(PointF, float, float, PointF)
@@ -725,11 +725,11 @@ public class PinchImageView extends ImageView {
     private PointF mLastMovePoint = new PointF();
 
     /**
-     * Ëõ·ÅÄ£Ê½ÏÂÍ¼Æ¬µÄËõ·ÅÖĞµã.
+     * ç¼©æ”¾æ¨¡å¼ä¸‹å›¾ç‰‡çš„ç¼©æ”¾ä¸­ç‚¹.
      *
-     * ÎªÆäÖ¸´úµÄµã¾­¹ıinnerMatrix±ä»»Ö®ºóµÄÖµ.
-     * ÆäÖ¸´úµÄµãÔÚÊÖÊÆ¹ı³ÌÖĞÊ¼ÖÕ¸úËæmLastMovePoint.
-     * Í¨¹ıË«Ö¸Ëõ·ÅÊ±,ÆäÎªËõ·ÅÖĞĞÄµã.
+     * ä¸ºå…¶æŒ‡ä»£çš„ç‚¹ç»è¿‡innerMatrixå˜æ¢ä¹‹åçš„å€¼.
+     * å…¶æŒ‡ä»£çš„ç‚¹åœ¨æ‰‹åŠ¿è¿‡ç¨‹ä¸­å§‹ç»ˆè·ŸéšmLastMovePoint.
+     * é€šè¿‡åŒæŒ‡ç¼©æ”¾æ—¶,å…¶ä¸ºç¼©æ”¾ä¸­å¿ƒç‚¹.
      *
      * @see #saveScaleContext(float, float, float, float)
      * @see #mLastMovePoint
@@ -738,10 +738,10 @@ public class PinchImageView extends ImageView {
     private PointF mScaleCenter = new PointF();
 
     /**
-     * Ëõ·ÅÄ£Ê½ÏÂµÄ»ù´¡Ëõ·Å±ÈÀı
+     * ç¼©æ”¾æ¨¡å¼ä¸‹çš„åŸºç¡€ç¼©æ”¾æ¯”ä¾‹
      *
-     * ÎªÍâ²ãËõ·ÅÖµ³ıÒÔ¿ªÊ¼Ëõ·ÅÊ±Á½Ö¸¾àÀë.
-     * ÆäÖµ³ËÉÏ×îĞÂµÄÁ½Ö¸Ö®¼ä¾àÀëÎª×îĞÂµÄÍ¼Æ¬Ëõ·Å±ÈÀı.
+     * ä¸ºå¤–å±‚ç¼©æ”¾å€¼é™¤ä»¥å¼€å§‹ç¼©æ”¾æ—¶ä¸¤æŒ‡è·ç¦».
+     * å…¶å€¼ä¹˜ä¸Šæœ€æ–°çš„ä¸¤æŒ‡ä¹‹é—´è·ç¦»ä¸ºæœ€æ–°çš„å›¾ç‰‡ç¼©æ”¾æ¯”ä¾‹.
      *
      * @see #saveScaleContext(float, float, float, float)
      * @see #scale(PointF, float, float, PointF)
@@ -749,11 +749,11 @@ public class PinchImageView extends ImageView {
     private float mScaleBase = 0;
 
     /**
-     * Í¼Æ¬Ëõ·Å¶¯»­
+     * å›¾ç‰‡ç¼©æ”¾åŠ¨ç”»
      *
-     * Ëõ·ÅÄ£Ê½°ÑÍ¼Æ¬µÄÎ»ÖÃ´óĞ¡³¬³öÏŞÖÆÖ®ºó´¥·¢.
-     * Ë«»÷Í¼Æ¬·Å´ó»òËõĞ¡Ê±´¥·¢.
-     * ÊÖ¶¯µ÷ÓÃouterMatrixTo´¥·¢.
+     * ç¼©æ”¾æ¨¡å¼æŠŠå›¾ç‰‡çš„ä½ç½®å¤§å°è¶…å‡ºé™åˆ¶ä¹‹åè§¦å‘.
+     * åŒå‡»å›¾ç‰‡æ”¾å¤§æˆ–ç¼©å°æ—¶è§¦å‘.
+     * æ‰‹åŠ¨è°ƒç”¨outerMatrixToè§¦å‘.
      *
      * @see #scaleEnd()
      * @see #doubleTap(float, float)
@@ -762,21 +762,21 @@ public class PinchImageView extends ImageView {
     private ScaleAnimator mScaleAnimator;
 
     /**
-     * »¬¶¯²úÉúµÄ¹ßĞÔ¶¯»­
+     * æ»‘åŠ¨äº§ç”Ÿçš„æƒ¯æ€§åŠ¨ç”»
      *
      * @see #fling(float, float)
      */
     private FlingAnimator mFlingAnimator;
 
     /**
-     * ³£ÓÃÊÖÊÆ´¦Àí
+     * å¸¸ç”¨æ‰‹åŠ¿å¤„ç†
      *
-     * ÔÚonTouchEventÄ©Î²±»Ö´ĞĞ.
+     * åœ¨onTouchEventæœ«å°¾è¢«æ‰§è¡Œ.
      */
     private GestureDetector mGestureDetector = new GestureDetector(PinchImageView.this.getContext(), new GestureDetector.SimpleOnGestureListener() {
 
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            //Ö»ÓĞÔÚµ¥Ö¸Ä£Ê½½áÊøÖ®ºó²ÅÔÊĞíÖ´ĞĞfling
+            //åªæœ‰åœ¨å•æŒ‡æ¨¡å¼ç»“æŸä¹‹åæ‰å…è®¸æ‰§è¡Œfling
             if (mPinchMode == PINCH_MODE_FREE && !(mScaleAnimator != null && mScaleAnimator.isRunning())) {
                 fling(velocityX, velocityY);
             }
@@ -784,14 +784,14 @@ public class PinchImageView extends ImageView {
         }
 
         public void onLongPress(MotionEvent e) {
-            //´¥·¢³¤°´
+            //è§¦å‘é•¿æŒ‰
             if (mOnLongClickListener != null) {
                 mOnLongClickListener.onLongClick(PinchImageView.this);
             }
         }
 
         public boolean onDoubleTap(MotionEvent e) {
-            //µ±ÊÖÖ¸¿ìËÙµÚ¶ş´Î°´ÏÂ´¥·¢,´ËÊ±±ØĞëÊÇµ¥Ö¸Ä£Ê½²ÅÔÊĞíÖ´ĞĞdoubleTap
+            //å½“æ‰‹æŒ‡å¿«é€Ÿç¬¬äºŒæ¬¡æŒ‰ä¸‹è§¦å‘,æ­¤æ—¶å¿…é¡»æ˜¯å•æŒ‡æ¨¡å¼æ‰å…è®¸æ‰§è¡ŒdoubleTap
             if (mPinchMode == PINCH_MODE_SCROLL && !(mScaleAnimator != null && mScaleAnimator.isRunning())) {
                 doubleTap(e.getX(), e.getY());
             }
@@ -799,7 +799,7 @@ public class PinchImageView extends ImageView {
         }
 
         public boolean onSingleTapConfirmed(MotionEvent e) {
-            //´¥·¢µã»÷
+            //è§¦å‘ç‚¹å‡»
             if (mOnClickListener != null) {
                 mOnClickListener.onClick(PinchImageView.this);
             }
@@ -811,114 +811,114 @@ public class PinchImageView extends ImageView {
     public boolean onTouchEvent(MotionEvent event) {
         super.onTouchEvent(event);
         int action = event.getAction() & MotionEvent.ACTION_MASK;
-        //×îºóÒ»¸öµãÌ§Æğ»òÕßÈ¡Ïû£¬½áÊøËùÓĞÄ£Ê½
+        //æœ€åä¸€ä¸ªç‚¹æŠ¬èµ·æˆ–è€…å–æ¶ˆï¼Œç»“æŸæ‰€æœ‰æ¨¡å¼
         if(action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
-            //Èç¹ûÖ®Ç°ÊÇËõ·ÅÄ£Ê½,»¹ĞèÒª´¥·¢Ò»ÏÂËõ·Å½áÊø¶¯»­
+            //å¦‚æœä¹‹å‰æ˜¯ç¼©æ”¾æ¨¡å¼,è¿˜éœ€è¦è§¦å‘ä¸€ä¸‹ç¼©æ”¾ç»“æŸåŠ¨ç”»
             if (mPinchMode == PINCH_MODE_SCALE) {
                 scaleEnd();
             }
             mPinchMode = PINCH_MODE_FREE;
         } else if (action == MotionEvent.ACTION_POINTER_UP) {
-            //¶à¸öÊÖÖ¸Çé¿öÏÂÌ§ÆğÒ»¸öÊÖÖ¸,´ËÊ±ĞèÒªÊÇËõ·ÅÄ£Ê½²Å´¥·¢
+            //å¤šä¸ªæ‰‹æŒ‡æƒ…å†µä¸‹æŠ¬èµ·ä¸€ä¸ªæ‰‹æŒ‡,æ­¤æ—¶éœ€è¦æ˜¯ç¼©æ”¾æ¨¡å¼æ‰è§¦å‘
             if (mPinchMode == PINCH_MODE_SCALE) {
-                //Ì§ÆğµÄµãÈç¹û´óÓÚ2£¬ÄÇÃ´Ëõ·ÅÄ£Ê½»¹ÓĞĞ§£¬µ«ÊÇÓĞ¿ÉÄÜ³õÊ¼µã±äÁË£¬ÖØĞÂ²âÁ¿³õÊ¼µã
+                //æŠ¬èµ·çš„ç‚¹å¦‚æœå¤§äº2ï¼Œé‚£ä¹ˆç¼©æ”¾æ¨¡å¼è¿˜æœ‰æ•ˆï¼Œä½†æ˜¯æœ‰å¯èƒ½åˆå§‹ç‚¹å˜äº†ï¼Œé‡æ–°æµ‹é‡åˆå§‹ç‚¹
                 if (event.getPointerCount() > 2) {
-                    //Èç¹û»¹Ã»½áÊøËõ·ÅÄ£Ê½£¬µ«ÊÇµÚÒ»¸öµãÌ§ÆğÁË£¬ÄÇÃ´ÈÃµÚ¶ş¸öµãºÍµÚÈı¸öµã×÷ÎªËõ·Å¿ØÖÆµã
+                    //å¦‚æœè¿˜æ²¡ç»“æŸç¼©æ”¾æ¨¡å¼ï¼Œä½†æ˜¯ç¬¬ä¸€ä¸ªç‚¹æŠ¬èµ·äº†ï¼Œé‚£ä¹ˆè®©ç¬¬äºŒä¸ªç‚¹å’Œç¬¬ä¸‰ä¸ªç‚¹ä½œä¸ºç¼©æ”¾æ§åˆ¶ç‚¹
                     if (event.getAction() >> 8 == 0) {
                         saveScaleContext(event.getX(1), event.getY(1), event.getX(2), event.getY(2));
-                        //Èç¹û»¹Ã»½áÊøËõ·ÅÄ£Ê½£¬µ«ÊÇµÚ¶ş¸öµãÌ§ÆğÁË£¬ÄÇÃ´ÈÃµÚÒ»¸öµãºÍµÚÈı¸öµã×÷ÎªËõ·Å¿ØÖÆµã
+                        //å¦‚æœè¿˜æ²¡ç»“æŸç¼©æ”¾æ¨¡å¼ï¼Œä½†æ˜¯ç¬¬äºŒä¸ªç‚¹æŠ¬èµ·äº†ï¼Œé‚£ä¹ˆè®©ç¬¬ä¸€ä¸ªç‚¹å’Œç¬¬ä¸‰ä¸ªç‚¹ä½œä¸ºç¼©æ”¾æ§åˆ¶ç‚¹
                     } else if (event.getAction() >> 8 == 1) {
                         saveScaleContext(event.getX(0), event.getY(0), event.getX(2), event.getY(2));
                     }
                 }
-                //Èç¹ûÌ§ÆğµÄµãµÈÓÚ2,ÄÇÃ´´ËÊ±Ö»Ê£ÏÂÒ»¸öµã,Ò²²»ÔÊĞí½øÈëµ¥Ö¸Ä£Ê½,ÒòÎª´ËÊ±¿ÉÄÜÍ¼Æ¬Ã»ÓĞÔÚÕıÈ·µÄÎ»ÖÃÉÏ
+                //å¦‚æœæŠ¬èµ·çš„ç‚¹ç­‰äº2,é‚£ä¹ˆæ­¤æ—¶åªå‰©ä¸‹ä¸€ä¸ªç‚¹,ä¹Ÿä¸å…è®¸è¿›å…¥å•æŒ‡æ¨¡å¼,å› ä¸ºæ­¤æ—¶å¯èƒ½å›¾ç‰‡æ²¡æœ‰åœ¨æ­£ç¡®çš„ä½ç½®ä¸Š
             }
-            //µÚÒ»¸öµã°´ÏÂ£¬¿ªÆô¹ö¶¯Ä£Ê½£¬¼ÇÂ¼¿ªÊ¼¹ö¶¯µÄµã
+            //ç¬¬ä¸€ä¸ªç‚¹æŒ‰ä¸‹ï¼Œå¼€å¯æ»šåŠ¨æ¨¡å¼ï¼Œè®°å½•å¼€å§‹æ»šåŠ¨çš„ç‚¹
         } else if (action == MotionEvent.ACTION_DOWN) {
-            //ÔÚ¾ØÕó¶¯»­¹ı³ÌÖĞ²»ÔÊĞíÆô¶¯¹ö¶¯Ä£Ê½
+            //åœ¨çŸ©é˜µåŠ¨ç”»è¿‡ç¨‹ä¸­ä¸å…è®¸å¯åŠ¨æ»šåŠ¨æ¨¡å¼
             if (!(mScaleAnimator != null && mScaleAnimator.isRunning())) {
-                //Í£Ö¹ËùÓĞ¶¯»­
+                //åœæ­¢æ‰€æœ‰åŠ¨ç”»
                 cancelAllAnimator();
-                //ÇĞ»»µ½¹ö¶¯Ä£Ê½
+                //åˆ‡æ¢åˆ°æ»šåŠ¨æ¨¡å¼
                 mPinchMode = PINCH_MODE_SCROLL;
-                //±£´æ´¥·¢µãÓÃÓÚmove¼ÆËã²îÖµ
+                //ä¿å­˜è§¦å‘ç‚¹ç”¨äºmoveè®¡ç®—å·®å€¼
                 mLastMovePoint.set(event.getX(), event.getY());
             }
-            //·ÇµÚÒ»¸öµã°´ÏÂ£¬¹Ø±Õ¹ö¶¯Ä£Ê½£¬¿ªÆôËõ·ÅÄ£Ê½£¬¼ÇÂ¼Ëõ·ÅÄ£Ê½µÄÒ»Ğ©³õÊ¼Êı¾İ
+            //éç¬¬ä¸€ä¸ªç‚¹æŒ‰ä¸‹ï¼Œå…³é—­æ»šåŠ¨æ¨¡å¼ï¼Œå¼€å¯ç¼©æ”¾æ¨¡å¼ï¼Œè®°å½•ç¼©æ”¾æ¨¡å¼çš„ä¸€äº›åˆå§‹æ•°æ®
         } else if (action == MotionEvent.ACTION_POINTER_DOWN) {
-            //Í£Ö¹ËùÓĞ¶¯»­
+            //åœæ­¢æ‰€æœ‰åŠ¨ç”»
             cancelAllAnimator();
-            //ÇĞ»»µ½Ëõ·ÅÄ£Ê½
+            //åˆ‡æ¢åˆ°ç¼©æ”¾æ¨¡å¼
             mPinchMode = PINCH_MODE_SCALE;
-            //±£´æËõ·ÅµÄÁ½¸öÊÖÖ¸
+            //ä¿å­˜ç¼©æ”¾çš„ä¸¤ä¸ªæ‰‹æŒ‡
             saveScaleContext(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
         } else if (action == MotionEvent.ACTION_MOVE) {
             if (!(mScaleAnimator != null && mScaleAnimator.isRunning())) {
-                //ÔÚ¹ö¶¯Ä£Ê½ÏÂÒÆ¶¯
+                //åœ¨æ»šåŠ¨æ¨¡å¼ä¸‹ç§»åŠ¨
                 if (mPinchMode == PINCH_MODE_SCROLL) {
-                    //Ã¿´ÎÒÆ¶¯²úÉúÒ»¸ö²îÖµÀÛ»ıµ½Í¼Æ¬Î»ÖÃÉÏ
+                    //æ¯æ¬¡ç§»åŠ¨äº§ç”Ÿä¸€ä¸ªå·®å€¼ç´¯ç§¯åˆ°å›¾ç‰‡ä½ç½®ä¸Š
                     scrollBy(event.getX() - mLastMovePoint.x, event.getY() - mLastMovePoint.y);
-                    //¼ÇÂ¼ĞÂµÄÒÆ¶¯µã
+                    //è®°å½•æ–°çš„ç§»åŠ¨ç‚¹
                     mLastMovePoint.set(event.getX(), event.getY());
-                    //ÔÚËõ·ÅÄ£Ê½ÏÂÒÆ¶¯
+                    //åœ¨ç¼©æ”¾æ¨¡å¼ä¸‹ç§»åŠ¨
                 } else if (mPinchMode == PINCH_MODE_SCALE && event.getPointerCount() > 1) {
-                    //Á½¸öËõ·Åµã¼äµÄ¾àÀë
+                    //ä¸¤ä¸ªç¼©æ”¾ç‚¹é—´çš„è·ç¦»
                     float distance = MathUtils.getDistance(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
-                    //±£´æËõ·ÅµãÖĞµã
+                    //ä¿å­˜ç¼©æ”¾ç‚¹ä¸­ç‚¹
                     float[] lineCenter = MathUtils.getCenterPoint(event.getX(0), event.getY(0), event.getX(1), event.getY(1));
                     mLastMovePoint.set(lineCenter[0], lineCenter[1]);
-                    //´¦ÀíËõ·Å
+                    //å¤„ç†ç¼©æ”¾
                     scale(mScaleCenter, mScaleBase, distance, mLastMovePoint);
                 }
             }
         }
-        //ÎŞÂÛÈçºÎ¶¼´¦Àí¸÷ÖÖÍâ²¿ÊÖÊÆ
+        //æ— è®ºå¦‚ä½•éƒ½å¤„ç†å„ç§å¤–éƒ¨æ‰‹åŠ¿
         mGestureDetector.onTouchEvent(event);
         return true;
     }
 
     /**
-     * ÈÃÍ¼Æ¬ÒÆ¶¯Ò»¶Î¾àÀë
+     * è®©å›¾ç‰‡ç§»åŠ¨ä¸€æ®µè·ç¦»
      *
-     * ²»ÄÜÒÆ¶¯³¬¹ı¿ÉÒÆ¶¯·¶Î§,³¬¹ıÁË¾Íµ½¿ÉÒÆ¶¯·¶Î§±ß½çÎªÖ¹.
+     * ä¸èƒ½ç§»åŠ¨è¶…è¿‡å¯ç§»åŠ¨èŒƒå›´,è¶…è¿‡äº†å°±åˆ°å¯ç§»åŠ¨èŒƒå›´è¾¹ç•Œä¸ºæ­¢.
      *
-     * @param xDiff ÒÆ¶¯¾àÀë
-     * @param yDiff ÒÆ¶¯¾àÀë
-     * @return ÊÇ·ñ¸Ä±äÁËÎ»ÖÃ
+     * @param xDiff ç§»åŠ¨è·ç¦»
+     * @param yDiff ç§»åŠ¨è·ç¦»
+     * @return æ˜¯å¦æ”¹å˜äº†ä½ç½®
      */
     private boolean scrollBy(float xDiff, float yDiff) {
         if (!isReady()) {
             return false;
         }
-        //Ô­Í¼·½¿ò
+        //åŸå›¾æ–¹æ¡†
         RectF bound = MathUtils.rectFTake();
         getImageBound(bound);
-        //¿Ø¼ş´óĞ¡
+        //æ§ä»¶å¤§å°
         float displayWidth = getWidth();
         float displayHeight = getHeight();
-        //Èç¹ûµ±Ç°Í¼Æ¬¿í¶ÈĞ¡ÓÚ¿Ø¼ş¿í¶È£¬Ôò²»ÄÜÒÆ¶¯
+        //å¦‚æœå½“å‰å›¾ç‰‡å®½åº¦å°äºæ§ä»¶å®½åº¦ï¼Œåˆ™ä¸èƒ½ç§»åŠ¨
         if (bound.right - bound.left < displayWidth) {
             xDiff = 0;
-            //Èç¹ûÍ¼Æ¬×ó±ßÔÚÒÆ¶¯ºó³¬³ö¿Ø¼ş×ó±ß
+            //å¦‚æœå›¾ç‰‡å·¦è¾¹åœ¨ç§»åŠ¨åè¶…å‡ºæ§ä»¶å·¦è¾¹
         } else if (bound.left + xDiff > 0) {
-            //Èç¹ûÔÚÒÆ¶¯Ö®Ç°ÊÇÃ»³¬³öµÄ£¬¼ÆËãÓ¦¸ÃÒÆ¶¯µÄ¾àÀë
+            //å¦‚æœåœ¨ç§»åŠ¨ä¹‹å‰æ˜¯æ²¡è¶…å‡ºçš„ï¼Œè®¡ç®—åº”è¯¥ç§»åŠ¨çš„è·ç¦»
             if (bound.left < 0) {
                 xDiff = -bound.left;
-                //·ñÔòÎŞ·¨ÒÆ¶¯
+                //å¦åˆ™æ— æ³•ç§»åŠ¨
             } else {
                 xDiff = 0;
             }
-            //Èç¹ûÍ¼Æ¬ÓÒ±ßÔÚÒÆ¶¯ºó³¬³ö¿Ø¼şÓÒ±ß
+            //å¦‚æœå›¾ç‰‡å³è¾¹åœ¨ç§»åŠ¨åè¶…å‡ºæ§ä»¶å³è¾¹
         } else if (bound.right + xDiff < displayWidth) {
-            //Èç¹ûÔÚÒÆ¶¯Ö®Ç°ÊÇÃ»³¬³öµÄ£¬¼ÆËãÓ¦¸ÃÒÆ¶¯µÄ¾àÀë
+            //å¦‚æœåœ¨ç§»åŠ¨ä¹‹å‰æ˜¯æ²¡è¶…å‡ºçš„ï¼Œè®¡ç®—åº”è¯¥ç§»åŠ¨çš„è·ç¦»
             if (bound.right > displayWidth) {
                 xDiff = displayWidth - bound.right;
-                //·ñÔòÎŞ·¨ÒÆ¶¯
+                //å¦åˆ™æ— æ³•ç§»åŠ¨
             } else {
                 xDiff = 0;
             }
         }
-        //ÒÔÏÂÍ¬Àí
+        //ä»¥ä¸‹åŒç†
         if (bound.bottom - bound.top < displayHeight) {
             yDiff = 0;
         } else if (bound.top + yDiff > 0) {
@@ -935,12 +935,12 @@ public class PinchImageView extends ImageView {
             }
         }
         MathUtils.rectFGiven(bound);
-        //Ó¦ÓÃÒÆ¶¯±ä»»
+        //åº”ç”¨ç§»åŠ¨å˜æ¢
         mOuterMatrix.postTranslate(xDiff, yDiff);
         dispatchOuterMatrixChanged();
-        //´¥·¢ÖØ»æ
+        //è§¦å‘é‡ç»˜
         invalidate();
-        //¼ì²éÊÇ·ñÓĞ±ä»¯
+        //æ£€æŸ¥æ˜¯å¦æœ‰å˜åŒ–
         if (xDiff != 0 || yDiff != 0) {
             return true;
         } else {
@@ -949,37 +949,37 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * ¼ÇÂ¼Ëõ·ÅÇ°µÄÒ»Ğ©ĞÅÏ¢
+     * è®°å½•ç¼©æ”¾å‰çš„ä¸€äº›ä¿¡æ¯
      *
-     * ±£´æ»ù´¡Ëõ·ÅÖµ.
-     * ±£´æÍ¼Æ¬Ëõ·ÅÖĞµã.
+     * ä¿å­˜åŸºç¡€ç¼©æ”¾å€¼.
+     * ä¿å­˜å›¾ç‰‡ç¼©æ”¾ä¸­ç‚¹.
      *
-     * @param x1 Ëõ·ÅµÚÒ»¸öÊÖÖ¸
-     * @param y1 Ëõ·ÅµÚÒ»¸öÊÖÖ¸
-     * @param x2 Ëõ·ÅµÚ¶ş¸öÊÖÖ¸
-     * @param y2 Ëõ·ÅµÚ¶ş¸öÊÖÖ¸
+     * @param x1 ç¼©æ”¾ç¬¬ä¸€ä¸ªæ‰‹æŒ‡
+     * @param y1 ç¼©æ”¾ç¬¬ä¸€ä¸ªæ‰‹æŒ‡
+     * @param x2 ç¼©æ”¾ç¬¬äºŒä¸ªæ‰‹æŒ‡
+     * @param y2 ç¼©æ”¾ç¬¬äºŒä¸ªæ‰‹æŒ‡
      */
     private void saveScaleContext(float x1, float y1, float x2, float y2) {
-        //¼ÇÂ¼»ù´¡Ëõ·ÅÖµ,ÆäÖĞÍ¼Æ¬Ëõ·Å±ÈÀı°´ÕÕx·½ÏòÀ´¼ÆËã
-        //ÀíÂÛÉÏÍ¼Æ¬Ó¦¸ÃÊÇµÈ±ÈµÄ,xºÍy·½Ïò±ÈÀıÏàÍ¬
-        //µ«ÊÇÓĞ¿ÉÄÜÍâ²¿Éè¶¨ÁË²»¹æ·¶µÄÖµ.
-        //µ«ÊÇºóĞøµÄscale²Ù×÷»á½«xy²»µÈµÄËõ·ÅÖµ¾ÀÕı,¸Ä³ÉºÍx·½ÏòÏàÍ¬
+        //è®°å½•åŸºç¡€ç¼©æ”¾å€¼,å…¶ä¸­å›¾ç‰‡ç¼©æ”¾æ¯”ä¾‹æŒ‰ç…§xæ–¹å‘æ¥è®¡ç®—
+        //ç†è®ºä¸Šå›¾ç‰‡åº”è¯¥æ˜¯ç­‰æ¯”çš„,xå’Œyæ–¹å‘æ¯”ä¾‹ç›¸åŒ
+        //ä½†æ˜¯æœ‰å¯èƒ½å¤–éƒ¨è®¾å®šäº†ä¸è§„èŒƒçš„å€¼.
+        //ä½†æ˜¯åç»­çš„scaleæ“ä½œä¼šå°†xyä¸ç­‰çš„ç¼©æ”¾å€¼çº æ­£,æ”¹æˆå’Œxæ–¹å‘ç›¸åŒ
         mScaleBase = MathUtils.getMatrixScale(mOuterMatrix)[0] / MathUtils.getDistance(x1, y1, x2, y2);
-        //Á½ÊÖÖ¸µÄÖĞµãÔÚÆÁÄ»ÉÏÂäÔÚÁËÍ¼Æ¬µÄÄ³¸öµãÉÏ,Í¼Æ¬ÉÏµÄÕâ¸öµãÔÚ¾­¹ı×Ü¾ØÕó±ä»»ºóºÍÊÖÖ¸ÖĞµãÏàÍ¬
-        //ÏÖÔÚÎÒÃÇĞèÒªµÃµ½Í¼Æ¬ÉÏÕâ¸öµãÔÚÍ¼Æ¬ÊÇfit center×´Ì¬ÏÂÔÚÆÁÄ»ÉÏµÄÎ»ÖÃ
-        //ÒòÎªºóĞøµÄ¼ÆËã¶¼ÊÇ»ùÓÚÍ¼Æ¬ÊÇfit center×´Ì¬ÏÂ½øĞĞ±ä»»
-        //ËùÒÔĞèÒª°ÑÁ½ÊÖÖ¸ÖĞµã³ıÒÔÍâ²ã±ä»»¾ØÕóµÃµ½mScaleCenter
+        //ä¸¤æ‰‹æŒ‡çš„ä¸­ç‚¹åœ¨å±å¹•ä¸Šè½åœ¨äº†å›¾ç‰‡çš„æŸä¸ªç‚¹ä¸Š,å›¾ç‰‡ä¸Šçš„è¿™ä¸ªç‚¹åœ¨ç»è¿‡æ€»çŸ©é˜µå˜æ¢åå’Œæ‰‹æŒ‡ä¸­ç‚¹ç›¸åŒ
+        //ç°åœ¨æˆ‘ä»¬éœ€è¦å¾—åˆ°å›¾ç‰‡ä¸Šè¿™ä¸ªç‚¹åœ¨å›¾ç‰‡æ˜¯fit centerçŠ¶æ€ä¸‹åœ¨å±å¹•ä¸Šçš„ä½ç½®
+        //å› ä¸ºåç»­çš„è®¡ç®—éƒ½æ˜¯åŸºäºå›¾ç‰‡æ˜¯fit centerçŠ¶æ€ä¸‹è¿›è¡Œå˜æ¢
+        //æ‰€ä»¥éœ€è¦æŠŠä¸¤æ‰‹æŒ‡ä¸­ç‚¹é™¤ä»¥å¤–å±‚å˜æ¢çŸ©é˜µå¾—åˆ°mScaleCenter
         float[] center = MathUtils.inverseMatrixPoint(MathUtils.getCenterPoint(x1, y1, x2, y2), mOuterMatrix);
         mScaleCenter.set(center[0], center[1]);
     }
 
     /**
-     * ¶ÔÍ¼Æ¬°´ÕÕÒ»Ğ©ÊÖÊÆĞÅÏ¢½øĞĞËõ·Å
+     * å¯¹å›¾ç‰‡æŒ‰ç…§ä¸€äº›æ‰‹åŠ¿ä¿¡æ¯è¿›è¡Œç¼©æ”¾
      *
      * @param scaleCenter mScaleCenter
      * @param scaleBase mScaleBase
-     * @param distance ÊÖÖ¸Á½µãÖ®¼ä¾àÀë
-     * @param lineCenter ÊÖÖ¸Á½µãÖ®¼äÖĞµã
+     * @param distance æ‰‹æŒ‡ä¸¤ç‚¹ä¹‹é—´è·ç¦»
+     * @param lineCenter æ‰‹æŒ‡ä¸¤ç‚¹ä¹‹é—´ä¸­ç‚¹
      *
      * @see #mScaleCenter
      * @see #mScaleBase
@@ -988,30 +988,30 @@ public class PinchImageView extends ImageView {
         if (!isReady()) {
             return;
         }
-        //¼ÆËãÍ¼Æ¬´Ófit center×´Ì¬µ½Ä¿±ê×´Ì¬µÄËõ·Å±ÈÀı
+        //è®¡ç®—å›¾ç‰‡ä»fit centerçŠ¶æ€åˆ°ç›®æ ‡çŠ¶æ€çš„ç¼©æ”¾æ¯”ä¾‹
         float scale = scaleBase * distance;
         Matrix matrix = MathUtils.matrixTake();
-        //°´ÕÕÍ¼Æ¬Ëõ·ÅÖĞĞÄËõ·Å£¬²¢ÇÒÈÃËõ·ÅÖĞĞÄÔÚËõ·ÅµãÖĞµãÉÏ
+        //æŒ‰ç…§å›¾ç‰‡ç¼©æ”¾ä¸­å¿ƒç¼©æ”¾ï¼Œå¹¶ä¸”è®©ç¼©æ”¾ä¸­å¿ƒåœ¨ç¼©æ”¾ç‚¹ä¸­ç‚¹ä¸Š
         matrix.postScale(scale, scale, scaleCenter.x, scaleCenter.y);
-        //ÈÃÍ¼Æ¬µÄËõ·ÅÖĞµã¸úËæÊÖÖ¸Ëõ·ÅÖĞµã
+        //è®©å›¾ç‰‡çš„ç¼©æ”¾ä¸­ç‚¹è·Ÿéšæ‰‹æŒ‡ç¼©æ”¾ä¸­ç‚¹
         matrix.postTranslate(lineCenter.x - scaleCenter.x, lineCenter.y - scaleCenter.y);
-        //Ó¦ÓÃ±ä»»
+        //åº”ç”¨å˜æ¢
         mOuterMatrix.set(matrix);
         MathUtils.matrixGiven(matrix);
         dispatchOuterMatrixChanged();
-        //ÖØ»æ
+        //é‡ç»˜
         invalidate();
     }
 
     /**
-     * Ë«»÷ºó·Å´ó»òÕßËõĞ¡
+     * åŒå‡»åæ”¾å¤§æˆ–è€…ç¼©å°
      *
-     * ½«Í¼Æ¬Ëõ·Å±ÈÀıËõ·Åµ½nextScaleÖ¸¶¨µÄÖµ.
-     * µ«nextScaleÖµ²»ÄÜ´óÓÚ×î´óËõ·ÅÖµ²»ÄÜĞ¡ÓÚfit centerÇé¿öÏÂµÄËõ·ÅÖµ.
-     * ½«Ë«»÷µÄµã¾¡Á¿ÒÆ¶¯µ½¿Ø¼şÖĞĞÄ.
+     * å°†å›¾ç‰‡ç¼©æ”¾æ¯”ä¾‹ç¼©æ”¾åˆ°nextScaleæŒ‡å®šçš„å€¼.
+     * ä½†nextScaleå€¼ä¸èƒ½å¤§äºæœ€å¤§ç¼©æ”¾å€¼ä¸èƒ½å°äºfit centeræƒ…å†µä¸‹çš„ç¼©æ”¾å€¼.
+     * å°†åŒå‡»çš„ç‚¹å°½é‡ç§»åŠ¨åˆ°æ§ä»¶ä¸­å¿ƒ.
      *
-     * @param x Ë«»÷µÄµã
-     * @param y Ë«»÷µÄµã
+     * @param x åŒå‡»çš„ç‚¹
+     * @param y åŒå‡»çš„ç‚¹
      *
      * @see #calculateNextScale(float, float)
      * @see #getMaxScale()
@@ -1020,39 +1020,39 @@ public class PinchImageView extends ImageView {
         if (!isReady()) {
             return;
         }
-        //»ñÈ¡µÚÒ»²ã±ä»»¾ØÕó
+        //è·å–ç¬¬ä¸€å±‚å˜æ¢çŸ©é˜µ
         Matrix innerMatrix = MathUtils.matrixTake();
         getInnerMatrix(innerMatrix);
-        //µ±Ç°×ÜµÄËõ·Å±ÈÀı
+        //å½“å‰æ€»çš„ç¼©æ”¾æ¯”ä¾‹
         float innerScale = MathUtils.getMatrixScale(innerMatrix)[0];
         float outerScale = MathUtils.getMatrixScale(mOuterMatrix)[0];
         float currentScale = innerScale * outerScale;
-        //¿Ø¼ş´óĞ¡
+        //æ§ä»¶å¤§å°
         float displayWidth = getWidth();
         float displayHeight = getHeight();
-        //×î´ó·Å´ó´óĞ¡
+        //æœ€å¤§æ”¾å¤§å¤§å°
         float maxScale = getMaxScale();
-        //½ÓÏÂÀ´Òª·Å´óµÄ´óĞ¡
+        //æ¥ä¸‹æ¥è¦æ”¾å¤§çš„å¤§å°
         float nextScale = calculateNextScale(innerScale, outerScale);
-        //Èç¹û½ÓÏÂÀ´·Å´ó´óÓÚ×î´óÖµ»òÕßĞ¡ÓÚfit centerÖµ£¬ÔòÈ¡±ß½ç
+        //å¦‚æœæ¥ä¸‹æ¥æ”¾å¤§å¤§äºæœ€å¤§å€¼æˆ–è€…å°äºfit centerå€¼ï¼Œåˆ™å–è¾¹ç•Œ
         if (nextScale > maxScale) {
             nextScale = maxScale;
         }
         if (nextScale < innerScale) {
             nextScale = innerScale;
         }
-        //¿ªÊ¼¼ÆËãËõ·Å¶¯»­µÄ½á¹û¾ØÕó
+        //å¼€å§‹è®¡ç®—ç¼©æ”¾åŠ¨ç”»çš„ç»“æœçŸ©é˜µ
         Matrix animEnd = MathUtils.matrixTake(mOuterMatrix);
-        //¼ÆËã»¹ĞèËõ·ÅµÄ±¶Êı
+        //è®¡ç®—è¿˜éœ€ç¼©æ”¾çš„å€æ•°
         animEnd.postScale(nextScale / currentScale, nextScale / currentScale, x, y);
-        //½«·Å´óµãÒÆ¶¯µ½¿Ø¼şÖĞĞÄ
+        //å°†æ”¾å¤§ç‚¹ç§»åŠ¨åˆ°æ§ä»¶ä¸­å¿ƒ
         animEnd.postTranslate(displayWidth / 2f - x, displayHeight / 2f - y);
-        //µÃµ½·Å´óÖ®ºóµÄÍ¼Æ¬·½¿ò
+        //å¾—åˆ°æ”¾å¤§ä¹‹åçš„å›¾ç‰‡æ–¹æ¡†
         Matrix testMatrix = MathUtils.matrixTake(innerMatrix);
         testMatrix.postConcat(animEnd);
         RectF testBound = MathUtils.rectFTake(0, 0, getDrawable().getIntrinsicWidth(), getDrawable().getIntrinsicHeight());
         testMatrix.mapRect(testBound);
-        //ĞŞÕıÎ»ÖÃ
+        //ä¿®æ­£ä½ç½®
         float postX = 0;
         float postY = 0;
         if (testBound.right - testBound.left < displayWidth) {
@@ -1069,14 +1069,14 @@ public class PinchImageView extends ImageView {
         } else if (testBound.bottom < displayHeight) {
             postY = displayHeight - testBound.bottom;
         }
-        //Ó¦ÓÃĞŞÕıÎ»ÖÃ
+        //åº”ç”¨ä¿®æ­£ä½ç½®
         animEnd.postTranslate(postX, postY);
-        //ÇåÀíµ±Ç°¿ÉÄÜÕıÔÚÖ´ĞĞµÄ¶¯»­
+        //æ¸…ç†å½“å‰å¯èƒ½æ­£åœ¨æ‰§è¡Œçš„åŠ¨ç”»
         cancelAllAnimator();
-        //Æô¶¯¾ØÕó¶¯»­
+        //å¯åŠ¨çŸ©é˜µåŠ¨ç”»
         mScaleAnimator = new ScaleAnimator(mOuterMatrix, animEnd);
         mScaleAnimator.start();
-        //ÇåÀíÁÙÊ±±äÁ¿
+        //æ¸…ç†ä¸´æ—¶å˜é‡
         MathUtils.rectFGiven(testBound);
         MathUtils.matrixGiven(testMatrix);
         MathUtils.matrixGiven(animEnd);
@@ -1084,53 +1084,53 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * µ±Ëõ·Å²Ù×÷½áÊø¶¯»­
+     * å½“ç¼©æ”¾æ“ä½œç»“æŸåŠ¨ç”»
      *
-     * Èç¹ûÍ¼Æ¬³¬¹ı±ß½ç,ÕÒµ½×î½üµÄÎ»ÖÃ¶¯»­»Ö¸´.
-     * Èç¹ûÍ¼Æ¬Ëõ·Å³ß´ç³¬¹ı×î´óÖµ»òÕß×îĞ¡Öµ,ÕÒµ½×î½üµÄÖµ¶¯»­»Ö¸´.
+     * å¦‚æœå›¾ç‰‡è¶…è¿‡è¾¹ç•Œ,æ‰¾åˆ°æœ€è¿‘çš„ä½ç½®åŠ¨ç”»æ¢å¤.
+     * å¦‚æœå›¾ç‰‡ç¼©æ”¾å°ºå¯¸è¶…è¿‡æœ€å¤§å€¼æˆ–è€…æœ€å°å€¼,æ‰¾åˆ°æœ€è¿‘çš„å€¼åŠ¨ç”»æ¢å¤.
      */
     private void scaleEnd() {
         if (!isReady()) {
             return;
         }
-        //ÊÇ·ñĞŞÕıÁËÎ»ÖÃ
+        //æ˜¯å¦ä¿®æ­£äº†ä½ç½®
         boolean change = false;
-        //»ñÈ¡Í¼Æ¬ÕûÌåµÄ±ä»»¾ØÕó
+        //è·å–å›¾ç‰‡æ•´ä½“çš„å˜æ¢çŸ©é˜µ
         Matrix currentMatrix = MathUtils.matrixTake();
         getCurrentImageMatrix(currentMatrix);
-        //ÕûÌåËõ·Å±ÈÀı
+        //æ•´ä½“ç¼©æ”¾æ¯”ä¾‹
         float currentScale = MathUtils.getMatrixScale(currentMatrix)[0];
-        //µÚ¶ş²ãËõ·Å±ÈÀı
+        //ç¬¬äºŒå±‚ç¼©æ”¾æ¯”ä¾‹
         float outerScale = MathUtils.getMatrixScale(mOuterMatrix)[0];
-        //¿Ø¼ş´óĞ¡
+        //æ§ä»¶å¤§å°
         float displayWidth = getWidth();
         float displayHeight = getHeight();
-        //×î´óËõ·Å±ÈÀı
+        //æœ€å¤§ç¼©æ”¾æ¯”ä¾‹
         float maxScale = getMaxScale();
-        //±ÈÀıĞŞÕı
+        //æ¯”ä¾‹ä¿®æ­£
         float scalePost = 1f;
-        //Î»ÖÃĞŞÕı
+        //ä½ç½®ä¿®æ­£
         float postX = 0;
         float postY = 0;
-        //Èç¹ûÕûÌåËõ·Å±ÈÀı´óÓÚ×î´ó±ÈÀı£¬½øĞĞËõ·ÅĞŞÕı
+        //å¦‚æœæ•´ä½“ç¼©æ”¾æ¯”ä¾‹å¤§äºæœ€å¤§æ¯”ä¾‹ï¼Œè¿›è¡Œç¼©æ”¾ä¿®æ­£
         if (currentScale > maxScale) {
             scalePost = maxScale / currentScale;
         }
-        //Èç¹ûËõ·ÅĞŞÕıºóÕûÌåµ¼ÖÂµÚ¶ş²ãËõ·ÅĞ¡ÓÚ1£¨¾ÍÊÇÍ¼Æ¬±Èfit center×´Ì¬»¹Ğ¡£©£¬ÖØĞÂĞŞÕıËõ·Å
+        //å¦‚æœç¼©æ”¾ä¿®æ­£åæ•´ä½“å¯¼è‡´ç¬¬äºŒå±‚ç¼©æ”¾å°äº1ï¼ˆå°±æ˜¯å›¾ç‰‡æ¯”fit centerçŠ¶æ€è¿˜å°ï¼‰ï¼Œé‡æ–°ä¿®æ­£ç¼©æ”¾
         if (outerScale * scalePost < 1f) {
             scalePost = 1f / outerScale;
         }
-        //Èç¹ûËõ·ÅĞŞÕı²»Îª1£¬ËµÃ÷½øĞĞÁËĞŞÕı
+        //å¦‚æœç¼©æ”¾ä¿®æ­£ä¸ä¸º1ï¼Œè¯´æ˜è¿›è¡Œäº†ä¿®æ­£
         if (scalePost != 1f) {
             change = true;
         }
-        //³¢ÊÔ¸ù¾İËõ·Åµã½øĞĞËõ·ÅĞŞÕı
+        //å°è¯•æ ¹æ®ç¼©æ”¾ç‚¹è¿›è¡Œç¼©æ”¾ä¿®æ­£
         Matrix testMatrix = MathUtils.matrixTake(currentMatrix);
         testMatrix.postScale(scalePost, scalePost, mLastMovePoint.x, mLastMovePoint.y);
         RectF testBound = MathUtils.rectFTake(0, 0, getDrawable().getIntrinsicWidth(), getDrawable().getIntrinsicHeight());
-        //»ñÈ¡Ëõ·ÅĞŞÕıºóµÄÍ¼Æ¬·½¿ò
+        //è·å–ç¼©æ”¾ä¿®æ­£åçš„å›¾ç‰‡æ–¹æ¡†
         testMatrix.mapRect(testBound);
-        //¼ì²âËõ·ÅĞŞÕıºóÎ»ÖÃÓĞÎŞ³¬³ö£¬Èç¹û³¬³ö½øĞĞÎ»ÖÃĞŞÕı
+        //æ£€æµ‹ç¼©æ”¾ä¿®æ­£åä½ç½®æœ‰æ— è¶…å‡ºï¼Œå¦‚æœè¶…å‡ºè¿›è¡Œä½ç½®ä¿®æ­£
         if (testBound.right - testBound.left < displayWidth) {
             postX = displayWidth / 2f - (testBound.right + testBound.left) / 2f;
         } else if (testBound.left > 0) {
@@ -1145,55 +1145,55 @@ public class PinchImageView extends ImageView {
         } else if (testBound.bottom < displayHeight) {
             postY = displayHeight - testBound.bottom;
         }
-        //Èç¹ûÎ»ÖÃĞŞÕı²»Îª0£¬ËµÃ÷½øĞĞÁËĞŞÕı
+        //å¦‚æœä½ç½®ä¿®æ­£ä¸ä¸º0ï¼Œè¯´æ˜è¿›è¡Œäº†ä¿®æ­£
         if (postX != 0 || postY != 0) {
             change = true;
         }
-        //Ö»ÓĞÓĞÖ´ĞĞĞŞÕı²ÅÖ´ĞĞ¶¯»­
+        //åªæœ‰æœ‰æ‰§è¡Œä¿®æ­£æ‰æ‰§è¡ŒåŠ¨ç”»
         if (change) {
-            //¼ÆËã½áÊø¾ØÕó
+            //è®¡ç®—ç»“æŸçŸ©é˜µ
             Matrix animEnd = MathUtils.matrixTake(mOuterMatrix);
             animEnd.postScale(scalePost, scalePost, mLastMovePoint.x, mLastMovePoint.y);
             animEnd.postTranslate(postX, postY);
-            //ÇåÀíµ±Ç°¿ÉÄÜÕıÔÚÖ´ĞĞµÄ¶¯»­
+            //æ¸…ç†å½“å‰å¯èƒ½æ­£åœ¨æ‰§è¡Œçš„åŠ¨ç”»
             cancelAllAnimator();
-            //Æô¶¯¾ØÕó¶¯»­
+            //å¯åŠ¨çŸ©é˜µåŠ¨ç”»
             mScaleAnimator = new ScaleAnimator(mOuterMatrix, animEnd);
             mScaleAnimator.start();
-            //ÇåÀíÁÙÊ±±äÁ¿
+            //æ¸…ç†ä¸´æ—¶å˜é‡
             MathUtils.matrixGiven(animEnd);
         }
-        //ÇåÀíÁÙÊ±±äÁ¿
+        //æ¸…ç†ä¸´æ—¶å˜é‡
         MathUtils.rectFGiven(testBound);
         MathUtils.matrixGiven(testMatrix);
         MathUtils.matrixGiven(currentMatrix);
     }
 
     /**
-     * Ö´ĞĞ¹ßĞÔ¶¯»­
+     * æ‰§è¡Œæƒ¯æ€§åŠ¨ç”»
      *
-     * ¶¯»­ÔÚÓöµ½²»ÄÜÒÆ¶¯¾ÍÍ£Ö¹.
-     * ¶¯»­ËÙ¶ÈË¥¼õµ½ºÜĞ¡¾ÍÍ£Ö¹.
+     * åŠ¨ç”»åœ¨é‡åˆ°ä¸èƒ½ç§»åŠ¨å°±åœæ­¢.
+     * åŠ¨ç”»é€Ÿåº¦è¡°å‡åˆ°å¾ˆå°å°±åœæ­¢.
      *
-     * ÆäÖĞ²ÎÊıËÙ¶Èµ¥Î»Îª ÏñËØ/Ãë
+     * å…¶ä¸­å‚æ•°é€Ÿåº¦å•ä½ä¸º åƒç´ /ç§’
      *
-     * @param vx x·½ÏòËÙ¶È
-     * @param vy y·½ÏòËÙ¶È
+     * @param vx xæ–¹å‘é€Ÿåº¦
+     * @param vy yæ–¹å‘é€Ÿåº¦
      */
     private void fling(float vx, float vy) {
         if (!isReady()) {
             return;
         }
-        //ÇåÀíµ±Ç°¿ÉÄÜÕıÔÚÖ´ĞĞµÄ¶¯»­
+        //æ¸…ç†å½“å‰å¯èƒ½æ­£åœ¨æ‰§è¡Œçš„åŠ¨ç”»
         cancelAllAnimator();
-        //´´½¨¹ßĞÔ¶¯»­
-        //FlingAnimatorµ¥Î»Îª ÏñËØ/Ö¡,Ò»Ãë60Ö¡
+        //åˆ›å»ºæƒ¯æ€§åŠ¨ç”»
+        //FlingAnimatorå•ä½ä¸º åƒç´ /å¸§,ä¸€ç§’60å¸§
         mFlingAnimator = new FlingAnimator(vx / 60f, vy / 60f);
         mFlingAnimator.start();
     }
 
     /**
-     * Í£Ö¹ËùÓĞÊÖÊÆ¶¯»­
+     * åœæ­¢æ‰€æœ‰æ‰‹åŠ¿åŠ¨ç”»
      */
     private void cancelAllAnimator() {
         if (mScaleAnimator != null) {
@@ -1207,25 +1207,25 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * ¹ßĞÔ¶¯»­
+     * æƒ¯æ€§åŠ¨ç”»
      *
-     * ËÙ¶ÈÖğ½¥Ë¥¼õ,Ã¿Ö¡ËÙ¶ÈË¥¼õÎªÔ­À´µÄFLING_DAMPING_FACTOR,µ±ËÙ¶ÈË¥¼õµ½Ğ¡ÓÚ1Ê±Í£Ö¹.
-     * µ±Í¼Æ¬²»ÄÜÒÆ¶¯Ê±,¶¯»­Í£Ö¹.
+     * é€Ÿåº¦é€æ¸è¡°å‡,æ¯å¸§é€Ÿåº¦è¡°å‡ä¸ºåŸæ¥çš„FLING_DAMPING_FACTOR,å½“é€Ÿåº¦è¡°å‡åˆ°å°äº1æ—¶åœæ­¢.
+     * å½“å›¾ç‰‡ä¸èƒ½ç§»åŠ¨æ—¶,åŠ¨ç”»åœæ­¢.
      */
     private class FlingAnimator extends ValueAnimator implements ValueAnimator.AnimatorUpdateListener {
 
         /**
-         * ËÙ¶ÈÏòÁ¿
+         * é€Ÿåº¦å‘é‡
          */
         private float[] mVector;
 
         /**
-         * ´´½¨¹ßĞÔ¶¯»­
+         * åˆ›å»ºæƒ¯æ€§åŠ¨ç”»
          *
-         * ²ÎÊıµ¥Î»Îª ÏñËØ/Ö¡
+         * å‚æ•°å•ä½ä¸º åƒç´ /å¸§
          *
-         * @param vectorX ËÙ¶ÈÏòÁ¿
-         * @param vectorY ËÙ¶ÈÏòÁ¿
+         * @param vectorX é€Ÿåº¦å‘é‡
+         * @param vectorY é€Ÿåº¦å‘é‡
          */
         public FlingAnimator(float vectorX, float vectorY) {
             super();
@@ -1237,12 +1237,12 @@ public class PinchImageView extends ImageView {
 
 
         public void onAnimationUpdate(ValueAnimator animation) {
-            //ÒÆ¶¯Í¼Ïñ²¢¸ø³ö½á¹û
+            //ç§»åŠ¨å›¾åƒå¹¶ç»™å‡ºç»“æœ
             boolean result = scrollBy(mVector[0], mVector[1]);
-            //Ë¥¼õËÙ¶È
+            //è¡°å‡é€Ÿåº¦
             mVector[0] *= FLING_DAMPING_FACTOR;
             mVector[1] *= FLING_DAMPING_FACTOR;
-            //ËÙ¶ÈÌ«Ğ¡»òÕß²»ÄÜÒÆ¶¯ÁË¾Í½áÊø
+            //é€Ÿåº¦å¤ªå°æˆ–è€…ä¸èƒ½ç§»åŠ¨äº†å°±ç»“æŸ
             if (!result || MathUtils.getDistance(0, 0, mVector[0], mVector[1]) < 1f) {
                 animation.cancel();
             }
@@ -1250,47 +1250,47 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * Ëõ·Å¶¯»­
+     * ç¼©æ”¾åŠ¨ç”»
      *
-     * ÔÚ¸ø¶¨Ê±¼äÄÚ´ÓÒ»¸ö¾ØÕóµÄ±ä»¯Öğ½¥¶¯»­µ½ÁíÒ»¸ö¾ØÕóµÄ±ä»¯
+     * åœ¨ç»™å®šæ—¶é—´å†…ä»ä¸€ä¸ªçŸ©é˜µçš„å˜åŒ–é€æ¸åŠ¨ç”»åˆ°å¦ä¸€ä¸ªçŸ©é˜µçš„å˜åŒ–
      */
     private class ScaleAnimator extends ValueAnimator implements ValueAnimator.AnimatorUpdateListener {
 
         /**
-         * ¿ªÊ¼¾ØÕó
+         * å¼€å§‹çŸ©é˜µ
          */
         private float[] mStart = new float[9];
 
         /**
-         * ½áÊø¾ØÕó
+         * ç»“æŸçŸ©é˜µ
          */
         private float[] mEnd = new float[9];
 
         /**
-         * ÖĞ¼ä½á¹û¾ØÕó
+         * ä¸­é—´ç»“æœçŸ©é˜µ
          */
         private float[] mResult = new float[9];
 
         /**
-         * ¹¹½¨Ò»¸öËõ·Å¶¯»­
+         * æ„å»ºä¸€ä¸ªç¼©æ”¾åŠ¨ç”»
          *
-         * ´ÓÒ»¸ö¾ØÕó±ä»»µ½ÁíÍâÒ»¸ö¾ØÕó
+         * ä»ä¸€ä¸ªçŸ©é˜µå˜æ¢åˆ°å¦å¤–ä¸€ä¸ªçŸ©é˜µ
          *
-         * @param start ¿ªÊ¼¾ØÕó
-         * @param end ½áÊø¾ØÕó
+         * @param start å¼€å§‹çŸ©é˜µ
+         * @param end ç»“æŸçŸ©é˜µ
          */
         public ScaleAnimator(Matrix start, Matrix end) {
             this(start, end, SCALE_ANIMATOR_DURATION);
         }
 
         /**
-         * ¹¹½¨Ò»¸öËõ·Å¶¯»­
+         * æ„å»ºä¸€ä¸ªç¼©æ”¾åŠ¨ç”»
          *
-         * ´ÓÒ»¸ö¾ØÕó±ä»»µ½ÁíÍâÒ»¸ö¾ØÕó
+         * ä»ä¸€ä¸ªçŸ©é˜µå˜æ¢åˆ°å¦å¤–ä¸€ä¸ªçŸ©é˜µ
          *
-         * @param start ¿ªÊ¼¾ØÕó
-         * @param end ½áÊø¾ØÕó
-         * @param duration ¶¯»­Ê±¼ä
+         * @param start å¼€å§‹çŸ©é˜µ
+         * @param end ç»“æŸçŸ©é˜µ
+         * @param duration åŠ¨ç”»æ—¶é—´
          */
         public ScaleAnimator(Matrix start, Matrix end, long duration) {
             super();
@@ -1303,13 +1303,13 @@ public class PinchImageView extends ImageView {
 
 
         public void onAnimationUpdate(ValueAnimator animation) {
-            //»ñÈ¡¶¯»­½ø¶È
+            //è·å–åŠ¨ç”»è¿›åº¦
             float value = (Float) animation.getAnimatedValue();
-            //¸ù¾İ¶¯»­½ø¶È¼ÆËã¾ØÕóÖĞ¼ä²åÖµ
+            //æ ¹æ®åŠ¨ç”»è¿›åº¦è®¡ç®—çŸ©é˜µä¸­é—´æ’å€¼
             for (int i = 0; i < 9; i++) {
                 mResult[i] = mStart[i] + (mEnd[i] - mStart[i]) * value;
             }
-            //ÉèÖÃ¾ØÕó²¢ÖØ»æ
+            //è®¾ç½®çŸ©é˜µå¹¶é‡ç»˜
             mOuterMatrix.setValues(mResult);
             dispatchOuterMatrixChanged();
             invalidate();
@@ -1317,33 +1317,33 @@ public class PinchImageView extends ImageView {
     }
 
 
-    ////////////////////////////////·ÀÖ¹ÄÚ´æ¶¶¶¯¸´ÓÃ¶ÔÏó////////////////////////////////
+    ////////////////////////////////é˜²æ­¢å†…å­˜æŠ–åŠ¨å¤ç”¨å¯¹è±¡////////////////////////////////
 
     /**
-     * ¶ÔÏó³Ø
+     * å¯¹è±¡æ± 
      *
-     * ·ÀÖ¹Æµ·±new¶ÔÏó²úÉúÄÚ´æ¶¶¶¯.
-     * ÓÉÓÚ¶ÔÏó³Ø×î´ó³¤¶ÈÏŞÖÆ,Èç¹ûÍÌ¶ÈÁ¿³¬¹ı¶ÔÏó³ØÈİÁ¿,ÈÔÈ»»á·¢Éú¶¶¶¯.
-     * ´ËÊ±ĞèÒªÔö´ó¶ÔÏó³ØÈİÁ¿,µ«ÊÇ»áÕ¼ÓÃ¸ü¶àÄÚ´æ.
+     * é˜²æ­¢é¢‘ç¹newå¯¹è±¡äº§ç”Ÿå†…å­˜æŠ–åŠ¨.
+     * ç”±äºå¯¹è±¡æ± æœ€å¤§é•¿åº¦é™åˆ¶,å¦‚æœååº¦é‡è¶…è¿‡å¯¹è±¡æ± å®¹é‡,ä»ç„¶ä¼šå‘ç”ŸæŠ–åŠ¨.
+     * æ­¤æ—¶éœ€è¦å¢å¤§å¯¹è±¡æ± å®¹é‡,ä½†æ˜¯ä¼šå ç”¨æ›´å¤šå†…å­˜.
      *
-     * @param <T> ¶ÔÏó³ØÈİÄÉµÄ¶ÔÏóÀàĞÍ
+     * @param <T> å¯¹è±¡æ± å®¹çº³çš„å¯¹è±¡ç±»å‹
      */
     private static abstract class ObjectsPool<T> {
 
         /**
-         * ¶ÔÏó³ØµÄ×î´óÈİÁ¿
+         * å¯¹è±¡æ± çš„æœ€å¤§å®¹é‡
          */
         private int mSize;
 
         /**
-         * ¶ÔÏó³Ø¶ÓÁĞ
+         * å¯¹è±¡æ± é˜Ÿåˆ—
          */
         private Queue<T> mQueue;
 
         /**
-         * ´´½¨Ò»¸ö¶ÔÏó³Ø
+         * åˆ›å»ºä¸€ä¸ªå¯¹è±¡æ± 
          *
-         * @param size ¶ÔÏó³Ø×î´óÈİÁ¿
+         * @param size å¯¹è±¡æ± æœ€å¤§å®¹é‡
          */
         public ObjectsPool(int size) {
             mSize = size;
@@ -1351,63 +1351,63 @@ public class PinchImageView extends ImageView {
         }
 
         /**
-         * »ñÈ¡Ò»¸ö¿ÕÏĞµÄ¶ÔÏó
+         * è·å–ä¸€ä¸ªç©ºé—²çš„å¯¹è±¡
          *
-         * Èç¹û¶ÔÏó³ØÎª¿Õ,Ôò¶ÔÏó³Ø×Ô¼º»ánewÒ»¸ö·µ»Ø.
-         * Èç¹û¶ÔÏó³ØÄÚÓĞ¶ÔÏó,ÔòÈ¡Ò»¸öÒÑ´æÔÚµÄ·µ»Ø.
-         * take³öÀ´µÄ¶ÔÏóÓÃÍêÒª¼ÇµÃµ÷ÓÃgiven¹é»¹.
-         * Èç¹û²»¹é»¹,ÈÃÈ»»á·¢ÉúÄÚ´æ¶¶¶¯,µ«²»»áÒıÆğĞ¹Â©.
+         * å¦‚æœå¯¹è±¡æ± ä¸ºç©º,åˆ™å¯¹è±¡æ± è‡ªå·±ä¼šnewä¸€ä¸ªè¿”å›.
+         * å¦‚æœå¯¹è±¡æ± å†…æœ‰å¯¹è±¡,åˆ™å–ä¸€ä¸ªå·²å­˜åœ¨çš„è¿”å›.
+         * takeå‡ºæ¥çš„å¯¹è±¡ç”¨å®Œè¦è®°å¾—è°ƒç”¨givenå½’è¿˜.
+         * å¦‚æœä¸å½’è¿˜,è®©ç„¶ä¼šå‘ç”Ÿå†…å­˜æŠ–åŠ¨,ä½†ä¸ä¼šå¼•èµ·æ³„æ¼.
          *
-         * @return ¿ÉÓÃµÄ¶ÔÏó
+         * @return å¯ç”¨çš„å¯¹è±¡
          *
          * @see #given(Object)
          */
         public T take() {
-            //Èç¹û³ØÄÚÎª¿Õ¾Í´´½¨Ò»¸ö
+            //å¦‚æœæ± å†…ä¸ºç©ºå°±åˆ›å»ºä¸€ä¸ª
             if (mQueue.size() == 0) {
                 return newInstance();
             } else {
-                //¶ÔÏó³ØÀïÓĞ¾Í´Ó¶¥¶ËÄÃ³öÀ´Ò»¸ö·µ»Ø
+                //å¯¹è±¡æ± é‡Œæœ‰å°±ä»é¡¶ç«¯æ‹¿å‡ºæ¥ä¸€ä¸ªè¿”å›
                 return resetInstance(mQueue.poll());
             }
         }
 
         /**
-         * ¹é»¹¶ÔÏó³ØÄÚÉêÇëµÄ¶ÔÏó
+         * å½’è¿˜å¯¹è±¡æ± å†…ç”³è¯·çš„å¯¹è±¡
          *
-         * Èç¹û¹é»¹µÄ¶ÔÏóÊıÁ¿³¬¹ı¶ÔÏó³ØÈİÁ¿,ÄÇÃ´¹é»¹µÄ¶ÔÏó¾Í»á±»¶ªÆú.
+         * å¦‚æœå½’è¿˜çš„å¯¹è±¡æ•°é‡è¶…è¿‡å¯¹è±¡æ± å®¹é‡,é‚£ä¹ˆå½’è¿˜çš„å¯¹è±¡å°±ä¼šè¢«ä¸¢å¼ƒ.
          *
-         * @param obj ¹é»¹µÄ¶ÔÏó
+         * @param obj å½’è¿˜çš„å¯¹è±¡
          *
          * @see #take()
          */
         public void given(T obj) {
-            //Èç¹û¶ÔÏó³Ø»¹ÓĞ¿ÕÎ»×Ó¾Í¹é»¹¶ÔÏó
+            //å¦‚æœå¯¹è±¡æ± è¿˜æœ‰ç©ºä½å­å°±å½’è¿˜å¯¹è±¡
             if (obj != null && mQueue.size() < mSize) {
                 mQueue.offer(obj);
             }
         }
 
         /**
-         * ÊµÀı»¯¶ÔÏó
+         * å®ä¾‹åŒ–å¯¹è±¡
          *
-         * @return ´´½¨µÄ¶ÔÏó
+         * @return åˆ›å»ºçš„å¯¹è±¡
          */
         abstract protected T newInstance();
 
         /**
-         * ÖØÖÃ¶ÔÏó
+         * é‡ç½®å¯¹è±¡
          *
-         * °Ñ¶ÔÏóÊı¾İÇå¿Õµ½¾ÍÏñ¸Õ´´½¨µÄÒ»Ñù.
+         * æŠŠå¯¹è±¡æ•°æ®æ¸…ç©ºåˆ°å°±åƒåˆšåˆ›å»ºçš„ä¸€æ ·.
          *
-         * @param obj ĞèÒª±»ÖØÖÃµÄ¶ÔÏó
-         * @return ±»ÖØÖÃÖ®ºóµÄ¶ÔÏó
+         * @param obj éœ€è¦è¢«é‡ç½®çš„å¯¹è±¡
+         * @return è¢«é‡ç½®ä¹‹åçš„å¯¹è±¡
          */
         abstract protected T resetInstance(T obj);
     }
 
     /**
-     * ¾ØÕó¶ÔÏó³Ø
+     * çŸ©é˜µå¯¹è±¡æ± 
      */
     private static class MatrixPool extends ObjectsPool<Matrix> {
 
@@ -1428,7 +1428,7 @@ public class PinchImageView extends ImageView {
     }
 
     /**
-     * ¾ØĞÎ¶ÔÏó³Ø
+     * çŸ©å½¢å¯¹è±¡æ± 
      */
     private static class RectFPool extends ObjectsPool<RectF> {
 
@@ -1449,27 +1449,27 @@ public class PinchImageView extends ImageView {
     }
 
 
-    ////////////////////////////////ÊıÑ§¼ÆËã¹¤¾ßÀà////////////////////////////////
+    ////////////////////////////////æ•°å­¦è®¡ç®—å·¥å…·ç±»////////////////////////////////
 
     /**
-     * ÊıÑ§¼ÆËã¹¤¾ßÀà
+     * æ•°å­¦è®¡ç®—å·¥å…·ç±»
      */
     public static class MathUtils {
 
         /**
-         * ¾ØÕó¶ÔÏó³Ø
+         * çŸ©é˜µå¯¹è±¡æ± 
          */
         private static MatrixPool mMatrixPool = new MatrixPool(16);
 
         /**
-         * »ñÈ¡¾ØÕó¶ÔÏó
+         * è·å–çŸ©é˜µå¯¹è±¡
          */
         public static Matrix matrixTake() {
             return mMatrixPool.take();
         }
 
         /**
-         * »ñÈ¡Ä³¸ö¾ØÕóµÄcopy
+         * è·å–æŸä¸ªçŸ©é˜µçš„copy
          */
         public static Matrix matrixTake(Matrix matrix) {
             Matrix result = mMatrixPool.take();
@@ -1480,26 +1480,26 @@ public class PinchImageView extends ImageView {
         }
 
         /**
-         * ¹é»¹¾ØÕó¶ÔÏó
+         * å½’è¿˜çŸ©é˜µå¯¹è±¡
          */
         public static void matrixGiven(Matrix matrix) {
             mMatrixPool.given(matrix);
         }
 
         /**
-         * ¾ØĞÎ¶ÔÏó³Ø
+         * çŸ©å½¢å¯¹è±¡æ± 
          */
         private static RectFPool mRectFPool = new RectFPool(16);
 
         /**
-         * »ñÈ¡¾ØĞÎ¶ÔÏó
+         * è·å–çŸ©å½¢å¯¹è±¡
          */
         public static RectF rectFTake() {
             return mRectFPool.take();
         }
 
         /**
-         * °´ÕÕÖ¸¶¨Öµ»ñÈ¡¾ØĞÎ¶ÔÏó
+         * æŒ‰ç…§æŒ‡å®šå€¼è·å–çŸ©å½¢å¯¹è±¡
          */
         public static RectF rectFTake(float left, float top, float right, float bottom) {
             RectF result = mRectFPool.take();
@@ -1508,7 +1508,7 @@ public class PinchImageView extends ImageView {
         }
 
         /**
-         * »ñÈ¡Ä³¸ö¾ØĞÎµÄ¸±±¾
+         * è·å–æŸä¸ªçŸ©å½¢çš„å‰¯æœ¬
          */
         public static RectF rectFTake(RectF rectF) {
             RectF result = mRectFPool.take();
@@ -1519,20 +1519,20 @@ public class PinchImageView extends ImageView {
         }
 
         /**
-         * ¹é»¹¾ØĞÎ¶ÔÏó
+         * å½’è¿˜çŸ©å½¢å¯¹è±¡
          */
         public static void rectFGiven(RectF rectF) {
             mRectFPool.given(rectF);
         }
 
         /**
-         * »ñÈ¡Á½µãÖ®¼ä¾àÀë
+         * è·å–ä¸¤ç‚¹ä¹‹é—´è·ç¦»
          *
-         * @param x1 µã1
-         * @param y1 µã1
-         * @param x2 µã2
-         * @param y2 µã2
-         * @return ¾àÀë
+         * @param x1 ç‚¹1
+         * @param y1 ç‚¹1
+         * @param x2 ç‚¹2
+         * @param y2 ç‚¹2
+         * @return è·ç¦»
          */
         public static float getDistance(float x1, float y1, float x2, float y2) {
             float x = x1 - x2;
@@ -1541,12 +1541,12 @@ public class PinchImageView extends ImageView {
         }
 
         /**
-         * »ñÈ¡Á½µãµÄÖĞµã
+         * è·å–ä¸¤ç‚¹çš„ä¸­ç‚¹
          *
-         * @param x1 µã1
-         * @param y1 µã1
-         * @param x2 µã2
-         * @param y2 µã2
+         * @param x1 ç‚¹1
+         * @param y1 ç‚¹1
+         * @param x2 ç‚¹2
+         * @param y2 ç‚¹2
          * @return float[]{x, y}
          */
         public static float[] getCenterPoint(float x1, float y1, float x2, float y2) {
@@ -1554,9 +1554,9 @@ public class PinchImageView extends ImageView {
         }
 
         /**
-         * »ñÈ¡¾ØÕóµÄËõ·ÅÖµ
+         * è·å–çŸ©é˜µçš„ç¼©æ”¾å€¼
          *
-         * @param matrix Òª¼ÆËãµÄ¾ØÕó
+         * @param matrix è¦è®¡ç®—çš„çŸ©é˜µ
          * @return float[]{scaleX, scaleY}
          */
         public static float[] getMatrixScale(Matrix matrix) {
@@ -1570,10 +1570,10 @@ public class PinchImageView extends ImageView {
         }
 
         /**
-         * ¼ÆËãµã³ıÒÔ¾ØÕóµÄÖµ
+         * è®¡ç®—ç‚¹é™¤ä»¥çŸ©é˜µçš„å€¼
          *
          * matrix.mapPoints(unknownPoint) -> point
-         * ÒÑÖªpointºÍmatrix,ÇóunknownPointµÄÖµ.
+         * å·²çŸ¥pointå’Œmatrix,æ±‚unknownPointçš„å€¼.
          *
          * @param point
          * @param matrix
@@ -1582,12 +1582,12 @@ public class PinchImageView extends ImageView {
         public static float[] inverseMatrixPoint(float[] point, Matrix matrix) {
             if (point != null && matrix != null) {
                 float[] dst = new float[2];
-                //¼ÆËãmatrixµÄÄæ¾ØÕó
+                //è®¡ç®—matrixçš„é€†çŸ©é˜µ
                 Matrix inverse = matrixTake();
                 matrix.invert(inverse);
-                //ÓÃÄæ¾ØÕó±ä»»pointµ½dst,dst¾ÍÊÇ½á¹û
+                //ç”¨é€†çŸ©é˜µå˜æ¢pointåˆ°dst,dstå°±æ˜¯ç»“æœ
                 inverse.mapPoints(dst, point);
-                //Çå³ıÁÙÊ±±äÁ¿
+                //æ¸…é™¤ä¸´æ—¶å˜é‡
                 matrixGiven(inverse);
                 return dst;
             } else {
@@ -1596,10 +1596,10 @@ public class PinchImageView extends ImageView {
         }
 
         /**
-         * ¼ÆËãÁ½¸ö¾ØĞÎÖ®¼äµÄ±ä»»¾ØÕó
+         * è®¡ç®—ä¸¤ä¸ªçŸ©å½¢ä¹‹é—´çš„å˜æ¢çŸ©é˜µ
          *
          * unknownMatrix.mapRect(to, from)
-         * ÒÑÖªfrom¾ØĞÎºÍto¾ØĞÎ,ÇóunknownMatrix
+         * å·²çŸ¥fromçŸ©å½¢å’ŒtoçŸ©å½¢,æ±‚unknownMatrix
          *
          * @param from
          * @param to
@@ -1619,13 +1619,13 @@ public class PinchImageView extends ImageView {
         }
 
         /**
-         * ¼ÆËãÍ¼Æ¬ÔÚÄ³¸öImageViewÖĞµÄÏÔÊ¾¾ØĞÎ
+         * è®¡ç®—å›¾ç‰‡åœ¨æŸä¸ªImageViewä¸­çš„æ˜¾ç¤ºçŸ©å½¢
          *
-         * @param container ImageViewµÄRect
-         * @param srcWidth Í¼Æ¬µÄ¿í¶È
-         * @param srcHeight Í¼Æ¬µÄ¸ß¶È
-         * @param scaleType Í¼Æ¬ÔÚImageViewÖĞµÄScaleType
-         * @param result Í¼Æ¬Ó¦¸ÃÔÚImageViewÖĞÕ¹Ê¾µÄ¾ØĞÎ
+         * @param container ImageViewçš„Rect
+         * @param srcWidth å›¾ç‰‡çš„å®½åº¦
+         * @param srcHeight å›¾ç‰‡çš„é«˜åº¦
+         * @param scaleType å›¾ç‰‡åœ¨ImageViewä¸­çš„ScaleType
+         * @param result å›¾ç‰‡åº”è¯¥åœ¨ImageViewä¸­å±•ç¤ºçš„çŸ©å½¢
          */
         public static void calculateScaledRectInContainer(RectF container, float srcWidth, float srcHeight, ScaleType scaleType, RectF result) {
             if (container == null || result == null) {
@@ -1634,7 +1634,7 @@ public class PinchImageView extends ImageView {
             if (srcWidth == 0 || srcHeight == 0) {
                 return;
             }
-            //Ä¬ÈÏscaleTypeÎªfit center
+            //é»˜è®¤scaleTypeä¸ºfit center
             if (scaleType == null) {
                 scaleType = ScaleType.FIT_CENTER;
             }

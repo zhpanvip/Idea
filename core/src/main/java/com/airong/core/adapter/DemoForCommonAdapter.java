@@ -1,13 +1,12 @@
-package com.cypoem.idea.base;
+package com.airong.core.adapter;
 
 import android.content.Context;
-import com.cypoem.idea.module.bean.Contact;
 import java.util.List;
 
-public class DemoForCommonAdapter extends CommonAdapter<Contact> {
+public class DemoForCommonAdapter{ //extends CommonAdapter<Contact>
 
-	public DemoForCommonAdapter(Context context, List<Contact> datas, int layoutId) {
-		super(context, datas, layoutId);
+	/*public DemoForCommonAdapter(Context context, List<Contact> datas, int layoutId) {
+		//super(context, datas, layoutId);
 	}
 
 	@Override
@@ -20,5 +19,5 @@ public class DemoForCommonAdapter extends CommonAdapter<Contact> {
 //		tvName.setText(t.getUserName());
 //		tvAge.setText(String.valueOf(t.getAge()));
 
-	}
+	}*/
 }

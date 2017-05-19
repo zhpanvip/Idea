@@ -3,14 +3,12 @@ package com.cypoem.idea.fragment;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cypoem.idea.R;
-import com.cypoem.idea.adapter.CommonAdapter;
+import com.cypoem.idea.adapter.HomeAdapter;
 import com.cypoem.idea.module.bean.Article;
 import com.cypoem.idea.module.bean.Meizi;
 import com.cypoem.idea.module.wrapper.MeiziWrapper;
@@ -21,8 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -37,7 +33,7 @@ public class HomePageFragment extends BaseFragment {
     TextView toolbarSubtitle;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-    private CommonAdapter mAdapter;
+    private HomeAdapter mAdapter;
     private int type;
 
     public static HomePageFragment getInstance(int type) {
@@ -89,7 +85,7 @@ public class HomePageFragment extends BaseFragment {
         mList.add(article5);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
-        mAdapter = new CommonAdapter(getContext());
+        mAdapter = new HomeAdapter(getContext());
         mAdapter.fillList(mList);
         mRecyclerView.setAdapter(mAdapter);
     }

@@ -12,13 +12,13 @@ import com.cypoem.idea.R;
  * Created by zhpan on 2017/5/14.
  */
 
-public class CommonViewHolder extends BaseHolder {
+public class HomeViewHolder extends BaseHolder {
     public ImageView imageView;
     public TextView mTvTitle;
     public TextView mTvDescribe;
     public TextView mTvTime;
     public TextView mTvDetails;
-    public CommonViewHolder(ViewGroup parent, @LayoutRes int resId) {
+    public HomeViewHolder(ViewGroup parent, @LayoutRes int resId) {
         super(parent, resId);
         imageView=getView(R.id.iv_background);
         mTvTitle=getView(R.id.tv_title);

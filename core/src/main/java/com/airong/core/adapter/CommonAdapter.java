@@ -1,4 +1,4 @@
-package com.cypoem.idea.base;
+package com.airong.core.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,24 +11,31 @@ import java.util.List;
 public abstract class CommonAdapter<T> extends BaseAdapter {
 	protected Context context;
 	protected LayoutInflater inflater;
-	protected List<T> datas;
+	protected List<T> mList;
 	protected int layoutId;
 
-	public CommonAdapter(Context context, List<T> datas, int layoutId) {
+	public List<T> getList() {
+		return mList;
+	}
+
+	public void setList(List<T> mList) {
+		this.mList = mList;
+	}
+
+	public CommonAdapter(Context context, int layoutId) {
 		inflater = LayoutInflater.from(context);
 		this.context = context;
-		this.datas = datas;
 		this.layoutId = layoutId;
 	}
 
 	@Override
 	public int getCount() {
-		return datas.size();
+		return mList.size();
 	}
 
 	@Override
 	public T getItem(int position) {
-		return datas.get(position);
+		return mList.get(position);
 	}
 
 	@Override
@@ -39,10 +46,10 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		CommonViewHolder holder = CommonViewHolder.get(context, convertView, parent, layoutId, position);
-		convert(holder, getItem(position), datas);
-		return holder.getmConvertView();
+		convert(holder, getItem(position), mList);
+		return holder.getConvertView();
 	}
 
-	public abstract void convert(CommonViewHolder holder, T t, List<T> datas);
+	public abstract void convert(CommonViewHolder holder, T t, List<T> list);
 
 }

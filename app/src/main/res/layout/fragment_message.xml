@@ -4,95 +4,98 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/toolbar_layout" />
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="16sp"
-            android:textColor="@color/green"
-            android:text="@string/praise_notification"/>
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/green"
+                    android:text="@string/praise_notification"/>
 
-        <CheckBox
-            android:id="@+id/cb_praise"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/back_white"
-            android:layout_alignParentRight="true"/>
-    </RelativeLayout>
-    <include layout="@layout/base_line"/>
-    <ListView
-        android:id="@+id/lv_praise"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+                <CheckBox
+                    android:id="@+id/cb_praise"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/back_white"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+            <include layout="@layout/base_line"/>
+            <com.cypoem.idea.view.ListViewForScrollView
+                android:id="@+id/lv_praise"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
 
-        android:visibility="gone"/>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="16sp"
-            android:textColor="@color/green"
-            android:text="@string/system_notification"/>
+                android:visibility="gone"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/green"
+                    android:text="@string/system_notification"/>
 
-        <CheckBox
-            android:id="@+id/cb_system"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/back_white"
-            android:layout_alignParentRight="true"/>
-    </RelativeLayout>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/lv_system"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content"/>
-    <include layout="@layout/base_line"/>
+                <CheckBox
+                    android:id="@+id/cb_system"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/back_white"
+                    android:layout_alignParentRight="true"/>
+            </RelativeLayout>
+            <com.cypoem.idea.view.ListViewForScrollView
+                android:id="@+id/lv_system"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content"/>
+            <include layout="@layout/base_line"/>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="16sp"
-            android:textColor="@color/green"
-            android:text="@string/other_notification"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:textSize="16sp"
+                    android:textColor="@color/green"
+                    android:text="@string/other_notification"/>
 
-        <CheckBox
-            android:id="@+id/cb_other"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/back_white"
-            android:layout_alignParentEnd="true"/>
-    </RelativeLayout>
+                <CheckBox
+                    android:id="@+id/cb_other"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/back_white"
+                    android:layout_alignParentEnd="true"/>
+            </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/lv_other"
-        android:layout_width="match_parent"
-        android:visibility="gone"
-        android:layout_height="wrap_content"/>
-    <include layout="@layout/base_line"/>
-
-    <!--<ExpandableListView
-        android:id="@+id/elv_message"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>-->
+            <com.cypoem.idea.view.ListViewForScrollView
+                android:id="@+id/lv_other"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="wrap_content"/>
+            <include layout="@layout/base_line"/>
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

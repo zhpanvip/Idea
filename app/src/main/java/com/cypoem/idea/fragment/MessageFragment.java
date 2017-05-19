@@ -1,25 +1,22 @@
 package com.cypoem.idea.fragment;
 
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.cypoem.idea.R;
-import com.cypoem.idea.adapter.PraiseAdapter;
+import com.cypoem.idea.adapter.NotifyAdapter;
+import com.cypoem.idea.module.bean.NotifyBean;
+import com.cypoem.idea.view.ListInScrollView;
+import com.cypoem.idea.view.ListViewForScrollView;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 
 /**
@@ -34,18 +31,20 @@ public class MessageFragment extends BaseFragment {
     @BindView(R.id.cb_praise)
     CheckBox mCbPraise;
     @BindView(R.id.lv_praise)
-    ListView mLvPraise;
+    ListViewForScrollView mLvPraise;
     @BindView(R.id.cb_system)
     CheckBox mCbSystem;
     @BindView(R.id.lv_system)
-    RecyclerView mLvSystem;
+    ListViewForScrollView mLvSystem;
     @BindView(R.id.cb_other)
     CheckBox mCbOther;
     @BindView(R.id.lv_other)
-    RecyclerView mLvOther;
+    ListViewForScrollView mLvOther;
 
-    private PraiseAdapter mPraiseAdapter;
-    private List<String> mList;
+    private NotifyAdapter mPraiseAdapter;
+    private NotifyAdapter mSystemAdapter;
+    private NotifyAdapter mOtherAdapter;
+    private List<NotifyBean> mList;
 
     @Override
     protected int getLayoutId() {
@@ -59,28 +58,50 @@ public class MessageFragment extends BaseFragment {
     }
 
     private void setListener() {
-        mCbPraise.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        mCbPraise.setOnCheckedChangeListener((buttonView,isChecked)-> {
                 if(isChecked){
                     mLvPraise.setVisibility(View.VISIBLE);
                 }else {
                     mLvPraise.setVisibility(View.GONE);
                 }
+        });
+        mCbSystem.setOnCheckedChangeListener((buttonView,isChecked)-> {
+            if(isChecked){
+                mLvSystem.setVisibility(View.VISIBLE);
+            }else {
+                mLvSystem.setVisibility(View.GONE);
+            }
+        });
+        mCbOther.setOnCheckedChangeListener((buttonView,isChecked)-> {
+            if(isChecked){
+                mLvOther.setVisibility(View.VISIBLE);
+            }else {
+                mLvOther.setVisibility(View.GONE);
             }
         });
     }
 
     private void initData() {
         toolbarTitle.setText("我的消息");
-        mPraiseAdapter=new PraiseAdapter(getContext());
+        mPraiseAdapter=new NotifyAdapter(getContext(),R.layout.item_praise);
+        mSystemAdapter=new NotifyAdapter(getContext(),R.layout.item_praise);
+        mOtherAdapter=new NotifyAdapter(getContext(),R.layout.item_praise);
         mList=new ArrayList<>();
-        mList.add("123");
-        mList.add("123");
-        mList.add("123");
-        mList.add("123");
+        NotifyBean notifyBean=new NotifyBean();
+        notifyBean.setContent("这是内容");
+        notifyBean.setTime("这是时间");
+        notifyBean.setTitle("这是标题");
+        mList.add(notifyBean);
+        mList.add(notifyBean);
+        mList.add(notifyBean);
+        mList.add(notifyBean);
+
         mPraiseAdapter.setList(mList);
+        mSystemAdapter.setList(mList);
+        mOtherAdapter.setList(mList);
         mLvPraise.setAdapter(mPraiseAdapter);
+        mLvSystem.setAdapter(mSystemAdapter);
+        mLvOther.setAdapter(mOtherAdapter);
     }
 
 }

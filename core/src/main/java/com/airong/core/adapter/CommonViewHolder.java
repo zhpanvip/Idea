@@ -1,4 +1,4 @@
-package com.cypoem.idea.base;
+package com.airong.core.adapter;
 
 import android.content.Context;
 import android.util.SparseArray;
@@ -13,12 +13,12 @@ public class CommonViewHolder {
 	
 	public CommonViewHolder(Context context, ViewGroup parent, int layoutId, int position) {
 		this.position = position;
-		this.mViews = new SparseArray<View>();
+		this.mViews = new SparseArray<>();
 		mConvertView = LayoutInflater.from(context).inflate(layoutId, parent, false);
 		mConvertView.setTag(this);
 	}
 	
-	public View getmConvertView() {
+	public View getConvertView() {
 		return mConvertView;
 	}
 	
