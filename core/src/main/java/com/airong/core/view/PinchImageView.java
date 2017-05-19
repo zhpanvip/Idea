@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * 手势图片控件
+ * 手势图片控件 图片缩放浏览
  *
  * @author clifford
  */

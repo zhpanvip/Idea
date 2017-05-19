@@ -12,5 +12,8 @@
     <string name="parse_error">解析服务器响应数据失败</string>
     <string name="unknown_error">未知错误</string>
     <string name="response_return_error">服务器返回数据失败</string>
+    <string name="praise_notification">欣赏通知</string>
+    <string name="system_notification">系统通知</string>
+    <string name="other_notification">作者相关通知</string>
 
 </resources>
