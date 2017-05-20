@@ -10,7 +10,7 @@ import io.reactivex.disposables.Disposable;
  * RxJava处理服务器返回
  */
 
-public abstract class BaseRxActivity extends BaseCoreActivity implements BaseImpl{
+public abstract class BaseRxActivity extends BaseCoreActivity{
 
     private CompositeDisposable disposables2Stop;// 管理Stop取消订阅者者
     private CompositeDisposable disposables2Destroy;// 管理Destroy取消订阅者者

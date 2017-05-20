@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="9">
+
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_0"
+        android:layout_weight="1"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/mp_35"
+            android:layout_weight="1"
+            android:textColor="@color/green"
+            android:textSize="@dimen/f_16"
+            android:text="保存照片"
+            android:layout_marginEnd="@dimen/mp_20"
+            android:gravity="center"
+
+            android:background="@drawable/bg_btn_not_fill"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/mp_35"
+            android:layout_weight="1"
+            android:textColor="@color/green"
+            android:textSize="@dimen/f_16"
+            android:text="保存照片"
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/mp_20"
+
+            android:background="@drawable/bg_btn_not_fill"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="@dimen/mp_35"
+            android:layout_weight="1"
+            android:textColor="@color/green"
+            android:textSize="@dimen/f_16"
+            android:text="保存照片"
+            android:gravity="center"
+            android:background="@drawable/bg_btn_not_fill"/>
+
+    </LinearLayout>
+
+</LinearLayout>

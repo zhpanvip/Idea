@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash1"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_weight="4">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/splash1" />
+        <com.cypoem.idea.view.CountDownButton
+            android:layout_width="@dimen/mp_50"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:gravity="center"
+            android:layout_gravity="end"
+            android:visibility="invisible"
+            android:layout_marginTop="@dimen/mp_3"
+            android:layout_marginEnd="@dimen/mp_3"
+            android:background="@drawable/bg_btn_transparent"
+            android:textColor="@color/white"/>
+    </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:orientation="vertical"
+        android:layout_weight="1">
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="      我有一个梦想，想在年底开上我的小宝马。"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/f_16"/>
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_below="@id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2017-05-20"
+            android:layout_marginTop="@dimen/mp_5"
+            android:textColor="@color/white"
+            android:gravity="right"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/mp_10"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/mp_5"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="以上源于用户"
+                android:textColor="@color/white"
+                android:textSize="@dimen/f_16"/>
+            <View
+                android:layout_width="@dimen/mp_1"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/mp_20"
+                android:layout_marginEnd="@dimen/mp_20"
+                android:background="@color/white"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我也要发布>>"
+                android:textColor="@color/white"
+                android:textSize="@dimen/f_16"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

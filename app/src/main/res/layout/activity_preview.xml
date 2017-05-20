@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingStart="@dimen/mp_40"
+        android:layout_marginTop="@dimen/mp_20"
+        android:paddingEnd="@dimen/mp_40"
+        android:layout_weight="5">
+        <include layout="@layout/layout_everyday" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingStart="@dimen/mp_20"
+        android:paddingEnd="@dimen/mp_20"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/tv_preview"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="@string/share"
+            android:textSize="@dimen/f_18"
+            android:gravity="center"
+            android:textColor="@color/green"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_btn_not_fill"/>
+        <TextView
+            android:id="@+id/tv_publish"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="@string/publish"
+            android:textSize="@dimen/f_18"
+            android:layout_marginStart="@dimen/mp_20"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_btn_login"/>
+    </LinearLayout>
+
+</LinearLayout>

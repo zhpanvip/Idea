@@ -1,0 +1,86 @@
+<resources>
+
+  <dimen name="width_video_img">123dp</dimen>
+  <dimen name="height_video_img">237dp</dimen>
+
+
+  <!-- Margin、Padding 的多少 -->
+  <dimen name="mp_0">0dp</dimen>
+  <dimen name="mp_0.5">0.5dp</dimen>
+  <dimen name="mp_1">1dp</dimen>
+  <dimen name="mp_2">2dp</dimen>
+  <dimen name="mp_3">3dp</dimen>
+  <dimen name="mp_4">4dp</dimen>
+  <dimen name="mp_5">5dp</dimen>
+  <dimen name="mp_6">6dp</dimen>
+  <dimen name="mp_7">7dp</dimen>
+  <dimen name="mp_8">8dp</dimen>
+  <dimen name="mp_9">9dp</dimen>
+  <dimen name="mp_10">10dp</dimen>
+  <dimen name="mp_11">11dp</dimen>
+  <dimen name="mp_12">12dp</dimen>
+  <dimen name="mp_13">13dp</dimen>
+  <dimen name="mp_14">14dp</dimen>
+  <dimen name="mp_15">15dp</dimen>
+  <dimen name="mp_16">16dp</dimen>
+  <dimen name="mp_17">17dp</dimen>
+  <dimen name="mp_18">18dp</dimen>
+  <dimen name="mp_19">19dp</dimen>
+  <dimen name="mp_20">20dp</dimen>
+  <dimen name="mp_21">21dp</dimen>
+  <dimen name="mp_22">22dp</dimen>
+  <dimen name="mp_23">23dp</dimen>
+  <dimen name="mp_24">24dp</dimen>
+  <dimen name="mp_25">25dp</dimen>
+  <dimen name="mp_26">26dp</dimen>
+  <dimen name="mp_27">27dp</dimen>
+  <dimen name="mp_28">28dp</dimen>
+  <dimen name="mp_29">29dp</dimen>
+  <dimen name="mp_30">30dp</dimen>
+  <dimen name="mp_35">35dp</dimen>
+  <dimen name="mp_40">40dp</dimen>
+  <dimen name="mp_45">45dp</dimen>
+  <dimen name="mp_50">50dp</dimen>
+  <dimen name="mp_55">55dp</dimen>
+  <dimen name="mp_60">60dp</dimen>
+  <dimen name="mp_65">65dp</dimen>
+  <dimen name="mp_70">70dp</dimen>
+  <dimen name="mp_75">75dp</dimen>
+  <dimen name="mp_80">80dp</dimen>
+  <dimen name="mp_85">85dp</dimen>
+  <dimen name="mp_90">90dp</dimen>
+  <dimen name="mp_95">95dp</dimen>
+  <dimen name="mp_100">100dp</dimen>
+  <dimen name="mp_110">110dp</dimen>
+  <dimen name="mp_120">120dp</dimen>
+  <dimen name="mp_130">130dp</dimen>
+  <dimen name="mp_140">140dp</dimen>
+  <dimen name="mp_150">150dp</dimen>
+  <dimen name="mp_160">160dp</dimen>
+  <dimen name="mp_170">170dp</dimen>
+  <dimen name="mp_180">180dp</dimen>
+  <dimen name="mp_190">190dp</dimen>
+  <dimen name="mp_200">200dp</dimen>
+  <dimen name="mp_250">250dp</dimen>
+  <dimen name="mp_300">300dp</dimen>
+  <!-- 文字的大小 -->
+  <dimen name="f_10">10sp</dimen>
+  <dimen name="f_11">11sp</dimen>
+  <dimen name="f_12">12sp</dimen>
+  <dimen name="f_13">13sp</dimen>
+  <dimen name="f_14">14sp</dimen>
+  <dimen name="f_15">15sp</dimen>
+  <dimen name="f_16">16sp</dimen>
+  <dimen name="f_17">17sp</dimen>
+  <dimen name="f_18">18sp</dimen>
+  <dimen name="f_19">19sp</dimen>
+  <dimen name="f_20">20sp</dimen>
+  <dimen name="f_21">21sp</dimen>
+  <dimen name="f_22">22sp</dimen>
+  <dimen name="f_23">23sp</dimen>
+  <dimen name="f_24">24sp</dimen>
+  <dimen name="f_25">25sp</dimen>
+  <dimen name="f_32">32sp</dimen>
+  <dimen name="f_35">35sp</dimen>
+
+</resources>

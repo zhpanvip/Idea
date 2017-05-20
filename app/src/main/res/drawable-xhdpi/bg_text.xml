@@ -5,8 +5,8 @@
     <solid android:color="@color/white" />
     <!-- 边框 -->
     <stroke
-        android:width="0dp"
-        android:color="@color/gray_99" />
+        android:width="@dimen/mp_0.5"
+        android:color="@color/gray_33" />
     <!-- 圆角 -->
     <corners android:radius="2dp" />
     <!-- 边距 -->

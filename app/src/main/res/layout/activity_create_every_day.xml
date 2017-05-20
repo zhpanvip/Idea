@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:paddingStart="@dimen/mp_25"
+    android:paddingEnd="@dimen/mp_25"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:background="@drawable/bg_everyday"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/iv_add_pic"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/background"/>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="请添加一个图片"
+            android:textColor="@color/gray_99"
+            android:textSize="@dimen/f_16" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:textSize="@dimen/f_16"
+            android:textColor="@color/gray_99"
+            android:text="720*1080"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mp_20"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_66"
+            android:textSize="@dimen/f_25"
+            android:text="一句"/>
+        <com.cypoem.idea.view.MaxByteLengthEditText
+            android:id="@+id/et_sentence1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=""/>
+    </LinearLayout>
+    <com.cypoem.idea.view.MaxByteLengthEditText
+        android:id="@+id/et_sentence2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="@dimen/mp_15"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray_66"
+            android:textSize="@dimen/f_25"
+            android:text="@string/pen_name"/>
+
+        <com.cypoem.idea.view.MaxByteLengthEditText
+            android:id="@+id/et_pen_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical">
+        <TextView
+            android:id="@+id/tv_preview"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="预览"
+            android:textSize="@dimen/f_18"
+            android:gravity="center"
+            android:textColor="@color/green"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/bg_btn_not_fill"/>
+        <TextView
+            android:id="@+id/tv_publish"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:text="发布"
+            android:textSize="@dimen/f_18"
+            android:layout_marginStart="@dimen/mp_20"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/bg_btn_login"/>
+    </LinearLayout>
+</LinearLayout>

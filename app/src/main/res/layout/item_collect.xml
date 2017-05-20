@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_120"
+        android:paddingBottom="7dp"
+        android:paddingTop="7dp">
+
+        <ImageView
+            android:id="@+id/iv_collect"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/mp_10"
+            android:layout_marginStart="@dimen/mp_10"
+            android:scaleType="fitXY"
+            android:src="@drawable/background" />
+
+        <include
+            android:id="@+id/label"
+            layout="@layout/layout_label" />
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label"
+            android:layout_marginTop="5dp"
+            android:layout_toRightOf="@id/iv_collect"
+            android:text="一条狗的使命"
+            android:textSize="@dimen/f_16" />
+
+        <TextView
+            android:id="@+id/tv_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/label"
+            android:layout_marginTop="@dimen/mp_7"
+            android:layout_toEndOf="@id/tv_title"
+            android:text="-我是不是你的他"
+            android:textSize="@dimen/f_13" />
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_title"
+            android:layout_marginTop="@dimen/mp_5"
+            android:layout_toEndOf="@id/iv_collect"
+            android:text="2017-05-20 /韩小贱"
+            android:textSize="@dimen/f_13" />
+        <TextView
+            android:id="@+id/tv_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="赞123/阅读245/作品12"
+            android:textColor="@color/gray_66" />
+    </RelativeLayout>
+
+</LinearLayout>
