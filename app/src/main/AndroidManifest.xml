@@ -35,7 +35,9 @@
         <activity android:name=".activity.SetPasswrodActivity" />
         <activity android:name=".activity.CreateEveryDayActivity" />
         <activity android:name=".activity.PreviewActivity" />
-        <activity android:name=".activity.ReviewActivity"></activity>
+        <activity android:name=".activity.ReviewActivity" />
+        <activity android:name=".activity.FansActivity" />
+        <activity android:name=".activity.WalletActivity"></activity>
     </application>
 
 </manifest>

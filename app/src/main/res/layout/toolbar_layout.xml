@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="1"
-        android:textColor="@color/gray_66"
+        android:textColor="@color/white"
         android:text="subtitle"
         android:visibility="gone"
         android:paddingRight="10dp"
@@ -60,8 +60,10 @@
         android:lines="1"
         android:ellipsize="end"
         android:text="title"
+        android:textSize="@dimen/f_18"
+        android:layout_marginStart="@dimen/mp_20"
         android:scrollHorizontally="true"
-        android:textColor="@color/gray_66"
+        android:textColor="@color/white"
         android:layout_gravity="center" />
 
 </android.support.v7.widget.Toolbar>

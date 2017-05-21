@@ -1,5 +1,8 @@
 package com.cypoem.idea.activity;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.widget.ListView;
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CollectAdapter;
@@ -45,5 +48,9 @@ public class CollectActivity extends BaseActivity {
         mAdapter=new CollectAdapter(this,R.layout.item_collect);
         mAdapter.setList(mList);
         mListView.setAdapter(mAdapter);
+    }
+    public static void start(Context context){
+        Intent intent=new Intent(context,CollectActivity.class);
+        context.startActivity(intent);
     }
 }

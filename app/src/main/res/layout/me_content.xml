@@ -15,6 +15,7 @@
         android:textSize="16sp" />
 
     <LinearLayout
+        android:id="@+id/rl_publish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -33,6 +34,7 @@
     <include layout="@layout/base_line" />
 
     <LinearLayout
+        android:id="@+id/rl_join"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -51,6 +53,7 @@
     <include layout="@layout/base_line" />
 
     <LinearLayout
+        android:id="@+id/rl_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -69,6 +72,7 @@
     <include layout="@layout/base_line" />
 
     <LinearLayout
+        android:id="@+id/rl_draft"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -87,6 +91,7 @@
     <include layout="@layout/base_line" />
 
     <LinearLayout
+        android:id="@+id/rl_wallet"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -115,6 +120,7 @@
         android:textSize="16sp" />
 
     <RelativeLayout
+        android:id="@+id/rl_night"
         android:layout_width="match_parent"
         android:layout_height="55dp">
 
@@ -151,6 +157,7 @@
         android:textSize="16sp" />
 
     <RelativeLayout
+        android:id="@+id/rl_catch"
         android:layout_width="match_parent"
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
@@ -174,6 +181,7 @@
     </RelativeLayout>
     <include layout="@layout/base_line" />
     <LinearLayout
+        android:id="@+id/rl_update"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:gravity="center_vertical"
@@ -195,6 +203,7 @@
     </LinearLayout>
     <include layout="@layout/base_line" />
     <LinearLayout
+        android:id="@+id/rl_about_us"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:gravity="center_vertical"
@@ -216,6 +225,7 @@
     </LinearLayout>
     <include layout="@layout/base_line" />
     <LinearLayout
+        android:id="@+id/rl_advice"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:gravity="center_vertical"
@@ -237,6 +247,7 @@
     </LinearLayout>
     <include layout="@layout/base_line" />
     <LinearLayout
+        android:id="@+id/rl_protocol"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
         android:gravity="center_vertical"

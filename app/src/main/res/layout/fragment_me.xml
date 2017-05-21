@@ -15,21 +15,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
+            app:contentScrim="@color/colorPrimary"
             app:collapsedTitleTextAppearance="@style/ToolBarTitleText"
-            app:contentScrim="#30469b"
             app:expandedTitleTextAppearance="@style/transparentText"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            <include layout="@layout/me_resume" />
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/tb_main"
+                android:id="@+id/tb_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-
-            <include layout="@layout/me_resume" />
         </android.support.design.widget.CollapsingToolbarLayout>
 
 
