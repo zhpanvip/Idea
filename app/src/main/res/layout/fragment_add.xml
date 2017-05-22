@@ -33,6 +33,7 @@
         android:text="@string/add_instruction2"/>
     
     <TextView
+        android:id="@+id/tv_publish"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:textSize="20sp"
@@ -43,6 +44,7 @@
         android:background="@color/green"/>
 
     <TextView
+        android:id="@+id/tv_join"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:textSize="20sp"

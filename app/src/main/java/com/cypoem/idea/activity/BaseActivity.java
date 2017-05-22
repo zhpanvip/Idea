@@ -1,6 +1,7 @@
 package com.cypoem.idea.activity;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -16,6 +17,8 @@ import android.widget.TextView;
 import com.airong.core.BaseRxActivity;
 import com.airong.core.dialog.CustomDialog;
 import com.cypoem.idea.R;
+import com.cypoem.idea.app.SystemBarTintManager;
+
 import java.lang.reflect.Field;
 import butterknife.ButterKnife;
 
@@ -33,6 +36,7 @@ public abstract class BaseActivity extends BaseRxActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setStatusBarColor(this,"#628B31");
         initContentView(R.layout.activity_base);
         //  注入子Activity布局
         setContentView(getLayoutId());
@@ -181,23 +185,7 @@ public abstract class BaseActivity extends BaseRxActivity {
         ButterKnife.bind(this);
     }
 
-    /**
-     * 设置状态栏颜色
-     *
-     * @param activity
-     * @param color    color xml文件下的颜色
-     */
-    public void setStatusBarColor(Activity activity, @ColorInt int color) {
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(activity, true);
-        }*/
-        if (Build.VERSION.SDK_INT >= 21) {
-            Window statusBar = getWindow();
-            statusBar.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            statusBar.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            statusBar.setStatusBarColor(color);
-        }
-    }
+
 
 
     /**
@@ -309,7 +297,7 @@ public abstract class BaseActivity extends BaseRxActivity {
 
 
     /**
-     * 设置系统标题栏的透明度
+     * 设置系统标题栏透明
      *
      * @param activity
      * @param on
@@ -326,9 +314,36 @@ public abstract class BaseActivity extends BaseRxActivity {
         win.setAttributes(winParams);
     }
 
+    /**
+     * 设置状态栏颜色
+     *
+     * @param activity
+     * @param color    color xml文件下的颜色
+     */
+    public void setStatusBarColor(Activity activity, String color) {
+       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(activity, true);
+        }*/
+        if (Build.VERSION.SDK_INT >= 21) {
+            Window statusBar = getWindow();
+            statusBar.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            statusBar.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            statusBar.setStatusBarColor(Color.parseColor(color));
+        }
+    }
+
+    public  void initSystemBar(Activity activity, int color) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(activity, true);
+        }
+        SystemBarTintManager tintManager = new SystemBarTintManager(activity);
+        tintManager.setStatusBarTintEnabled(true);
+        // 使用颜色资源
+        tintManager.setStatusBarTintResource(color);
+    }
 
     //  设置魅族手机状态栏字体颜色为深色
-    protected static boolean setMeizuStatusBarDarkIcon(Activity activity, boolean dark) {
+   /* protected static boolean setMeizuStatusBarDarkIcon(Activity activity, boolean dark) {
         boolean result = false;
         if (activity != null) {
             try {
@@ -353,5 +368,5 @@ public abstract class BaseActivity extends BaseRxActivity {
             }
         }
         return result;
-    }
+    }*/
 }

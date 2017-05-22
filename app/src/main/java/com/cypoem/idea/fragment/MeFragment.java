@@ -30,27 +30,27 @@ import butterknife.Unbinder;
  */
 public class MeFragment extends BaseFragment {
     @BindView(R.id.rl_publish)
-    LinearLayout rlPublish;
+    RelativeLayout rlPublish;
     @BindView(R.id.rl_join)
-    LinearLayout rlJoin;
+    RelativeLayout rlJoin;
     @BindView(R.id.rl_create)
-    LinearLayout rlCreate;
+    RelativeLayout rlCreate;
     @BindView(R.id.rl_draft)
-    LinearLayout rlDraft;
+    RelativeLayout rlDraft;
     @BindView(R.id.rl_wallet)
-    LinearLayout rlWallet;
+    RelativeLayout rlWallet;
     @BindView(R.id.rl_night)
     RelativeLayout rlNight;
     @BindView(R.id.rl_catch)
     RelativeLayout rlCatch;
     @BindView(R.id.rl_update)
-    LinearLayout rlUpdate;
+    RelativeLayout rlUpdate;
     @BindView(R.id.rl_about_us)
-    LinearLayout rlAboutUs;
+    RelativeLayout rlAboutUs;
     @BindView(R.id.rl_advice)
-    LinearLayout rlAdvice;
+    RelativeLayout rlAdvice;
     @BindView(R.id.rl_protocol)
-    LinearLayout rlProtocol;
+    RelativeLayout rlProtocol;
     @BindView(R.id.tb_toolbar)
     Toolbar toolbar;
     @BindView(R.id.head_img)

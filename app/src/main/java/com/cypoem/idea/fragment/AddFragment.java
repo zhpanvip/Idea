@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.cypoem.idea.R;
+import com.cypoem.idea.activity.PublishActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +24,11 @@ public class AddFragment extends BaseFragment {
     TextView toolbarSubtitle;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+    @BindView(R.id.tv_publish)
+    TextView mTvPublish;
+    @BindView(R.id.tv_join)
+    TextView mTvJoin;
+    Unbinder unbinder;
 
     @Override
     protected int getLayoutId() {
@@ -49,13 +55,19 @@ public class AddFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.toolbar_subtitle, R.id.toolbar_title})
+    @OnClick({R.id.toolbar_subtitle, R.id.toolbar_title,R.id.tv_publish, R.id.tv_join})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
                 break;
             case R.id.toolbar_title:
                 break;
+            case R.id.tv_publish:
+                PublishActivity.start(getContext());
+                break;
+            case R.id.tv_join:
+                break;
         }
     }
+
 }

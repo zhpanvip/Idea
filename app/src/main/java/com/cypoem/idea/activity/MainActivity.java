@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.fragment.AddFragment;
@@ -42,6 +44,7 @@ public class MainActivity extends BaseActivity {
     private MessageFragment mMessageFragment;
     private MeFragment mMeFragment;
     private FragmentManager mFragmentManger;
+    private long exitTime = 0;
 
     @Override
     protected int getLayoutId() {
@@ -139,6 +142,20 @@ public class MainActivity extends BaseActivity {
         if (mMeFragment != null) fragmentTransaction.hide(mMeFragment);
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
+            if((System.currentTimeMillis()-exitTime) > 2000){
+                showToast( "再按一次退出程序");
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
    /* private void getData(boolean showLoading) {
         //  Retrofit请求数据
