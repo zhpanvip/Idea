@@ -48,7 +48,7 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     protected abstract void init();
 
-
+    /******************************************* TollBar相关 ******************************************************/
     private void initToolBar() {
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -83,7 +83,6 @@ public abstract class BaseActivity extends BaseRxActivity {
         }
     }
 
-/******************************************* TollBar相关 ******************************************************/
     /**
      * 获取头部标题的TextView
      *
@@ -133,19 +132,19 @@ public abstract class BaseActivity extends BaseRxActivity {
     private void showBack() {
         //setNavigationIcon必须在setSupportActionBar(toolbar);方法后面加入
         getToolbar().setNavigationIcon(R.drawable.icon_back);
+        //  返回按钮点击事件
         getToolbar().setNavigationOnClickListener((v)-> onBackPressed());
     }
 
     /**
      * 是否显示后退按钮,默认显示,可在子类重写该方法.
-     *
      * @return
      */
     protected boolean isShowBacking() {
         return true;
     }
-/******************************************* TollBar相关结束 ******************************************************/
 
+/******************************************* TollBar相关结束 ******************************************************/
 
     /**
      * 初始化contentiew
@@ -170,7 +169,6 @@ public abstract class BaseActivity extends BaseRxActivity {
         //  将子类布局添加到parentLinearLayout
         LayoutInflater.from(this).inflate(layoutResID, parentLinearLayout, true);
         ButterKnife.bind(this);
-
     }
 
     @Override
@@ -184,9 +182,6 @@ public abstract class BaseActivity extends BaseRxActivity {
         parentLinearLayout.addView(view, params);
         ButterKnife.bind(this);
     }
-
-
-
 
     /**
      * @param content         内容
@@ -252,7 +247,6 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     /**
      * create custom dialog
-     *
      * @param dialogLayoutRes    dialog布局资源文件
      * @param cancelTouchOutside 点击外部是否可以取消
      * @return
@@ -274,16 +268,8 @@ public abstract class BaseActivity extends BaseRxActivity {
                 .setWidthPx(width)
                 .cancelTouchOutside(cancelTouchOutside)
                 .setDialogLayout(dialogView).build();
+        dialog.show();
         return dialogView;
-    }
-
-    /**
-     * 显示dialog
-     */
-    public void showDialog() {
-        if (dialog != null && !dialog.isShowing()) {
-            dialog.show();
-        }
     }
 
     /**
@@ -316,7 +302,6 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     /**
      * 设置状态栏颜色
-     *
      * @param activity
      * @param color    color xml文件下的颜色
      */
@@ -341,32 +326,4 @@ public abstract class BaseActivity extends BaseRxActivity {
         // 使用颜色资源
         tintManager.setStatusBarTintResource(color);
     }
-
-    //  设置魅族手机状态栏字体颜色为深色
-   /* protected static boolean setMeizuStatusBarDarkIcon(Activity activity, boolean dark) {
-        boolean result = false;
-        if (activity != null) {
-            try {
-                WindowManager.LayoutParams lp = activity.getWindow().getAttributes();
-                Field darkFlag = WindowManager.LayoutParams.class
-                        .getDeclaredField("MEIZU_FLAG_DARK_STATUS_BAR_ICON");
-                Field meizuFlags = WindowManager.LayoutParams.class
-                        .getDeclaredField("meizuFlags");
-                darkFlag.setAccessible(true);
-                meizuFlags.setAccessible(true);
-                int bit = darkFlag.getInt(null);
-                int value = meizuFlags.getInt(lp);
-                if (dark) {
-                    value |= bit;
-                } else {
-                    value &= ~bit;
-                }
-                meizuFlags.setInt(lp, value);
-                activity.getWindow().setAttributes(lp);
-                result = true;
-            } catch (Exception e) {
-            }
-        }
-        return result;
-    }*/
 }

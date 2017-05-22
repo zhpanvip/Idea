@@ -18,6 +18,8 @@ import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.CollectActivity;
 import com.cypoem.idea.activity.FansActivity;
+import com.cypoem.idea.activity.OpusActivity;
+import com.cypoem.idea.activity.PraiseActivity;
 import com.cypoem.idea.activity.WalletActivity;
 
 import butterknife.BindView;
@@ -115,7 +117,8 @@ public class MeFragment extends BaseFragment {
         unbinder.unbind();
     }
 
-    @OnClick({R.id.ll_focus,R.id.ll_fans,R.id.ll_collect,R.id.rl_wallet})
+    @OnClick({R.id.ll_focus,R.id.ll_fans,R.id.ll_collect,R.id.rl_wallet,R.id.ll_like
+    ,R.id.rl_join,R.id.rl_create,R.id.rl_publish,R.id.rl_draft})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.ll_focus:
@@ -127,8 +130,23 @@ public class MeFragment extends BaseFragment {
             case R.id.ll_fans:
                 FansActivity.start(getContext());
                 break;
+            case R.id.ll_like:
+                PraiseActivity.start(getContext());
+                break;
             case R.id.rl_wallet:
                 WalletActivity.start(getContext());
+                break;
+            case R.id.rl_publish:
+                OpusActivity.start(getContext());
+                break;
+            case R.id.rl_create:
+                OpusActivity.start(getContext());
+                break;
+            case R.id.rl_join:
+                OpusActivity.start(getContext());
+                break;
+            case R.id.rl_draft:
+                OpusActivity.start(getContext());
                 break;
         }
     }

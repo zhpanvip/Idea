@@ -40,6 +40,10 @@
         <activity android:name=".activity.WalletActivity"/>
         <activity android:name=".activity.PublishActivity">
         </activity>
+        <activity android:name=".activity.PraiseActivity">
+        </activity>
+        <activity android:name=".activity.OpusActivity">
+        </activity>
     </application>
 
 </manifest>
