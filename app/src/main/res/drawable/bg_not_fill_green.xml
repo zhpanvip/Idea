@@ -5,10 +5,10 @@
     <solid android:color="@color/white" />
     <!-- 边框 -->
     <stroke
-        android:width="@dimen/mp_0.5"
-        android:color="@color/gray_33" />
+        android:width="@dimen/mp_1"
+        android:color="@color/green" />
     <!-- 圆角 -->
-    <corners android:radius="2dp" />
+    <corners android:radius="10dp" />
     <!-- 边距 -->
     <padding
         android:bottom="3dp"

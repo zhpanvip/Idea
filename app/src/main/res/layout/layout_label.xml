@@ -12,20 +12,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:background="@drawable/bg_text"
+        android:background="@drawable/bg_not_fill_gray"
         android:text="重写"/>
     <TextView
         android:id="@+id/tv_continue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:background="@drawable/bg_text"
+        android:background="@drawable/bg_not_fill_gray"
         android:text="续写"/>
     <TextView
         android:id="@+id/tv_essay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_text"
+        android:background="@drawable/bg_not_fill_gray"
         android:text="征文"/>
 
 </LinearLayout>
