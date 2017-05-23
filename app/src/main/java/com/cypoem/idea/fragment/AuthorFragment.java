@@ -1,24 +1,35 @@
-package com.cypoem.idea.activity;
+package com.cypoem.idea.fragment;
 
-import android.content.Context;
-import android.content.Intent;
-import android.widget.ListView;
+import android.os.Bundle;
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CollectAdapter;
 import com.cypoem.idea.module.bean.CollectBean;
+import com.cypoem.idea.view.ListViewForScrollView;
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 
-public class CollectActivity extends BaseActivity {
+/**
+ * Created by edianzu on 2017/5/23.
+ *
+ */
 
-    @BindView(R.id.lv_collect)
-    ListView mListView;
+public class AuthorFragment extends BaseFragment {
+    @BindView(R.id.lv_author)
+    ListViewForScrollView mListView;
+
     private CollectAdapter mAdapter;
+
+    public static AuthorFragment getFragment(Bundle bundle) {
+        AuthorFragment authorFragment = new AuthorFragment();
+        authorFragment.setArguments(bundle);
+        return authorFragment;
+    }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_collect;
+        return R.layout.fragment_author;
     }
 
     @Override
@@ -27,8 +38,8 @@ public class CollectActivity extends BaseActivity {
     }
 
     private void initData() {
-        List<CollectBean> mList=new ArrayList<>();
-        CollectBean collectBean=new CollectBean();
+        List<CollectBean> mList = new ArrayList<>();
+        CollectBean collectBean = new CollectBean();
         collectBean.setTime("2017-05-20");
         collectBean.setPicUrl("http://pic17.nipic.com/20111020/6337790_120550160000_2.jpg");
         collectBean.setArticlesNum(15);
@@ -43,12 +54,8 @@ public class CollectActivity extends BaseActivity {
         mList.add(collectBean);
         mList.add(collectBean);
         mList.add(collectBean);
-        mAdapter=new CollectAdapter(this,R.layout.item_collect);
+        mAdapter = new CollectAdapter(getContext(), R.layout.item_collect);
         mAdapter.setList(mList);
         mListView.setAdapter(mAdapter);
-    }
-    public static void start(Context context){
-        Intent intent=new Intent(context,CollectActivity.class);
-        context.startActivity(intent);
     }
 }

@@ -11,16 +11,13 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.LinearLayout;
-
 import com.airong.core.utils.Utils;
 import com.cypoem.idea.R;
-
 import butterknife.BindView;
-
 
 /**
  * 通用 WebView 考虑以后所有展示 WebView 的界面都从这个类继承
- * Created by zhounl on 2016/7/19.
+ * Created by zhpan on 2016/7/19.
  */
 public class BasicWebViewActivity extends BaseActivity {
 
@@ -35,9 +32,6 @@ public class BasicWebViewActivity extends BaseActivity {
     String mUrl;
     @BindView(R.id.containerLayout)
     LinearLayout mContainerLayout;
-
-
-
 
     @Override
     protected int getLayoutId() {

@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by zhpan on 2017/5/21.
+ *
  */
 
 public class FansAdapter extends CommonAdapter<FansBean> {

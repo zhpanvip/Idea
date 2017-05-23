@@ -15,6 +15,7 @@ import butterknife.OnClick;
 
 /**
  * Created by zhpan on 2017/4/21.
+ *
  */
 
 public class FindFragment extends BaseFragment {
@@ -79,7 +80,7 @@ public class FindFragment extends BaseFragment {
         mList.add(hotFragment);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         BaseFragmentAdapter mFragmentAdapter = new BaseFragmentAdapter(fragmentManager, getContext());
-        mFragmentAdapter.setmFragmentList(mList);
+        mFragmentAdapter.setFragmentList(mList);
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setCurrentItem(0);
     }

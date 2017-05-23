@@ -11,6 +11,7 @@ import java.util.List;
 
 /**
  * Created by edianzu on 2017/5/19.
+ *
  */
 
 public class NotifyAdapter extends CommonAdapter<NotifyBean> {

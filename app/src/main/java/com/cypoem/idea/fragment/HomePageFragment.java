@@ -25,6 +25,7 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by zhpan on 2017/4/21.
+ *
  */
 public class HomePageFragment extends BaseFragment {
     @BindView(R.id.rv_home)
@@ -34,7 +35,6 @@ public class HomePageFragment extends BaseFragment {
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
     private HomeAdapter mAdapter;
-    private int type;
 
     public static HomePageFragment getInstance(int type) {
         HomePageFragment fragment = new HomePageFragment();
@@ -59,7 +59,7 @@ public class HomePageFragment extends BaseFragment {
     private void initData() {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            type = bundle.getInt("type");
+            int type = bundle.getInt("type");
             if (type == FindFragment.HOTEST || type == FindFragment.NEWEST) {
                 rootView.findViewById(R.id.toolbar).setVisibility(View.GONE);
             }

@@ -6,12 +6,11 @@ import android.text.InputFilter;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.util.AttributeSet;
-import android.widget.EditText;
-
 import java.io.UnsupportedEncodingException;
 
 /**
  * Created by zhpan on 2016/8/30.
+ *
  */
 public class MaxByteLengthEditText extends AppCompatEditText {
 

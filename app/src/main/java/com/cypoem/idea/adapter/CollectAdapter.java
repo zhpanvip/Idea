@@ -3,17 +3,16 @@ package com.cypoem.idea.adapter;
 import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.airong.core.adapter.CommonAdapter;
 import com.airong.core.adapter.CommonViewHolder;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.bean.CollectBean;
-
 import java.util.List;
 
 /**
  * Created by zhpan on 2017/5/20.
+ *
  */
 
 public class CollectAdapter extends CommonAdapter<CollectBean> {

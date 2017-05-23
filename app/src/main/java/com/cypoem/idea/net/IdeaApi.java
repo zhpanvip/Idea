@@ -23,18 +23,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by zhpan on 2017/4/1.
+ *
  */
 
 public class IdeaApi {
-    private Retrofit retrofit;
     private IdeaApiService service;
 
     private IdeaApi() {
        // HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
        //   日志拦截器
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-            @Override
-            public void log(String message) {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor((message)-> {
+
                 try {
                     String text = URLDecoder.decode(message, "utf-8");
                     LogUtils.e("OKHttp-----", text);
@@ -42,7 +41,6 @@ public class IdeaApi {
                     e.printStackTrace();
                     LogUtils.e("OKHttp-----", message);
                 }
-            }
         });
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         File cacheFile = new File(Utils.getContext().getCacheDir(), "cache");
@@ -59,7 +57,7 @@ public class IdeaApi {
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create();
 
-        retrofit = new Retrofit.Builder()
+        Retrofit retrofit = new Retrofit.Builder()
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -88,7 +86,6 @@ public class IdeaApi {
                         .build();
                 LogUtils.d("Okhttp", "no network");
             }
-
 
             Response originalResponse = chain.proceed(request);
             if (NetworkUtils.isConnected()) {

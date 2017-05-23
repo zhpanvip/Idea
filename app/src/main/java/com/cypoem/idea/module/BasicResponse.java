@@ -1,8 +1,5 @@
 package com.cypoem.idea.module;
 
-/**
- *
- */
 public class BasicResponse<T> {
 
     private int code;

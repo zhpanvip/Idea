@@ -4,12 +4,12 @@ import android.support.annotation.LayoutRes;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.airong.core.recycler.BaseHolder;
 import com.cypoem.idea.R;
 
 /**
  * Created by zhpan on 2017/5/14.
+ *
  */
 
 public class HomeViewHolder extends BaseHolder {

@@ -18,8 +18,6 @@ import com.airong.core.BaseRxActivity;
 import com.airong.core.dialog.CustomDialog;
 import com.cypoem.idea.R;
 import com.cypoem.idea.app.SystemBarTintManager;
-
-import java.lang.reflect.Field;
 import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends BaseRxActivity {
@@ -27,11 +25,8 @@ public abstract class BaseActivity extends BaseRxActivity {
     private LinearLayout parentLinearLayout;
     private TextView mToolbarTitle;
     private TextView mToolbarSubTitle;
-    private Toolbar mToolbar;
     //  对话框
     private CustomDialog dialog;
-    //  对话框布局的View
-    private View dialogView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +46,7 @@ public abstract class BaseActivity extends BaseRxActivity {
     /******************************************* TollBar相关 ******************************************************/
     private void initToolBar() {
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         mToolbarSubTitle = (TextView) findViewById(R.id.toolbar_subtitle);
         mToolbarSubTitle.setVisibility(View.GONE);
@@ -86,7 +81,7 @@ public abstract class BaseActivity extends BaseRxActivity {
     /**
      * 获取头部标题的TextView
      *
-     * @return
+     * @return toolbar标题
      */
     public TextView getToolbarTitle() {
         return mToolbarTitle;
@@ -104,7 +99,7 @@ public abstract class BaseActivity extends BaseRxActivity {
     /**
      * 设置头部标题
      *
-     * @param title
+     * @param title 标题内容
      */
     public void setToolBarTitle(CharSequence title) {
         if (mToolbarTitle != null) {
@@ -138,7 +133,7 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     /**
      * 是否显示后退按钮,默认显示,可在子类重写该方法.
-     * @return
+     * @return 是否显示toolbar返回键
      */
     protected boolean isShowBacking() {
         return true;
@@ -249,13 +244,13 @@ public abstract class BaseActivity extends BaseRxActivity {
      * create custom dialog
      * @param dialogLayoutRes    dialog布局资源文件
      * @param cancelTouchOutside 点击外部是否可以取消
-     * @return
+     * @return 自定义的dialog对应的View
      */
     public View createDialog(@LayoutRes Integer dialogLayoutRes, boolean cancelTouchOutside) {
         if (dialogLayoutRes == null) {
             dialogLayoutRes = com.airong.core.R.layout.custom_dialog;
         }
-        dialogView = LayoutInflater.from(this).inflate(dialogLayoutRes, null);
+        View dialogView = LayoutInflater.from(this).inflate(dialogLayoutRes, null);
         //  计算dialog宽高
         int measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         dialogView.measure(measureSpec, measureSpec);
@@ -285,8 +280,8 @@ public abstract class BaseActivity extends BaseRxActivity {
     /**
      * 设置系统标题栏透明
      *
-     * @param activity
-     * @param on
+     * @param activity 要设置的Activity
+     * @param on    是否透明
      */
     protected void setTranslucentStatus(Activity activity, boolean on) {
         Window win = activity.getWindow();
@@ -302,10 +297,9 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     /**
      * 设置状态栏颜色
-     * @param activity
-     * @param color    color xml文件下的颜色
+     * @param color    颜色
      */
-    public void setStatusBarColor(Activity activity, String color) {
+    public void setStatusBarColor(String color) {
        /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(activity, true);
         }*/

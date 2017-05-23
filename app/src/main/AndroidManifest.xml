@@ -32,7 +32,7 @@
         <activity android:name=".activity.CompleteRegisterActivity" />
         <activity android:name=".activity.CollectActivity" />
         <activity android:name=".activity.ArticleWebViewActivity" />
-        <activity android:name=".activity.SetPasswrodActivity" />
+        <activity android:name=".activity.SetPasswordActivity" />
         <activity android:name=".activity.CreateEveryDayActivity" />
         <activity android:name=".activity.PreviewActivity" />
         <activity android:name=".activity.ReviewActivity" />

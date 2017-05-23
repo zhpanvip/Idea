@@ -17,7 +17,7 @@ public class FansActivity extends BaseActivity {
     @BindView(R.id.lv_fans)
     ListView lvFans;
     private FansAdapter mAdapter;
-    private List<FansBean> mList;
+
 
     @Override
     protected int getLayoutId() {
@@ -30,7 +30,7 @@ public class FansActivity extends BaseActivity {
     }
 
     private void initData() {
-        mList=new ArrayList<>();
+        List<FansBean> mList=new ArrayList<>();
         FansBean fansBean=new FansBean();
         fansBean.setCreate(15);
         fansBean.setHeadUrl("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=304866327,2141533711&fm=11&gp=0.jpg");

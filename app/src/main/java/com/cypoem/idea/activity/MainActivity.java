@@ -10,15 +10,12 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
-
 import com.cypoem.idea.R;
 import com.cypoem.idea.fragment.AddFragment;
 import com.cypoem.idea.fragment.FindFragment;
 import com.cypoem.idea.fragment.HomePageFragment;
 import com.cypoem.idea.fragment.MeFragment;
 import com.cypoem.idea.fragment.MessageFragment;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 

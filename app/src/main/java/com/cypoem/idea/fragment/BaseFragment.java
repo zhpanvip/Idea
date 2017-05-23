@@ -19,6 +19,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * Created by zhpan on 2017/4/22.
+ *
  */
 
 public abstract class BaseFragment extends BaseRxFragment {
@@ -26,10 +27,7 @@ public abstract class BaseFragment extends BaseRxFragment {
     PtrClassicFrameLayout mPtrFrame;
     //  对话框
     private CustomDialog dialog;
-    //  对话框布局的View
-    private View dialogView;
     Unbinder unbinder;
-
 
     public void showToast(String msg) {
         ToastUtils.show(msg);
@@ -140,8 +138,6 @@ public abstract class BaseFragment extends BaseRxFragment {
 
     /**
      * 上拉加载
-     *
-     * @param frame
      */
     public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
 
@@ -149,8 +145,6 @@ public abstract class BaseFragment extends BaseRxFragment {
 
     /**
      * 下拉刷新
-     *
-     * @param frame
      */
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
 
@@ -161,13 +155,12 @@ public abstract class BaseFragment extends BaseRxFragment {
      *
      * @param dialogLayoutRes    dialog布局资源文件
      * @param cancelTouchOutside 点击外部是否可以取消
-     * @return
      */
     public View createDialog(Integer dialogLayoutRes, boolean cancelTouchOutside) {
         if (dialogLayoutRes == null) {
             dialogLayoutRes = com.airong.core.R.layout.custom_dialog;
         }
-        dialogView = LayoutInflater.from(getContext()).inflate(dialogLayoutRes, null);
+        View dialogView = LayoutInflater.from(getContext()).inflate(dialogLayoutRes, null);
         //  计算dialog宽高
         int measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         dialogView.measure(measureSpec, measureSpec);

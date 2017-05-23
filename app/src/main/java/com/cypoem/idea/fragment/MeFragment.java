@@ -1,34 +1,28 @@
 package com.cypoem.idea.fragment;
 
-import android.graphics.Color;
-import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
+import com.cypoem.idea.activity.AuthorInfoActivity;
 import com.cypoem.idea.activity.CollectActivity;
 import com.cypoem.idea.activity.FansActivity;
 import com.cypoem.idea.activity.OpusActivity;
 import com.cypoem.idea.activity.PraiseActivity;
 import com.cypoem.idea.activity.WalletActivity;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by zhpan on 2017/4/21.
+ *
  */
 public class MeFragment extends BaseFragment {
     @BindView(R.id.rl_publish)
@@ -100,7 +94,7 @@ public class MeFragment extends BaseFragment {
         collapsingToolbarLayout.setTitle("我的创意说");
         //collapsingToolbarLayout.setContentScrimColor(Color.BLUE);
         collapsingToolbarLayout.setCollapsedTitleGravity(Gravity.CENTER_HORIZONTAL);
-        collapsingToolbarLayout.setExpandedTitleGravity(Gravity.LEFT | Gravity.BOTTOM);
+        collapsingToolbarLayout.setExpandedTitleGravity(Gravity.START | Gravity.BOTTOM);
         appBarLayout.addOnOffsetChangedListener((AppBarLayout appBarLayout, int verticalOffset) -> {
             if (verticalOffset <= -(2 * mRelativeLayout.getHeight()) / 3) {
                 collapsingToolbarLayout.setTitle("我的创意说");
@@ -111,14 +105,9 @@ public class MeFragment extends BaseFragment {
         ImageLoaderUtil.loadCircleImg(headImg,"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=304866327,2141533711&fm=11&gp=0.jpg",R.drawable.head_pic);
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 
     @OnClick({R.id.ll_focus,R.id.ll_fans,R.id.ll_collect,R.id.rl_wallet,R.id.ll_like
-    ,R.id.rl_join,R.id.rl_create,R.id.rl_publish,R.id.rl_draft})
+    ,R.id.rl_join,R.id.rl_create,R.id.rl_publish,R.id.rl_draft,R.id.head_img})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.ll_focus:
@@ -147,6 +136,9 @@ public class MeFragment extends BaseFragment {
                 break;
             case R.id.rl_draft:
                 OpusActivity.start(getContext());
+                break;
+            case R.id.head_img:
+                AuthorInfoActivity.start(getContext());
                 break;
         }
     }

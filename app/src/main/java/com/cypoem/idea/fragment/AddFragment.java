@@ -1,22 +1,17 @@
 package com.cypoem.idea.fragment;
 
 import android.graphics.Color;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.PublishActivity;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
  * Created by zhpan on 2017/4/21.
+ *
  */
 
 public class AddFragment extends BaseFragment {

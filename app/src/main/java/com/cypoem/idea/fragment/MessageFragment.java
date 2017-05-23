@@ -1,29 +1,21 @@
 package com.cypoem.idea.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.NotifyAdapter;
 import com.cypoem.idea.module.bean.NotifyBean;
 import com.cypoem.idea.view.ListViewForScrollView;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
-
 
 /**
  * Created by zhpan on 2017/4/21.
+ *
  */
 
 public class MessageFragment extends BaseFragment {
@@ -53,7 +45,6 @@ public class MessageFragment extends BaseFragment {
     private NotifyAdapter mPraiseAdapter;
     private NotifyAdapter mSystemAdapter;
     private NotifyAdapter mOtherAdapter;
-    private List<NotifyBean> mList;
 
     @Override
     protected int getLayoutId() {
@@ -95,7 +86,7 @@ public class MessageFragment extends BaseFragment {
         mPraiseAdapter = new NotifyAdapter(getContext(), R.layout.item_praise);
         mSystemAdapter = new NotifyAdapter(getContext(), R.layout.item_praise);
         mOtherAdapter = new NotifyAdapter(getContext(), R.layout.item_praise);
-        mList = new ArrayList<>();
+        List<NotifyBean> mList = new ArrayList<>();
         NotifyBean notifyBean = new NotifyBean();
         notifyBean.setContent("这是内容");
         notifyBean.setTime("这是时间");

@@ -2,26 +2,20 @@ package com.cypoem.idea.net;
 
 import android.text.TextUtils;
 import android.widget.Toast;
-
 import com.airong.core.BaseImpl;
-import com.airong.core.BaseRxActivity;
 import com.airong.core.utils.LogUtils;
 import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
 import com.google.gson.JsonParseException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
-
 import org.json.JSONException;
-
 import java.io.InterruptedIOException;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.text.ParseException;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.BAD_NETWORK;
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.CONNECT_ERROR;
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.CONNECT_TIMEOUT;
@@ -30,6 +24,7 @@ import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.UNKNOWN_ERROR;
 
 /**
  * Created by zhpan on 2017/4/18.
+ *
  */
 
 public abstract class DefaultObserver<T extends BasicResponse> implements Observer<T> {
@@ -122,7 +117,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     /**
      * 请求异常
      *
-     * @param reason
+     * @param reason 异常原因
      */
     public void onException(ExceptionReason reason) {
         mBAseImpl.dismissProgress();

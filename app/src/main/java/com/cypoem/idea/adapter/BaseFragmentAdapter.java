@@ -9,23 +9,24 @@ import java.util.List;
 
 /**
  * Created by zhpan on 2016/12/18.
+ *
  */
 
 public class BaseFragmentAdapter extends FragmentStatePagerAdapter {
-    List<? extends Fragment> mFragmentList;
-    Context mContext;
+   private List<? extends Fragment> mFragmentList;
+   private Context mContext;
 
-    public BaseFragmentAdapter(FragmentManager fm, Context mContext) {
+    public BaseFragmentAdapter(FragmentManager fm, Context context) {
         super(fm);
-        this.mContext = mContext;
+        mContext = context;
     }
 
     public List<? extends Fragment> getmFragmentList() {
         return mFragmentList;
     }
 
-    public void setmFragmentList(List<?extends Fragment> mFragmentList) {
-        this.mFragmentList = mFragmentList;
+    public void setFragmentList(List<?extends Fragment> fragmentList) {
+        this.mFragmentList = fragmentList;
     }
 
     public BaseFragmentAdapter(FragmentManager fm) {

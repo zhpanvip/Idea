@@ -10,6 +10,7 @@ import com.cypoem.idea.module.bean.Article;
 
 /**
  * Created by zhpan on 2017/5/14.
+ *
  */
 
 public class HomeAdapter extends BaseAdapter<Article,HomeViewHolder> {
