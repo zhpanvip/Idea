@@ -36,4 +36,7 @@ dependencies {
     compile project(':core')
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
     testCompile 'junit:junit:4.12'
+    debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leankCanary"
+    releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leankCanary"
+    testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leankCanary"
 }

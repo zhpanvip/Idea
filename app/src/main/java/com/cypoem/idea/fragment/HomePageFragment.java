@@ -97,7 +97,7 @@ public class HomePageFragment extends BaseFragment {
 
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(false)), 1000);
+        frame.postDelayed((() -> getData(true)), 1000);
     }
 
     @Override

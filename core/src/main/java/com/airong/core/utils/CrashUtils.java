@@ -1,9 +1,11 @@
 package com.airong.core.utils;
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
+import android.support.compat.BuildConfig;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -13,6 +15,7 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+
 /**
  * <pre>
  *     author: Blankj
@@ -21,17 +24,12 @@ import java.util.Locale;
  *     desc  : 崩溃相关工具类
  * </pre>
  */
-public class CrashUtils
-        implements UncaughtExceptionHandler {
+public class CrashUtils implements UncaughtExceptionHandler {
 
     private volatile static CrashUtils mInstance;
-
     private UncaughtExceptionHandler mHandler;
-
     private boolean mInitialized;
-    private String  crashDir;
-    private String  versionName;
-    private int     versionCode;
+    private String crashDir;
 
     private CrashUtils() {
     }
@@ -62,21 +60,13 @@ public class CrashUtils
     public boolean init() {
         if (mInitialized) return true;
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
-            File baseCache = Utils.getContext().getExternalCacheDir();
+            File baseCache = Environment.getExternalStorageDirectory();
             if (baseCache == null) return false;
-            crashDir = baseCache.getPath() + File.separator + "crash" + File.separator;
+            crashDir = baseCache.getPath() + File.separator + "idea" + File.separator + "crash" + File.separator;
         } else {
             File baseCache = Utils.getContext().getCacheDir();
             if (baseCache == null) return false;
             crashDir = baseCache.getPath() + File.separator + "crash" + File.separator;
-        }
-        try {
-            PackageInfo pi = Utils.getContext().getPackageManager().getPackageInfo(Utils.getContext().getPackageName(), 0);
-            versionName = pi.versionName;
-            versionCode = pi.versionCode;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-            return false;
         }
         mHandler = Thread.getDefaultUncaughtExceptionHandler();
         Thread.setDefaultUncaughtExceptionHandler(this);
@@ -85,27 +75,29 @@ public class CrashUtils
 
     @Override
     public void uncaughtException(Thread thread, final Throwable throwable) {
-        String now = new SimpleDateFormat("yy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
-        final String fullPath = crashDir + now + ".txt";
+        String name = "android-" + new SimpleDateFormat("yy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
+        final String fullPath = crashDir + name + ".txt";
         if (!FileUtils.createOrExistsFile(fullPath)) return;
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                PrintWriter pw = null;
-                try {
-                    pw = new PrintWriter(new FileWriter(fullPath, false));
-                    pw.write(getCrashHead());
-                    throwable.printStackTrace(pw);
-                    Throwable cause = throwable.getCause();
-                    while (cause != null) {
-                        cause.printStackTrace(pw);
-                        cause = cause.getCause();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    CloseUtils.closeIO(pw);
+        new Thread(() -> {
+
+            PrintWriter pw = null;
+            try {
+                boolean debug = BuildConfig.DEBUG;
+                pw = new PrintWriter(new FileWriter(fullPath, false));
+                //pw.write(getCrashHead());
+                dumpPhoneInfo(pw);
+                throwable.printStackTrace(pw);
+                Throwable cause = throwable.getCause();
+                while (cause != null) {
+                    cause.printStackTrace(pw);
+                    cause = cause.getCause();
                 }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (PackageManager.NameNotFoundException e) {
+                e.printStackTrace();
+            } finally {
+                CloseUtils.closeIO(pw);
             }
         }).start();
         if (mHandler != null) {
@@ -113,19 +105,28 @@ public class CrashUtils
         }
     }
 
-    /**
-     * 获取崩溃头
-     *
-     * @return 崩溃头
-     */
-    private String getCrashHead() {
-        return "\n************* Crash Log Head ****************" +
-                "\nDevice Manufacturer: " + Build.MANUFACTURER +// 设备厂商
-                "\nDevice Model       : " + Build.MODEL +// 设备型号
-                "\nAndroid Version    : " + Build.VERSION.RELEASE +// 系统版本
-                "\nAndroid SDK        : " + Build.VERSION.SDK_INT +// SDK版本
-                "\nApp VersionName    : " + versionName +
-                "\nApp VersionCode    : " + versionCode +
-                "\n************* Crash Log Head ****************\n\n";
+    private void dumpPhoneInfo(PrintWriter pw) throws PackageManager.NameNotFoundException {
+        PackageManager pm = Utils.getContext().getPackageManager();
+        PackageInfo pi = pm.getPackageInfo(Utils.getContext().getPackageName(), PackageManager.GET_ACTIVITIES);
+        pw.print("App Version:" + pi.versionName);
+        pw.print("_");
+        pw.println(pi.versionCode);
+
+        //  Android 版本号
+        pw.print("OS Version:" + Build.VERSION.RELEASE);
+        pw.print("_");
+        pw.println(Build.VERSION.SDK_INT);
+
+        //  手机制造商
+        pw.print("Device Vendor:");
+        pw.println(Build.MANUFACTURER);
+
+        //  手机型号
+        pw.print("Device Model:");
+        pw.println(Build.MODEL);
+
+        //  CPU架构
+        pw.print("Device CPU ABI:");
+        pw.println(Build.CPU_ABI);
     }
 }

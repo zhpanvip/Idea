@@ -15,8 +15,6 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mProgressDialog = CustomProgressDialog.createDialog(this);
-        mProgressDialog.setCanceledOnTouchOutside(false);
     }
 
     public void showToast(String msg){
@@ -26,14 +24,22 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
     /**
      * 显示ProgressDialog
      */
+    @Override
     public void showProgress(String msg) {
-        mProgressDialog.setMessage(msg);
+        mProgressDialog= new CustomProgressDialog.Builder(this)
+                .setMessage(msg)
+                .setTheme(R.style.ProgressDialogStyle)
+                .build();
         mProgressDialog.show();
     }
     /**
      * 显示ProgressDialog
      */
+    @Override
     public void showProgress() {
+        mProgressDialog= new CustomProgressDialog.Builder(this)
+                .setTheme(R.style.ProgressDialogStyle)
+                .build();
         mProgressDialog.show();
     }
 
@@ -45,5 +51,4 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
             mProgressDialog.dismiss();
         }
     }
-
 }

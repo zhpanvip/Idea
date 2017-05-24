@@ -23,8 +23,7 @@ public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         this.inflater=inflater;
-        mProgressDialog = CustomProgressDialog.createDialog(getContext());
-        mProgressDialog.setCanceledOnTouchOutside(false);
+
         if (rootView == null) {
             rootView = inflater.inflate(this.getLayoutId(), container, false);
             ButterKnife.bind(this, rootView);
@@ -42,7 +41,11 @@ public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
      */
     @Override
     public void showProgress(String msg) {
-        mProgressDialog.setMessage(msg);
+        mProgressDialog= new CustomProgressDialog.Builder(getContext())
+                .setMessage(msg)
+                .setTheme(R.style.ProgressDialogStyle)
+                .cancelTouchOutside(false)
+                .build();
         mProgressDialog.show();
     }
     /**
@@ -50,6 +53,10 @@ public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
      */
     @Override
     public void showProgress() {
+        mProgressDialog= new CustomProgressDialog.Builder(getContext())
+                .setTheme(R.style.ProgressDialogStyle)
+                .cancelTouchOutside(false)
+                .build();
         mProgressDialog.show();
     }
 

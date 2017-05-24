@@ -12,6 +12,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
+        android:paddingStart="@dimen/mp_5"
+        android:paddingEnd="@dimen/mp_5"
+        android:paddingTop="@dimen/mp_3"
+        android:paddingBottom="@dimen/mp_3"
         android:background="@drawable/bg_not_fill_gray"
         android:text="重写"/>
     <TextView
@@ -19,6 +23,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
+        android:paddingStart="@dimen/mp_5"
+        android:paddingEnd="@dimen/mp_5"
+        android:paddingTop="@dimen/mp_3"
+        android:paddingBottom="@dimen/mp_3"
         android:background="@drawable/bg_not_fill_gray"
         android:text="续写"/>
     <TextView
@@ -26,6 +34,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_not_fill_gray"
+        android:paddingStart="@dimen/mp_5"
+        android:paddingEnd="@dimen/mp_5"
+        android:paddingTop="@dimen/mp_3"
+        android:paddingBottom="@dimen/mp_3"
         android:text="征文"/>
 
 </LinearLayout>

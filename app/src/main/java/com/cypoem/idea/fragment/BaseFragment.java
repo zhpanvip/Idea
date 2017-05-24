@@ -19,7 +19,6 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * Created by zhpan on 2017/4/22.
- *
  */
 
 public abstract class BaseFragment extends BaseRxFragment {
@@ -173,16 +172,8 @@ public abstract class BaseFragment extends BaseRxFragment {
                 .setWidthPx(width)
                 .cancelTouchOutside(cancelTouchOutside)
                 .setDialogLayout(dialogView).build();
+        dialog.show();
         return dialogView;
-    }
-
-    /**
-     * 显示dialog
-     */
-    public void showDialog() {
-        if (dialog != null && !dialog.isShowing()) {
-            dialog.show();
-        }
     }
 
     /**
@@ -197,7 +188,7 @@ public abstract class BaseFragment extends BaseRxFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        if(unbinder!=null)
-        unbinder.unbind();
+        if (unbinder != null)
+            unbinder.unbind();
     }
 }
