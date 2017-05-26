@@ -26,28 +26,36 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
      */
     @Override
     public void showProgress(String msg) {
-        mProgressDialog= new CustomProgressDialog.Builder(this)
-                .setMessage(msg)
-                .setTheme(R.style.ProgressDialogStyle)
-                .build();
-        mProgressDialog.show();
+        if(mProgressDialog==null){
+            mProgressDialog= new CustomProgressDialog.Builder(this)
+                    .setTheme(R.style.ProgressDialogStyle)
+                    .setMessage(msg)
+                    .build();
+        }
+        if(mProgressDialog!=null&&!mProgressDialog.isShowing()) {
+            mProgressDialog.show();
+        }
     }
     /**
      * 显示ProgressDialog
      */
     @Override
     public void showProgress() {
-        mProgressDialog= new CustomProgressDialog.Builder(this)
-                .setTheme(R.style.ProgressDialogStyle)
-                .build();
-        mProgressDialog.show();
+        if(mProgressDialog==null){
+            mProgressDialog= new CustomProgressDialog.Builder(this)
+                    .setTheme(R.style.ProgressDialogStyle)
+                    .build();
+        }
+        if(mProgressDialog!=null&&!mProgressDialog.isShowing()) {
+            mProgressDialog.show();
+        }
     }
 
     /**
      * 取消ProgressDialog
      */
     public void dismissProgress() {
-        if (mProgressDialog != null) {
+        if (mProgressDialog != null&&mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
     }

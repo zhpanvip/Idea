@@ -1,12 +1,10 @@
 package com.airong.core.utils;
 
-import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 import android.support.compat.BuildConfig;
-
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -18,7 +16,7 @@ import java.util.Locale;
 
 /**
  * <pre>
- *     author: Blankj
+ *     author: zhpan
  *     blog  : http://blankj.com
  *     time  : 2016/9/27
  *     desc  : 崩溃相关工具类

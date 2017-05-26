@@ -92,12 +92,12 @@ public class HomePageFragment extends BaseFragment {
 
     @Override
     public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(false)), 1000);
+        frame.postDelayed((() -> getData(false)), 100);
     }
 
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(true)), 1000);
+        frame.postDelayed((() -> getData(false)), 100);
     }
 
     @Override
@@ -117,7 +117,7 @@ public class HomePageFragment extends BaseFragment {
                     public void onSuccess(MeiziWrapper response) {
                         Toast.makeText(getContext(), "请求数据成功", Toast.LENGTH_SHORT).show();
                         List<Meizi.ResultsBean> content = response.getResults();
-                        for (int i = 0; i < content.size() - content.size() + 2; i++) {
+                        for (int i = 0; i <2; i++) {
                             Toast.makeText(getContext(), "Url:" + content.get(i).getUrl(), Toast.LENGTH_SHORT).show();
                         }
                     }
