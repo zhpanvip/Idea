@@ -34,7 +34,7 @@ public class CollectActivity extends BaseActivity {
     @Override
     protected void init() {
         initData();
-        initPtr(true);
+        initPtr(false);
     }
 
     private void initData() {
@@ -70,7 +70,7 @@ public class CollectActivity extends BaseActivity {
 
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(false)), 1000);
+        frame.postDelayed((() -> getData(true)), 1000);
     }
 
     @Override

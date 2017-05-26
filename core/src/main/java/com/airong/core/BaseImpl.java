@@ -14,13 +14,13 @@ public interface BaseImpl {
     /**
      * 显示ProgressDialog
      */
-    void showProgress(Activity activity);
+    void showProgress(BaseImpl baseImpl);
 
     /**
      * 显示ProgressDialog
      *
      */
-    void showProgress(Activity activity,String msg);
+    void showProgress(BaseImpl baseImpl,String msg);
 
     /**
      * 取消ProgressDialog
@@ -60,11 +60,11 @@ public interface BaseImpl {
     void showOneButtonDialog(String content,String confirm,View.OnClickListener confirmListener);
 
 
-    boolean addRxStop(Activity activity, Disposable disposable);
+    boolean addRxStop(BaseImpl baseImpl, Disposable disposable);
 
-    boolean addRxDestroy(Activity activity, Disposable disposable);
+    boolean addRxDestroy(BaseImpl baseImpl, Disposable disposable);
 
-    void remove(Activity activity, Disposable disposable);
+    void remove(BaseImpl baseImpl, Disposable disposable);
 
 
     /*View createDialog(Integer dialogLayoutRes, boolean cancelTouchOutside);

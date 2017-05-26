@@ -38,8 +38,9 @@ public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
      * 显示ProgressDialog
      */
     @Override
-    public void showProgress(Activity activity, String msg) {
-        if (activity == null || activity.isFinishing()) {
+    public void showProgress(BaseImpl baseImpl, String msg) {
+        Fragment fragment= (Fragment) baseImpl;
+        if (fragment.getActivity() == null || fragment.getActivity().isFinishing()) {
             return;
         }
         if(mProgressDialog==null){
@@ -56,8 +57,9 @@ public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
      * 显示ProgressDialog
      */
     @Override
-    public void showProgress(Activity activity) {
-        if (activity == null || activity.isFinishing()) {
+    public void showProgress(BaseImpl baseImpl) {
+        Fragment fragment= (Fragment) baseImpl;
+        if (fragment.getActivity() == null || fragment.getActivity().isFinishing()) {
             return;
         }
         if(mProgressDialog==null){

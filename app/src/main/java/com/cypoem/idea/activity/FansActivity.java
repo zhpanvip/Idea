@@ -36,7 +36,7 @@ public class FansActivity extends BaseActivity {
     @Override
     protected void init() {
         initData();
-        initPtr(true);
+        initPtr(false);
     }
 
     private void initData() {

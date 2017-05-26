@@ -16,11 +16,11 @@ import com.airong.core.dialog.CustomProgressDialog;
 public abstract class BaseCoreActivity extends AppCompatActivity implements BaseImpl{
     //  加载进度的dialog
     private CustomProgressDialog mProgressDialog;
-    //protected CommonDialogUtils mDialogUtils;
+  //  protected CommonDialogUtils mDialogUtils;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //mDialogUtils=new CommonDialogUtils();
+       // mDialogUtils=new CommonDialogUtils();
     }
 
     public void showToast(String msg){
@@ -31,9 +31,9 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
      * 显示ProgressDialog
      */
     @Override
-    public void showProgress(Activity activity,String msg) {
+    public void showProgress(BaseImpl activity,String msg) {
         //mDialogUtils.showProgress(this,msg);
-        if (activity == null || activity.isFinishing()) {
+        if (activity == null || ((Activity)activity).isFinishing()) {
             return;
         }
         if(mProgressDialog==null){
@@ -50,9 +50,9 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
      * 显示ProgressDialog
      */
     @Override
-    public void showProgress(Activity activity) {
-        //mDialogUtils.showProgress(this);
-        if (activity == null || activity.isFinishing()) {
+    public void showProgress(BaseImpl activity) {
+       // mDialogUtils.showProgress(this);
+        if (activity == null || ((Activity)activity).isFinishing()) {
             return;
         }
         if(mProgressDialog==null){
@@ -69,7 +69,7 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
      * 取消ProgressDialog
      */
     public void dismissProgress() {
-        //mDialogUtils.dismissProgress();
+       // mDialogUtils.dismissProgress();
         if (mProgressDialog != null&&mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }

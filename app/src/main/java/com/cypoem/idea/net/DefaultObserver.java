@@ -29,35 +29,37 @@ import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.UNKNOWN_ERROR;
  */
 
 public abstract class DefaultObserver<T extends BasicResponse> implements Observer<T> {
-    private BaseImpl mBAseImpl;
+    private BaseImpl mBaseImpl;
     //  Activity 是否在执行onStop()时取消订阅
     private boolean isAddInStop = false;
 
     public DefaultObserver(BaseImpl baseImpl) {
-        mBAseImpl = baseImpl;
-        mBAseImpl.showProgress((Activity) mBAseImpl);
+        mBaseImpl = baseImpl;
+        mBaseImpl.showProgress(mBaseImpl);
     }
 
 
     public DefaultObserver(BaseImpl baseImpl, boolean isShowLoading) {
-        mBAseImpl = baseImpl;
+        mBaseImpl = baseImpl;
         if (isShowLoading) {
-            mBAseImpl.showProgress((Activity) mBAseImpl);
+            mBaseImpl.showProgress(mBaseImpl);
         }
     }
 
     @Override
     public void onSubscribe(Disposable d) {
         if (isAddInStop) {    //  在onStop中取消订阅
-            mBAseImpl.addRxStop((Activity) mBAseImpl,d);
+            mBaseImpl.addRxStop(mBaseImpl,d);
+
+
         } else { //  在onDestroy中取消订阅
-            mBAseImpl.addRxDestroy((Activity)mBAseImpl,d);
+            mBaseImpl.addRxDestroy(mBaseImpl,d);
         }
     }
 
     @Override
     public void onNext(T response) {
-        mBAseImpl.dismissProgress();
+        mBaseImpl.dismissProgress();
         if (!response.isError()) {
             onSuccess(response);
         } else {
@@ -74,7 +76,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     public void onError(Throwable e) {
         LogUtils.e("Retrofit", e.getMessage());
 
-        mBAseImpl.dismissProgress();
+        mBaseImpl.dismissProgress();
         if (e instanceof HttpException) {     //   HTTP错误
             onException(BAD_NETWORK);
         } else if (e instanceof ConnectException
@@ -122,7 +124,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
      * @param reason 异常原因
      */
     public void onException(ExceptionReason reason) {
-        mBAseImpl.dismissProgress();
+        mBaseImpl.dismissProgress();
         switch (reason) {
             case CONNECT_ERROR:
                 ToastUtils.show(R.string.connect_error, Toast.LENGTH_SHORT);

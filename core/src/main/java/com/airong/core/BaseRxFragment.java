@@ -19,7 +19,7 @@ public abstract class BaseRxFragment extends BaseCoreFragment  {
 
     protected abstract void init();
     
-    public boolean addRxStop(Activity activity, Disposable disposable) {
+    public boolean addRxStop(BaseImpl activity, Disposable disposable) {
         if (disposables2Stop == null) {
             throw new IllegalStateException(
                     "addUtilStop should be called between onStart and onStop");
@@ -28,7 +28,7 @@ public abstract class BaseRxFragment extends BaseCoreFragment  {
         return true;
     }
 
-    public boolean addRxDestroy(Activity activity, Disposable disposable) {
+    public boolean addRxDestroy(BaseImpl activity, Disposable disposable) {
         if (disposables2Destroy == null) {
             throw new IllegalStateException(
                     "addUtilDestroy should be called between onCreate and onDestroy");
@@ -37,7 +37,7 @@ public abstract class BaseRxFragment extends BaseCoreFragment  {
         return true;
     }
 
-    public void remove(Activity activity, Disposable disposable) {
+    public void remove(BaseImpl activity, Disposable disposable) {
         if (disposables2Stop == null && disposables2Destroy == null) {
             throw new IllegalStateException("remove should not be called after onDestroy");
         }

@@ -27,8 +27,8 @@ public abstract class BaseRxActivity extends BaseCoreActivity{
         });
     }
     @Override
-    public boolean addRxStop(Activity activity, Disposable disposable) {
-        if (activity == null || activity.isFinishing()) {
+    public boolean addRxStop(BaseImpl activity, Disposable disposable) {
+        if (activity == null || ((Activity)activity).isFinishing()) {
             return false;
         }
         if (disposables2Stop == null) {
@@ -39,8 +39,8 @@ public abstract class BaseRxActivity extends BaseCoreActivity{
         return true;
     }
     @Override
-    public boolean addRxDestroy(Activity activity, Disposable disposable) {
-        if (activity == null || activity.isFinishing()) {
+    public boolean addRxDestroy(BaseImpl activity, Disposable disposable) {
+        if (activity == null || ((Activity)activity).isFinishing()) {
             return false;
         }
         if (disposables2Destroy == null) {
@@ -52,7 +52,10 @@ public abstract class BaseRxActivity extends BaseCoreActivity{
         return true;
     }
     @Override
-    public void remove(Activity activity, Disposable disposable) {
+    public void remove(BaseImpl activity, Disposable disposable) {
+        if (activity == null || ((Activity)activity).isFinishing()) {
+            return ;
+        }
         if (disposables2Stop == null && disposables2Destroy == null) {
             throw new IllegalStateException("remove should not be called after onDestroy");
         }
