@@ -68,7 +68,7 @@ public class MainActivity extends BaseActivity {
                     hideAllFragment(fragmentTransaction);
                     if (mHomePageFragment == null) {
                         mHomePageFragment = HomePageFragment.getInstance(0);
-                        fragmentTransaction.add(R.id.ll_fragment, mHomePageFragment);
+                        fragmentTransaction.add(R.id.fl_fragment, mHomePageFragment);
                     } else {
                         fragmentTransaction.show(mHomePageFragment);
                     }
@@ -77,7 +77,7 @@ public class MainActivity extends BaseActivity {
                     hideAllFragment(fragmentTransaction);
                     if (mFindFragment == null) {
                         mFindFragment = new FindFragment();
-                        fragmentTransaction.add(R.id.ll_fragment, mFindFragment);
+                        fragmentTransaction.add(R.id.fl_fragment, mFindFragment);
                     } else {
                         fragmentTransaction.show(mFindFragment);
                     }
@@ -86,7 +86,7 @@ public class MainActivity extends BaseActivity {
                     hideAllFragment(fragmentTransaction);
                     if (mAddFragment == null) {
                         mAddFragment = new AddFragment();
-                        fragmentTransaction.add(R.id.ll_fragment, mAddFragment);
+                        fragmentTransaction.add(R.id.fl_fragment, mAddFragment);
                     } else {
                         fragmentTransaction.show(mAddFragment);
                     }
@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity {
                     hideAllFragment(fragmentTransaction);
                     if (mMessageFragment == null) {
                         mMessageFragment = new MessageFragment();
-                        fragmentTransaction.add(R.id.ll_fragment, mMessageFragment);
+                        fragmentTransaction.add(R.id.fl_fragment, mMessageFragment);
                     } else {
                         fragmentTransaction.show(mMessageFragment);
                     }
@@ -104,7 +104,7 @@ public class MainActivity extends BaseActivity {
                     hideAllFragment(fragmentTransaction);
                     if (mMeFragment == null) {
                         mMeFragment = new MeFragment();
-                        fragmentTransaction.add(R.id.ll_fragment, mMeFragment);
+                        fragmentTransaction.add(R.id.fl_fragment, mMeFragment);
                     } else {
                         fragmentTransaction.show(mMeFragment);
                     }

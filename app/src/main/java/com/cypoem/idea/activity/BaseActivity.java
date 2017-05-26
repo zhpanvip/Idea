@@ -16,9 +16,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.airong.core.BaseRxActivity;
 import com.airong.core.dialog.CustomDialog;
+import com.airong.core.view.PtrClassicListFooter;
+import com.airong.core.view.PtrClassicListHeader;
 import com.cypoem.idea.R;
 import com.cypoem.idea.app.SystemBarTintManager;
 import butterknife.ButterKnife;
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrDefaultHandler2;
+import in.srain.cube.views.ptr.PtrFrameLayout;
 
 public abstract class BaseActivity extends BaseRxActivity {
     //把父类activity和子类activity的view都add到这里
@@ -27,6 +33,7 @@ public abstract class BaseActivity extends BaseRxActivity {
     private TextView mToolbarSubTitle;
     //  对话框
     private CustomDialog dialog;
+    PtrClassicFrameLayout mPtrFrame;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +49,62 @@ public abstract class BaseActivity extends BaseRxActivity {
     protected abstract int getLayoutId();
 
     protected abstract void init();
+
+    //  初始化刷新加载框架，子类中需要的时候调用
+    public void initPtr(boolean isAutoRefresh) {
+        mPtrFrame = (PtrClassicFrameLayout)findViewById(R.id.list_view_frame);
+        if (mPtrFrame == null) return;
+
+        //mPtrFrame = (PtrFrameLayout) findViewById(R.id.store_house_ptr_frame);
+        mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
+        PtrClassicListHeader header = new PtrClassicListHeader(this);
+        header.setLastUpdateTimeRelateObject(this);
+        PtrClassicListFooter footer = new PtrClassicListFooter(this);
+        footer.setLastUpdateTimeRelateObject(this);
+        mPtrFrame.setHeaderView(header);
+        mPtrFrame.addPtrUIHandler(header);
+        mPtrFrame.setFooterView(footer);
+        mPtrFrame.addPtrUIHandler(footer);
+
+        mPtrFrame.setPtrHandler(new PtrDefaultHandler2() {
+            @Override
+            public void onLoadMoreBegin(PtrFrameLayout frame) {
+                onPtrLoadMoreBegin(frame);
+            }
+
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                onPtrRefreshBegin(frame);
+            }
+
+            @Override
+            public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
+                return super.checkCanDoLoadMore(frame, content, footer);
+            }
+
+            @Override
+            public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+            }
+        });
+        mPtrFrame.setKeepHeaderWhenRefresh(true);
+        if (isAutoRefresh)
+            mPtrFrame.postDelayed((() -> mPtrFrame.autoRefresh()), 1000);
+    }
+
+    /**
+     * 上拉加载
+     */
+    public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
+
+    }
+
+    /**
+     * 下拉刷新
+     */
+    public void onPtrRefreshBegin(PtrFrameLayout frame) {
+
+    }
 
     /******************************************* TollBar相关 ******************************************************/
     private void initToolBar() {
