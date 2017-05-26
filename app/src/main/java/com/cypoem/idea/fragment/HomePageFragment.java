@@ -53,7 +53,7 @@ public class HomePageFragment extends BaseFragment {
     @Override
     protected void init() {
         initData();
-        initPtr(false);
+        initPtr(true);
     }
 
     private void initData() {
@@ -97,7 +97,7 @@ public class HomePageFragment extends BaseFragment {
 
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(false)), 100);
+        frame.postDelayed((() -> getData(true)), 100);
     }
 
     @Override

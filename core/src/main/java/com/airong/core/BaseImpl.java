@@ -1,6 +1,5 @@
 package com.airong.core;
 
-import android.app.Activity;
 import android.support.annotation.ColorInt;
 import android.view.View;
 
@@ -66,8 +65,4 @@ public interface BaseImpl {
 
     void remove(BaseImpl baseImpl, Disposable disposable);
 
-
-    /*View createDialog(Integer dialogLayoutRes, boolean cancelTouchOutside);
-    void showDialog();
-    void dismissDialog();*/
 }

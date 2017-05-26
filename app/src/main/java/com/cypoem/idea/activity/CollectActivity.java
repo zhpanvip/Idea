@@ -65,12 +65,12 @@ public class CollectActivity extends BaseActivity {
 
     @Override
     public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(false)), 1000);
+        frame.postDelayed((() -> getData(false)), 100);
     }
 
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(true)), 1000);
+        frame.postDelayed((() -> getData(true)), 100);
     }
 
     @Override
@@ -80,8 +80,6 @@ public class CollectActivity extends BaseActivity {
     }
 
     private void getData(boolean showLoading) {
-       // Toast.makeText(CollectActivity.this, "请求数据成功", Toast.LENGTH_SHORT).show();
-
         //  Retrofit请求数据
         IdeaApi.getApiService()
                 .getMeizi()

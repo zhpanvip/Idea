@@ -25,6 +25,7 @@ import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
+import io.reactivex.Observable;
 
 public abstract class BaseActivity extends BaseRxActivity {
     //把父类activity和子类activity的view都add到这里
@@ -51,7 +52,7 @@ public abstract class BaseActivity extends BaseRxActivity {
     protected abstract void init();
 
     //  初始化刷新加载框架，子类中需要的时候调用
-    public void initPtr(boolean isAutoRefresh) {
+    protected void initPtr(boolean isAutoRefresh) {
         mPtrFrame = (PtrClassicFrameLayout)findViewById(R.id.list_view_frame);
         if (mPtrFrame == null) return;
 
@@ -95,14 +96,14 @@ public abstract class BaseActivity extends BaseRxActivity {
     /**
      * 上拉加载
      */
-    public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
+    protected void onPtrLoadMoreBegin(PtrFrameLayout frame) {
 
     }
 
     /**
      * 下拉刷新
      */
-    public void onPtrRefreshBegin(PtrFrameLayout frame) {
+    protected void onPtrRefreshBegin(PtrFrameLayout frame) {
 
     }
 
@@ -363,8 +364,8 @@ public abstract class BaseActivity extends BaseRxActivity {
      * @param color    颜色
      */
     public void setStatusBarColor(String color) {
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(activity, true);
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            setTranslucentStatus(this, true);
         }*/
         if (Build.VERSION.SDK_INT >= 21) {
             Window statusBar = getWindow();

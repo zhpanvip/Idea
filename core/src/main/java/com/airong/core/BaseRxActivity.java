@@ -16,16 +16,6 @@ public abstract class BaseRxActivity extends BaseCoreActivity{
     private CompositeDisposable disposables2Stop;// 管理Stop取消订阅者者
     private CompositeDisposable disposables2Destroy;// 管理Destroy取消订阅者者
 
-    private <T> Observable<T> createData(final T t) {
-        return Observable.create(subscriber -> {
-            try {
-                subscriber.onNext(t);
-                subscriber.onComplete();
-            } catch (Exception e) {
-                subscriber.onError(e);
-            }
-        });
-    }
     @Override
     public boolean addRxStop(BaseImpl activity, Disposable disposable) {
         if (activity == null || ((Activity)activity).isFinishing()) {

@@ -53,7 +53,7 @@ public abstract class BaseFragment extends BaseRxFragment {
     }
 
     //  初始化刷新加载框架，子类中需要的时候调用
-    public void initPtr(boolean isAutoRefresh) {
+    protected void initPtr(boolean isAutoRefresh) {
         mPtrFrame = (PtrClassicFrameLayout) rootView.findViewById(R.id.list_view_frame);
         if (mPtrFrame == null) return;
 
@@ -138,14 +138,14 @@ public abstract class BaseFragment extends BaseRxFragment {
     /**
      * 上拉加载
      */
-    public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
+    protected void onPtrLoadMoreBegin(PtrFrameLayout frame) {
 
     }
 
     /**
      * 下拉刷新
      */
-    public void onPtrRefreshBegin(PtrFrameLayout frame) {
+    protected void onPtrRefreshBegin(PtrFrameLayout frame) {
 
     }
 
@@ -155,7 +155,7 @@ public abstract class BaseFragment extends BaseRxFragment {
      * @param dialogLayoutRes    dialog布局资源文件
      * @param cancelTouchOutside 点击外部是否可以取消
      */
-    public View createDialog(Integer dialogLayoutRes, boolean cancelTouchOutside) {
+    protected View createDialog(Integer dialogLayoutRes, boolean cancelTouchOutside) {
         if (dialogLayoutRes == null) {
             dialogLayoutRes = com.airong.core.R.layout.custom_dialog;
         }
@@ -179,7 +179,7 @@ public abstract class BaseFragment extends BaseRxFragment {
     /**
      * 隐藏dialog
      */
-    public void dismissDialog() {
+    protected void dismissDialog() {
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
