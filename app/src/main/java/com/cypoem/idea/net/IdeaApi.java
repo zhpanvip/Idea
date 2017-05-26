@@ -23,7 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by zhpan on 2017/4/1.
- *
  */
 
 public class IdeaApi {

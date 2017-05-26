@@ -37,6 +37,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
         mBAseImpl.showProgress();
     }
 
+
     public DefaultObserver(BaseImpl baseImpl, boolean isShowLoading) {
         mBAseImpl = baseImpl;
         if (isShowLoading) {
