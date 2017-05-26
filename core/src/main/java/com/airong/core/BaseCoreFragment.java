@@ -1,5 +1,6 @@
 package com.airong.core;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -21,7 +22,6 @@ public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
     public final View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         this.inflater=inflater;
-
         if (rootView == null) {
             rootView = inflater.inflate(this.getLayoutId(), container, false);
             ButterKnife.bind(this, rootView);
@@ -38,7 +38,10 @@ public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
      * 显示ProgressDialog
      */
     @Override
-    public void showProgress(String msg) {
+    public void showProgress(Activity activity, String msg) {
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
         if(mProgressDialog==null){
             mProgressDialog= new CustomProgressDialog.Builder(getContext())
                     .setTheme(R.style.ProgressDialogStyle)
@@ -53,7 +56,10 @@ public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
      * 显示ProgressDialog
      */
     @Override
-    public void showProgress() {
+    public void showProgress(Activity activity) {
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
         if(mProgressDialog==null){
             mProgressDialog= new CustomProgressDialog.Builder(getContext())
                     .setTheme(R.style.ProgressDialogStyle)

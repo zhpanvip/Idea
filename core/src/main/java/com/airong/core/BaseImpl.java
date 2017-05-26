@@ -1,5 +1,6 @@
 package com.airong.core;
 
+import android.app.Activity;
 import android.support.annotation.ColorInt;
 import android.view.View;
 
@@ -13,13 +14,13 @@ public interface BaseImpl {
     /**
      * 显示ProgressDialog
      */
-    void showProgress();
+    void showProgress(Activity activity);
 
     /**
      * 显示ProgressDialog
      *
      */
-    void showProgress(String msg);
+    void showProgress(Activity activity,String msg);
 
     /**
      * 取消ProgressDialog
@@ -59,11 +60,11 @@ public interface BaseImpl {
     void showOneButtonDialog(String content,String confirm,View.OnClickListener confirmListener);
 
 
-    boolean addRxStop(Disposable disposable);
+    boolean addRxStop(Activity activity, Disposable disposable);
 
-    boolean addRxDestroy(Disposable disposable);
+    boolean addRxDestroy(Activity activity, Disposable disposable);
 
-    void remove(Disposable disposable);
+    void remove(Activity activity, Disposable disposable);
 
 
     /*View createDialog(Integer dialogLayoutRes, boolean cancelTouchOutside);

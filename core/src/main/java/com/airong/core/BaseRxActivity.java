@@ -1,5 +1,6 @@
 package com.airong.core;
 
+import android.app.Activity;
 import android.os.Bundle;
 import io.reactivex.Observable;
 import io.reactivex.disposables.CompositeDisposable;
@@ -26,7 +27,10 @@ public abstract class BaseRxActivity extends BaseCoreActivity{
         });
     }
     @Override
-    public boolean addRxStop(Disposable disposable) {
+    public boolean addRxStop(Activity activity, Disposable disposable) {
+        if (activity == null || activity.isFinishing()) {
+            return false;
+        }
         if (disposables2Stop == null) {
             throw new IllegalStateException(
                     "addUtilStop should be called between onStart and onStop");
@@ -35,8 +39,12 @@ public abstract class BaseRxActivity extends BaseCoreActivity{
         return true;
     }
     @Override
-    public boolean addRxDestroy(Disposable disposable) {
+    public boolean addRxDestroy(Activity activity, Disposable disposable) {
+        if (activity == null || activity.isFinishing()) {
+            return false;
+        }
         if (disposables2Destroy == null) {
+
             throw new IllegalStateException(
                     "addUtilDestroy should be called between onCreate and onDestroy");
         }
@@ -44,7 +52,7 @@ public abstract class BaseRxActivity extends BaseCoreActivity{
         return true;
     }
     @Override
-    public void remove(Disposable disposable) {
+    public void remove(Activity activity, Disposable disposable) {
         if (disposables2Stop == null && disposables2Destroy == null) {
             throw new IllegalStateException("remove should not be called after onDestroy");
         }
@@ -87,6 +95,7 @@ public abstract class BaseRxActivity extends BaseCoreActivity{
     @Override
     public void onDestroy() {
         super.onDestroy();
+
         if (disposables2Destroy == null) {
             throw new IllegalStateException(
                     "onDestroy called multiple times or onCreate not called");

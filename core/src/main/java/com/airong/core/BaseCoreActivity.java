@@ -1,7 +1,11 @@
 package com.airong.core;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+import com.airong.core.dialog.CommonDialogUtils;
 import com.airong.core.utils.ToastUtils;
 import com.airong.core.dialog.CustomProgressDialog;
 
@@ -12,9 +16,11 @@ import com.airong.core.dialog.CustomProgressDialog;
 public abstract class BaseCoreActivity extends AppCompatActivity implements BaseImpl{
     //  加载进度的dialog
     private CustomProgressDialog mProgressDialog;
+    //protected CommonDialogUtils mDialogUtils;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //mDialogUtils=new CommonDialogUtils();
     }
 
     public void showToast(String msg){
@@ -25,7 +31,11 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
      * 显示ProgressDialog
      */
     @Override
-    public void showProgress(String msg) {
+    public void showProgress(Activity activity,String msg) {
+        //mDialogUtils.showProgress(this,msg);
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
         if(mProgressDialog==null){
             mProgressDialog= new CustomProgressDialog.Builder(this)
                     .setTheme(R.style.ProgressDialogStyle)
@@ -40,7 +50,11 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
      * 显示ProgressDialog
      */
     @Override
-    public void showProgress() {
+    public void showProgress(Activity activity) {
+        //mDialogUtils.showProgress(this);
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
         if(mProgressDialog==null){
             mProgressDialog= new CustomProgressDialog.Builder(this)
                     .setTheme(R.style.ProgressDialogStyle)
@@ -55,6 +69,7 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
      * 取消ProgressDialog
      */
     public void dismissProgress() {
+        //mDialogUtils.dismissProgress();
         if (mProgressDialog != null&&mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }

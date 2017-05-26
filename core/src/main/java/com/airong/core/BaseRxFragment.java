@@ -1,5 +1,6 @@
 package com.airong.core;
 
+import android.app.Activity;
 import android.os.Bundle;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -17,9 +18,8 @@ public abstract class BaseRxFragment extends BaseCoreFragment  {
     protected abstract int getLayoutId();
 
     protected abstract void init();
-
-
-    public boolean addRxStop(Disposable disposable) {
+    
+    public boolean addRxStop(Activity activity, Disposable disposable) {
         if (disposables2Stop == null) {
             throw new IllegalStateException(
                     "addUtilStop should be called between onStart and onStop");
@@ -28,7 +28,7 @@ public abstract class BaseRxFragment extends BaseCoreFragment  {
         return true;
     }
 
-    public boolean addRxDestroy(Disposable disposable) {
+    public boolean addRxDestroy(Activity activity, Disposable disposable) {
         if (disposables2Destroy == null) {
             throw new IllegalStateException(
                     "addUtilDestroy should be called between onCreate and onDestroy");
@@ -37,7 +37,7 @@ public abstract class BaseRxFragment extends BaseCoreFragment  {
         return true;
     }
 
-    public void remove(Disposable disposable) {
+    public void remove(Activity activity, Disposable disposable) {
         if (disposables2Stop == null && disposables2Destroy == null) {
             throw new IllegalStateException("remove should not be called after onDestroy");
         }

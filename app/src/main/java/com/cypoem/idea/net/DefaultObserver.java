@@ -1,5 +1,6 @@
 package com.cypoem.idea.net;
 
+import android.app.Activity;
 import android.text.TextUtils;
 import android.widget.Toast;
 import com.airong.core.BaseImpl;
@@ -34,23 +35,23 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
 
     public DefaultObserver(BaseImpl baseImpl) {
         mBAseImpl = baseImpl;
-        mBAseImpl.showProgress();
+        mBAseImpl.showProgress((Activity) mBAseImpl);
     }
 
 
     public DefaultObserver(BaseImpl baseImpl, boolean isShowLoading) {
         mBAseImpl = baseImpl;
         if (isShowLoading) {
-            mBAseImpl.showProgress();
+            mBAseImpl.showProgress((Activity) mBAseImpl);
         }
     }
 
     @Override
     public void onSubscribe(Disposable d) {
         if (isAddInStop) {    //  在onStop中取消订阅
-            mBAseImpl.addRxStop(d);
+            mBAseImpl.addRxStop((Activity) mBAseImpl,d);
         } else { //  在onDestroy中取消订阅
-            mBAseImpl.addRxDestroy(d);
+            mBAseImpl.addRxDestroy((Activity)mBAseImpl,d);
         }
     }
 

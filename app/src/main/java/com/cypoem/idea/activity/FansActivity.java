@@ -69,7 +69,7 @@ public class FansActivity extends BaseActivity {
 
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(true)), 100);
+        frame.postDelayed((() -> getData(false)), 100);
     }
 
     @Override
@@ -79,6 +79,8 @@ public class FansActivity extends BaseActivity {
     }
 
     private void getData(boolean showLoading) {
+      //  Toast.makeText(this, "请求数据成功", Toast.LENGTH_SHORT).show();
+
         //  Retrofit请求数据
         IdeaApi.getApiService()
                 .getMeizi()
@@ -87,10 +89,10 @@ public class FansActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<MeiziWrapper>(this, showLoading) {
                     @Override
                     public void onSuccess(MeiziWrapper response) {
-                        Toast.makeText(FansActivity.this, "请求数据成功", Toast.LENGTH_SHORT).show();
+                        showToast( "请求数据成功");
                         List<Meizi.ResultsBean> content = response.getResults();
                         for (int i = 0; i < content.size() - content.size() + 2; i++) {
-                            Toast.makeText(FansActivity.this, "Url:" + content.get(i).getUrl(), Toast.LENGTH_SHORT).show();
+                            showToast("Url:" + content.get(i).getUrl());
                         }
                     }
                 });
