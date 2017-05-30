@@ -17,7 +17,6 @@ import butterknife.BindView;
 
 /**
  * 通用 WebView 考虑以后所有展示 WebView 的界面都从这个类继承
- * Created by zhpan on 2016/7/19.
  */
 public class BasicWebViewActivity extends BaseActivity {
 
@@ -85,7 +84,6 @@ public class BasicWebViewActivity extends BaseActivity {
 
     @Override
     public void onDestroy() {
-        Process.killProcess(Process.myPid());
         super.onDestroy();
         if (mWebView != null) {
             mContainerLayout.removeAllViews();

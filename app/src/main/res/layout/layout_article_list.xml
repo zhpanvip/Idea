@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/mp_20"
-    android:layout_marginEnd="@dimen/mp_20"
-    android:layout_marginStart="@dimen/mp_20"
+    android:layout_marginEnd="@dimen/mp_10"
+    android:layout_marginStart="@dimen/mp_10"
     android:layout_marginTop="@dimen/mp_10">
 
     <LinearLayout
@@ -30,7 +29,7 @@
                 android:layout_height="wrap_content"
                 android:text="如若可以，浅笑安然"
                 android:textColor="@color/gray_33"
-                android:textSize="@dimen/f_18" />
+                android:textSize="@dimen/f_16" />
 
             <TextView
                 android:id="@+id/tv_author"
@@ -39,7 +38,7 @@
                 android:gravity="center_horizontal"
                 android:text="时间：2017-05-23"
                 android:textColor="@color/gray_66"
-                android:textSize="@dimen/f_16" />
+                android:textSize="@dimen/f_14" />
 
             <TextView
                 android:id="@+id/tv_article"
@@ -56,7 +55,7 @@
 浅浅年岁，凉凉夜色，旧时风景，难掩芳时的梦。新的春光，过了今夜又是新的一朝，挥挥一袖的风雨，安然的浅笑。生命的路口中，把最美的风景装在心坎上，从容的转身，踏上另一段新的旅程。如若可以，别离前便拥抱一下，然后再转身，让温暖如风般永存心尖。
 
 时光匆匆，岁月如歌，如若有情，毋须携手，且行且珍惜;似水流年，浮生如梦，如若有意，毋须挽留，且看盛世花开。"
-                android:textSize="@dimen/f_15" />
+                android:textSize="@dimen/f_16" />
 
             <TextView
                 android:id="@+id/tv_all"
@@ -67,7 +66,7 @@
                 android:gravity="center_horizontal"
                 android:text="查看所有章节>>"
                 android:textColor="@color/green"
-                android:textSize="@dimen/f_15" />
+                android:textSize="@dimen/f_14" />
 
             <View
                 android:layout_width="match_parent"
@@ -89,8 +88,8 @@
 
             <ImageView
                 android:id="@+id/iv_head_pic"
-                android:layout_width="@dimen/mp_50"
-                android:layout_height="@dimen/mp_50"
+                android:layout_width="@dimen/mp_45"
+                android:layout_height="@dimen/mp_45"
                 android:layout_centerVertical="true"
                 android:src="@drawable/head_pic" />
 
@@ -102,8 +101,8 @@
                 android:layout_marginTop="@dimen/mp_5"
                 android:layout_toEndOf="@id/iv_head_pic"
                 android:text="韩三少的剑"
-                android:textColor="@color/gray_66"
-                android:textSize="@dimen/f_18" />
+                android:textColor="@color/gray_33"
+                android:textSize="@dimen/f_16" />
 
             <TextView
                 android:id="@+id/tv_time"
@@ -128,6 +127,7 @@
                 android:paddingEnd="@dimen/mp_10"
                 android:paddingStart="@dimen/mp_10"
                 android:paddingTop="@dimen/mp_5"
+                android:textSize="@dimen/f_14"
                 android:text="+关注"
                 android:textColor="@color/white" />
         </RelativeLayout>

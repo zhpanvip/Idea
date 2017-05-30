@@ -3,20 +3,13 @@ package com.cypoem.idea.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
-
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.StartReadAdapter;
-import com.cypoem.idea.module.bean.StartReadBean;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 
 public class StartReadActivity extends BaseActivity {
@@ -63,18 +56,16 @@ public class StartReadActivity extends BaseActivity {
         mRecyclerView.setTriggerOffset(0.15f);
         mRecyclerView.setFlingFactor(0.25f);
         mRecyclerView.setLayoutManager(layout);
-        mRecyclerView.setAdapter(new StartReadAdapter(this, mRecyclerView));
+        mRecyclerView.setAdapter(new StartReadAdapter(this));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLongClickable(true);
-        mRecyclerView.addOnPageChangedListener(new RecyclerViewPager.OnPageChangedListener() {
-            @Override
-            public void OnPageChanged(int i, int i1) {
-                showToast("i="+i+"i1="+i1);
-            }
+
+        mRecyclerView.addOnPageChangedListener((int i, int i1) -> {
+            showToast("vertical position=" + i1);
+            startAnim();
         });
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-        });
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
+
+       /* mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
 
@@ -109,9 +100,9 @@ public class StartReadActivity extends BaseActivity {
                     }
                 }
             }
-        });
+        });*/
 
-        mRecyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
+        /*mRecyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
                 if (mRecyclerView.getChildCount() < 3) {
@@ -131,7 +122,18 @@ public class StartReadActivity extends BaseActivity {
                 }
 
             }
-        });
+        });*/
+    }
+
+    public void onHorizontalItemSelected(int position) {
+        showToast("horizontal position=" + position);
+        startAnim();
+    }
+
+    public void startAnim() {
+        Animation animation = AnimationUtils
+                .loadAnimation(StartReadActivity.this, R.anim.draw_down);
+        llTab.startAnimation(animation);
     }
 
     public static void start(Context context) {

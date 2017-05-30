@@ -87,7 +87,8 @@
         <activity android:name=".activity.PraiseActivity" />
         <activity android:name=".activity.OpusActivity" />
         <activity android:name=".activity.AuthorInfoActivity" />
-        <activity android:name=".activity.StartReadActivity"></activity>
+        <activity android:name=".activity.BasicWebViewActivity" />
+        <activity android:name=".activity.StartReadActivity"/>
     </application>
 
 </manifest>

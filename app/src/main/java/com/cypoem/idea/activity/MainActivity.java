@@ -47,8 +47,9 @@ public class MainActivity extends BaseActivity {
     private MeFragment mMeFragment;
     private FragmentManager mFragmentManger;
     private long exitTime = 0;
-    private boolean isFirst=true;
-    private boolean login;
+
+    private int prePosition;
+
 
     @Override
     protected int getLayoutId() {
@@ -104,6 +105,8 @@ public class MainActivity extends BaseActivity {
                         goToMessage(fragmentTransaction);
                     }else {
                         goToLogin();
+                        rgTab.check(prePosition);
+                        return;
                     }
 
                     break;
@@ -118,6 +121,7 @@ public class MainActivity extends BaseActivity {
                     break;
             }
             fragmentTransaction.commit();
+            prePosition=checkedId;
         });
     }
 
@@ -194,15 +198,6 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public void isLogin() {
-        if(!UserInfoTools.getIsLogin(this)){
-            mRbMessage.setClickable(false);
-            mRbMe.setEnabled(false);
-        }else {
-            mRbMessage.setClickable(true);
-            mRbMe.setEnabled(true);
-        }
-    }
 
    /* private void getData(boolean showLoading) {
         //  Retrofit请求数据
