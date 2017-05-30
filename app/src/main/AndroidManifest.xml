@@ -7,6 +7,13 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 蓝牙分享所需的权限 -->
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <application
         android:name=".app.MainApplication"
         android:allowBackup="true"
@@ -15,8 +22,47 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- 集成line客户端登录授权，需要添如下格式的过滤器 -->
+            <intent-filter>
+                <data android:scheme="line.1477692153" />
+
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
+        <!-- 微信分享回调 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity android:name=".activity.MainActivity" />
-       <!-- <activity android:name=".activity.BaseActivity" />-->
+        <!-- <activity android:name=".activity.BaseActivity" /> -->
         <activity
             android:name=".activity.SplashActivity"
             android:theme="@style/Theme.NoTitleBar.Fullscreen">
@@ -37,10 +83,11 @@
         <activity android:name=".activity.ReviewActivity" />
         <activity android:name=".activity.FansActivity" />
         <activity android:name=".activity.WalletActivity" />
-        <activity android:name=".activity.PublishActivity"></activity>
-        <activity android:name=".activity.PraiseActivity"></activity>
-        <activity android:name=".activity.OpusActivity"></activity>
-        <activity android:name=".activity.AuthorInfoActivity"></activity>
+        <activity android:name=".activity.PublishActivity" />
+        <activity android:name=".activity.PraiseActivity" />
+        <activity android:name=".activity.OpusActivity" />
+        <activity android:name=".activity.AuthorInfoActivity" />
+        <activity android:name=".activity.StartReadActivity"></activity>
     </application>
 
 </manifest>

@@ -2,6 +2,8 @@ package com.cypoem.idea.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -35,6 +37,16 @@ public class CollectActivity extends BaseActivity {
     protected void init() {
         initData();
         initPtr(false);
+        setListener();
+    }
+
+    private void setListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                StartReadActivity.start(CollectActivity.this);
+            }
+        });
     }
 
     private void initData() {

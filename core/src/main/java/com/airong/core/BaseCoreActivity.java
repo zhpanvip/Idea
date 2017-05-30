@@ -3,6 +3,7 @@ package com.airong.core;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 
 import com.airong.core.dialog.CommonDialogUtils;
@@ -25,6 +26,10 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
 
     public void showToast(String msg){
         ToastUtils.show(msg);
+    }
+
+    public void showToast(@StringRes  int resId){
+        ToastUtils.show(resId);
     }
 
     /**

@@ -372,6 +372,9 @@
             android:layout_centerVertical="true"
             android:src="@drawable/array_right"/>
     </RelativeLayout>
-
-
+    <include layout="@layout/base_line"/>
+    <View
+        android:id="@+id/me_view"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_55"/>
 </LinearLayout>

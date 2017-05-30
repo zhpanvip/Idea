@@ -2,6 +2,8 @@ package com.cypoem.idea.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -37,6 +39,12 @@ public class FansActivity extends BaseActivity {
     protected void init() {
         initData();
         initPtr(false);
+        setListener();
+    }
+
+    private void setListener() {
+        lvFans.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id)->
+                AuthorInfoActivity.start(FansActivity.this));
     }
 
     private void initData() {

@@ -38,6 +38,7 @@
         android:hint="@string/confirm_password"/>
 
     <Button
+        android:id="@+id/btn_confirm"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
         android:text="@string/confirm"

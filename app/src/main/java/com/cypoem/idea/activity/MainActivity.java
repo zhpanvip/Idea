@@ -2,6 +2,7 @@ package com.cypoem.idea.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -16,6 +17,10 @@ import com.cypoem.idea.fragment.FindFragment;
 import com.cypoem.idea.fragment.HomePageFragment;
 import com.cypoem.idea.fragment.MeFragment;
 import com.cypoem.idea.fragment.MessageFragment;
+import com.cypoem.idea.utils.UserInfoTools;
+
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -42,6 +47,8 @@ public class MainActivity extends BaseActivity {
     private MeFragment mMeFragment;
     private FragmentManager mFragmentManger;
     private long exitTime = 0;
+    private boolean isFirst=true;
+    private boolean login;
 
     @Override
     protected int getLayoutId() {
@@ -52,6 +59,7 @@ public class MainActivity extends BaseActivity {
         initData();
         setListener();
         mRbHome.performClick();
+      //  isLogin();
     }
 
     private void initData() {
@@ -92,26 +100,52 @@ public class MainActivity extends BaseActivity {
                     }
                     break;
                 case R.id.rb_message:
-                    hideAllFragment(fragmentTransaction);
-                    if (mMessageFragment == null) {
-                        mMessageFragment = new MessageFragment();
-                        fragmentTransaction.add(R.id.fl_fragment, mMessageFragment);
-                    } else {
-                        fragmentTransaction.show(mMessageFragment);
+                    if(UserInfoTools.getIsLogin(this)){
+                        goToMessage(fragmentTransaction);
+                    }else {
+                        goToLogin();
                     }
+
                     break;
                 case R.id.rb_me:
-                    hideAllFragment(fragmentTransaction);
-                    if (mMeFragment == null) {
-                        mMeFragment = new MeFragment();
-                        fragmentTransaction.add(R.id.fl_fragment, mMeFragment);
-                    } else {
-                        fragmentTransaction.show(mMeFragment);
-                    }
+                    goToMe(fragmentTransaction);
+                   /* if(UserInfoTools.getIsLogin(this)){
+                       goToMe(fragmentTransaction);
+                    }else {
+                        goToLogin();
+                    }*/
+
                     break;
             }
             fragmentTransaction.commit();
         });
+    }
+
+    private void goToMessage(FragmentTransaction fragmentTransaction) {
+        hideAllFragment(fragmentTransaction);
+        if (mMessageFragment == null) {
+            mMessageFragment = new MessageFragment();
+            fragmentTransaction.add(R.id.fl_fragment, mMessageFragment);
+        } else {
+            fragmentTransaction.show(mMessageFragment);
+        }
+    }
+
+    private void goToMe(FragmentTransaction fragmentTransaction) {
+        hideAllFragment(fragmentTransaction);
+        if (mMeFragment == null) {
+            Bundle bundle=new Bundle();
+            mMeFragment = MeFragment.getFragment(bundle);
+            fragmentTransaction.add(R.id.fl_fragment, mMeFragment);
+        } else {
+            fragmentTransaction.show(mMeFragment);
+            //  发送隐藏MeFragment中footer的消息
+            EventBus.getDefault().post(new HideView(true));
+        }
+    }
+
+    private void goToLogin() {
+        LoginActivity.start(this);
     }
 
 
@@ -124,10 +158,16 @@ public class MainActivity extends BaseActivity {
         context.startActivity(new Intent(context, MainActivity.class));
     }
 
-    @OnClick({})
+    @OnClick({R.id.rb_me,R.id.rb_message})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.rb_me:
+               // goToLogin();
+                break;
 
+            case R.id.rb_message:
+               // goToLogin();
+                break;
         }
     }
 
@@ -154,6 +194,16 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    public void isLogin() {
+        if(!UserInfoTools.getIsLogin(this)){
+            mRbMessage.setClickable(false);
+            mRbMe.setEnabled(false);
+        }else {
+            mRbMessage.setClickable(true);
+            mRbMe.setEnabled(true);
+        }
+    }
+
    /* private void getData(boolean showLoading) {
         //  Retrofit请求数据
         IdeaApi.getApiService()
@@ -171,5 +221,14 @@ public class MainActivity extends BaseActivity {
                     }
                 });
     }*/
+
+
+   //   EventBus隐藏MeFragment中footer的事件类
+   public class HideView{
+      public   boolean isHide;
+       public HideView(boolean isHide) {
+           this.isHide = isHide;
+       }
+   }
 
 }

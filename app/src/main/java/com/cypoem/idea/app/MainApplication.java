@@ -2,16 +2,18 @@ package com.cypoem.idea.app;
 
 import com.airong.core.BaseApp;
 import com.airong.core.utils.Utils;
+import com.cypoem.idea.module.bean.User;
+import com.cypoem.idea.utils.SharedPreferencesHelper;
+import com.cypoem.idea.utils.UserInfoTools;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
-import static okhttp3.internal.Internal.instance;
+import cn.sharesdk.framework.ShareSDK;
 
 /**
  * Created by zhpan on 2017/4/16.
- *
  */
 
 public class MainApplication extends BaseApp {
@@ -25,26 +27,27 @@ public class MainApplication extends BaseApp {
             return;
         }
         LeakCanary.install(this);
+        UserInfoTools.init(this);
+        //  初始化mob
+        ShareSDK.initSDK(this);
     }
 
-    public static String getPublicKeyStore(){
-        try
-        {
+
+
+    public static String getPublicKeyStore() {
+        try {
             InputStreamReader inputReader = new InputStreamReader(Utils.getContext().getResources().getAssets().open("publicKey.keystore"));
             BufferedReader bufReader = new BufferedReader(inputReader);
             String line = "";
             String Result = "";
-            while ((line = bufReader.readLine()) != null)
-            {
-                if (line.charAt(0) == '-')
-                {
+            while ((line = bufReader.readLine()) != null) {
+                if (line.charAt(0) == '-') {
                     continue;
                 }
                 Result += line;
             }
             return Result;
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }

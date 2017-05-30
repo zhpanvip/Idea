@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cypoem.idea.R;
+import com.cypoem.idea.activity.StartReadActivity;
 import com.cypoem.idea.adapter.HomeAdapter;
 import com.cypoem.idea.module.bean.Article;
 import com.cypoem.idea.module.bean.Meizi;
@@ -53,7 +54,7 @@ public class HomePageFragment extends BaseFragment {
     @Override
     protected void init() {
         initData();
-        initPtr(true);
+        initPtr(false);
     }
 
     private void initData() {
@@ -88,6 +89,9 @@ public class HomePageFragment extends BaseFragment {
         mAdapter = new HomeAdapter(getContext());
         mAdapter.fillList(mList);
         mRecyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnItemClickListener((position)-> StartReadActivity.start(getContext()));
+
     }
 
     @Override

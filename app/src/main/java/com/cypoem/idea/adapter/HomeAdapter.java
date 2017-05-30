@@ -1,6 +1,7 @@
 package com.cypoem.idea.adapter;
 
 import android.content.Context;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.airong.core.recycler.BaseAdapter;
@@ -14,7 +15,12 @@ import com.cypoem.idea.module.bean.Article;
  */
 
 public class HomeAdapter extends BaseAdapter<Article,HomeViewHolder> {
+    private OnItemClickListener clickListener;
 
+    public HomeAdapter setOnItemClickListener(OnItemClickListener clickListener){
+        this.clickListener=clickListener;
+        return this;
+    }
 
     public HomeAdapter(Context context) {
         super(context);
@@ -30,10 +36,21 @@ public class HomeAdapter extends BaseAdapter<Article,HomeViewHolder> {
         Article item = getItem(position);
         holder.mTvTitle.setText("哈哈哈");
         ImageLoaderUtil.loadRoundImg(holder.imageView,item.getPicUrl(),R.drawable.img_placeholder);
+
+        holder.mRelativeLayout.setOnClickListener((View v)-> {
+                if(clickListener!=null){
+                    clickListener.onItemClick(position);
+            }
+        });
+
     }
 
     @Override
     public int getCustomViewType(int position) {
         return 0;
+    }
+
+    public interface OnItemClickListener{
+        void onItemClick(int position);
     }
 }

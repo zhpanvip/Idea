@@ -100,8 +100,8 @@ public class SPUtils {
      * @param list
      * @return
      */
-    public static boolean putAll(String key, List<?> list) {
-        return putAll(null, key, list);
+    public static boolean putList(String key, List<?> list) {
+        return putList(null, key, list);
     }
 
     /**
@@ -112,7 +112,7 @@ public class SPUtils {
      * @param list
      * @return
      */
-    public static boolean putAll(String name, String key, List<?> list) {
+    public static boolean putList(String name, String key, List<?> list) {
         if (TextUtils.isEmpty(key) || CollectionUtils.isEmpty(list)) {
             throw new RuntimeException("key or list cannot be null.");
         }

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:id="@+id/ll_tab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_55"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <include layout="@layout/base_line"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="@dimen/mp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="评论"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/f_18" />
+
+                <TextView
+                    android:id="@+id/tv_comment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23"
+                    android:textColor="@color/gray_66"
+                    android:textSize="@dimen/f_16" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/mp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="赞"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/f_18" />
+
+                <TextView
+                    android:id="@+id/tv_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23"
+                    android:textColor="@color/gray_66"
+                    android:textSize="@dimen/f_16" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/mp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="欣赏值"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/f_18" />
+
+                <TextView
+                    android:id="@+id/tv_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23"
+                    android:textColor="@color/gray_66"
+                    android:textSize="@dimen/f_16" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/mp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="重写"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/f_18" />
+
+                <TextView
+                    android:id="@+id/tv_override"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23"
+                    android:textColor="@color/gray_66"
+                    android:textSize="@dimen/f_16" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/mp_0"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="续写"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/f_18" />
+
+                <TextView
+                    android:id="@+id/tv_continue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="23"
+                    android:textColor="@color/gray_66"
+                    android:textSize="@dimen/f_16" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <!--<ListView
+        android:id="@+id/lv_read"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@null"
+        android:layout_above="@id/ll_tab" />-->
+    <com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager
+        android:id="@+id/rv_read"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:layout_above="@id/ll_tab"/>
+
+</RelativeLayout>

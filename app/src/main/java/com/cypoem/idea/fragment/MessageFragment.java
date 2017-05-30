@@ -104,13 +104,6 @@ public class MessageFragment extends BaseFragment {
         mLvOther.setAdapter(mOtherAdapter);
     }
 
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
-
     @OnClick({R.id.rl_praise, R.id.rl_system, R.id.rl_other})
     public void onViewClicked(View view) {
         switch (view.getId()) {

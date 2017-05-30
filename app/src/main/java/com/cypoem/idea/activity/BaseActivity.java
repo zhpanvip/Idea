@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,11 @@ public abstract class BaseActivity extends BaseRxActivity {
     protected abstract int getLayoutId();
 
     protected abstract void init();
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     //  初始化刷新加载框架，子类中需要的时候调用
     protected void initPtr(boolean isAutoRefresh) {

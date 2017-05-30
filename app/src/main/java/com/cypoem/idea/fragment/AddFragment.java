@@ -23,7 +23,6 @@ public class AddFragment extends BaseFragment {
     TextView mTvPublish;
     @BindView(R.id.tv_join)
     TextView mTvJoin;
-    Unbinder unbinder;
 
     @Override
     protected int getLayoutId() {
@@ -41,13 +40,6 @@ public class AddFragment extends BaseFragment {
         toolbarSubtitle.setTextColor(Color.parseColor("#DDDDDD"));
         toolbarSubtitle.setText("意见反馈");
 
-    }
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 
     @OnClick({R.id.toolbar_subtitle, R.id.toolbar_title,R.id.tv_publish, R.id.tv_join})

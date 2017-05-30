@@ -1,23 +1,29 @@
 package com.cypoem.idea.fragment;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
 import com.cypoem.idea.R;
+import com.cypoem.idea.activity.CollectActivity;
+import com.cypoem.idea.activity.StartReadActivity;
 import com.cypoem.idea.adapter.CollectAdapter;
 import com.cypoem.idea.module.bean.CollectBean;
 import com.cypoem.idea.view.ListViewForScrollView;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
 /**
- * Created by edianzu on 2017/5/23.
- *
+ * Created by zhpan on 2017/5/23.
  */
 
 public class AuthorFragment extends BaseFragment {
     @BindView(R.id.lv_author)
-    ListViewForScrollView mListView;
+    ListView mListView;
 
     private CollectAdapter mAdapter;
 
@@ -35,6 +41,7 @@ public class AuthorFragment extends BaseFragment {
     @Override
     protected void init() {
         initData();
+        setListener();
     }
 
     private void initData() {
@@ -57,5 +64,11 @@ public class AuthorFragment extends BaseFragment {
         mAdapter = new CollectAdapter(getContext(), R.layout.item_collect);
         mAdapter.setList(mList);
         mListView.setAdapter(mAdapter);
+    }
+
+    private void setListener() {
+        mListView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) ->
+                StartReadActivity.start(getContext())
+        );
     }
 }
