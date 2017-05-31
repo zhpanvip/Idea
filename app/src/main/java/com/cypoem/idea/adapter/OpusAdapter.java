@@ -6,9 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.ArticleWebViewActivity;
+import com.cypoem.idea.activity.AuthorInfoActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +45,6 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
 
         StartReadViewHolder holder = new StartReadViewHolder(convertView);
 
-
         return holder;
 
     }
@@ -50,6 +53,12 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
     public void onBindViewHolder(StartReadViewHolder holder, int position) {
         holder.mTvAll.setOnClickListener((View v) ->{
                 ArticleWebViewActivity.start(mContext,"阅读","http://www.baidu.com");
+        });
+        holder.mRlAuthor.setOnClickListener((View v)->{
+            AuthorInfoActivity.start(mContext);
+        });
+        holder.mTvFocus.setOnClickListener((View v)->{
+            Toast.makeText(mContext, "关注", Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -62,14 +71,16 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
 
     // 可复用的VH
     public class StartReadViewHolder extends RecyclerView.ViewHolder {
-        public ImageView picImageView;
+        public RelativeLayout mRlAuthor;
         public TextView mTvAll;
+        public TextView mTvFocus;
 
 
         public StartReadViewHolder(View itemView) {
             super(itemView);
             mTvAll= (TextView) itemView.findViewById(R.id.tv_all);
-
+            mRlAuthor= (RelativeLayout) itemView.findViewById(R.id.rl_author);
+            mTvFocus= (TextView) itemView.findViewById(R.id.tv_focus);
         }
     }
 }

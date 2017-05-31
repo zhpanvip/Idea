@@ -17,37 +17,61 @@
         android:layout_marginTop="60dp"
         android:src="@drawable/head_pic" />
 
-
-    <TextView
-        android:id="@+id/tv_name"
+    <LinearLayout
+        android:id="@+id/ll_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="65dp"
         android:layout_toEndOf="@id/head_img"
-        android:ellipsize="end"
-        android:maxLength="24"
-        android:maxLines="1"
-        android:text="笔名：韩三少"
-        android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pen_name"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLength="24"
+            android:maxLines="1"
+            android:text="韩三少"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_sign"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_name"
+        android:orientation="horizontal"
+        android:layout_below="@id/ll_name"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/head_img"
-        android:ellipsize="end"
-        android:maxLength="70"
-        android:maxLines="2"
-        android:text="格言：一直被模仿 从未被超越"
-        android:textColor="#ffffff"
-        android:textSize="14sp"
-        android:visibility="visible" />
+        android:layout_toEndOf="@id/head_img">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/motto"
+            android:textColor="#ffffff"
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/tv_sign"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLength="70"
+            android:maxLines="2"
+            android:text="一直被模仿 从未被超越"
+            android:textColor="#ffffff"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,14 +92,14 @@
                 android:id="@+id/tv_focus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12k"
+                android:text="@string/_12k"
                 android:textColor="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="关注"
+                android:text="@string/focus"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -97,14 +121,14 @@
                 android:id="@+id/tv_fans"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12k"
+                android:text="@string/_12k"
                 android:textColor="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="粉丝"
+                android:text="@string/fans"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -128,14 +152,14 @@
                 android:id="@+id/tv_collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12k"
+                android:text="@string/_12k"
                 android:textColor="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="收藏"
+                android:text="@string/collect"
                 android:textColor="@color/white" />
         </LinearLayout>
 
@@ -159,14 +183,14 @@
                 android:id="@+id/tv_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12k"
+                android:text="@string/_12k"
                 android:textColor="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:text="欣赏值"
+                android:text="@string/value"
                 android:textColor="@color/white" />
         </LinearLayout>
 

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mp_10"
             android:layout_toEndOf="@id/iv_author"
-            android:text="笔名："
+            android:text="@string/pen_name"
             android:textColor="@color/gray_33"
             android:textSize="@dimen/f_18" />
 
@@ -36,12 +36,11 @@
             android:textColor="@color/gray_33"
             android:textSize="@dimen/f_15" />
 
-        <ImageView
+        <com.cypoem.idea.view.SexView
             android:layout_width="@dimen/mp_15"
             android:layout_height="@dimen/mp_15"
             android:layout_marginTop="@dimen/mp_10"
-            android:layout_toEndOf="@id/tv_pen_name"
-            android:background="@color/green" />
+            android:layout_toEndOf="@id/tv_pen_name" />
 
         <TextView
             android:id="@+id/tv_sign_text"
@@ -50,7 +49,7 @@
             android:layout_below="@id/tv_pen_name_text"
             android:layout_marginTop="@dimen/mp_8"
             android:layout_toEndOf="@id/iv_author"
-            android:text="签名："
+            android:text="@string/motto"
             android:textColor="@color/gray_33"
             android:textSize="@dimen/f_18" />
 
@@ -72,7 +71,7 @@
             android:layout_below="@id/tv_sign"
             android:layout_marginTop="@dimen/mp_5"
             android:layout_toEndOf="@id/iv_author"
-            android:text="生日："
+            android:text="@string/birthday"
             android:textColor="@color/gray_33"
             android:textSize="@dimen/f_18" />
 
@@ -94,7 +93,7 @@
             android:layout_below="@id/tv_birthday"
             android:layout_marginTop="@dimen/mp_8"
             android:layout_toEndOf="@id/iv_author"
-            android:text="地址："
+            android:text="@string/address"
             android:textColor="@color/gray_33"
             android:textSize="@dimen/f_18" />
 
@@ -122,7 +121,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/mp_15"
         android:layout_marginStart="@dimen/mp_15"
-        android:text="作者简介："
+        android:text="@string/author_resume"
         android:textColor="@color/gray_33"
         android:textSize="@dimen/f_18" />
 
@@ -157,7 +156,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="关注"
+                android:text="@string/focus"
                 android:textSize="@dimen/f_16" />
 
             <TextView
@@ -166,7 +165,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="12k"
+                android:text="@string/_12k"
                 android:textSize="@dimen/f_16" />
         </LinearLayout>
 
@@ -189,7 +188,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="粉丝"
+                android:text="@string/fans"
                 android:textSize="@dimen/f_16" />
 
             <TextView
@@ -197,7 +196,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="12k"
+                android:text="@string/_12k"
                 android:textSize="@dimen/f_16" />
         </LinearLayout>
 
@@ -219,7 +218,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="收藏"
+                android:text="@string/collect"
                 android:textSize="@dimen/f_16" />
 
             <TextView
@@ -227,7 +226,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="12k"
+                android:text="@string/_12k"
                 android:textSize="@dimen/f_16" />
         </LinearLayout>
 
@@ -249,7 +248,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="欣赏值"
+                android:text="@string/value"
                 android:textSize="@dimen/f_16" />
 
             <TextView
@@ -257,7 +256,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="12k"
+                android:text="@string/_12k"
                 android:textSize="@dimen/f_16" />
         </LinearLayout>
 

@@ -1,5 +1,7 @@
 package com.cypoem.idea.app;
 
+import android.support.v7.app.AppCompatDelegate;
+
 import com.airong.core.BaseApp;
 import com.airong.core.utils.Utils;
 import com.cypoem.idea.module.bean.User;
@@ -11,6 +13,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
 import cn.sharesdk.framework.ShareSDK;
+
+import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_AUTO;
 
 /**
  * Created by zhpan on 2017/4/16.
@@ -30,6 +34,8 @@ public class MainApplication extends BaseApp {
         UserInfoTools.init(this);
         //  初始化mob
         ShareSDK.initSDK(this);
+
+        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_AUTO);
     }
 
 

@@ -48,12 +48,12 @@ public class SplashActivity extends BaseActivity {
         CountDownTimer countDownTimer=new CountDownTimer(ANIMATION_DURATION,SECOND){
             @Override
             public void onTick(long millisUntilFinished) {
-                mButton.setText(millisUntilFinished/SECOND+"s");
+                mButton.setText("跳过"+millisUntilFinished/SECOND+"s");
             }
 
             @Override
             public void onFinish() {
-                mButton.setText(0+"s");
+                mButton.setText("跳过"+0+"s");
                 if(isGo2Main)
                 goToMain();
             }

@@ -43,6 +43,6 @@ public class SetPasswordActivity extends BaseActivity {
 
     @OnClick(R.id.btn_confirm)
     public void onViewClicked() {
-        finish();
+        CompleteRegisterActivity.start(this);
     }
 }

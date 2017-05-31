@@ -67,7 +67,7 @@
                 android:gravity="center_horizontal"
                 android:text="查看所有章节>>"
                 android:textColor="@color/green"
-                android:textSize="@dimen/f_15" />
+                android:textSize="@dimen/f_16" />
 
             <View
                 android:layout_width="match_parent"
@@ -78,7 +78,9 @@
                 android:background="@color/gray_cc" />
 
         </LinearLayout>
+
         <RelativeLayout
+            android:id="@+id/rl_author"
             android:layout_width="match_parent"
             android:layout_height="@dimen/mp_60"
             android:layout_marginEnd="@dimen/mp_15"
@@ -129,6 +131,7 @@
                 android:paddingStart="@dimen/mp_10"
                 android:paddingTop="@dimen/mp_5"
                 android:text="+关注"
+                android:textSize="@dimen/f_14"
                 android:textColor="@color/white" />
         </RelativeLayout>
     </LinearLayout>

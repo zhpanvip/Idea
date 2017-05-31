@@ -12,6 +12,7 @@
     <string name="parse_error">解析服务器响应数据失败</string>
     <string name="unknown_error">未知错误</string>
     <string name="response_return_error">服务器返回数据失败</string>
+
     <string name="praise_notification">欣赏通知</string>
     <string name="system_notification">系统通知</string>
     <string name="other_notification">作者相关通知</string>
@@ -23,9 +24,9 @@
     <string name="login_matter">登录遇到问题</string>
     <string name="confirm_password">确认密码</string>
     <string name="register">注册</string>
-    <string name="pen_name">笔名</string>
-    <string name="motto">格言</string>
-    <string name="sex">性别</string>
+    <string name="pen_name">笔名：</string>
+    <string name="motto">格言：</string>
+    <string name="sex">性别：</string>
     <string name="complete_register">完成注册</string>
     <string name="identify_code">请输入验证码</string>
     <string name="confirm">确定</string>
@@ -46,4 +47,30 @@
     <string name="if_register_needed">如果您需要注册功能…</string>
     <string name="after_auth">一般来说第三方登录时，第三方平台已经为您完成用户身份校验，您可以放心让用户登录。\n\n但如果您需要判断用户是否为新用户，可以在授权操作完成后，将用户的信息通过字段“HashMap userInfo”携带给login方法。客户端通过“String userId”执行登录请求，如果服务端判定此userId为未注册用户，可以将userInfo发送给注册接口，获取用户在此平台上的昵称、头像等数据，然后执行注册</string>
     <string name="ok">确定</string>
+    <string name="focus">关注</string>
+    <string name="fans">粉丝</string>
+    <string name="collect">收藏</string>
+    <string name="value">欣赏值</string>
+    <string name="mine">我的</string>
+    <string name="my_join">我参与的作品</string>
+    <string name="my_opus">我原创的作品</string>
+    <string name="my_draft">我的草稿</string>
+    <string name="my_wallet">我的钱包</string>
+    <string name="read_setting">阅读设置</string>
+    <string name="night_mode">夜间模式</string>
+    <string name="system_setting">系统设置</string>
+    <string name="clean_cache">清除缓存</string>
+    <string name="version_update">版本更新</string>
+    <string name="about_us">关于我们</string>
+    <string name="advice">意见反馈</string>
+    <string name="advice_describe">产品正在成长期，很渴望每一位用户的建议</string>
+    <string name="protocol">协议相关</string>
+    <string name="protocol_describe">用户协议，隐私声明，免责声明</string>
+    <string name="about_us_describe">《创意说》渴望每个志同道合的人加入我们</string>
+    <string name="current_version_code">当前版本号：</string>
+    <string name="my_start_opus">我发起的作品</string>
+    <string name="_12k">12k</string>
+    <string name="author_resume">作者简介：</string>
+    <string name="birthday">生日：</string>
+    <string name="address">地址：</string>
 </resources>

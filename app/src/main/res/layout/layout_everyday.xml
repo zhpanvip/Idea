@@ -21,12 +21,14 @@
 
         <com.cypoem.idea.view.CountDownButton
             android:id="@+id/btn_count_down"
-            android:layout_width="@dimen/mp_50"
+            android:layout_width="@dimen/mp_55"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
-            android:paddingTop="@dimen/mp_3"
-            android:paddingBottom="@dimen/mp_3"
+            android:paddingTop="@dimen/mp_5"
+            android:paddingBottom="@dimen/mp_5"
+            android:layout_marginEnd="@dimen/mp_5"
             android:layout_marginTop="@dimen/mp_5"
+            android:textSize="@dimen/f_12"
             android:background="@drawable/bg_btn_transparent"
             android:gravity="center"
             android:textColor="@color/white"/>

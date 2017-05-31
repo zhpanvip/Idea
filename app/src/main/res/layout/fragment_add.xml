@@ -1,55 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-    <include layout="@layout/toolbar_layout" />
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/background"
+              android:orientation="vertical">
+
+    <include layout="@layout/toolbar_layout"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        android:textSize="18sp"
+        android:gravity="center_horizontal"
+        android:text="创作说明"
         android:textColor="@color/gray_a5"
-        android:text="创作说明"/>
+        android:textSize="18sp"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray_a5"
-        android:gravity="center_horizontal"
         android:layout_marginTop="15dp"
-        android:textSize="16sp"
+        android:gravity="center_horizontal"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
-        android:text="@string/add_instruction1"/>
+        android:text="@string/add_instruction1"
+        android:textColor="@color/gray_a5"
+        android:textSize="16sp"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray_a5"
         android:gravity="center_horizontal"
-        android:textSize="16sp"
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
-        android:text="@string/add_instruction2"/>
-    
+        android:text="@string/add_instruction2"
+        android:textColor="@color/gray_a5"
+        android:textSize="16sp"/>
+
     <TextView
         android:id="@+id/tv_publish"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:textSize="20sp"
-        android:textColor="@color/white"
         android:layout_marginTop="50dp"
-        android:text="发布一个新的作品"
+        android:background="@color/green"
         android:gravity="center"
-        android:background="@color/green"/>
+        android:text="发布一个新的作品"
+        android:textColor="@color/white"
+        android:textSize="20sp"/>
 
     <TextView
         android:id="@+id/tv_join"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:textSize="20sp"
-        android:textColor="@color/green"
-        android:text="参与已有作品创作"
+        android:background="@color/gray_dd"
         android:gravity="center"
-        android:background="@color/gray_dd"/>
+        android:text="参与已有作品创作"
+        android:textColor="@color/green"
+        android:textSize="20sp"/>
 </LinearLayout>
