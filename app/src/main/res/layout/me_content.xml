@@ -18,6 +18,7 @@
         android:id="@+id/rl_publish"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
+        android:background="@color/item_color"
         android:orientation="vertical">
 
         <TextView
@@ -44,6 +45,7 @@
         android:id="@+id/rl_join"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
+        android:background="@color/item_color"
         android:orientation="vertical">
 
         <TextView
@@ -70,6 +72,7 @@
         android:id="@+id/rl_create"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
+        android:background="@color/item_color"
         android:orientation="vertical">
 
         <TextView
@@ -96,6 +99,7 @@
         android:id="@+id/rl_draft"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
+        android:background="@color/item_color"
         android:orientation="vertical">
 
         <TextView
@@ -122,6 +126,7 @@
         android:id="@+id/rl_wallet"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
+        android:background="@color/item_color"
         android:orientation="vertical">
 
         <TextView
@@ -157,6 +162,7 @@
     <RelativeLayout
         android:id="@+id/rl_night"
         android:layout_width="match_parent"
+        android:background="@color/item_color"
         android:layout_height="@dimen/mp_50">
 
         <LinearLayout
@@ -202,6 +208,7 @@
         android:id="@+id/rl_catch"
         android:layout_width="match_parent"
         android:paddingStart="20dp"
+        android:background="@color/item_color"
         android:layout_height="@dimen/mp_50">
         <TextView
             android:layout_width="wrap_content"
@@ -234,6 +241,7 @@
         android:id="@+id/rl_update"
         android:layout_width="match_parent"
         android:paddingStart="20dp"
+        android:background="@color/item_color"
         android:layout_height="@dimen/mp_50">
         <LinearLayout
             android:id="@+id/ll_update"
@@ -282,6 +290,7 @@
         android:id="@+id/rl_about_us"
         android:layout_width="match_parent"
         android:paddingStart="20dp"
+        android:background="@color/item_color"
         android:layout_height="@dimen/mp_50">
         <LinearLayout
             android:id="@+id/ll_about_us"
@@ -318,6 +327,7 @@
         android:id="@+id/rl_advice"
         android:layout_width="match_parent"
         android:paddingStart="20dp"
+        android:background="@color/item_color"
         android:layout_height="@dimen/mp_50">
         <LinearLayout
             android:id="@+id/ll_advice"
@@ -353,6 +363,7 @@
     <RelativeLayout
         android:id="@+id/rl_protocol"
         android:layout_width="match_parent"
+        android:background="@color/item_color"
         android:paddingStart="20dp"
         android:layout_height="@dimen/mp_50">
         <LinearLayout
