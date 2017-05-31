@@ -4,6 +4,7 @@
     android:id="@+id/activity_opus"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/theme_style_white"
     tools:context="com.cypoem.idea.activity.OpusActivity">
 
 
@@ -12,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
         android:layout_alignParentBottom="true"
-        android:background="@color/gray_ee"
+        android:background="@color/item_color"
         android:orientation="horizontal"
         android:paddingTop="@dimen/mp_5">
 

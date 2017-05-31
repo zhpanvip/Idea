@@ -21,7 +21,7 @@
                 android:layout_height="110dp"
                 android:gravity="center"
                 android:text="Content"
-                android:textColor="@color/gray_33"
+                android:textColor="@color/itemTextColorDark"
                 android:textSize="18sp" />
 
         <LinearLayout
@@ -41,7 +41,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="取消"
-                android:textColor="@color/gray_33"
+                android:textColor="@color/itemTextColorDark"
                 android:textSize="18sp" />
 
             <View
@@ -57,7 +57,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="确认"
-                android:textColor="@color/gray_33"
+                android:textColor="@color/itemTextColorDark"
                 android:textSize="18sp" />
         </LinearLayout>
 

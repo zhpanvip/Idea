@@ -18,7 +18,8 @@
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:collapsedTitleTextAppearance="@style/ToolBarTitleText"
-            app:contentScrim="@color/colorPrimary"
+            app:collapsedTitleGravity="center"
+            app:contentScrim="@color/theme_style"
             app:expandedTitleTextAppearance="@style/transparentText"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 

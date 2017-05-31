@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/theme_style_white"
     android:paddingStart="@dimen/mp_15"
     android:paddingEnd="@dimen/mp_15">
     <ImageView

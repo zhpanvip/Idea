@@ -4,6 +4,7 @@
     android:id="@+id/activity_publish"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/theme_style_white"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
@@ -58,6 +59,8 @@
                 android:layout_centerVertical="true"
                 android:hint="请输入作品名称"
                 android:background="@null"
+                android:textColorHint="@color/itemTextColor"
+                android:textColor="@color/itemTextColor"
                 android:textSize="@dimen/f_18"/>
         </RelativeLayout>
 
@@ -71,6 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:textColor="@color/itemTextColor"
                 android:text="作品标签"
                 android:textSize="@dimen/f_18"/>
 
@@ -93,6 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="作品简介"
+                android:textColor="@color/itemTextColor"
                 android:textSize="@dimen/f_18"/>
 
             <ImageView
@@ -114,6 +119,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="是否允许被重写"
+                android:textColor="@color/itemTextColor"
                 android:textSize="@dimen/f_18"/>
 
             <ImageView
@@ -135,6 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:text="是否允许被续写"
+                android:textColor="@color/itemTextColor"
                 android:textSize="@dimen/f_18"/>
 
             <ImageView
@@ -148,18 +155,20 @@
         <include layout="@layout/base_line"/>
 
         <Button
+            android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="@dimen/mp_45"
-            android:background="@drawable/bg_btn_login"
-            android:textColor="@color/white"
-            android:textSize="@dimen/f_18"
             android:layout_marginTop="@dimen/mp_15"
-            android:text="开始"/>
+            android:background="@drawable/bg_btn_login"
+            android:text="开始"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f_18" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/mp_10"
-
+            android:textColor="@color/itemTextColor"
             android:text="注：支持原创 杜绝抄袭，杜绝非法转载"/>
     </LinearLayout>
 </ScrollView>

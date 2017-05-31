@@ -4,11 +4,9 @@
     <color name="colorPrimaryDark">#497218</color>
     <color name="colorAccent">#4B8B31</color>
 
-    <color name="textColor">#F54467</color>
-    <color name="background_red">#F4606A</color>
     <color name="textColorGray">#A2A2A2</color>
 
-    <color name="gray_33">#333333</color>
+
     <color name="gray_66">#666666</color>
     <color name="gray_99">#999999</color>
     <color name="gray_cc">#CCCCCC</color>
@@ -19,13 +17,19 @@
     <color name="green">#628B31</color>
     <color name="gray_a5">#A5A5A5</color>
     <color name="gray_ea">#EAEAEA</color>
+
+    <color name="text_white">#FFFFFF</color>
     <color name="read_female">#D4237A</color>
     <color name="blue_male">#1296DB</color>
-    <color name="tab_color">#DDDDDD</color>
-
+    <color name="tab_color">#DCDCDC</color>
+    <color name="itemTextColorDark">#333333</color>
+    <color name="itemTextColor">#666</color>
+    <color name="theme_style">#628B31</color>
+    <color name="theme_style_white">#FFFFFF</color>
     <color name="background">#FFFFFF</color>
-    <color name="item_color">#163355</color>
-    <color name="tab_text_color">#dddddd</color>
-    <color name="tab_selected_text_color">#628B31</color>
+    <color name="item_color">#EEEEEE</color>
+    <color name="tab_text">#757575</color>
+    <color name="tab_selected_text">#628B31</color>
     <color name="line_color">#CCCCCC</color>
+    <color name="item_title">#DDDDDD</color>
 </resources>

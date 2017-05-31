@@ -1,43 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_alignParentRight="true"
     android:layout_marginEnd="10dp"
     android:layout_marginTop="5dp"
-    android:orientation="horizontal"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/tv_override"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:paddingStart="@dimen/mp_5"
-        android:paddingEnd="@dimen/mp_5"
-        android:paddingTop="@dimen/mp_3"
-        android:paddingBottom="@dimen/mp_3"
         android:background="@drawable/bg_not_fill_gray"
-        android:text="重写"/>
+        android:paddingBottom="@dimen/mp_3"
+        android:paddingEnd="@dimen/mp_5"
+        android:paddingStart="@dimen/mp_5"
+        android:paddingTop="@dimen/mp_3"
+        android:text="重写"
+        android:textColor="@color/itemTextColor" />
+
     <TextView
         android:id="@+id/tv_continue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginRight="10dp"
-        android:paddingStart="@dimen/mp_5"
-        android:paddingEnd="@dimen/mp_5"
-        android:paddingTop="@dimen/mp_3"
-        android:paddingBottom="@dimen/mp_3"
         android:background="@drawable/bg_not_fill_gray"
-        android:text="续写"/>
+        android:paddingBottom="@dimen/mp_3"
+        android:paddingEnd="@dimen/mp_5"
+        android:paddingStart="@dimen/mp_5"
+        android:paddingTop="@dimen/mp_3"
+        android:text="续写"
+        android:textColor="@color/itemTextColor" />
+
     <TextView
         android:id="@+id/tv_essay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_not_fill_gray"
-        android:paddingStart="@dimen/mp_5"
-        android:paddingEnd="@dimen/mp_5"
-        android:paddingTop="@dimen/mp_3"
         android:paddingBottom="@dimen/mp_3"
-        android:text="征文"/>
+        android:paddingEnd="@dimen/mp_5"
+        android:paddingStart="@dimen/mp_5"
+        android:paddingTop="@dimen/mp_3"
+        android:text="征文"
+        android:textColor="@color/itemTextColor" />
 
 </LinearLayout>

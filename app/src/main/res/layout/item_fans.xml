@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:paddingStart="@dimen/mp_15"
     android:paddingEnd="@dimen/mp_15"
+    android:background="@color/item_color"
     android:layout_height="@dimen/mp_80">
     <ImageView
         android:id="@+id/iv_head_pic"
@@ -14,7 +15,7 @@
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray_33"
+        android:textColor="@color/itemTextColorDark"
         android:text="韩三少"
         android:layout_marginTop="@dimen/mp_5"
         android:layout_toEndOf="@id/iv_head_pic"

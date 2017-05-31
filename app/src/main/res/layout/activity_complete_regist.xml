@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              android:paddingEnd="@dimen/mp_15"
-              android:paddingStart="@dimen/mp_15">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/theme_style_white"
+    android:orientation="vertical"
+    android:paddingEnd="@dimen/mp_15"
+    android:paddingStart="@dimen/mp_15">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/mp_50"
-        android:src="@drawable/camera"/>
+        android:src="@drawable/camera" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,12 +25,12 @@
             android:layout_height="wrap_content"
             android:text="@string/pen_name"
             android:textColor="@color/green"
-            android:textSize="@dimen/f_20"/>
+            android:textSize="@dimen/f_20" />
 
         <EditText
             android:id="@+id/et_pen_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -44,12 +45,12 @@
             android:layout_height="wrap_content"
             android:text="@string/motto"
             android:textColor="@color/green"
-            android:textSize="@dimen/f_20"/>
+            android:textSize="@dimen/f_20" />
 
         <EditText
             android:id="@+id/et_sign"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
@@ -65,13 +66,13 @@
             android:layout_height="wrap_content"
             android:text="@string/sex"
             android:textColor="@color/green"
-            android:textSize="@dimen/f_20"/>
+            android:textSize="@dimen/f_20" />
 
         <ImageView
             android:layout_width="@dimen/mp_15"
             android:layout_height="@dimen/mp_15"
             android:layout_marginStart="@dimen/mp_20"
-            android:src="@drawable/male"/>
+            android:src="@drawable/male" />
 
         <SeekBar
             android:id="@+id/seek_bar"
@@ -83,18 +84,18 @@
             android:minHeight="2dp"
             android:progress="50"
             android:progressDrawable="@drawable/bg_progress"
-            android:thumb="@drawable/shape_circle"/>
+            android:thumb="@drawable/shape_circle" />
 
         <ImageView
             android:layout_width="@dimen/mp_15"
             android:layout_height="@dimen/mp_15"
-            android:src="@drawable/female"/>
+            android:src="@drawable/female" />
 
         <com.cypoem.idea.view.SexView
             android:id="@+id/sex_view"
             android:layout_width="@dimen/mp_15"
             android:layout_height="@dimen/mp_15"
-            android:layout_marginStart="10dp"/>
+            android:layout_marginStart="10dp" />
 
     </LinearLayout>
 
@@ -107,6 +108,6 @@
         android:gravity="center"
         android:text="@string/complete_register"
         android:textColor="@color/white"
-        android:textSize="@dimen/f_18"/>
+        android:textSize="@dimen/f_18" />
 
 </LinearLayout>

@@ -13,6 +13,7 @@
         android:fillViewport="false"
         app:layout_scrollFlags="scroll"
         app:tabIndicatorColor="@color/green"
+        android:backgroundTint="@color/theme_style_white"
         app:tabIndicatorHeight="3.0dp"
         app:tabSelectedTextColor="@color/green"
         app:tabTextColor="@color/gray_66">

@@ -64,7 +64,7 @@
         android:textSize="@dimen/f_18"
         android:layout_marginStart="@dimen/mp_20"
         android:scrollHorizontally="true"
-        android:textColor="@color/white"
+        android:textColor="@color/text_white"
         android:layout_gravity="center" />
 
 </android.support.v7.widget.Toolbar>

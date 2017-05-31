@@ -99,7 +99,8 @@ public class SexView extends View {
         canvas.drawCircle(mPieCenterX, mPieCenterY, mRadius1, mPaint);
         drawArc(canvas);
         // 画最内层圆
-        mPaint.setColor(Color.parseColor("#FFFFFF"));
+        mPaint.setColor(getResources().getColor(R.color.theme_style_white));
+
         canvas.drawCircle(mPieCenterX, mPieCenterY, mRadius2, mPaint);
     }
 

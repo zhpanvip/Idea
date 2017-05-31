@@ -2,7 +2,7 @@
 <resources>
 
 
-    <color name="gray_33">#333333</color>
+    <color name="itemTextColorDark">#333333</color>
     <color name="gray_66">#666666</color>
     <color name="gray_99">#999999</color>
     <color name="gray_cc">#CCCCCC</color>
