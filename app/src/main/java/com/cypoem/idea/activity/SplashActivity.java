@@ -1,5 +1,6 @@
 package com.cypoem.idea.activity;
 
+import android.os.CountDownTimer;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -24,7 +25,8 @@ public class SplashActivity extends BaseActivity {
     TextView mTvTime;
     @BindView(R.id.tv_publish)
     TextView mTvPublish;
-    private long ANIMATION_DURATION = 5000;
+    private final static long ANIMATION_DURATION = 5000;
+    private final static long SECOND=1000;
     private boolean isGo2Main=true;
 
     @Override
@@ -38,7 +40,25 @@ public class SplashActivity extends BaseActivity {
         mButton.setVisibility(View.VISIBLE);
         //  给启动页面设置动画
         setAnimation();
-        finishActivity();
+       // finishActivity();
+        setCountDown();
+    }
+
+    private void setCountDown() {
+        CountDownTimer countDownTimer=new CountDownTimer(ANIMATION_DURATION,SECOND){
+            @Override
+            public void onTick(long millisUntilFinished) {
+                mButton.setText(millisUntilFinished/SECOND+"s");
+            }
+
+            @Override
+            public void onFinish() {
+                mButton.setText(0+"s");
+                if(isGo2Main)
+                goToMain();
+            }
+        };
+        countDownTimer.start();
     }
 
     //  启动透明渐变动画
@@ -59,16 +79,21 @@ public class SplashActivity extends BaseActivity {
     }
 
     //  splash界面休眠3秒后销毁
-    private void finishActivity() {
+   /* private void finishActivity() {
         Observable.timer(ANIMATION_DURATION, TimeUnit.MILLISECONDS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe((@NonNull Long aLong) -> {
                     if(isGo2Main)
-                    MainActivity.start(SplashActivity.this);
-                    overridePendingTransition(0, android.R.anim.fade_out);
-                    finish();
+                        goToMain();
+
                 });
+    }*/
+
+    private void goToMain() {
+        MainActivity.start(SplashActivity.this);
+        overridePendingTransition(0, android.R.anim.fade_out);
+        finish();
     }
 
     /**
@@ -84,8 +109,7 @@ public class SplashActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.btn_count_down:
                 isGo2Main=false;
-                MainActivity.start(this);
-                finish();
+               goToMain();
                 break;
             case R.id.tv_publish:
                 isGo2Main=false;
