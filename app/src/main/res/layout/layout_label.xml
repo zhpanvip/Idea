@@ -18,7 +18,7 @@
         android:paddingStart="@dimen/mp_5"
         android:paddingTop="@dimen/mp_3"
         android:text="重写"
-        android:textColor="@color/itemTextColor" />
+        android:textColor="@color/item_text_color" />
 
     <TextView
         android:id="@+id/tv_continue"
@@ -31,7 +31,7 @@
         android:paddingStart="@dimen/mp_5"
         android:paddingTop="@dimen/mp_3"
         android:text="续写"
-        android:textColor="@color/itemTextColor" />
+        android:textColor="@color/item_text_color" />
 
     <TextView
         android:id="@+id/tv_essay"
@@ -43,6 +43,6 @@
         android:paddingStart="@dimen/mp_5"
         android:paddingTop="@dimen/mp_3"
         android:text="征文"
-        android:textColor="@color/itemTextColor" />
+        android:textColor="@color/item_text_color" />
 
 </LinearLayout>

@@ -34,4 +34,8 @@
         <item name="android:textColor">#00000000</item>
 
     </style>
+
+    <style name="ToggleButton" parent="@android:style/Widget.CompoundButton">
+        <item name="android:button">@drawable/selector_toggle_button</item>
+    </style>
 </resources>

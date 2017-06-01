@@ -4,31 +4,29 @@
     <color name="colorPrimaryDark">#497218</color>
     <color name="colorAccent">#4B8B31</color>
 
-    <color name="textColorGray">#A2A2A2</color>
-
-
     <color name="gray_66">#666666</color>
     <color name="gray_99">#999999</color>
+    <color name="gray_a2">#A2A2A2</color>
     <color name="gray_cc">#CCCCCC</color>
     <color name="gray_dd">#DDDDDD</color>
     <color name="gray_ee">#EEEEEE</color>
     <color name="gray_f6">#F6F6F6</color>
     <color name="white">#FFFFFF</color>
-    <color name="green">#628B31</color>
     <color name="gray_a5">#A5A5A5</color>
     <color name="gray_ea">#EAEAEA</color>
 
-    <color name="text_white">#FFFFFF</color>
-    <color name="read_female">#D4237A</color>
-    <color name="blue_male">#1296DB</color>
-    <color name="tab_color">#DCDCDC</color>
-    <color name="itemTextColorDark">#333333</color>
-    <color name="itemTextColor">#666</color>
     <color name="theme_style">#628B31</color>
+    <color name="background">#F6F6EE</color>
+    <color name="text_theme">#628B31</color>
+    <color name="text_light">#F6F6EE</color>
+    <color name="female_red">#D4237A</color>
+    <color name="male_blue">#1296DB</color>
+    <color name="item_text_color_dark">#333333</color>
+    <color name="item_text_color">#666</color>
+    <color name="tab_color">#DCDCDC</color>
     <color name="theme_style_white">#FFFFFF</color>
-    <color name="background">#FFFFFF</color>
-    <color name="item_color">#EEEEEE</color>
-    <color name="tab_text">#757575</color>
+    <color name="item_color">#F6F6EE</color>
+    <color name="tab_normal_text">#757575</color>
     <color name="tab_selected_text">#628B31</color>
     <color name="line_color">#CCCCCC</color>
     <color name="item_title">#DDDDDD</color>

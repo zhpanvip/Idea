@@ -124,7 +124,7 @@
             android:text="@string/share"
             android:textSize="@dimen/f_18"
             android:gravity="center"
-            android:textColor="@color/green"
+            android:textColor="@color/text_theme"
             android:layout_marginEnd="20dp"
             android:background="@drawable/bg_btn_not_fill"/>
         <TextView

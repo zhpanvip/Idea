@@ -2,10 +2,12 @@ package com.cypoem.idea.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -61,6 +63,13 @@ public class MainActivity extends BaseActivity {
         setListener();
         mRbHome.performClick();
       //  isLogin();
+
+    }
+
+    public void setNightMode(){
+        int currentNightMode=getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        getDelegate().setLocalNightMode(currentNightMode==Configuration.UI_MODE_NIGHT_NO? AppCompatDelegate.MODE_NIGHT_YES:AppCompatDelegate.MODE_NIGHT_NO);
+        recreate();
     }
 
     private void initData() {
@@ -225,5 +234,7 @@ public class MainActivity extends BaseActivity {
            this.isHide = isHide;
        }
    }
+
+
 
 }

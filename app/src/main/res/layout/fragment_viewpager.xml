@@ -12,10 +12,10 @@
         android:background="#fff"
         android:fillViewport="false"
         app:layout_scrollFlags="scroll"
-        app:tabIndicatorColor="@color/green"
-        android:backgroundTint="@color/theme_style_white"
+        app:tabIndicatorColor="@color/text_theme"
+        android:backgroundTint="@color/background"
         app:tabIndicatorHeight="3.0dp"
-        app:tabSelectedTextColor="@color/green"
+        app:tabSelectedTextColor="@color/text_theme"
         app:tabTextColor="@color/gray_66">
 
         <android.support.design.widget.TabItem

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme_style_white"
+    android:background="@color/background"
     android:orientation="vertical"
     android:paddingEnd="@dimen/mp_15"
     android:paddingStart="@dimen/mp_15">
@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pen_name"
-            android:textColor="@color/green"
+            android:textColor="@color/text_theme"
             android:textSize="@dimen/f_20" />
 
         <EditText
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/motto"
-            android:textColor="@color/green"
+            android:textColor="@color/text_theme"
             android:textSize="@dimen/f_20" />
 
         <EditText
@@ -65,7 +65,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sex"
-            android:textColor="@color/green"
+            android:textColor="@color/text_theme"
             android:textSize="@dimen/f_20" />
 
         <ImageView

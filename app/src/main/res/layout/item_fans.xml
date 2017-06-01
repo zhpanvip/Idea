@@ -15,7 +15,7 @@
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/itemTextColorDark"
+        android:textColor="@color/item_text_color_dark"
         android:text="韩三少"
         android:layout_marginTop="@dimen/mp_5"
         android:layout_toEndOf="@id/iv_head_pic"

@@ -28,6 +28,19 @@ public class ConstUtils {
      */
     public static final int GB = 1073741824;
 
+    /**
+     * KB与Byte的倍数Double
+     */
+    public static final double DKB = 1024.0;
+    /**
+     * MB与Byte的倍数Double
+     */
+    public static final double DMB = 1048576.0;
+    /**
+     * GB与Byte的倍数Double
+     */
+    public static final double DGB = 1073741824.0;
+
     public enum MemoryUnit {
         BYTE,
         KB,

@@ -6,7 +6,7 @@
     android:layout_marginEnd="@dimen/mp_10"
     android:layout_marginStart="@dimen/mp_10"
     android:layout_marginTop="@dimen/mp_10"
-    android:background="@color/theme_style_white">
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="如若可以，浅笑安然"
-                android:textColor="@color/itemTextColor"
+                android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_16" />
 
             <TextView
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:text="时间：2017-05-23"
-                android:textColor="@color/itemTextColor"
+                android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_14" />
 
             <TextView
@@ -56,7 +56,7 @@
 浅浅年岁，凉凉夜色，旧时风景，难掩芳时的梦。新的春光，过了今夜又是新的一朝，挥挥一袖的风雨，安然的浅笑。生命的路口中，把最美的风景装在心坎上，从容的转身，踏上另一段新的旅程。如若可以，别离前便拥抱一下，然后再转身，让温暖如风般永存心尖。
 
 时光匆匆，岁月如歌，如若有情，毋须携手，且行且珍惜;似水流年，浮生如梦，如若有意，毋须挽留，且看盛世花开。"
-                android:textColor="@color/itemTextColor"
+                android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_14" />
 
             <TextView
@@ -67,7 +67,7 @@
                 android:layout_marginTop="@dimen/mp_10"
                 android:gravity="center_horizontal"
                 android:text="查看所有章节>>"
-                android:textColor="@color/theme_style"
+                android:textColor="@color/text_theme"
                 android:textSize="@dimen/f_15" />
 
             <View
@@ -105,7 +105,7 @@
                 android:layout_marginTop="@dimen/mp_5"
                 android:layout_toEndOf="@id/iv_head_pic"
                 android:text="韩三少的剑"
-                android:textColor="@color/itemTextColorDark"
+                android:textColor="@color/item_text_color_dark"
                 android:textSize="@dimen/f_16" />
 
             <TextView
@@ -117,7 +117,7 @@
                 android:layout_marginTop="@dimen/mp_5"
                 android:layout_toEndOf="@id/iv_head_pic"
                 android:text="2017-05-24 创作"
-                android:textColor="@color/itemTextColor"
+                android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_14" />
 
             <TextView
@@ -158,7 +158,7 @@
             android:paddingStart="@dimen/mp_7"
             android:paddingTop="@dimen/mp_1"
             android:text="青春"
-            android:textColor="@color/itemTextColor"
+            android:textColor="@color/item_text_color"
             android:textSize="@dimen/f_10" />
 
         <TextView
@@ -172,7 +172,7 @@
             android:paddingStart="@dimen/mp_7"
             android:paddingTop="@dimen/mp_1"
             android:text="热血"
-            android:textColor="@color/itemTextColor"
+            android:textColor="@color/item_text_color"
             android:textSize="@dimen/f_10" />
 
         <TextView
@@ -186,7 +186,7 @@
             android:paddingStart="@dimen/mp_7"
             android:paddingTop="@dimen/mp_1"
             android:text="文艺"
-            android:textColor="@color/itemTextColor"
+            android:textColor="@color/item_text_color"
             android:textSize="@dimen/f_10" />
 
     </LinearLayout>

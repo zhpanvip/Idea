@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/theme_style_white"
+    android:background="@color/background"
     android:layout_height="match_parent">
 
     <ImageView
@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="12.8元"
-        android:textColor="@color/green"
+        android:textColor="@color/text_theme"
         android:layout_below="@id/iv_wallet"
         android:textSize="@dimen/f_18"
         android:layout_centerHorizontal="true"
@@ -33,14 +33,14 @@
         android:layout_marginTop="50dp"
         android:text="提现"
         android:gravity="center"
-        android:background="@color/green"/>
+        android:background="@color/text_theme"/>
 
     <TextView
         android:id="@+id/tv_charge"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="20sp"
-        android:textColor="@color/green"
+        android:textColor="@color/text_theme"
         android:text="充值"
         android:gravity="center"
         android:background="@color/gray_dd"
@@ -52,7 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal"
-        android:textColor="@color/green"
+        android:textColor="@color/text_theme"
         android:textSize="@dimen/f_16"
         android:layout_marginBottom="@dimen/mp_10"
         android:text="常见问题"/>

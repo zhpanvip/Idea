@@ -79,6 +79,7 @@ public class LoginActivity extends BaseActivity implements Callback, PlatformAct
             case R.id.btn_login:
                // login();
                 showShare();
+                setNightMode();
                 break;
             case R.id.tv_forget_psw:
                 break;

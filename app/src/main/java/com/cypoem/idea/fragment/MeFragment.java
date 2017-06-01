@@ -4,16 +4,22 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
+import com.airong.core.utils.AppUtils;
+import com.airong.core.utils.CleanUtils;
+import com.airong.core.utils.FileUtils;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.AuthorInfoActivity;
@@ -93,8 +99,12 @@ public class MeFragment extends BaseFragment {
     NestedScrollView scrollView;
     @BindView(R.id.me_view)
     View mView;
-
-
+    @BindView(R.id.tv_version)
+    TextView mTvVersion;
+    @BindView(R.id.tv_cache)
+    TextView mTvCache;
+    @BindView(R.id.tb_night_mode)
+    ToggleButton mToggleButton;
     public static MeFragment getFragment(Bundle bundle) {
         MeFragment meFragment = new MeFragment();
         meFragment.setArguments(bundle);
@@ -109,7 +119,26 @@ public class MeFragment extends BaseFragment {
     @Override
     protected void init() {
         initData();
+        setData();
+        setListener();
+    }
 
+    private void setListener() {
+        mToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    ((MainActivity)getActivity()).setNightMode();
+                }else {
+                    ((MainActivity)getActivity()).setNightMode();
+                }
+            }
+        });
+    }
+
+    private void setData() {
+        mTvCache.setText(FileUtils.getDirSize(getContext().getCacheDir()));
+        mTvVersion.setText("V " + AppUtils.getAppVersionName(getContext()));
     }
 
     private void initData() {
@@ -132,7 +161,7 @@ public class MeFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN) //注册一个在Ui线程执行的方法,用于接收事件
     public void hideFooterView(MainActivity.HideView hideView) {//参数必须是ClearShopCart类型, 否则不会调用此方法
-        if(hideView.isHide){
+        if (hideView.isHide) {
             mView.setVisibility(View.GONE);
         }
     }
@@ -145,9 +174,9 @@ public class MeFragment extends BaseFragment {
     }
 
 
-
     @OnClick({R.id.ll_focus, R.id.ll_fans, R.id.ll_collect, R.id.rl_wallet, R.id.ll_like
-            , R.id.rl_join, R.id.rl_create, R.id.rl_publish, R.id.rl_draft, R.id.head_img})
+            , R.id.rl_join, R.id.rl_create, R.id.rl_publish, R.id.rl_draft, R.id.head_img
+            , R.id.rl_catch})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_focus:
@@ -180,6 +209,21 @@ public class MeFragment extends BaseFragment {
             case R.id.head_img:
                 AuthorInfoActivity.start(getContext());
                 break;
+            case R.id.rl_catch:
+                clearCache();
+                break;
         }
+    }
+
+    private void clearCache() {
+        showTwoButtonDialog("确定要清除所有存吗？", "确定", "取消", (View v) -> {
+            if (CleanUtils.cleanInternalCache()) {
+                mTvCache.setText(FileUtils.getDirSize(getContext().getCacheDir()));
+                showToast("缓存已清除");
+                dismissDialog();
+            } else {
+                showToast("清除缓存失败...");
+            }
+        }, (View v) -> dismissDialog());
     }
 }

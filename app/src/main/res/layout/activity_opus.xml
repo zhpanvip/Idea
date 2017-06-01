@@ -4,7 +4,7 @@
     android:id="@+id/activity_opus"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme_style_white"
+    android:background="@color/background"
     tools:context="com.cypoem.idea.activity.OpusActivity">
 
 
@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
         android:layout_alignParentBottom="true"
-        android:background="@color/item_color"
+        android:background="@color/tab_color"
         android:orientation="horizontal"
         android:paddingTop="@dimen/mp_5">
 
@@ -32,7 +32,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12" />
+                android:textColor="@color/item_text_color"
+                android:text="@string/_12k" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,7 +51,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12" />
+                android:textColor="@color/item_text_color"
+                android:text="@string/_12k" />
         </LinearLayout>
 
         <LinearLayout
@@ -68,7 +70,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12" />
+                android:textColor="@color/item_text_color"
+                android:text="@string/_12k" />
         </LinearLayout>
 
         <LinearLayout
@@ -86,7 +89,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12" />
+                android:textColor="@color/item_text_color"
+                android:text="@string/_12k" />
         </LinearLayout>
 
         <LinearLayout
@@ -104,7 +108,8 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="12" />
+                android:textColor="@color/item_text_color"
+                android:text="@string/_12k" />
         </LinearLayout>
     </LinearLayout>
 
@@ -113,15 +118,5 @@
         android:layout_width="match_parent"
         android:layout_above="@id/ll_tab"
         android:layout_height="match_parent"/>
-
-    <!--<LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/ll_tab"
-        android:orientation="vertical">
-
-        <include layout="@layout/layout_article" />
-    </LinearLayout>-->
-
 
 </RelativeLayout>

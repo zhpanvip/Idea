@@ -17,7 +17,7 @@
     android:bottom="1dp"
     android:left="1dp">
     <shape>
-        <solid android:color="@color/green"/>
+        <solid android:color="@color/theme_style"/>
         <corners
             android:topLeftRadius="3dp"
             android:bottomLeftRadius="3dp"/>

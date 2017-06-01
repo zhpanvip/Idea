@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.ArticleWebViewActivity;
 import com.cypoem.idea.activity.AuthorInfoActivity;
@@ -60,6 +61,7 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
         holder.mTvFocus.setOnClickListener((View v)->{
             Toast.makeText(mContext, "关注", Toast.LENGTH_SHORT).show();
         });
+        ImageLoaderUtil.loadCircleImg(holder.mIvHeader,"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=304866327,2141533711&fm=11&gp=0.jpg",R.drawable.head_pic);
     }
 
     @Override
@@ -74,6 +76,7 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
         public RelativeLayout mRlAuthor;
         public TextView mTvAll;
         public TextView mTvFocus;
+        public ImageView mIvHeader;
 
 
         public StartReadViewHolder(View itemView) {
@@ -81,6 +84,7 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
             mTvAll= (TextView) itemView.findViewById(R.id.tv_all);
             mRlAuthor= (RelativeLayout) itemView.findViewById(R.id.rl_author);
             mTvFocus= (TextView) itemView.findViewById(R.id.tv_focus);
+            mIvHeader= (ImageView) itemView.findViewById(R.id.iv_head_pic);
         }
     }
 }

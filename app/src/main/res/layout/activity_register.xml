@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/theme_style_white"
+    android:background="@color/background"
     android:paddingStart="@dimen/mp_15"
     android:paddingEnd="@dimen/mp_15">
     <ImageView
@@ -43,14 +43,14 @@
             android:layout_height="@dimen/mp_30"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="@dimen/mp_15"
-            android:background="@color/green"/>
+            android:background="@color/text_theme"/>
         <com.cypoem.idea.view.CountDownButton
             android:id="@+id/tv_get_code"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:textColor="@color/green"
+            android:textColor="@color/text_theme"
             android:text="获取验证码"/>
     </LinearLayout>
 

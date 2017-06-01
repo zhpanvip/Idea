@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme_style_white">
+    android:background="@color/background">
 
 
     <LinearLayout
@@ -32,7 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="评论"
-                    android:textColor="@color/itemTextColorDark"
+                    android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
                 <TextView
@@ -40,7 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="23"
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_16" />
             </LinearLayout>
 
@@ -55,7 +55,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="赞"
-                    android:textColor="@color/itemTextColorDark"
+                    android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
                 <TextView
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="23"
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_16" />
             </LinearLayout>
 
@@ -78,7 +78,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="欣赏值"
-                    android:textColor="@color/itemTextColorDark"
+                    android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
                 <TextView
@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="23"
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_16" />
             </LinearLayout>
 
@@ -101,7 +101,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="重写"
-                    android:textColor="@color/itemTextColorDark"
+                    android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
                 <TextView
@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="23"
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_16" />
             </LinearLayout>
 
@@ -124,7 +124,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="续写"
-                    android:textColor="@color/itemTextColorDark"
+                    android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
                 <TextView
@@ -132,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="23"
-                    android:textColor="@color/gray_66"
+                    android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_16" />
             </LinearLayout>
 
@@ -151,7 +151,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        android:background="@color/theme_style_white"
+        android:background="@color/background"
         android:layout_above="@id/ll_tab"/>
 
 </RelativeLayout>

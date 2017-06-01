@@ -5,7 +5,7 @@
     android:id="@+id/activity_praise"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme_style_white"
+    android:background="@color/background"
     android:orientation="vertical"
     tools:context="com.cypoem.idea.activity.PraiseActivity">
     <LinearLayout
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="@dimen/mp_15"
-        android:textColor="@color/green"
+        android:textColor="@color/text_theme"
         android:textSize="@dimen/f_16"
         android:text="进入我的钱包>>"/>
     <TextView

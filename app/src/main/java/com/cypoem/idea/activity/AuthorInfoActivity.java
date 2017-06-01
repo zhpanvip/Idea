@@ -19,7 +19,6 @@ import butterknife.OnClick;
 
 public class AuthorInfoActivity extends BaseActivity {
 
-
     @BindView(R.id.iv_author)
     ImageView mIvAuthor;
     @BindView(R.id.tv_pen_name_text)

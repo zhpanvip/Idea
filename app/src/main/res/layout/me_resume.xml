@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pen_name"
-            android:textColor="@color/text_white"
+            android:textColor="@color/text_light"
             android:textSize="16sp" />
         <TextView
             android:id="@+id/tv_name"
@@ -39,7 +39,7 @@
             android:maxLength="24"
             android:maxLines="1"
             android:text="韩三少"
-            android:textColor="@color/text_white"
+            android:textColor="@color/text_light"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -56,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/motto"
-            android:textColor="@color/text_white"
+            android:textColor="@color/text_light"
             android:textSize="14sp"/>
 
         <TextView
@@ -67,7 +67,7 @@
             android:maxLength="70"
             android:maxLines="2"
             android:text="一直被模仿 从未被超越"
-            android:textColor="@color/text_white"
+            android:textColor="@color/text_light"
             android:textSize="14sp"/>
 
     </LinearLayout>
@@ -93,21 +93,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_12k"
-                android:textColor="@color/text_white" />
+                android:textColor="@color/text_light" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/focus"
-                android:textColor="@color/text_white" />
+                android:textColor="@color/text_light" />
         </LinearLayout>
 
         <View
             android:layout_width="1dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/text_white" />
+            android:background="@color/text_light" />
 
         <LinearLayout
             android:id="@+id/ll_fans"
@@ -122,21 +122,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_12k"
-                android:textColor="@color/text_white" />
+                android:textColor="@color/text_light" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/fans"
-                android:textColor="@color/text_white" />
+                android:textColor="@color/text_light" />
         </LinearLayout>
 
         <View
             android:layout_width="1dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/text_white"
+            android:background="@color/text_light"
             android:paddingBottom="15dp"
             android:paddingTop="15dp" />
 
@@ -153,21 +153,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_12k"
-                android:textColor="@color/text_white" />
+                android:textColor="@color/text_light" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/collect"
-                android:textColor="@color/text_white" />
+                android:textColor="@color/text_light" />
         </LinearLayout>
 
         <View
             android:layout_width="1dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/text_white"
+            android:background="@color/text_light"
             android:paddingBottom="15dp"
             android:paddingTop="15dp" />
 
@@ -184,14 +184,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_12k"
-                android:textColor="@color/text_white" />
+                android:textColor="@color/text_light" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:text="@string/value"
-                android:textColor="@color/text_white" />
+                android:textColor="@color/text_light" />
         </LinearLayout>
 
     </LinearLayout>

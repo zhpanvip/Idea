@@ -31,7 +31,7 @@
     </style>
 
     <style name="ToolBarTitleText" parent="TextAppearance.AppCompat.Medium">
-        <item name="android:textColor">@color/text_white</item>
+        <item name="android:textColor">@color/text_light</item>
         <item name="android:textSize">@dimen/f_18</item>
         <item name="android:textStyle">bold</item>
 

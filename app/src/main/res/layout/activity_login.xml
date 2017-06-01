@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/theme_style_white"
+    android:background="@color/background"
     android:orientation="vertical"
     android:paddingStart="@dimen/mp_15"
     android:paddingEnd="@dimen/mp_15"
@@ -43,6 +43,7 @@
         android:text="@string/login"
         android:textColor="@color/white"
         android:textSize="@dimen/f_18"
+        android:gravity="center"
         android:background="@drawable/bg_btn_login"
         android:layout_marginTop="@dimen/mp_40"/>
     <TextView
@@ -51,7 +52,7 @@
         android:layout_height="wrap_content"
         android:text="忘记密码？"
         android:textSize="@dimen/f_15"
-        android:textColor="@color/green"
+        android:textColor="@color/text_theme"
         android:layout_marginTop="@dimen/mp_10"
         android:gravity="end"/>
     <LinearLayout
@@ -126,13 +127,13 @@
             android:text="@string/new_user_register"
             android:textSize="@dimen/f_16"
             android:layout_marginBottom="@dimen/mp_2"
-            android:textColor="@color/green"/>
+            android:textColor="@color/text_theme"/>
         <View
             android:layout_width="@dimen/mp_1"
             android:layout_height="@dimen/mp_25"
             android:layout_marginStart="@dimen/mp_20"
             android:layout_marginEnd="@dimen/mp_20"
-            android:background="@color/green"/>
+            android:background="@color/text_theme"/>
 
         <TextView
             android:id="@+id/tv_login_error"
@@ -141,7 +142,7 @@
             android:text="@string/login_matter"
             android:textSize="@dimen/f_16"
             android:layout_marginBottom="@dimen/mp_2"
-            android:textColor="@color/green"/>
+            android:textColor="@color/text_theme"/>
     </LinearLayout>
 
 </LinearLayout>

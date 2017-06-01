@@ -95,12 +95,11 @@ public class SexView extends View {
 
     private void drawCircle(Canvas canvas) {
         // 画最外层圆
-        mPaint.setColor(Color.parseColor("#f1f1f1"));
-        canvas.drawCircle(mPieCenterX, mPieCenterY, mRadius1, mPaint);
+        //mPaint.setColor(Color.parseColor("#f1f1f1"));
+        //canvas.drawCircle(mPieCenterX, mPieCenterY, mRadius1, mPaint);
         drawArc(canvas);
         // 画最内层圆
-        mPaint.setColor(getResources().getColor(R.color.theme_style_white));
-
+        mPaint.setColor(getResources().getColor(R.color.item_color));
         canvas.drawCircle(mPieCenterX, mPieCenterY, mRadius2, mPaint);
     }
 

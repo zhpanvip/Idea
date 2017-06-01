@@ -34,11 +34,11 @@ public class MainApplication extends BaseApp {
         UserInfoTools.init(this);
         //  初始化mob
         ShareSDK.initSDK(this);
-
-        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_AUTO);
     }
 
-
+    public static void setNightMode() {
+        AppCompatDelegate.setDefaultNightMode(MODE_NIGHT_AUTO);
+    }
 
     public static String getPublicKeyStore() {
         try {

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/theme_style_white"
+    android:background="@color/background"
     tools:context="com.cypoem.idea.activity.FansActivity">
 
         <in.srain.cube.views.ptr.PtrClassicFrameLayout

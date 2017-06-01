@@ -27,7 +27,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/praise_notification"
-                    android:textColor="@color/green"
+                    android:textColor="@color/text_theme"
                     android:textSize="16sp"/>
 
                 <CheckBox
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/system_notification"
-                    android:textColor="@color/green"
+                    android:textColor="@color/text_theme"
                     android:textSize="16sp"/>
 
                 <CheckBox
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/other_notification"
-                    android:textColor="@color/green"
+                    android:textColor="@color/text_theme"
                     android:textSize="16sp"/>
 
                 <CheckBox
