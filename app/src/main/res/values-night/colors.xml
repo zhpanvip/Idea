@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#0F2B50</color>
+    <color name="colorPrimary">#163355</color>
     <color name="colorPrimaryDark">#0F274D</color>
     <color name="colorAccent">#0F274D</color>
 
@@ -16,7 +16,7 @@
     <color name="gray_ea">#EAEAEA</color>
 
     <color name="theme_style">#0F2B50</color>
-    <color name="background">#163355</color>
+    <color name="background">#0F2B50</color>
     <color name="text_theme">#476486</color>
     <color name="text_light">#9DBADC</color>
     <color name="female_red">#D4237A</color>

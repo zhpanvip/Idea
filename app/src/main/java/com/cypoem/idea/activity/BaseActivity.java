@@ -56,7 +56,7 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     public void setNightMode(){
             int currentNightMode=getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-            getDelegate().setLocalNightMode(currentNightMode==Configuration.UI_MODE_NIGHT_NO?AppCompatDelegate.MODE_NIGHT_YES:AppCompatDelegate.MODE_NIGHT_NO);
+            getDelegate().setDefaultNightMode(currentNightMode==Configuration.UI_MODE_NIGHT_NO?AppCompatDelegate.MODE_NIGHT_YES:AppCompatDelegate.MODE_NIGHT_NO);
             recreate();
     }
 

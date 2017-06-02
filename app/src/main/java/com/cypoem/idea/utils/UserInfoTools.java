@@ -9,53 +9,52 @@ import com.cypoem.idea.module.bean.UserInfoBean;
  */
 
 public class UserInfoTools {
-    private static UserInfoBean mUserInfoBean;
+    private static UserInfoBean sUserInfoBean;
 
     public static void init(Context context) {
-        mUserInfoBean = getUserInfoBean(context);
-        if (mUserInfoBean == null) {
-            mUserInfoBean = new UserInfoBean();
-            mUserInfoBean.setUserAccount("");
-            mUserInfoBean.setPassword("");
-            mUserInfoBean.isLogin = false;
+        sUserInfoBean = getUserInfoBean(context);
+        if (sUserInfoBean == null) {
+            sUserInfoBean = new UserInfoBean();
+            sUserInfoBean.setUserAccount("");
+            sUserInfoBean.setPassword("");
+            sUserInfoBean.isLogin = false;
             //userInfoBean.isHelpered = false;
-            mUserInfoBean.setTokenId("");
+            sUserInfoBean.setTokenId("");
         }
-        setUserInfoBean(context, mUserInfoBean);
+        setUserInfoBean(context, sUserInfoBean);
     }
 
     /**
      * 获取本地个人信息
      */
     private static void setUserInfoBean(Context context, UserInfoBean userInfoBean) {
-        mUserInfoBean = userInfoBean;
-
-        SharedPreferencesHelper.saveObject(context, mUserInfoBean);
+        sUserInfoBean = userInfoBean;
+        SharedPreferencesHelper.saveObject(context, sUserInfoBean);
     }
 
 
     public static UserInfoBean getUserInfoBean(Context context) {
-        if (mUserInfoBean == null) {
-            mUserInfoBean = SharedPreferencesHelper.getObject(context.getApplicationContext(), UserInfoBean.class);
+        if (sUserInfoBean == null) {
+            sUserInfoBean = SharedPreferencesHelper.getObject(context.getApplicationContext(), UserInfoBean.class);
         }
-        if (mUserInfoBean == null) {
-            mUserInfoBean = new UserInfoBean();
+        if (sUserInfoBean == null) {
+            sUserInfoBean = new UserInfoBean();
         }
-        return mUserInfoBean;
+        return sUserInfoBean;
     }
 
     /**
      * 设置用户手机IMEI
      */
     public static void setImei(Context context, String imei) {
-        mUserInfoBean.setImei(imei);
-        setUserInfoBean(context, mUserInfoBean);
+        sUserInfoBean.setImei(imei);
+        setUserInfoBean(context, sUserInfoBean);
     }
 
     public static String getImei(Context context){
         String imei;
-        if(mUserInfoBean!=null){
-            imei=mUserInfoBean.getImei();
+        if(sUserInfoBean !=null){
+            imei= sUserInfoBean.getImei();
         }else {
             imei=getUserInfoBean(context).getImei();
         }
@@ -64,14 +63,14 @@ public class UserInfoTools {
     }
 
     public static void setBrand(Context context, String brand) {
-        mUserInfoBean.setBrand(brand);
-        setUserInfoBean(context, mUserInfoBean);
+        sUserInfoBean.setBrand(brand);
+        setUserInfoBean(context, sUserInfoBean);
     }
 
     public static String getBrand(Context context) {
         String brand;
-        if (mUserInfoBean != null) {
-            brand = mUserInfoBean.getBrand();
+        if (sUserInfoBean != null) {
+            brand = sUserInfoBean.getBrand();
         } else {
             brand = getUserInfoBean(context).getBrand();
         }
@@ -79,14 +78,14 @@ public class UserInfoTools {
     }
 
     public static void setOsVersion(Context context, String osVersion) {
-        mUserInfoBean.setOsVersion(osVersion);
-        setUserInfoBean(context, mUserInfoBean);
+        sUserInfoBean.setOsVersion(osVersion);
+        setUserInfoBean(context, sUserInfoBean);
     }
 
     public static String getOsVersion(Context context) {
         String osVersion;
-        if (mUserInfoBean != null) {
-            osVersion = mUserInfoBean.getOsVersion();
+        if (sUserInfoBean != null) {
+            osVersion = sUserInfoBean.getOsVersion();
         } else {
             osVersion = getUserInfoBean(context).getOsVersion();
         }
@@ -94,33 +93,62 @@ public class UserInfoTools {
     }
 
     public static void setToken(Context context, String token) {
-        mUserInfoBean.setTokenId(token);
-        setUserInfoBean(context, mUserInfoBean);
+        sUserInfoBean.setTokenId(token);
+        setUserInfoBean(context, sUserInfoBean);
     }
+
 
     public static String getToken(Context context) {
         String token;
-        if (mUserInfoBean != null) {
-            token = mUserInfoBean.getTokenId();
+        if (sUserInfoBean != null) {
+            token = sUserInfoBean.getTokenId();
         } else {
             token = getUserInfoBean(context).getTokenId();
         }
         return token;
     }
 
+    /**
+     * @param isLogin 是否登录
+     */
     public static void setIsLogin(Context context, boolean isLogin) {
-        mUserInfoBean.setLogin(isLogin);
-        setUserInfoBean(context, mUserInfoBean);
+        sUserInfoBean.setLogin(isLogin);
+        setUserInfoBean(context, sUserInfoBean);
     }
 
+    /**
+     * @return 是否登录
+     */
     public static boolean getIsLogin(Context context) {
         boolean isLogin;
-        if (mUserInfoBean != null) {
-            isLogin = mUserInfoBean.isLogin();
+        if (sUserInfoBean != null) {
+            isLogin = sUserInfoBean.isLogin();
         } else {
             isLogin = getUserInfoBean(context).isLogin();
         }
         return isLogin;
+    }
+
+    /**
+     *
+     * @param isNightMode 是否开启夜间模式
+     */
+    public static void setNightMode(Context context,boolean isNightMode){
+        sUserInfoBean.setNightMode(isNightMode);
+        setUserInfoBean(context,sUserInfoBean);
+    }
+
+    /**
+     * @return 是否是夜间模式
+     */
+    public static boolean isNightMode(Context context){
+        boolean isNightMode;
+        if (sUserInfoBean != null) {
+            isNightMode = sUserInfoBean.isNightMode();
+        } else {
+            isNightMode = getUserInfoBean(context).isNightMode();
+        }
+        return isNightMode;
     }
 
 

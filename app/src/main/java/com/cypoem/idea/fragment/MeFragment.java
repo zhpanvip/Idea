@@ -4,12 +4,9 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,6 +18,8 @@ import com.airong.core.utils.AppUtils;
 import com.airong.core.utils.CleanUtils;
 import com.airong.core.utils.FileUtils;
 import com.airong.core.utils.ImageLoaderUtil;
+import com.cypoem.idea.event.HideView;
+import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.AuthorInfoActivity;
 import com.cypoem.idea.activity.CollectActivity;
@@ -29,15 +28,14 @@ import com.cypoem.idea.activity.MainActivity;
 import com.cypoem.idea.activity.OpusActivity;
 import com.cypoem.idea.activity.PraiseActivity;
 import com.cypoem.idea.activity.WalletActivity;
+import com.cypoem.idea.utils.UserInfoTools;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by zhpan on 2017/4/21.
@@ -105,6 +103,8 @@ public class MeFragment extends BaseFragment {
     TextView mTvCache;
     @BindView(R.id.tb_night_mode)
     ToggleButton mToggleButton;
+    private boolean isNull;
+
     public static MeFragment getFragment(Bundle bundle) {
         MeFragment meFragment = new MeFragment();
         meFragment.setArguments(bundle);
@@ -123,15 +123,17 @@ public class MeFragment extends BaseFragment {
         setListener();
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        isNull = savedInstanceState == null;
+        super.onCreate(savedInstanceState);
+    }
+
     private void setListener() {
-        mToggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked){
-                    ((MainActivity)getActivity()).setNightMode();
-                }else {
-                    ((MainActivity)getActivity()).setNightMode();
-                }
+        mToggleButton.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
+            if (isNull) {
+                EventBus.getDefault().post(new NightModeEvent(isChecked));
+                UserInfoTools.setNightMode(getContext(),isChecked);
             }
         });
     }
@@ -159,8 +161,8 @@ public class MeFragment extends BaseFragment {
         ImageLoaderUtil.loadCircleImg(headImg, "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=304866327,2141533711&fm=11&gp=0.jpg", R.drawable.head_pic);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN) //注册一个在Ui线程执行的方法,用于接收事件
-    public void hideFooterView(MainActivity.HideView hideView) {//参数必须是ClearShopCart类型, 否则不会调用此方法
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void hideFooterView(HideView hideView) {
         if (hideView.isHide) {
             mView.setVisibility(View.GONE);
         }
@@ -226,4 +228,6 @@ public class MeFragment extends BaseFragment {
             }
         }, (View v) -> dismissDialog());
     }
+
+
 }

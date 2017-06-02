@@ -6,11 +6,21 @@ package com.cypoem.idea.module.bean;
 
 public class User {
     private Long id;
-    public String username;
-    public String password;
+    private String username;
+    private String password;
 
-    public String shortToken;
-    public String longToken;
+    private String shortToken;
+    private String longToken;
+
+    private boolean isNightMode;
+
+    public boolean isNightMode() {
+        return isNightMode;
+    }
+
+    public void setNightMode(boolean nightMode) {
+        isNightMode = nightMode;
+    }
 
     public String getUsername() {
         return username;

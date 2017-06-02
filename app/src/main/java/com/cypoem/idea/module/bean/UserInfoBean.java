@@ -17,36 +17,52 @@ public class UserInfoBean {
     /**
      * 网络请求会话ID
      */
-    public String tokenId = "";
+    private String tokenId = "";
 
     /**
      * 客户端系统类型
      */
-    public String osType = "";
+    private String osType = "";
 
     /**
      * 客户端设备版本号
      */
-    public String osVersion = "";
+    private String osVersion = "";
 
     /** 手机型号 */
-    public String brand = "";
+    private String brand = "";
 
     /** 用户在服务端的SessionID */
-    public String sessionId = "";
+    private String sessionId = "";
 
 
     /** 手机唯一标识 */
-    public String imei = "";
+    private String imei = "";
 
     /**
      * 用户账号名
      */
-    public String userAccount = "";
+    private String userAccount = "";
 
     public String password;
 
-    public String nickName;
+    /**
+     * 昵称
+     */
+    private String nickName;
+
+    /**
+     * 是否开启夜间模式
+     */
+    private boolean isNightMode;
+
+    public boolean isNightMode() {
+        return isNightMode;
+    }
+
+    public void setNightMode(boolean nightMode) {
+        isNightMode = nightMode;
+    }
 
     public String getNickName() {
         return nickName;

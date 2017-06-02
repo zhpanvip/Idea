@@ -2,7 +2,6 @@ package com.cypoem.idea.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +12,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import com.cypoem.idea.event.HideView;
+import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.R;
 import com.cypoem.idea.fragment.AddFragment;
 import com.cypoem.idea.fragment.FindFragment;
@@ -22,6 +24,7 @@ import com.cypoem.idea.fragment.MessageFragment;
 import com.cypoem.idea.utils.UserInfoTools;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -62,13 +65,22 @@ public class MainActivity extends BaseActivity {
         initData();
         setListener();
         mRbHome.performClick();
-      //  isLogin();
-
+        EventBus.getDefault().register(this);
     }
 
-    public void setNightMode(){
-        int currentNightMode=getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        getDelegate().setLocalNightMode(currentNightMode==Configuration.UI_MODE_NIGHT_NO? AppCompatDelegate.MODE_NIGHT_YES:AppCompatDelegate.MODE_NIGHT_NO);
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void setNightMode(NightModeEvent event) {
+        if (event.isNight) {
+            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         recreate();
     }
 
@@ -83,55 +95,78 @@ public class MainActivity extends BaseActivity {
             FragmentTransaction fragmentTransaction = mFragmentManger.beginTransaction();
             switch (checkedId) {
                 case R.id.rb_home:
-                    hideAllFragment(fragmentTransaction);
-                    if (mHomePageFragment == null) {
-                        mHomePageFragment = HomePageFragment.getInstance(0);
-                        fragmentTransaction.add(R.id.fl_fragment, mHomePageFragment);
-                    } else {
-                        fragmentTransaction.show(mHomePageFragment);
-                    }
+                    homeClicked(fragmentTransaction);
                     break;
                 case R.id.rb_find:
-                    hideAllFragment(fragmentTransaction);
-                    if (mFindFragment == null) {
-                        mFindFragment = new FindFragment();
-                        fragmentTransaction.add(R.id.fl_fragment, mFindFragment);
-                    } else {
-                        fragmentTransaction.show(mFindFragment);
-                    }
+                    findClicked(fragmentTransaction);
                     break;
                 case R.id.rb_add:
-                    hideAllFragment(fragmentTransaction);
-                    if (mAddFragment == null) {
-                        mAddFragment = new AddFragment();
-                        fragmentTransaction.add(R.id.fl_fragment, mAddFragment);
-                    } else {
-                        fragmentTransaction.show(mAddFragment);
-                    }
+                    addClicked(fragmentTransaction);
+
                     break;
                 case R.id.rb_message:
-                    if(UserInfoTools.getIsLogin(this)){
-                        goToMessage(fragmentTransaction);
-                    }else {
-                        goToLogin();
-                        rgTab.check(prePosition);
+                    boolean isToLogin = messageClicked(fragmentTransaction);
+                    if(isToLogin){
                         return;
                     }
-
                     break;
                 case R.id.rb_me:
-                    goToMe(fragmentTransaction);
-                   /* if(UserInfoTools.getIsLogin(this)){
-                       goToMe(fragmentTransaction);
-                    }else {
-                        goToLogin();
-                    }*/
-
+                    meClicked(fragmentTransaction);
                     break;
             }
             fragmentTransaction.commit();
-            prePosition=checkedId;
+            prePosition = checkedId;
         });
+    }
+
+    private void meClicked(FragmentTransaction fragmentTransaction) {
+        goToMe(fragmentTransaction);
+        /*if (UserInfoTools.getIsLogin(this)) {
+            goToMe(fragmentTransaction);
+        } else {
+            goToLogin();
+        }*/
+    }
+
+    private boolean messageClicked(FragmentTransaction fragmentTransaction) {
+        if (UserInfoTools.getIsLogin(this)) {
+            goToMessage(fragmentTransaction);
+            return false;
+        } else {
+            goToLogin();
+            rgTab.check(prePosition);
+            return true;
+        }
+    }
+
+    private void addClicked(FragmentTransaction fragmentTransaction) {
+        hideAllFragment(fragmentTransaction);
+        if (mAddFragment == null) {
+            mAddFragment = new AddFragment();
+            fragmentTransaction.add(R.id.fl_fragment, mAddFragment);
+        } else {
+            fragmentTransaction.show(mAddFragment);
+        }
+    }
+
+    private void findClicked(FragmentTransaction fragmentTransaction) {
+        hideAllFragment(fragmentTransaction);
+        if (mFindFragment == null) {
+            mFindFragment = new FindFragment();
+            fragmentTransaction.add(R.id.fl_fragment, mFindFragment);
+        } else {
+            fragmentTransaction.show(mFindFragment);
+        }
+    }
+
+    private void homeClicked(FragmentTransaction fragmentTransaction) {
+        hideAllFragment(fragmentTransaction);
+        if (mHomePageFragment == null) {
+            mHomePageFragment = HomePageFragment.getInstance(0);
+            fragmentTransaction.add(R.id.fl_fragment, mHomePageFragment);
+        } else {
+            fragmentTransaction.show(mHomePageFragment);
+        }
     }
 
     private void goToMessage(FragmentTransaction fragmentTransaction) {
@@ -147,7 +182,7 @@ public class MainActivity extends BaseActivity {
     private void goToMe(FragmentTransaction fragmentTransaction) {
         hideAllFragment(fragmentTransaction);
         if (mMeFragment == null) {
-            Bundle bundle=new Bundle();
+            Bundle bundle = new Bundle();
             mMeFragment = MeFragment.getFragment(bundle);
             fragmentTransaction.add(R.id.fl_fragment, mMeFragment);
         } else {
@@ -171,19 +206,6 @@ public class MainActivity extends BaseActivity {
         context.startActivity(new Intent(context, MainActivity.class));
     }
 
-    @OnClick({R.id.rb_me,R.id.rb_message})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.rb_me:
-               // goToLogin();
-                break;
-
-            case R.id.rb_message:
-               // goToLogin();
-                break;
-        }
-    }
-
     private void hideAllFragment(FragmentTransaction fragmentTransaction) {
         if (mHomePageFragment != null) fragmentTransaction.hide(mHomePageFragment);
         if (mFindFragment != null) fragmentTransaction.hide(mFindFragment);
@@ -194,9 +216,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN){
-            if((System.currentTimeMillis()-exitTime) > 2000){
-                showToast( "再按一次退出程序");
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                showToast("再按一次退出程序");
                 exitTime = System.currentTimeMillis();
             } else {
                 finish();
@@ -206,35 +228,4 @@ public class MainActivity extends BaseActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
-   /* private void getData(boolean showLoading) {
-        //  Retrofit请求数据
-        IdeaApi.getApiService()
-                .getMeizi()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<MeiziWrapper>(this, showLoading) {
-                    @Override
-                    public void onSuccess(MeiziWrapper response) {
-                        Toast.makeText(MainActivity.this, "请求数据成功", Toast.LENGTH_SHORT).show();
-                        List<Meizi.ResultsBean> content = response.getResults();
-                        for (int i = 0; i < content.size() - content.size() + 2; i++) {
-                            Toast.makeText(MainActivity.this, "Url:" + content.get(i).getUrl(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }*/
-
-
-   //   EventBus隐藏MeFragment中footer的事件类
-   public class HideView{
-      public   boolean isHide;
-       public HideView(boolean isHide) {
-           this.isHide = isHide;
-       }
-   }
-
-
-
 }
