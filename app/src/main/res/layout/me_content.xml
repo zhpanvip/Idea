@@ -280,7 +280,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/item_text_color"
-                    android:textSize="@dimen/f_18"
                     android:text="@string/current_version_code" />
 
                 <TextView

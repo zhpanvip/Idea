@@ -9,8 +9,7 @@ import android.view.WindowManager;
 
 import com.airong.core.BaseApp;
 import com.airong.core.utils.Utils;
-import com.cypoem.idea.module.bean.User;
-import com.cypoem.idea.utils.SharedPreferencesHelper;
+import com.cypoem.idea.BuildConfig;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.squareup.leakcanary.LeakCanary;
 
@@ -20,8 +19,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import cn.sharesdk.framework.ShareSDK;
-
-import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_AUTO;
 
 /**
  * Created by zhpan on 2017/4/16.
@@ -37,28 +34,47 @@ public class MainApplication extends BaseApp {
     public static float DIMEN_RATE = -1.0F;
     public static int DIMEN_DPI = -1;
 
-    public static synchronized MainApplication getInstance() {
-        return instance;
-    }
+
     @Override
     public void onCreate() {
         super.onCreate();
-        instance=this;
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
-        LeakCanary.install(this);
+        instance = this;
+
         UserInfoTools.init(this);
         //  初始化mob
         ShareSDK.initSDK(this);
+        setNightMode();
+
+        if (BuildConfig.DEBUG) {
+            if (LeakCanary.isInAnalyzerProcess(this)) {
+                return;
+            }
+            LeakCanary.install(this);
+        }
     }
 
-    static {
+    public static synchronized MainApplication getInstance() {
+        return instance;
+    }
+
+    /**
+     * 初始化夜间模式
+     */
+    private void setNightMode() {
+        boolean nightMode = UserInfoTools.isNightMode(this);
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(
+                    AppCompatDelegate.MODE_NIGHT_NO);
+        }
+    }
+
+  /*    static {
         AppCompatDelegate.setDefaultNightMode(
                 AppCompatDelegate.MODE_NIGHT_NO);
-    }
+    }*/
 
     public void addActivity(Activity act) {
         if (allActivities == null) {
@@ -87,7 +103,7 @@ public class MainApplication extends BaseApp {
 
 
     public void getScreenSize() {
-        WindowManager windowManager = (WindowManager)this.getSystemService(Context.WINDOW_SERVICE);
+        WindowManager windowManager = (WindowManager) this.getSystemService(Context.WINDOW_SERVICE);
         DisplayMetrics dm = new DisplayMetrics();
         Display display = windowManager.getDefaultDisplay();
         display.getMetrics(dm);
@@ -95,13 +111,12 @@ public class MainApplication extends BaseApp {
         DIMEN_DPI = dm.densityDpi;
         SCREEN_WIDTH = dm.widthPixels;
         SCREEN_HEIGHT = dm.heightPixels;
-        if(SCREEN_WIDTH > SCREEN_HEIGHT) {
+        if (SCREEN_WIDTH > SCREEN_HEIGHT) {
             int t = SCREEN_HEIGHT;
             SCREEN_HEIGHT = SCREEN_WIDTH;
             SCREEN_WIDTH = t;
         }
     }
-
 
 
     public static String getPublicKeyStore() {

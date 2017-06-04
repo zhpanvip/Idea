@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
 import com.airong.core.utils.AppUtils;
 import com.airong.core.utils.CleanUtils;
 import com.airong.core.utils.FileUtils;
@@ -24,16 +23,13 @@ import com.cypoem.idea.R;
 import com.cypoem.idea.activity.AuthorInfoActivity;
 import com.cypoem.idea.activity.CollectActivity;
 import com.cypoem.idea.activity.FansActivity;
-import com.cypoem.idea.activity.MainActivity;
 import com.cypoem.idea.activity.OpusActivity;
 import com.cypoem.idea.activity.PraiseActivity;
 import com.cypoem.idea.activity.WalletActivity;
 import com.cypoem.idea.utils.UserInfoTools;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -133,7 +129,7 @@ public class MeFragment extends BaseFragment {
         mToggleButton.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
             if (isNull) {
                 EventBus.getDefault().post(new NightModeEvent(isChecked));
-                UserInfoTools.setNightMode(getContext(),isChecked);
+                UserInfoTools.setNightMode(getContext(), isChecked);
             }
         });
     }
@@ -141,6 +137,7 @@ public class MeFragment extends BaseFragment {
     private void setData() {
         mTvCache.setText(FileUtils.getDirSize(getContext().getCacheDir()));
         mTvVersion.setText("V " + AppUtils.getAppVersionName(getContext()));
+        mToggleButton.setChecked(UserInfoTools.isNightMode(getContext()));
     }
 
     private void initData() {
@@ -171,7 +168,6 @@ public class MeFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //  反注册
         EventBus.getDefault().unregister(this);
     }
 
@@ -218,16 +214,14 @@ public class MeFragment extends BaseFragment {
     }
 
     private void clearCache() {
-        showTwoButtonDialog("确定要清除所有存吗？", "确定", "取消", (View v) -> {
+        showTwoButtonDialog("确定要清除所有缓存吗？", "确定", "取消", (View v) -> {
             if (CleanUtils.cleanInternalCache()) {
                 mTvCache.setText(FileUtils.getDirSize(getContext().getCacheDir()));
                 showToast("缓存已清除");
-                dismissDialog();
             } else {
                 showToast("清除缓存失败...");
             }
+            dismissDialog();
         }, (View v) -> dismissDialog());
     }
-
-
 }

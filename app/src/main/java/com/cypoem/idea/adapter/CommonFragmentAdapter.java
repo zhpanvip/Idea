@@ -12,11 +12,11 @@ import java.util.List;
  *
  */
 
-public class BaseFragmentAdapter extends FragmentStatePagerAdapter {
+public class CommonFragmentAdapter extends FragmentStatePagerAdapter {
    private List<? extends Fragment> mFragmentList;
    private Context mContext;
 
-    public BaseFragmentAdapter(FragmentManager fm, Context context) {
+    public CommonFragmentAdapter(FragmentManager fm, Context context) {
         super(fm);
         mContext = context;
     }
@@ -29,7 +29,7 @@ public class BaseFragmentAdapter extends FragmentStatePagerAdapter {
         this.mFragmentList = fragmentList;
     }
 
-    public BaseFragmentAdapter(FragmentManager fm) {
+    public CommonFragmentAdapter(FragmentManager fm) {
         super(fm);
     }
 

@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 import com.cypoem.idea.event.HideView;
 import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.R;
@@ -22,12 +21,9 @@ import com.cypoem.idea.fragment.HomePageFragment;
 import com.cypoem.idea.fragment.MeFragment;
 import com.cypoem.idea.fragment.MessageFragment;
 import com.cypoem.idea.utils.UserInfoTools;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.rb_home)
@@ -52,7 +48,6 @@ public class MainActivity extends BaseActivity {
     private MeFragment mMeFragment;
     private FragmentManager mFragmentManger;
     private long exitTime = 0;
-
     private int prePosition;
 
 
@@ -102,7 +97,6 @@ public class MainActivity extends BaseActivity {
                     break;
                 case R.id.rb_add:
                     addClicked(fragmentTransaction);
-
                     break;
                 case R.id.rb_message:
                     boolean isToLogin = messageClicked(fragmentTransaction);

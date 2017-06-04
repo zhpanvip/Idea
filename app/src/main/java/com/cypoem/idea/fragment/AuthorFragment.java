@@ -11,6 +11,7 @@ import com.cypoem.idea.activity.StartReadActivity;
 import com.cypoem.idea.adapter.CollectAdapter;
 import com.cypoem.idea.module.bean.CollectBean;
 import com.cypoem.idea.view.ListViewForScrollView;
+import com.cypoem.idea.view.ScrollableHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ import butterknife.BindView;
  * Created by zhpan on 2017/5/23.
  */
 
-public class AuthorFragment extends BaseFragment {
+public class AuthorFragment extends BaseFragment implements ScrollableHelper.ScrollableContainer {
     @BindView(R.id.lv_author)
     ListView mListView;
 
@@ -70,5 +71,10 @@ public class AuthorFragment extends BaseFragment {
         mListView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) ->
                 StartReadActivity.start(getContext())
         );
+    }
+
+    @Override
+    public View getScrollableView() {
+        return mListView;
     }
 }

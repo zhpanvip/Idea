@@ -1,31 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/white"
     android:fillViewport="true">
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/apl_main"
+    <com.cypoem.idea.view.ScrollableLayout
+        android:id="@+id/sl_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         android:fitsSystemWindows="true">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
             <include layout="@layout/layout_author_info" />
 
-            <LinearLayout
-                android:id="@+id/ll_viewpager"
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tl_author"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" />
+                android:layout_height="@dimen/mp_40"
+                android:layout_gravity="bottom"
+                app:tabMode="scrollable"
+                android:background="#fff"
+                android:backgroundTint="@color/background"
+                android:fillViewport="false"
+                app:layout_scrollFlags="scroll"
+                app:tabIndicatorColor="@color/text_theme"
+                app:tabIndicatorHeight="3.0dp"
+                app:tabSelectedTextColor="@color/text_theme"
+                app:tabTextColor="@color/gray_66">
 
-        </LinearLayout>
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="我发起的" />
 
-    </android.support.v4.widget.NestedScrollView>
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="我参与的" />
 
-</android.support.design.widget.CoordinatorLayout>
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="我原创的" />
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="我原创的" />
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="我原创的" />
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="我原创的" />
+                <android.support.design.widget.TabItem
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="我原创的" />
+
+            </android.support.design.widget.TabLayout>
+
+            <include layout="@layout/base_line" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+    </com.cypoem.idea.view.ScrollableLayout>
+
+</LinearLayout>

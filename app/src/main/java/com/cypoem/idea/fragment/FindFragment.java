@@ -7,7 +7,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.cypoem.idea.R;
-import com.cypoem.idea.adapter.BaseFragmentAdapter;
+import com.cypoem.idea.adapter.CommonFragmentAdapter;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
@@ -79,7 +79,7 @@ public class FindFragment extends BaseFragment {
         mList.add(newFragment);
         mList.add(hotFragment);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        BaseFragmentAdapter mFragmentAdapter = new BaseFragmentAdapter(fragmentManager, getContext());
+        CommonFragmentAdapter mFragmentAdapter = new CommonFragmentAdapter(fragmentManager, getContext());
         mFragmentAdapter.setFragmentList(mList);
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setCurrentItem(0);
