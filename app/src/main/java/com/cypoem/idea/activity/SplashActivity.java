@@ -1,5 +1,6 @@
 package com.cypoem.idea.activity;
 
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.KeyEvent;
 import android.view.View;
@@ -35,7 +36,7 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         getToolbar().setVisibility(View.GONE);
         mButton.setVisibility(View.VISIBLE);
         //  给启动页面设置动画

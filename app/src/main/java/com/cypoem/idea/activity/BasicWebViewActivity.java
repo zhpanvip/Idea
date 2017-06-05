@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Process;
 import android.support.annotation.NonNull;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class BasicWebViewActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initData();
         initWebView();
     }
@@ -60,7 +61,7 @@ public class BasicWebViewActivity extends BaseActivity {
         setting.setDisplayZoomControls(false);
         setting.setSupportZoom(false);
         setting.setBuiltInZoomControls(false);
-       // setting.setSavePassword(false); //安全要求
+        //setting.setSavePassword(false); // 安全要求
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (0 != (getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE)) {

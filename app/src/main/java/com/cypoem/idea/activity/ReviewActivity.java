@@ -8,11 +8,16 @@ import com.cypoem.idea.R;
 /**
  *  往期回看
  */
-public class ReviewActivity extends AppCompatActivity {
+public class ReviewActivity extends BaseActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_review);
+    protected int getLayoutId() {
+        return R.layout.activity_review;
+    }
+
+    @Override
+    protected void init(Bundle savedInstanceState) {
+
     }
 }

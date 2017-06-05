@@ -31,7 +31,7 @@ public class SetPasswordActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         getToolbar().setVisibility(View.GONE);
     }
 

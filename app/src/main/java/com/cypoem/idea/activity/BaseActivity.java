@@ -47,18 +47,18 @@ public abstract class BaseActivity extends BaseRxActivity {
         //  注入子Activity布局
         setContentView(getLayoutId());
         initToolBar();
-        init();
+        init(savedInstanceState);
     }
 
     protected abstract int getLayoutId();
 
-    protected abstract void init();
+    protected abstract void init(Bundle savedInstanceState);
 
-    /*public void setNightMode(){
+    public void setNightMode(){
             int currentNightMode=getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
             getDelegate().setDefaultNightMode(currentNightMode==Configuration.UI_MODE_NIGHT_NO?AppCompatDelegate.MODE_NIGHT_YES:AppCompatDelegate.MODE_NIGHT_NO);
             recreate();
-    }*/
+    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {

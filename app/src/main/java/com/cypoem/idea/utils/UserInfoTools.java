@@ -1,7 +1,6 @@
 package com.cypoem.idea.utils;
 
 import android.content.Context;
-
 import com.cypoem.idea.module.bean.UserInfoBean;
 
 /**
@@ -17,7 +16,7 @@ public class UserInfoTools {
             sUserInfoBean = new UserInfoBean();
             sUserInfoBean.setUserAccount("");
             sUserInfoBean.setPassword("");
-            sUserInfoBean.isLogin = false;
+            sUserInfoBean.setLogin(false);
             //userInfoBean.isHelpered = false;
             sUserInfoBean.setTokenId("");
         }

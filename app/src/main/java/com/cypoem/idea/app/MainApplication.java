@@ -39,12 +39,14 @@ public class MainApplication extends BaseApp {
     public void onCreate() {
         super.onCreate();
         instance = this;
-
         UserInfoTools.init(this);
         //  初始化mob
         ShareSDK.initSDK(this);
         setNightMode();
+        installLeak();
+    }
 
+    private void installLeak() {
         if (BuildConfig.DEBUG) {
             if (LeakCanary.isInAnalyzerProcess(this)) {
                 return;
@@ -62,13 +64,8 @@ public class MainApplication extends BaseApp {
      */
     private void setNightMode() {
         boolean nightMode = UserInfoTools.isNightMode(this);
-        if (nightMode) {
-            AppCompatDelegate.setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            AppCompatDelegate.setDefaultNightMode(
-                    AppCompatDelegate.MODE_NIGHT_NO);
-        }
+        AppCompatDelegate.setDefaultNightMode(nightMode?
+                AppCompatDelegate.MODE_NIGHT_YES:AppCompatDelegate.MODE_NIGHT_NO);
     }
 
   /*    static {

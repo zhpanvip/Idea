@@ -33,7 +33,7 @@ public class CompleteRegisterActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         setListener();
     }
 

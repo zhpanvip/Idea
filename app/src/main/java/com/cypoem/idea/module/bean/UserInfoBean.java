@@ -8,11 +8,9 @@ public class UserInfoBean {
     /**
      * 是否已经登录
      */
-    public boolean isLogin;
+    private boolean isLogin;
 
 
-    /** 启动状态 */
-    private int protectStatus;
 
     /**
      * 网络请求会话ID
@@ -29,14 +27,19 @@ public class UserInfoBean {
      */
     private String osVersion = "";
 
-    /** 手机型号 */
+    /**
+     * 手机型号
+     */
     private String brand = "";
 
-    /** 用户在服务端的SessionID */
+    /**
+     * 用户在服务端的SessionID
+     */
     private String sessionId = "";
 
-
-    /** 手机唯一标识 */
+    /**
+     * 手机唯一标识
+     */
     private String imei = "";
 
     /**
@@ -47,9 +50,9 @@ public class UserInfoBean {
     public String password;
 
     /**
-     * 昵称
+     * 笔名
      */
-    private String nickName;
+    private String penName;
 
     /**
      * 是否开启夜间模式
@@ -64,12 +67,12 @@ public class UserInfoBean {
         isNightMode = nightMode;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getPenName() {
+        return penName;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setPenName(String penName) {
+        this.penName = penName;
     }
 
     public String getPassword() {
@@ -96,14 +99,6 @@ public class UserInfoBean {
         isLogin = login;
     }
 
-
-    public int getProtectStatus() {
-        return protectStatus;
-    }
-
-    public void setProtectStatus(int protectStatus) {
-        this.protectStatus = protectStatus;
-    }
 
     public String getTokenId() {
         return tokenId;

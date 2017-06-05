@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
 import com.cypoem.idea.event.HideView;
 import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.R;
@@ -21,8 +22,10 @@ import com.cypoem.idea.fragment.HomePageFragment;
 import com.cypoem.idea.fragment.MeFragment;
 import com.cypoem.idea.fragment.MessageFragment;
 import com.cypoem.idea.utils.UserInfoTools;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity {
@@ -47,8 +50,11 @@ public class MainActivity extends BaseActivity {
     private MessageFragment mMessageFragment;
     private MeFragment mMeFragment;
     private FragmentManager mFragmentManger;
+    private FragmentTransaction fragmentTransaction;
+    //  退出时间
     private long exitTime = 0;
-    private int prePosition;
+    //  上一次RadioGroup选中的Id
+    private int preCheckedId;
 
 
     @Override
@@ -56,11 +62,20 @@ public class MainActivity extends BaseActivity {
         return R.layout.activity_main;
     }
 
-    public void init() {
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+    }
+
+    @Override
+    public void init(Bundle savedInstanceState) {
         initData();
         setListener();
-        mRbHome.performClick();
         EventBus.getDefault().register(this);
+        if (savedInstanceState == null) {
+            mRbHome.performClick();
+        }
     }
 
     @Override
@@ -87,48 +102,52 @@ public class MainActivity extends BaseActivity {
     private void setListener() {
         rgTab.setOnCheckedChangeListener((RadioGroup group, @IdRes int checkedId) -> {
 
-            FragmentTransaction fragmentTransaction = mFragmentManger.beginTransaction();
+            fragmentTransaction = mFragmentManger.beginTransaction();
             switch (checkedId) {
                 case R.id.rb_home:
-                    homeClicked(fragmentTransaction);
+                    fragmentTransaction.replace(R.id.fl_fragment, HomePageFragment.getInstance(0));
                     break;
                 case R.id.rb_find:
-                    findClicked(fragmentTransaction);
+                    fragmentTransaction.replace(R.id.fl_fragment, new FindFragment());
                     break;
                 case R.id.rb_add:
-                    addClicked(fragmentTransaction);
+                    fragmentTransaction.replace(R.id.fl_fragment, new AddFragment());
                     break;
                 case R.id.rb_message:
-                    boolean isToLogin = messageClicked(fragmentTransaction);
-                    if(isToLogin){
+                    if (messageClicked(fragmentTransaction)) {
                         return;
                     }
                     break;
                 case R.id.rb_me:
-                    meClicked(fragmentTransaction);
+                    if (meClicked(fragmentTransaction)) {
+                        return;
+                    }
                     break;
             }
             fragmentTransaction.commit();
-            prePosition = checkedId;
+            preCheckedId = checkedId;
         });
     }
 
-    private void meClicked(FragmentTransaction fragmentTransaction) {
-        goToMe(fragmentTransaction);
-        /*if (UserInfoTools.getIsLogin(this)) {
+    private boolean meClicked(FragmentTransaction fragmentTransaction) {
+        if (!UserInfoTools.getIsLogin(this)) {
+            fragmentTransaction.replace(R.id.fl_fragment, new MeFragment());
             goToMe(fragmentTransaction);
+            return false;
         } else {
             goToLogin();
-        }*/
+            rgTab.check(preCheckedId);
+            return true;
+        }
     }
 
     private boolean messageClicked(FragmentTransaction fragmentTransaction) {
         if (UserInfoTools.getIsLogin(this)) {
-            goToMessage(fragmentTransaction);
+            fragmentTransaction.replace(R.id.fl_fragment, new MessageFragment());
             return false;
         } else {
             goToLogin();
-            rgTab.check(prePosition);
+            rgTab.check(preCheckedId);
             return true;
         }
     }
@@ -164,6 +183,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void goToMessage(FragmentTransaction fragmentTransaction) {
+
         hideAllFragment(fragmentTransaction);
         if (mMessageFragment == null) {
             mMessageFragment = new MessageFragment();
@@ -174,6 +194,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void goToMe(FragmentTransaction fragmentTransaction) {
+
         hideAllFragment(fragmentTransaction);
         if (mMeFragment == null) {
             Bundle bundle = new Bundle();

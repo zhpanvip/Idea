@@ -32,7 +32,7 @@ public class RegisterActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initData();
     }
 

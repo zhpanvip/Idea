@@ -2,6 +2,7 @@ package com.cypoem.idea.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -37,7 +38,7 @@ public class StartReadActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initData();
     }
 

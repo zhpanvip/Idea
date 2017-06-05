@@ -76,7 +76,7 @@ public class AuthorInfoActivity extends BaseActivity {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initData();
         setListener();
     }
@@ -147,6 +147,7 @@ public class AuthorInfoActivity extends BaseActivity {
                 FansActivity.start(this);
                 break;
             case R.id.iv_edit:
+                setNightMode();
                 break;
         }
     }

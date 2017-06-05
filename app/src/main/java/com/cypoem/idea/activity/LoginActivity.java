@@ -60,7 +60,7 @@ public class LoginActivity extends BaseActivity implements Callback, PlatformAct
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initData();
     }
 
