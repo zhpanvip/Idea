@@ -1,5 +1,6 @@
 package com.cypoem.idea.fragment;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
@@ -51,8 +52,9 @@ public class MessageFragment extends BaseFragment {
         return R.layout.fragment_message;
     }
 
+
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initData();
         setListener();
     }

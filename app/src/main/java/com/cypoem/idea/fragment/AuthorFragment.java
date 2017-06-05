@@ -40,7 +40,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initData();
         setListener();
     }

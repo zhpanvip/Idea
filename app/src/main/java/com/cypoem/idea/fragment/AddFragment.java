@@ -1,6 +1,7 @@
 package com.cypoem.idea.fragment;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import com.cypoem.idea.R;
@@ -30,7 +31,7 @@ public class AddFragment extends BaseFragment {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initData();
     }
 

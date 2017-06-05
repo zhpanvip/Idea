@@ -17,7 +17,7 @@ public abstract class BaseRxFragment extends BaseCoreFragment  {
 
     protected abstract int getLayoutId();
 
-    protected abstract void init();
+    protected abstract void init(Bundle savedInstanceState);
     
     public boolean addRxStop(BaseImpl activity, Disposable disposable) {
         if (disposables2Stop == null) {

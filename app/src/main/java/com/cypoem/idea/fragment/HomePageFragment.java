@@ -51,7 +51,7 @@ public class HomePageFragment extends BaseFragment {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initData();
         initPtr(false);
     }

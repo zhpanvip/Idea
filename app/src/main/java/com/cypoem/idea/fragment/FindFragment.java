@@ -1,5 +1,6 @@
 package com.cypoem.idea.fragment;
 
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
@@ -40,7 +41,7 @@ public class FindFragment extends BaseFragment {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initData();
     }
 

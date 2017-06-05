@@ -1,10 +1,12 @@
 package com.cypoem.idea.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -13,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
 import com.airong.core.utils.AppUtils;
 import com.airong.core.utils.CleanUtils;
 import com.airong.core.utils.FileUtils;
@@ -27,9 +30,11 @@ import com.cypoem.idea.activity.OpusActivity;
 import com.cypoem.idea.activity.PraiseActivity;
 import com.cypoem.idea.activity.WalletActivity;
 import com.cypoem.idea.utils.UserInfoTools;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -113,10 +118,28 @@ public class MeFragment extends BaseFragment {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initData();
         setData();
         setListener();
+        scrollView.scrollBy(0, 500);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putInt("scrollX", scrollView.getScrollX());
+        outState.putInt("scrollY", scrollView.getScrollY());
+        Log.e("MeFragment", "scrollX:" + scrollView.getScrollX() + "------scrollY:" + scrollView.getScrollY());
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            scrollView.scrollTo(savedInstanceState.getInt("scrollX"), savedInstanceState.getInt("scrollY"));
+            Log.e("MeFragment", "saved scrollX:" + savedInstanceState.getInt("scrollX") + "------saved scrollY:" + savedInstanceState.getInt("scrollY"));
+        }
     }
 
     @Override

@@ -51,11 +51,10 @@ public class MainActivity extends BaseActivity {
     private MeFragment mMeFragment;
     private FragmentManager mFragmentManger;
     private FragmentTransaction fragmentTransaction;
-    //  退出时间
+    //  退出时间间隔
     private long exitTime = 0;
     //  上一次RadioGroup选中的Id
     private int preCheckedId;
-
 
     @Override
     protected int getLayoutId() {
@@ -65,7 +64,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
     }
 
     @Override
@@ -195,7 +193,7 @@ public class MainActivity extends BaseActivity {
 
     private void goToMe(FragmentTransaction fragmentTransaction) {
 
-        hideAllFragment(fragmentTransaction);
+        //hideAllFragment(fragmentTransaction);
         if (mMeFragment == null) {
             Bundle bundle = new Bundle();
             mMeFragment = MeFragment.getFragment(bundle);

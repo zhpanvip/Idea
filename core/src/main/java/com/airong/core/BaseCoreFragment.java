@@ -25,7 +25,7 @@ public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
         if (rootView == null) {
             rootView = inflater.inflate(this.getLayoutId(), container, false);
             ButterKnife.bind(this, rootView);
-            init();
+            init(savedInstanceState);
         }
         ViewGroup parent = (ViewGroup) rootView.getParent();
         if (parent != null) {
@@ -82,5 +82,5 @@ public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
     }
     protected abstract int getLayoutId();
 
-    protected abstract void init();
+    protected abstract void init(Bundle savedInstanceState);
 }
