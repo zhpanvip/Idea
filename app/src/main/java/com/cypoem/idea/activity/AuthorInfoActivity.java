@@ -10,14 +10,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CommonFragmentAdapter;
 import com.cypoem.idea.fragment.AuthorFragment;
 import com.cypoem.idea.view.ScrollableLayout;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -59,7 +58,6 @@ public class AuthorInfoActivity extends BaseActivity {
     LinearLayout llLike;
     @BindView(R.id.ll_fans)
     LinearLayout llFans;
-
     @BindView(R.id.vp_author)
     ViewPager mViewPager;
     private CommonFragmentAdapter mAdapter;
@@ -67,7 +65,6 @@ public class AuthorInfoActivity extends BaseActivity {
     TabLayout mTabLayout;
     @BindView(R.id.sl_view)
     ScrollableLayout mScrollView;
-
     List<AuthorFragment> mList;
 
     @Override
@@ -78,7 +75,12 @@ public class AuthorInfoActivity extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
         initData();
+        setData();
         setListener();
+    }
+
+    private void setData() {
+        ImageLoaderUtil.loadImg(mIvAuthor,"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=304866327,2141533711&fm=11&gp=0.jpg");
     }
 
     private void setListener() {
@@ -122,7 +124,6 @@ public class AuthorInfoActivity extends BaseActivity {
         mAdapter.setFragmentList(mList);
         mViewPager.setAdapter(mAdapter);
         mScrollView.getHelper().setCurrentScrollableContainer(mList.get(0));
-
     }
 
     public static void start(Context context) {

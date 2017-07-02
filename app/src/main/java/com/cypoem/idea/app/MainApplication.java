@@ -11,6 +11,7 @@ import com.airong.core.BaseApp;
 import com.airong.core.utils.Utils;
 import com.cypoem.idea.BuildConfig;
 import com.cypoem.idea.utils.UserInfoTools;
+import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
 
 import java.io.BufferedReader;
@@ -18,7 +19,6 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
-import cn.sharesdk.framework.ShareSDK;
 
 /**
  * Created by zhpan on 2017/4/16.
@@ -34,14 +34,18 @@ public class MainApplication extends BaseApp {
     public static float DIMEN_RATE = -1.0F;
     public static int DIMEN_DPI = -1;
 
-
+    // 填写从短信SDK应用后台注册得到的APPKEY
+    private static String APPKEY = "1e41285782564";
+    // 填写从短信SDK应用后台注册得到的APPSECRET
+    private static String APPSECRET = "e989c7f12c5b645b5235325ed8f35593";
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
         UserInfoTools.init(this);
         //  初始化mob
-        ShareSDK.initSDK(this);
+        //ShareSDK.initSDK(this);
+       // MobSDK.init(this,APPKEY,APPSECRET);
         setNightMode();
         installLeak();
     }

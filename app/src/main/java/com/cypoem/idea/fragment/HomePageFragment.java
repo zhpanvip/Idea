@@ -1,9 +1,13 @@
 package com.cypoem.idea.fragment;
 
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,6 +19,8 @@ import com.cypoem.idea.module.bean.Meizi;
 import com.cypoem.idea.module.wrapper.MeiziWrapper;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.view.CirclePagerAdapter;
+import com.cypoem.idea.view.CircleViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +32,6 @@ import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by zhpan on 2017/4/21.
- *
  */
 public class HomePageFragment extends BaseFragment {
     @BindView(R.id.rv_home)
@@ -35,7 +40,14 @@ public class HomePageFragment extends BaseFragment {
     TextView toolbarSubtitle;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+    @BindView(R.id.ll_home)
+    LinearLayout mLlHome;
     private HomeAdapter mAdapter;
+    private View headerView;
+    private int lastX;
+    private int lastY;
+    private CircleViewPager circleViewPager;
+
 
     public static HomePageFragment getInstance(int type) {
         HomePageFragment fragment = new HomePageFragment();
@@ -54,6 +66,7 @@ public class HomePageFragment extends BaseFragment {
     protected void init(Bundle savedInstanceState) {
         initData();
         initPtr(false);
+        setScroll();
     }
 
     private void initData() {
@@ -88,10 +101,28 @@ public class HomePageFragment extends BaseFragment {
         mAdapter = new HomeAdapter(getContext());
         mAdapter.fillList(mList);
         mRecyclerView.setAdapter(mAdapter);
+        headerView = View.inflate(getContext(), R.layout.header_home, null);
+        circleViewPager = (CircleViewPager) headerView.findViewById(R.id.cvp_header);
+        List<String> mUrlList = new ArrayList<>();
+        mUrlList.add("http://d.5857.com/gqyhx_131102/004.jpg");
+        mUrlList.add("http://img2.imgtn.bdimg.com/it/u=1563338466,3557560859&fm=214&gp=0.jpg");
+        mUrlList.add("http://attachments.gfan.com/forum/201501/31/2123227t3eheezfvte0e0u.jpg");
+        mUrlList.add("http://img2.imgtn.bdimg.com/it/u=872760111,3711017955&fm=214&gp=0.jpg");
+        mUrlList.add("http://img2.niutuku.com/desk/1208/1922/ntk-1922-39448.jpg");
+        circleViewPager.setUrlList(mUrlList);
 
-        mAdapter.setOnItemClickListener((position)-> StartReadActivity.start(getContext()));
+        mAdapter.addHeaderView(headerView);
+
+        mAdapter.setOnItemClickListener((position) -> StartReadActivity.start(getContext()));
+
 
     }
+
+    private void setScroll() {
+
+        
+    }
+
 
     @Override
     public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
@@ -120,7 +151,7 @@ public class HomePageFragment extends BaseFragment {
                     public void onSuccess(MeiziWrapper response) {
                         Toast.makeText(getContext(), "请求数据成功", Toast.LENGTH_SHORT).show();
                         List<Meizi.ResultsBean> content = response.getResults();
-                        for (int i = 0; i <2; i++) {
+                        for (int i = 0; i < 2; i++) {
                             Toast.makeText(getContext(), "Url:" + content.get(i).getUrl(), Toast.LENGTH_SHORT).show();
                         }
                     }

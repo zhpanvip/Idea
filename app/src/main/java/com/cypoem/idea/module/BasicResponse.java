@@ -8,18 +8,18 @@ public class BasicResponse<T> {
 
     private boolean error;
 
-    private T content;
+    private T result;
 
     public void setErrMsg(String errMsg) {
         this.errMsg = errMsg;
     }
 
     public T getContent() {
-        return content;
+        return result;
     }
 
-    public void setContent(T content) {
-        this.content = content;
+    public void setContent(T result) {
+        this.result = result;
     }
 
     public boolean isError() {

@@ -20,15 +20,15 @@ import java.util.HashMap;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import cn.sharesdk.framework.Platform;
+/*import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
-import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.friends.Wechat;*/
 
-public class LoginActivity extends BaseActivity implements Callback, PlatformActionListener {
+public class LoginActivity extends BaseActivity /*implements Callback, PlatformActionListener*/ {
     private static final int MSG_USERID_FOUND = 1;
     private static final int MSG_LOGIN = 2;
     private static final int MSG_AUTH_CANCEL = 3;
@@ -78,20 +78,20 @@ public class LoginActivity extends BaseActivity implements Callback, PlatformAct
         switch (view.getId()) {
             case R.id.btn_login:
                // login();
-                showShare();
+                //showShare();
                 //setNightMode();
                 break;
             case R.id.tv_forget_psw:
                 break;
             case R.id.iv_qq:
-                authorize(new QQ(this));
+               // authorize(new QQ(this));
                 break;
             case R.id.iv_weChat:
-                authorize(new Wechat(this));
+               // authorize(new Wechat(this));
                 showToast("wechat");
                 break;
             case R.id.iv_weiBo:
-                authorize(new SinaWeibo(this));
+               // authorize(new SinaWeibo(this));
                 break;
             case R.id.tv_new_user:
                 RegisterActivity.start(this);
@@ -103,7 +103,7 @@ public class LoginActivity extends BaseActivity implements Callback, PlatformAct
     }
 
 
-    private void authorize(Platform plat) {
+   /* private void authorize(Platform plat) {
         if(plat.isValid()) {
             String userId = plat.getDb().getUserId();
             if (!TextUtils.isEmpty(userId)) {
@@ -115,11 +115,11 @@ public class LoginActivity extends BaseActivity implements Callback, PlatformAct
         plat.setPlatformActionListener(this);
         plat.SSOSetting(true);
         plat.showUser(null);
-    }
+    }*/
 
 
 
-    private void showShare() {
+    /*private void showShare() {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
@@ -144,9 +144,9 @@ public class LoginActivity extends BaseActivity implements Callback, PlatformAct
 
 // 启动分享GUI
         oks.show(this);
-    }
+    }*/
 
-    public void onComplete(Platform platform, int action,
+   /* public void onComplete(Platform platform, int action,
                            HashMap<String, Object> res) {
         if (action == Platform.ACTION_USER_INFOR) {
             UIHandler.sendEmptyMessage(MSG_AUTH_COMPLETE, this);
@@ -155,26 +155,26 @@ public class LoginActivity extends BaseActivity implements Callback, PlatformAct
         System.out.println(res);
         System.out.println("------User Name ---------" + platform.getDb().getUserName());
         System.out.println("------User ID ---------" + platform.getDb().getUserId());
-    }
+    }*/
 
-    public void onError(Platform platform, int action, Throwable t) {
+   /* public void onError(Platform platform, int action, Throwable t) {
         if (action == Platform.ACTION_USER_INFOR) {
             UIHandler.sendEmptyMessage(MSG_AUTH_ERROR, this);
         }
         t.printStackTrace();
-    }
+    }*/
 
-    public void onCancel(Platform platform, int action) {
+    /*public void onCancel(Platform platform, int action) {
         if (action == Platform.ACTION_USER_INFOR) {
             UIHandler.sendEmptyMessage(MSG_AUTH_CANCEL, this);
         }
-    }
+    }*/
 
     private void login(String plat, String userId, HashMap<String, Object> userInfo) {
-        Message msg = new Message();
+       /* Message msg = new Message();
         msg.what = MSG_LOGIN;
         msg.obj = plat;
-        UIHandler.sendMessage(msg, this);
+        UIHandler.sendMessage(msg, this);*/
     }
 
     public boolean handleMessage(Message msg) {
@@ -216,7 +216,7 @@ public class LoginActivity extends BaseActivity implements Callback, PlatformAct
     }
 
     public void onDestroy() {
-        ShareSDK.stopSDK(this);
+       // ShareSDK.stopSDK(this);
         super.onDestroy();
     }
 

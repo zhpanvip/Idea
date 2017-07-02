@@ -11,7 +11,6 @@ public class UserInfoBean {
     private boolean isLogin;
 
 
-
     /**
      * 网络请求会话ID
      */

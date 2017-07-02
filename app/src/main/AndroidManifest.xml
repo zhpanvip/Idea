@@ -14,6 +14,13 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
 
+
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:name=".app.MainApplication"
         android:allowBackup="true"
@@ -22,7 +29,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
+
+        <!--<activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
@@ -36,14 +44,14 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            &lt;!&ndash; 调用新浪原生SDK，需要注册的回调activity &ndash;&gt;
             <intent-filter>
                 <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
 
-            <!-- 集成line客户端登录授权，需要添如下格式的过滤器 -->
+            &lt;!&ndash; 集成line客户端登录授权，需要添如下格式的过滤器 &ndash;&gt;
             <intent-filter>
                 <data android:scheme="line.1477692153" />
 
@@ -52,15 +60,20 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
+        </activity>-->
 
-        <!-- 微信分享回调 -->
         <activity
+            android:name="com.mob.tools.MobUIShell"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <!-- 微信分享回调 -->
+        <!--<activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />-->
         <activity android:name=".activity.MainActivity" />
         <!-- <activity android:name=".activity.BaseActivity" /> -->
         <activity
