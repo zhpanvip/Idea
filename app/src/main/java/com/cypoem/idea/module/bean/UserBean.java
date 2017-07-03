@@ -2,11 +2,13 @@ package com.cypoem.idea.module.bean;
 
 import com.cypoem.idea.module.BasicResponse;
 
+import java.io.Serializable;
+
 /**
  * Created by zhpan on 2017/7/2.
  */
 
-public class UserBean extends BasicResponse<UserBean> {
+public class UserBean extends BasicResponse<UserBean> implements Serializable {
 
     /**
      * uid : 2017060025
@@ -33,11 +35,11 @@ public class UserBean extends BasicResponse<UserBean> {
     private String sex;
     private String icon;
     private String address;
-    private Object phone;
+    private String phone;
     private String birthday;
     private String reg_date;
     private String user_status;
-    private Object password;
+    private String password;
     private Object cover_photo;
     private String introduction;
     private String dictum;
@@ -86,11 +88,11 @@ public class UserBean extends BasicResponse<UserBean> {
         this.address = address;
     }
 
-    public Object getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Object phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -118,11 +120,11 @@ public class UserBean extends BasicResponse<UserBean> {
         this.user_status = user_status;
     }
 
-    public Object getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(Object password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

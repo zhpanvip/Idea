@@ -7,20 +7,14 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.cypoem.idea.R;
-import com.cypoem.idea.view.CountDownButton;
-import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.annotations.NonNull;
-import io.reactivex.schedulers.Schedulers;
 
 public class SplashActivity extends BaseActivity {
     @BindView(R.id.ll_splash)
     LinearLayout mIvSplash;
     @BindView(R.id.btn_count_down)
-    CountDownButton mButton;
+    TextView mButton;
     //private static final float SCALE_END = 1.3F;
     @BindView(R.id.tv_time)
     TextView mTvTime;

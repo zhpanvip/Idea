@@ -94,7 +94,8 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
                // authorize(new SinaWeibo(this));
                 break;
             case R.id.tv_new_user:
-                RegisterActivity.start(this);
+                //RegisterActivity.start(this);
+                SetPasswordActivity.start(this,"17602150874");
                 break;
             case R.id.tv_login_error:
                 break;
@@ -142,7 +143,7 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
         // siteUrl是分享此内容的网站地址，仅在QQ空间使用
         oks.setSiteUrl("http://sharesdk.cn");
 
-// 启动分享GUI
+        // 启动分享GUI
         oks.show(this);
     }*/
 

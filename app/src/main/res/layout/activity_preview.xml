@@ -30,7 +30,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/splash1"/>
 
-                <com.cypoem.idea.view.CountDownButton
+                <TextView
                     android:id="@+id/btn_count_down"
                     android:layout_width="@dimen/mp_50"
                     android:layout_height="wrap_content"
