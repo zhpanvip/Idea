@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray_ee"
+    android:orientation="vertical"
+    tools:context="com.cypoem.idea.activity.SuggestActivity">
+
+    <EditText
+        android:id="@+id/et_advice"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_150"
+        android:background="@color/white"
+        android:gravity="top"
+        android:hint="@string/input_advice"
+        android:maxLength="300"
+        android:paddingTop="@dimen/mp_15" />
+
+    <EditText
+        android:id="@+id/et_phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_50"
+        android:hint="@string/input_phone"
+        android:background="@color/white"
+        android:layout_marginTop="@dimen/mp_20"
+        android:inputType="phone" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_btn_login"
+        android:gravity="center"
+        android:text="@string/submit"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f_18" />
+</LinearLayout>

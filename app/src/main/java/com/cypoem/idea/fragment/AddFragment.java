@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.PublishActivity;
+import com.cypoem.idea.activity.SuggestActivity;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.Unbinder;
@@ -47,6 +49,7 @@ public class AddFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
+                SuggestActivity.start(getContext(),"发布");
                 break;
             case R.id.toolbar_title:
                 break;

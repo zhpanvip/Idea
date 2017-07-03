@@ -9,6 +9,7 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.cypoem.idea.R;
+import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.Meizi;
 import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.module.post_bean.RegisterPost;
@@ -89,9 +90,9 @@ public class CompleteRegisterActivity extends BaseActivity {
                 .register(registerPost)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<RegisterBean>(this, true) {
+                .subscribe(new DefaultObserver<BasicResponse<RegisterBean>>(this, true) {
                     @Override
-                    public void onSuccess(RegisterBean response) {
+                    public void onSuccess(BasicResponse<RegisterBean> response) {
                         Toast.makeText(CompleteRegisterActivity.this, "请求数据成功", Toast.LENGTH_SHORT).show();
                         finish();
                     }

@@ -25,7 +25,7 @@ import com.airong.core.BuildConfig;
  */
 public class LogUtils {
 
-    private static final boolean DEBUG = BuildConfig.DEBUG;
+    private static final boolean DEBUG = true;
 
     /**
      * 获取当前类名

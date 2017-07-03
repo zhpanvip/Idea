@@ -1,14 +1,12 @@
 package com.cypoem.idea.module.bean;
 
-import com.cypoem.idea.module.BasicResponse;
-
 import java.util.List;
 
 /**
  * Created by zhpan on 2017/7/2.
  */
 
-public class EveryDayReBackBean extends BasicResponse<EveryDayReBackBean> {
+public class EveryDayReBackBean {
 
     /**
      * total : 1

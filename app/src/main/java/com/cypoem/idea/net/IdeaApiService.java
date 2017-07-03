@@ -13,13 +13,10 @@ import com.cypoem.idea.module.post_bean.UpdateUserInfo;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
 import com.cypoem.idea.module.wrapper.HomePageWrapper;
 import com.cypoem.idea.module.wrapper.MeiziWrapper;
-
 import io.reactivex.Observable;
-import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 /**
@@ -45,7 +42,7 @@ public interface IdeaApiService {
      * @return
      */
     @POST("user/register.do")
-    Observable<RegisterBean> register(@Body RegisterPost register);
+    Observable<BasicResponse<RegisterBean>> register(@Body RegisterPost register);
 
     /**
      * 完善用户信息
@@ -61,7 +58,7 @@ public interface IdeaApiService {
      * @return
      */
     @POST("user/login.do")
-    Observable<BasicResponse> login(@Body LoginPost login);
+    Observable<BasicResponse<UserBean>> login(@Body LoginPost login);
 
     /**
      * 意见反馈
@@ -69,7 +66,7 @@ public interface IdeaApiService {
      * @return
      */
     @POST("advice/add.do")
-    Observable<BasicResponse> postAdvice(@Body AdvicePost advice);
+    Observable<BasicResponse<String>> postAdvice(@Body AdvicePost advice);
 
     /**
      * 根据用户id获取用户信息
@@ -77,7 +74,7 @@ public interface IdeaApiService {
      * @return
      */
     @GET("user/viewUser.do")
-    Observable<UserBean> getUserInfo(@Query("user_id") String user_id);
+    Observable<BasicResponse<UserBean>> getUserInfo(@Query("user_id") String user_id);
 
     /**
      * 每日一句
@@ -94,7 +91,7 @@ public interface IdeaApiService {
      * @return
      */
     @GET("everySay/selectAll.do")
-    Observable<EveryDayReBackBean> lookBack(@Query("page") String page, @Query("rows") String number);
+    Observable<BasicResponse<EveryDayReBackBean>> lookBack(@Query("page") String page, @Query("rows") String number);
 
     /**
      * 首页数据
@@ -125,7 +122,5 @@ public interface IdeaApiService {
      */
     @GET("write/first_page.do")
     Observable<ChaptersWrapper> getChapters(@Query("write_id") String write_id, @Query("sectionid") String sectionid, @Query("page") String page, @Query("rows") String rows, @Query("user_id") String user_id);
-
-
 
 }

@@ -174,7 +174,7 @@ public class RegisterActivity extends BaseActivity {
         }
     }
 
-
+    //  避免内存泄漏
     private static class WeakHandler extends Handler {
         private WeakReference<RegisterActivity> activity;
 

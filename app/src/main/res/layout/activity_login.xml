@@ -13,16 +13,19 @@
         android:layout_height="@dimen/mp_150"
         android:scaleType="fitXY"
         android:background="@drawable/background"/>
+
     <EditText
         android:id="@+id/et_username"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_45"
-        android:background="@drawable/bg_edit_text"
         android:layout_marginTop="@dimen/mp_20"
-        android:paddingStart="@dimen/mp_15"
-        android:textCursorDrawable="@drawable/edit_text_color_cursor"
+        android:background="@drawable/bg_edit_text"
+        android:hint="@string/phone_number"
         android:paddingEnd="@dimen/mp_15"
-        android:hint="@string/phone_number"/>
+        android:maxLength="11"
+        android:inputType="number"
+        android:paddingStart="@dimen/mp_15"
+        android:textCursorDrawable="@drawable/edit_text_color_cursor" />
 
     <EditText
         android:id="@+id/et_password"

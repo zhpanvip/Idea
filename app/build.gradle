@@ -42,11 +42,11 @@ dependencies {
     debugCompile "com.squareup.leakcanary:leakcanary-android:$rootProject.ext.leankCanary"
     releaseCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leankCanary"
     testCompile "com.squareup.leakcanary:leakcanary-android-no-op:$rootProject.ext.leankCanary"
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
-    testCompile 'junit:junit:4.12'
     compile project(':core')
 
     compile name: 'SMSSDK-3.0.0', ext: 'aar'
     compile name: 'SMSSDKGUI-3.0.0', ext: 'aar'
 
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
+    testCompile 'junit:junit:4.12'
 }

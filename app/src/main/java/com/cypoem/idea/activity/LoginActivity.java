@@ -11,15 +11,25 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airong.core.utils.RegexUtils;
 import com.cypoem.idea.R;
+import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.module.post_bean.LoginPost;
+import com.cypoem.idea.net.DefaultObserver;
+import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.mob.tools.utils.UIHandler;
 import android.os.Handler.Callback;
+import android.widget.Toast;
+
 import java.util.HashMap;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 /*import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
@@ -77,9 +87,8 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_login:
-               // login();
-                //showShare();
-                //setNightMode();
+                login();
+
                 break;
             case R.id.tv_forget_psw:
                 break;
@@ -171,11 +180,32 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
         }
     }*/
 
-    private void login(String plat, String userId, HashMap<String, Object> userInfo) {
-       /* Message msg = new Message();
-        msg.what = MSG_LOGIN;
-        msg.obj = plat;
-        UIHandler.sendMessage(msg, this);*/
+    private void login() {
+        String password = etPassword.getText().toString().trim();
+        String phone = etUsername.getText().toString().trim();
+        if(TextUtils.isEmpty(password)){
+            showToast("请输入手机号");
+            return;
+        }
+
+        if(TextUtils.isEmpty(phone)){
+            showToast("请输入密码");
+            return;
+        }
+
+        LoginPost loginPost=new LoginPost();
+        loginPost.setPassword(password);
+        loginPost.setPassword(phone);
+        IdeaApi.getApiService()
+                .login(new LoginPost())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this,true) {
+                    @Override
+                    public void onSuccess(BasicResponse<UserBean> response) {
+                        Toast.makeText(LoginActivity.this,response.getResult().getMsg(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     public boolean handleMessage(Message msg) {

@@ -73,4 +73,7 @@
     <string name="author_resume">作者简介：</string>
     <string name="birthday">生日：</string>
     <string name="address">地址：</string>
+    <string name="submit">提交</string>
+    <string name="input_phone">请输入联系电话（选填，便于我们联系你）</string>
+    <string name="input_advice">请输入遇到的问题或建议</string>
 </resources>

@@ -1,12 +1,10 @@
 package com.cypoem.idea.module.bean;
 
-import com.cypoem.idea.module.BasicResponse;
-
 /**
  * Created by zhpan on 2017/7/2.
  */
 
-public class RegisterBean extends BasicResponse<RegisterBean> {
+public class RegisterBean{
     /**
      * uid : 2017070001
      * pen_name : null

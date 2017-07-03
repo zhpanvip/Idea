@@ -14,11 +14,11 @@ public class BasicResponse<T> {
         this.errMsg = errMsg;
     }
 
-    public T getContent() {
+    public T getResult() {
         return result;
     }
 
-    public void setContent(T result) {
+    public void setResult(T result) {
         this.result = result;
     }
 

@@ -60,16 +60,16 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     @Override
     public void onNext(T response) {
         mBaseImpl.dismissProgress();
-        if (!response.isError()) {
-            onSuccess(response);
-        } else {
-            onFail(response);
-        }
-        /*if (response.getCode() == 200) {
+        /*if (!response.isError()) {
             onSuccess(response);
         } else {
             onFail(response);
         }*/
+        if (response.getCode() == 0) {
+            onSuccess(response);
+        } else {
+            onFail(response);
+        }
     }
 
     @Override

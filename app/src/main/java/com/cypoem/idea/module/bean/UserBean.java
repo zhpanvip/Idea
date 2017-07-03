@@ -1,34 +1,30 @@
 package com.cypoem.idea.module.bean;
 
-import com.cypoem.idea.module.BasicResponse;
-
-import java.io.Serializable;
-
 /**
  * Created by zhpan on 2017/7/2.
  */
 
-public class UserBean extends BasicResponse<UserBean> implements Serializable {
+public class UserBean {
 
-    /**
-     * uid : 2017060025
-     * pen_name : Fjgfh
-     * sex : 0.517857
-     * icon : /cys/upload\20170701044924sss.png
-     * address : 贵州省 安顺市 西秀区
-     * phone : null
-     * birthday : 2017-06-30
-     * reg_date : 2017-06-20 08:31:38.0
-     * user_status : 1
-     * password : null
-     * cover_photo : null
-     * introduction : 没错，我就是网球王子
-     * dictum :
-     * watchMeCount : 2
-     * myWatchCount : 4
-     * enjoy_count : 0
-     * keep_count : 3
-     */
+        /**
+         * uid : 2017060025
+         * pen_name : Fjgfh
+         * sex : 0.517857
+         * icon : /cys/upload\20170701044924sss.png
+         * address : 贵州省 安顺市 西秀区
+         * phone : null
+         * birthday : 2017-06-30
+         * reg_date : 2017-06-20 08:31:38.0
+         * user_status : 1
+         * password : null
+         * cover_photo : null
+         * introduction : 没错，我就是网球王子
+         * dictum :
+         * watchMeCount : 2
+         * myWatchCount : 4
+         * enjoy_count : 0
+         * keep_count : 3
+         */
 
     private String uid;
     private String pen_name;
@@ -47,6 +43,24 @@ public class UserBean extends BasicResponse<UserBean> implements Serializable {
     private int myWatchCount;
     private int enjoy_count;
     private int keep_count;
+    private String return_code;
+    private String msg;
+
+    public String getReturn_code() {
+        return return_code;
+    }
+
+    public void setReturn_code(String return_code) {
+        this.return_code = return_code;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 
     public String getUid() {
         return uid;

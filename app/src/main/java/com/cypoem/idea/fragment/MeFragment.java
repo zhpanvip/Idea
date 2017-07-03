@@ -20,6 +20,7 @@ import com.airong.core.utils.AppUtils;
 import com.airong.core.utils.CleanUtils;
 import com.airong.core.utils.FileUtils;
 import com.airong.core.utils.ImageLoaderUtil;
+import com.cypoem.idea.activity.SuggestActivity;
 import com.cypoem.idea.event.HideView;
 import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.R;
@@ -197,7 +198,7 @@ public class MeFragment extends BaseFragment {
 
     @OnClick({R.id.ll_focus, R.id.ll_fans, R.id.ll_collect, R.id.rl_wallet, R.id.ll_like
             , R.id.rl_join, R.id.rl_create, R.id.rl_publish, R.id.rl_draft, R.id.head_img
-            , R.id.rl_catch})
+            , R.id.rl_catch,R.id.ll_advice})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_focus:
@@ -232,6 +233,9 @@ public class MeFragment extends BaseFragment {
                 break;
             case R.id.rl_catch:
                 clearCache();
+                break;
+            case R.id.ll_advice:
+                SuggestActivity.start(getContext(),"我");
                 break;
         }
     }

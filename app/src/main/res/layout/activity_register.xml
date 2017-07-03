@@ -19,6 +19,7 @@
         android:layout_marginTop="@dimen/mp_20"
         android:background="@drawable/bg_edit_text"
         android:hint="@string/phone_number"
+        android:maxLength="11"
         android:paddingEnd="@dimen/mp_15"
         android:paddingStart="@dimen/mp_15"
         android:inputType="phone"

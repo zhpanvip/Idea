@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 public class MeiziWrapper extends BasicResponse {
-    List<Meizi.ResultsBean> results;
+    private List<Meizi.ResultsBean> results;
 
     public List<Meizi.ResultsBean> getResults() {
         return results;

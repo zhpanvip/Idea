@@ -10,6 +10,10 @@ public class UserInfoBean {
      */
     private boolean isLogin;
 
+    /**
+     * 用户ID
+     */
+    private String userId;
 
     /**
      * 网络请求会话ID
@@ -145,5 +149,13 @@ public class UserInfoBean {
 
     public void setImei(String imei) {
         this.imei = imei;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
