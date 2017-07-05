@@ -7,14 +7,15 @@ import android.view.ViewGroup;
 import com.airong.core.recycler.BaseAdapter;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
-import com.cypoem.idea.module.bean.Article;
+import com.cypoem.idea.module.bean.HomePageBean;
+import com.cypoem.idea.net.IdeaApiService;
 
 /**
  * Created by zhpan on 2017/5/14.
  *
  */
 
-public class HomeAdapter extends BaseAdapter<Article,HomeViewHolder> {
+public class HomeAdapter extends BaseAdapter<HomePageBean,HomeViewHolder> {
     private OnItemClickListener clickListener;
 
     public HomeAdapter setOnItemClickListener(OnItemClickListener clickListener){
@@ -33,9 +34,11 @@ public class HomeAdapter extends BaseAdapter<Article,HomeViewHolder> {
 
     @Override
     public void bindCustomViewHolder(HomeViewHolder holder, int position) {
-        Article item = getItem(position);
-        holder.mTvTitle.setText("哈哈哈");
-        ImageLoaderUtil.loadRoundImg(holder.imageView,item.getPicUrl(),R.drawable.img_placeholder);
+        HomePageBean item = getItem(position);
+        holder.mTvTitle.setText(item.getWrite_name());
+        holder.mTvTime.setText(item.getDelivery_time().substring(0,10)+"/"+item.getUser().getPen_name());
+        holder.mTvDetails.setText("赞"+item.getLike_count()+"/阅读"+item.getRead_count()+"/章节"+item.getSection_count());
+        ImageLoaderUtil.loadRoundImg(holder.imageView, IdeaApiService.HOST+item.getPic(),R.drawable.img_placeholder);
 
         holder.mRelativeLayout.setOnClickListener((View v)-> {
                 if(clickListener!=null){

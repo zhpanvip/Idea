@@ -14,14 +14,11 @@ import android.widget.Toast;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.StartReadActivity;
 import com.cypoem.idea.adapter.HomeAdapter;
-import com.cypoem.idea.module.bean.Article;
-import com.cypoem.idea.module.bean.Meizi;
-import com.cypoem.idea.module.wrapper.MeiziWrapper;
+import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
-import com.cypoem.idea.view.CirclePagerAdapter;
 import com.cypoem.idea.view.CircleViewPager;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +44,8 @@ public class HomePageFragment extends BaseFragment {
     private int lastX;
     private int lastY;
     private CircleViewPager circleViewPager;
+    private int page=1;
+    private int rows=10;
 
 
     public static HomePageFragment getInstance(int type) {
@@ -66,7 +65,7 @@ public class HomePageFragment extends BaseFragment {
     protected void init(Bundle savedInstanceState) {
         initData();
         initPtr(false);
-        setScroll();
+        getData(true);
     }
 
     private void initData() {
@@ -80,27 +79,10 @@ public class HomePageFragment extends BaseFragment {
         toolbarSubtitle.setVisibility(View.GONE);
         toolbarTitle.setText("首页");
 
-        List<Article> mList = new ArrayList<>();
-        Article article1 = new Article();
-        article1.setPicUrl("http://img5.imgtn.bdimg.com/it/u=2740166231,410053698&fm=23&gp=0.jpg");
-        Article article2 = new Article();
-        article2.setPicUrl("http://img0.imgtn.bdimg.com/it/u=4194417426,3508932&fm=23&gp=0.jpg");
-        Article article3 = new Article();
-        article3.setPicUrl("http://img1.imgtn.bdimg.com/it/u=3520066001,2415029280&fm=23&gp=0.jpg");
-        Article article4 = new Article();
-        article4.setPicUrl("http://img3.imgtn.bdimg.com/it/u=3288109620,1606550125&fm=23&gp=0.jpg");
-        Article article5 = new Article();
-        article5.setPicUrl("http://img1.imgtn.bdimg.com/it/u=3341488424,2638510557&fm=23&gp=0.jpg");
-        mList.add(article1);
-        mList.add(article2);
-        mList.add(article3);
-        mList.add(article4);
-        mList.add(article5);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new HomeAdapter(getContext());
-        mAdapter.fillList(mList);
-        mRecyclerView.setAdapter(mAdapter);
+
         headerView = View.inflate(getContext(), R.layout.header_home, null);
         circleViewPager = (CircleViewPager) headerView.findViewById(R.id.cvp_header);
         List<String> mUrlList = new ArrayList<>();
@@ -110,7 +92,6 @@ public class HomePageFragment extends BaseFragment {
         mUrlList.add("http://img2.imgtn.bdimg.com/it/u=872760111,3711017955&fm=214&gp=0.jpg");
         mUrlList.add("http://img2.niutuku.com/desk/1208/1922/ntk-1922-39448.jpg");
         circleViewPager.setUrlList(mUrlList);
-
         mAdapter.addHeaderView(headerView);
 
         mAdapter.setOnItemClickListener((position) -> StartReadActivity.start(getContext()));
@@ -118,10 +99,6 @@ public class HomePageFragment extends BaseFragment {
 
     }
 
-    private void setScroll() {
-
-        
-    }
 
 
     @Override
@@ -131,7 +108,7 @@ public class HomePageFragment extends BaseFragment {
 
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(true)), 100);
+        frame.postDelayed((() -> getData(false)), 100);
     }
 
     @Override
@@ -143,17 +120,16 @@ public class HomePageFragment extends BaseFragment {
     private void getData(boolean showLoading) {
         //  Retrofit请求数据
         IdeaApi.getApiService()
-                .getMeizi()
+                .getHomePageData(page,rows)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<MeiziWrapper>(this, showLoading) {
+                .subscribe(new DefaultObserver<BasicResponse<List<HomePageBean>>>(this, showLoading) {
+
                     @Override
-                    public void onSuccess(MeiziWrapper response) {
-                        Toast.makeText(getContext(), "请求数据成功", Toast.LENGTH_SHORT).show();
-                        List<Meizi.ResultsBean> content = response.getResults();
-                        for (int i = 0; i < 2; i++) {
-                            Toast.makeText(getContext(), "Url:" + content.get(i).getUrl(), Toast.LENGTH_SHORT).show();
-                        }
+                    public void onSuccess(BasicResponse<List<HomePageBean>> response) {
+                        List<HomePageBean> result = response.getResult();
+                        mAdapter.fillList(result);
+                        mRecyclerView.setAdapter(mAdapter);
                     }
                 });
     }

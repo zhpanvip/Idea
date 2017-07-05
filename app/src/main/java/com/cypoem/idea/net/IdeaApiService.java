@@ -2,6 +2,7 @@ package com.cypoem.idea.net;
 
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.EveryDayReBackBean;
+import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.module.post_bean.AdvicePost;
@@ -11,11 +12,12 @@ import com.cypoem.idea.module.post_bean.PostOpus;
 import com.cypoem.idea.module.post_bean.RegisterPost;
 import com.cypoem.idea.module.post_bean.UpdateUserInfo;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
-import com.cypoem.idea.module.wrapper.HomePageWrapper;
 import com.cypoem.idea.module.wrapper.MeiziWrapper;
+import java.util.List;
 import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -99,8 +101,9 @@ public interface IdeaApiService {
      * @param number
      * @return
      */
+    @Headers("Cache-Control: public, max-age=600")
     @GET("write/first_page.do")
-    Observable<HomePageWrapper> getHomePageData(@Query("page") String page, @Query("rows") String number);
+    Observable<BasicResponse<List<HomePageBean>>> getHomePageData(@Query("page") int page, @Query("rows") int number);
 
     /**
      * 发布作品

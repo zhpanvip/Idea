@@ -203,7 +203,7 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
                 .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this,true) {
                     @Override
                     public void onSuccess(BasicResponse<UserBean> response) {
-                        Toast.makeText(LoginActivity.this,response.getResult().getMsg(), Toast.LENGTH_SHORT).show();
+                        showToast(response.getResult().getMsg());
                     }
                 });
     }

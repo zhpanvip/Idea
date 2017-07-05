@@ -11,13 +11,13 @@ import java.util.List;
  */
 
 public class HomePageWrapper extends BasicResponse {
-    private List<HomePageBean.ResultBean> result;
+    private List<HomePageBean> result;
 
-    public List<HomePageBean.ResultBean> getResult() {
+    public List<HomePageBean> getResult() {
         return result;
     }
 
-    public void setResult(List<HomePageBean.ResultBean> result) {
+    public void setResult(List<HomePageBean> result) {
         this.result = result;
     }
 }

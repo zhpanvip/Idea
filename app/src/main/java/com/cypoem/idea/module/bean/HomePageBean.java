@@ -8,17 +8,6 @@ import java.util.List;
 
 public class HomePageBean {
 
-    private List<ResultBean> result;
-
-    public List<ResultBean> getResult() {
-        return result;
-    }
-
-    public void setResult(List<ResultBean> result) {
-        this.result = result;
-    }
-
-    public static class ResultBean {
         /**
          * uid : 1000000001
          * pic : /cys/upload201706200902551.jpg
@@ -238,5 +227,4 @@ public class HomePageBean {
                 this.keep_count = keep_count;
             }
         }
-    }
 }

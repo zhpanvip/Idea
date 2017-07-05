@@ -24,7 +24,7 @@ public class HomeViewHolder extends BaseHolder {
         super(parent, resId);
         imageView=getView(R.id.iv_background);
         mTvTitle=getView(R.id.tv_title);
-        mTvTime=getView(R.id.tv_describe);
+        mTvTime=getView(R.id.tv_time);
         mTvDescribe=getView(R.id.tv_describe);
         mTvDetails=getView(R.id.tv_details);
         mRelativeLayout=getView(R.id.rl_item_main);
