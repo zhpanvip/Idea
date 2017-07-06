@@ -1,15 +1,11 @@
 package com.cypoem.idea.fragment;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.StartReadActivity;
@@ -19,6 +15,7 @@ import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.view.CircleViewPager;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,11 +38,9 @@ public class HomePageFragment extends BaseFragment {
     LinearLayout mLlHome;
     private HomeAdapter mAdapter;
     private View headerView;
-    private int lastX;
-    private int lastY;
     private CircleViewPager circleViewPager;
-    private int page=1;
-    private int rows=10;
+    private int page = 1;
+    private final int ROWS = 10;
 
 
     public static HomePageFragment getInstance(int type) {
@@ -65,7 +60,7 @@ public class HomePageFragment extends BaseFragment {
     protected void init(Bundle savedInstanceState) {
         initData();
         initPtr(false);
-        getData(true);
+        getData(false,page);
     }
 
     private void initData() {
@@ -94,21 +89,22 @@ public class HomePageFragment extends BaseFragment {
         circleViewPager.setUrlList(mUrlList);
         mAdapter.addHeaderView(headerView);
 
+        mAdapter.fillList(new ArrayList<>());
+        mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((position) -> StartReadActivity.start(getContext()));
-
-
     }
-
 
 
     @Override
     public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(false)), 100);
+        frame.postDelayed((() -> getData(false,++page)), 100);
     }
 
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(false)), 100);
+        page=1;
+        mAdapter.getList().clear();
+        frame.postDelayed((() -> getData(false,page)), 100);
     }
 
     @Override
@@ -117,10 +113,10 @@ public class HomePageFragment extends BaseFragment {
         mPtrFrame.refreshComplete();
     }
 
-    private void getData(boolean showLoading) {
+    private void getData(boolean showLoading,int page) {
         //  Retrofit请求数据
         IdeaApi.getApiService()
-                .getHomePageData(page,rows)
+                .getHomePageData(page, ROWS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<HomePageBean>>>(this, showLoading) {
@@ -128,8 +124,14 @@ public class HomePageFragment extends BaseFragment {
                     @Override
                     public void onSuccess(BasicResponse<List<HomePageBean>> response) {
                         List<HomePageBean> result = response.getResult();
-                        mAdapter.fillList(result);
-                        mRecyclerView.setAdapter(mAdapter);
+                        List<HomePageBean> list = mAdapter.getList();
+                        if(result.size()< ROWS){
+                            mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
+                        }else {
+                            mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
+                        }
+                        list.addAll(result);
+                        mAdapter.notifyDataSetChanged();
                     }
                 });
     }

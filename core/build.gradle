@@ -62,5 +62,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.github.chrisbanes:PhotoView:2.0.0'
     compile 'com.github.lsjwzh.RecyclerViewPager:lib:v1.1.2@aar'
+    compile 'com.github.yalantis:ucrop:2.2.1'
 
 }

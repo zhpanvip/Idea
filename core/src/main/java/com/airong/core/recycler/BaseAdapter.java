@@ -41,6 +41,10 @@ public abstract class BaseAdapter<M, VH extends BaseHolder> extends AbsAdapter<M
         return result;
     }
 
+    public List<M> getList() {
+        return dataList;
+    }
+
     /**
      * 追加一条数据
      *

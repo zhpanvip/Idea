@@ -52,6 +52,7 @@ public class CustomProgressDialog extends Dialog {
     @Override
     protected void onStop() {
         super.onStop();
+        if(animationDrawable!=null)
         animationDrawable.stop();
     }
 

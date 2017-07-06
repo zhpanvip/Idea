@@ -1,6 +1,7 @@
 package com.cypoem.idea.activity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.ColorInt;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -31,6 +33,11 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 import io.reactivex.Observable;
 
 public abstract class BaseActivity extends BaseRxActivity {
+
+
+    protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
+    protected static final int REQUEST_STORAGE_WRITE_ACCESS_PERMISSION = 102;
+
     //把父类activity和子类activity的view都add到这里
     private LinearLayout parentLinearLayout;
     private TextView mToolbarTitle;
@@ -397,5 +404,40 @@ public abstract class BaseActivity extends BaseRxActivity {
         tintManager.setStatusBarTintEnabled(true);
         // 使用颜色资源
         tintManager.setStatusBarTintResource(color);
+    }
+
+
+    /**
+     * Requests given permission.
+     * If the permission has been denied previously, a Dialog will prompt the user to grant the
+     * permission, otherwise it is requested directly.
+     */
+    protected void requestPermission(final String permission, String rationale, final int requestCode) {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
+
+            showTwoButtonDialog(getString(R.string.label_ok), null, getString(R.string.label_cancel), new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ActivityCompat.requestPermissions(BaseActivity.this,
+                            new String[]{permission}, requestCode);
+                }
+            }, new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dismissDialog();
+                }
+            });
+
+           /* showAlertDialog(getString(R.string.permission_title_rationale), rationale,
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ActivityCompat.requestPermissions(BaseActivity.this,
+                                    new String[]{permission}, requestCode);
+                        }
+                    }, getString(R.string.label_ok), null, getString(R.string.label_cancel));*/
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
+        }
     }
 }
