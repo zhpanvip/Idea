@@ -6,11 +6,13 @@ import com.airong.core.utils.Utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.concurrent.TimeUnit;
+
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -29,28 +31,35 @@ public class IdeaApi {
     private IdeaApiService service;
 
     private IdeaApi() {
-       // HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-       //   日志拦截器
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor((message)-> {
+        // HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        //   日志拦截器
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor((message) -> {
 
-                try {
-                    String text = URLDecoder.decode(message, "utf-8");
-                    LogUtils.e("OKHttp-----", text);
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                    LogUtils.e("OKHttp-----", message);
-                }
+            try {
+                String text = URLDecoder.decode(message, "utf-8");
+                LogUtils.e("OKHttp-----", text);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+                LogUtils.e("OKHttp-----", message);
+            }
         });
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         File cacheFile = new File(Utils.getContext().getCacheDir(), "cache");
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
 
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(IdeaApiService.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .connectTimeout(IdeaApiService.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
-                .addInterceptor(interceptor)
                 .addNetworkInterceptor(new HttpCacheInterceptor())
                 .cache(cache)
+                .addInterceptor((chain) -> {     //  统一配置配置请求头
+                    Request request = chain.request().newBuilder()
+                            .addHeader("user_id_just_test_header", "12345")
+                            .addHeader("psw_just_test", "4567")
+                            .build();
+                    return chain.proceed(request);
+                })
+                .addInterceptor(loggingInterceptor)
                 .build();
 
 
@@ -69,6 +78,7 @@ public class IdeaApi {
     private static class SingletonHolder {
         private static final IdeaApi INSTANCE = new IdeaApi();
     }
+
     public static IdeaApiService getApiService() {
         return SingletonHolder.INSTANCE.service;
     }

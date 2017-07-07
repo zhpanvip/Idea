@@ -30,6 +30,7 @@ import com.cypoem.idea.activity.FansActivity;
 import com.cypoem.idea.activity.OpusActivity;
 import com.cypoem.idea.activity.PraiseActivity;
 import com.cypoem.idea.activity.WalletActivity;
+import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.utils.UserInfoTools;
 
 import org.greenrobot.eventbus.EventBus;
@@ -166,7 +167,22 @@ public class MeFragment extends BaseFragment {
 
     private void initData() {
         EventBus.getDefault().register(this);
+        setTitleBar();
+        setUserInfo();
+    }
 
+    private void setUserInfo() {
+        UserBean user = UserInfoTools.getUser(getContext());
+        ImageLoaderUtil.loadCircleImg(headImg, user.getIcon(), R.drawable.head_pic);
+        tvFocus.setText(user.getMyWatchCount()+"");
+        tvFans.setText(user.getWatchMeCount()+"");
+        tvCollect.setText(user.getKeep_count()+"");
+        tvLike.setText(user.getEnjoy_count()+"");
+        tvName.setText(user.getPen_name());
+        tvSign.setText(user.getIntroduction());
+    }
+
+    private void setTitleBar() {
         //  设置ToolBar信息
         collapsingToolbarLayout.setTitle("我的创意说");
         //collapsingToolbarLayout.setContentScrimColor(Color.BLUE);
@@ -179,7 +195,6 @@ public class MeFragment extends BaseFragment {
                 collapsingToolbarLayout.setTitle("");
             }
         });
-        ImageLoaderUtil.loadCircleImg(headImg, "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=304866327,2141533711&fm=11&gp=0.jpg", R.drawable.head_pic);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

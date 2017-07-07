@@ -37,11 +37,10 @@ public class HomePageFragment extends BaseFragment {
     @BindView(R.id.ll_home)
     LinearLayout mLlHome;
     private HomeAdapter mAdapter;
-    private View headerView;
-    private CircleViewPager circleViewPager;
     private int page = 1;
     private final int ROWS = 10;
-
+    private  CircleViewPager circleViewPager;
+    private int type;
 
     public static HomePageFragment getInstance(int type) {
         HomePageFragment fragment = new HomePageFragment();
@@ -61,12 +60,15 @@ public class HomePageFragment extends BaseFragment {
         initData();
         initPtr(false);
         getData(false,page);
+        if (!(type == FindFragment.HOTEST || type == FindFragment.NEWEST))
+        circleViewPager.setmPtrFrame(mPtrFrame);
+
     }
 
     private void initData() {
         Bundle bundle = getArguments();
         if (bundle != null) {
-            int type = bundle.getInt("type");
+            type = bundle.getInt("type");
             if (type == FindFragment.HOTEST || type == FindFragment.NEWEST) {
                 rootView.findViewById(R.id.toolbar).setVisibility(View.GONE);
             }
@@ -74,11 +76,25 @@ public class HomePageFragment extends BaseFragment {
         toolbarSubtitle.setVisibility(View.GONE);
         toolbarTitle.setText("首页");
 
+        setRecycler();
+    }
+
+    private void setRecycler() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new HomeAdapter(getContext());
+        mAdapter.fillList(new ArrayList<>());
+        mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickListener((position) -> StartReadActivity.start(getContext()));
 
-        headerView = View.inflate(getContext(), R.layout.header_home, null);
+        initViewPager();
+    }
+
+    private void initViewPager() {
+        if (type == FindFragment.HOTEST || type == FindFragment.NEWEST){
+            return;
+        }
+        View headerView = View.inflate(getContext(), R.layout.header_home, null);
         circleViewPager = (CircleViewPager) headerView.findViewById(R.id.cvp_header);
         List<String> mUrlList = new ArrayList<>();
         mUrlList.add("http://d.5857.com/gqyhx_131102/004.jpg");
@@ -89,9 +105,8 @@ public class HomePageFragment extends BaseFragment {
         circleViewPager.setUrlList(mUrlList);
         mAdapter.addHeaderView(headerView);
 
-        mAdapter.fillList(new ArrayList<>());
-        mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener((position) -> StartReadActivity.start(getContext()));
+        circleViewPager.setOnPageClickListener((position)-> showToast("forward Url+"+position));
+        circleViewPager.setInterval(5000);
     }
 
 

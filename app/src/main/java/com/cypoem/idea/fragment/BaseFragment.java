@@ -57,7 +57,6 @@ public abstract class BaseFragment extends BaseRxFragment {
         mPtrFrame = (PtrClassicFrameLayout) rootView.findViewById(R.id.list_view_frame);
         if (mPtrFrame == null) return;
 
-        //mPtrFrame = (PtrFrameLayout) findViewById(R.id.store_house_ptr_frame);
         mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
         PtrClassicListHeader header = new PtrClassicListHeader(getContext());
         header.setLastUpdateTimeRelateObject(getContext());

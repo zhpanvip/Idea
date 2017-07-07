@@ -20,6 +20,8 @@ import com.cypoem.idea.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.srain.cube.views.ptr.PtrClassicFrameLayout;
+
 /**
  * Created by zhpan on 2017/3/28.
  */
@@ -51,6 +53,12 @@ public class CircleViewPager extends FrameLayout {
 
     private LinearLayout mLlDot;
     private OnPageClickListener mOnPageClickListener;
+
+    PtrClassicFrameLayout mPtrFrame;
+
+    public void setmPtrFrame(PtrClassicFrameLayout mPtrFrame) {
+        this.mPtrFrame = mPtrFrame;
+    }
 
     Handler mHandler = new Handler();
     Runnable mRunnable = new Runnable() {
@@ -241,6 +249,9 @@ public class CircleViewPager extends FrameLayout {
                 //当state为SCROLL_STATE_IDLE即没有滑动的状态时切换页面
                 if (state == ViewPager.SCROLL_STATE_IDLE) {
                     mViewPager.setCurrentItem(currentPosition, false);
+                }
+                if(mPtrFrame!=null){
+                    mPtrFrame.setEnabled(state == ViewPager.SCROLL_STATE_IDLE || state == ViewPager.SCROLL_STATE_SETTLING);
                 }
             }
         });

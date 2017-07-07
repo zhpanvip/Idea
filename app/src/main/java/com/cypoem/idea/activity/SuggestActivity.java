@@ -19,6 +19,9 @@ import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -45,7 +48,6 @@ public class SuggestActivity extends BaseActivity {
     protected void init(Bundle savedInstanceState) {
 
 
-
         Intent intent = getIntent();
         fromWhere = intent.getStringExtra("fromWhere");
     }
@@ -54,26 +56,29 @@ public class SuggestActivity extends BaseActivity {
     public void onViewClicked() {
         advice = mEtAdvice.getText().toString();
         phone = mEtPhone.getText().toString().trim();
-        if(TextUtils.isEmpty(advice)){
+        if (TextUtils.isEmpty(advice)) {
             showToast("请填写遇到的问题或建议");
             return;
         }
-        AdvicePost advicePost = new AdvicePost();
+        postAdvice();
+    }
 
-        advicePost.setPhone(phone);
-        advicePost.setSuggestion(advice);
-        advicePost.setUser_id(UserInfoTools.getUserInfoBean(this).getUserId());
-        advicePost.setInterface_source(fromWhere);
-        advicePost.setUser_type("1");
-
+    private void postAdvice() {
+        Map<String, String> adviceMap = new HashMap<>();
+        adviceMap.put("phone", phone);
+        adviceMap.put("suggestion", advice);
+        adviceMap.put("interface_source", fromWhere);
+        adviceMap.put("user_id", UserInfoTools.getUser(this).getUid());
+        adviceMap.put("user_type", "1");
         IdeaApi.getApiService()
-                .postAdvice(advicePost)
+                .postAdvice(adviceMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse<String> response) {
-                        //showToast(response.getResult());
+                        showToast(response.getResult());
+                        finish();
                     }
                 });
     }

@@ -7,15 +7,18 @@ import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.module.post_bean.AdvicePost;
 import com.cypoem.idea.module.post_bean.EverydaySayPost;
-import com.cypoem.idea.module.post_bean.LoginPost;
 import com.cypoem.idea.module.post_bean.PostOpus;
 import com.cypoem.idea.module.post_bean.RegisterPost;
 import com.cypoem.idea.module.post_bean.UpdateUserInfo;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
 import com.cypoem.idea.module.wrapper.MeiziWrapper;
 import java.util.List;
+import java.util.Map;
+
 import io.reactivex.Observable;
 import retrofit2.http.Body;
+import retrofit2.http.FieldMap;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
@@ -56,19 +59,21 @@ public interface IdeaApiService {
 
     /**
      * 登陆
-     * @param login 登陆信息
+     * @param mapLogin 登陆信息
      * @return
      */
+    @FormUrlEncoded
     @POST("user/login.do")
-    Observable<BasicResponse<UserBean>> login(@Body LoginPost login);
+    Observable<BasicResponse<UserBean>> login(@FieldMap Map<String,Object> mapLogin);
 
     /**
      * 意见反馈
-     * @param advice 意见信息
+     * @param adviceMap 意见信息
      * @return
      */
+    @FormUrlEncoded
     @POST("advice/add.do")
-    Observable<BasicResponse<String>> postAdvice(@Body AdvicePost advice);
+    Observable<BasicResponse<String>> postAdvice(@FieldMap Map<String,String> adviceMap);
 
     /**
      * 根据用户id获取用户信息

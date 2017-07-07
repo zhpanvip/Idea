@@ -77,7 +77,6 @@
     <string name="input_phone">请输入联系电话（选填，便于我们联系你）</string>
     <string name="input_advice">请输入遇到的问题或建议</string>
 
-
     <string name="permission_title_rationale">Permission needed</string>
     <string name="label_ok">确定</string>
     <string name="label_cancel">取消</string>
@@ -86,4 +85,7 @@
     <string name="toast_cannot_retrieve_selected_image">Cannot retrieve selected image</string>
     <string name="toast_unexpected_error">Unexpected error</string>
     <string name="toast_cannot_retrieve_cropped_image">Cannot retrieve cropped image</string>
+    <string name="password_can_not_empty">密码不能为空</string>
+    <string name="password_length_must_more_than_6">密码长度不能小于六位！</string>
+    <string name="password_not_same">两次密码输入不一致</string>
 </resources>

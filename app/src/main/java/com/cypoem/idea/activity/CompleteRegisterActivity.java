@@ -15,11 +15,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
-
-import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.RegisterBean;
@@ -31,12 +28,10 @@ import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.callback.BitmapLoadCallback;
 import com.yalantis.ucrop.model.ExifInfo;
 import com.yalantis.ucrop.util.BitmapLoadUtils;
-
 import java.io.File;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -55,10 +50,10 @@ public class CompleteRegisterActivity extends BaseActivity {
     @BindView(R.id.btn_complete)
     Button mBtnComplete;
     @BindView(R.id.iv_head_pic)
-    ImageView ivHeadPic;
+    CircleImageView ivHeadPic;
     private String phone;
     String password;
-    private int mMaxBitmapSize=0;
+    private int mMaxBitmapSize = 0;
 
     @Override
     protected int getLayoutId() {
@@ -100,7 +95,6 @@ public class CompleteRegisterActivity extends BaseActivity {
     }
 
 
-
     @OnClick({R.id.iv_head_pic, R.id.btn_complete})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -136,7 +130,7 @@ public class CompleteRegisterActivity extends BaseActivity {
                 final Uri selectedUri = data.getData();
                 if (selectedUri != null) {
                     showToast(selectedUri.getPath());
-                   startCropActivity(data.getData());
+                    startCropActivity(data.getData());
                 } else {
                     Toast.makeText(CompleteRegisterActivity.this, R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
                 }
@@ -286,15 +280,16 @@ public class CompleteRegisterActivity extends BaseActivity {
 
     /**
      * 剪切成功
+     *
      * @param result
      */
     private void handleCropResult(@NonNull Intent result) {
         final Uri resultUri = UCrop.getOutput(result);
         if (resultUri != null) {
 
-            showToast(resultUri.getPath()+"hahaha");
+            showToast(resultUri.getPath() + "hahaha");
             int maxBitmapSize = getMaxBitmapSize();
-           // ImageLoaderUtil.loadCircleImg(ivHeadPic,resultUri.getPath()+".jpg",R.drawable.camera);
+            // ImageLoaderUtil.loadCircleImg(ivHeadPic,resultUri.getPath()+".jpg",R.drawable.camera);
             BitmapLoadUtils.decodeBitmapInBackground(this, resultUri, null, maxBitmapSize, maxBitmapSize, new BitmapLoadCallback() {
                 @Override
                 public void onBitmapLoaded(@NonNull Bitmap bitmap, @NonNull ExifInfo exifInfo, @NonNull String s, @Nullable String s1) {
@@ -306,7 +301,7 @@ public class CompleteRegisterActivity extends BaseActivity {
 
                 }
             });
-          // ResultActivity.startWithUri(CompleteRegisterActivity.this, resultUri);
+            // ResultActivity.startWithUri(CompleteRegisterActivity.this, resultUri);
         } else {
             Toast.makeText(CompleteRegisterActivity.this, R.string.toast_cannot_retrieve_cropped_image, Toast.LENGTH_SHORT).show();
         }

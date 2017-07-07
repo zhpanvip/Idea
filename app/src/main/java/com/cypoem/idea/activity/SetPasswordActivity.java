@@ -52,11 +52,15 @@ public class SetPasswordActivity extends BaseActivity {
         String password = etPassword.getText().toString().trim();
         String confirmPassword = etConfirmPassword.getText().toString().trim();
         if(TextUtils.isEmpty(password)||TextUtils.isEmpty(confirmPassword)){
-            showToast("密码不能为空");
+            showToast(R.string.password_can_not_empty);
+            return;
+        }
+        if(password.length()<6){
+            showToast(R.string.password_length_must_more_than_6);
             return;
         }
         if(!password.equals(confirmPassword)){
-            showToast("两次密码输入不一致");
+            showToast(R.string.password_not_same);
             return;
         }
 

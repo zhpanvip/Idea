@@ -62,6 +62,16 @@ public class UserInfoBean {
      */
     private boolean isNightMode;
 
+    private UserBean user;
+
+    public UserBean getUser() {
+        return user;
+    }
+
+    public void setUser(UserBean user) {
+        this.user = user;
+    }
+
     public boolean isNightMode() {
         return isNightMode;
     }

@@ -128,7 +128,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private boolean meClicked(FragmentTransaction fragmentTransaction) {
-        if (!UserInfoTools.getIsLogin(this)) {
+        if (UserInfoTools.getIsLogin(this)) {
             fragmentTransaction.replace(R.id.fl_fragment, new MeFragment());
             goToMe(fragmentTransaction);
             return false;

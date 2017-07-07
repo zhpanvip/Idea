@@ -1,6 +1,8 @@
 package com.cypoem.idea.utils;
 
 import android.content.Context;
+
+import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.module.bean.UserInfoBean;
 
 /**
@@ -24,7 +26,7 @@ public class UserInfoTools {
     }
 
     /**
-     * 获取本地个人信息
+     * 设置本地个人信息
      */
     private static void setUserInfoBean(Context context, UserInfoBean userInfoBean) {
         sUserInfoBean = userInfoBean;
@@ -126,6 +128,46 @@ public class UserInfoTools {
             isLogin = getUserInfoBean(context).isLogin();
         }
         return isLogin;
+    }
+
+    public static void setUser(Context context, UserBean user){
+        sUserInfoBean.setUser(user);
+        setUserInfoBean(context,sUserInfoBean);
+    }
+
+    public static UserBean getUser(Context context){
+        UserBean user;
+        if(sUserInfoBean!=null){
+            user=sUserInfoBean.getUser();
+        }else {
+            user=getUserInfoBean(context).getUser();
+        }
+        return user;
+    }
+
+    /**
+     * 设置用户id
+     * @param context
+     * @param uid
+     */
+    public static void setUid(Context context,String uid){
+        sUserInfoBean.setUserId(uid);
+        setUserInfoBean(context,sUserInfoBean);
+    }
+
+    /**
+     * 获取用户id
+     * @param context
+     * @return
+     */
+    public static String getUid(Context context){
+        String uid;
+        if(sUserInfoBean!=null){
+            uid=sUserInfoBean.getUserId();
+        }else {
+            uid=getUserInfoBean(context).getUserId();
+        }
+        return uid;
     }
 
     /**

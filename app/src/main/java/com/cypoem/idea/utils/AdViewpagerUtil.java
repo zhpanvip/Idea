@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.airong.core.utils.ImageLoaderUtil;
 import com.bumptech.glide.Glide;
 import com.cypoem.idea.R;
 
@@ -140,8 +141,10 @@ public class AdViewpagerUtil {
             for (int i = 0; i < length; i++) {
                 if (i < length - 2) {
                     final int index = i;
-                    Glide.with(context).load(urls[i]).placeholder(R.drawable.background)
-                            .into(mImageViews[i + 1]);
+                   /* Glide.with(context).load(urls[i]).placeholder(R.drawable.background)
+                            .into(mImageViews[i + 1]);*/
+
+                    ImageLoaderUtil.loadImg(mImageViews[i+1],urls[i],R.drawable.background);
                     mImageViews[i + 1].setOnClickListener(new View.OnClickListener() {
 
                         @Override
@@ -153,10 +156,12 @@ public class AdViewpagerUtil {
                     });
                 }
             }
-            Glide.with(context).load(urls[urls.length - 1]).placeholder(R.drawable.background)
+            ImageLoaderUtil.loadImg(mImageViews[0],urls[urls.length-1],R.drawable.background);
+            ImageLoaderUtil.loadImg(mImageViews[length - 1],urls[0],R.drawable.background);
+           /* Glide.with(context).load(urls[urls.length - 1]).placeholder(R.drawable.background)
                     .into(mImageViews[0]);
             Glide.with(context).load(urls[0]).placeholder(R.drawable.background)
-                    .into(mImageViews[length - 1]);
+                    .into(mImageViews[length - 1]);*/
         }
     }
 

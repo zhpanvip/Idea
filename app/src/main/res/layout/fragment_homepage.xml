@@ -20,6 +20,7 @@
         app:ptr_ratio_of_header_height_to_refresh="1.2"
         app:ptr_resistance="2.0">
 
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_home"
             android:layout_width="match_parent"
