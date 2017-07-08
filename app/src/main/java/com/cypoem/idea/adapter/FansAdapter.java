@@ -9,6 +9,7 @@ import com.airong.core.adapter.CommonViewHolder;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.bean.FansBean;
+import com.cypoem.idea.net.IdeaApiService;
 
 import java.util.List;
 
@@ -30,9 +31,9 @@ public class FansAdapter extends CommonAdapter<FansBean> {
         TextView tvSign=holder.getView(R.id.tv_sign);
         TextView tvArticle=holder.getView(R.id.tv_article);
 
-        ImageLoaderUtil.loadCircleImg(ivHead,fansBean.getHeadUrl(),R.drawable.head_pic);
-        tvName.setText(fansBean.getName());
-        tvSign.setText(fansBean.getSing());
-        tvArticle.setText("发起"+fansBean.getPublish()+"/参与"+fansBean.getCreate()+"/原创"+fansBean.getCreate());
+        ImageLoaderUtil.loadCircleImg(ivHead, IdeaApiService.HOST+fansBean.getIcon(),R.drawable.head_pic);
+        tvName.setText(fansBean.getPen_name());
+        tvSign.setText(fansBean.getIntroduction());
+        tvArticle.setText("发起"+fansBean.getEnjoy_count()+"/参与"+fansBean.getMyWatchCount()+"/原创"+fansBean.getWatchMeCount());
     }
 }

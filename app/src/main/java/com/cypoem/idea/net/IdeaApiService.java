@@ -1,8 +1,11 @@
 package com.cypoem.idea.net;
 
 import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.module.bean.ArticleBean;
 import com.cypoem.idea.module.bean.EveryDayReBackBean;
+import com.cypoem.idea.module.bean.FansBean;
 import com.cypoem.idea.module.bean.HomePageBean;
+import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.module.post_bean.AdvicePost;
@@ -10,18 +13,24 @@ import com.cypoem.idea.module.post_bean.EverydaySayPost;
 import com.cypoem.idea.module.post_bean.PostOpus;
 import com.cypoem.idea.module.post_bean.RegisterPost;
 import com.cypoem.idea.module.post_bean.UpdateUserInfo;
+import com.cypoem.idea.module.wrapper.ArticleWrapper;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
 import com.cypoem.idea.module.wrapper.MeiziWrapper;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 /**
@@ -43,11 +52,16 @@ public interface IdeaApiService {
 
     /**
      * 注册接口
-     * @param register 注册信息
+     * @param partList 注册信息
      * @return
      */
+    @Multipart
     @POST("user/register.do")
-    Observable<BasicResponse<RegisterBean>> register(@Body RegisterPost register);
+    Observable<BasicResponse<RegisterBean>> register(@Part List<MultipartBody.Part> partList);
+
+    @Multipart
+    @POST("user/register.do")
+    Observable<BasicResponse<RegisterBean>> register(@PartMap() Map<String, RequestBody> partMap,@Part MultipartBody.Part file);
 
     /**
      * 完善用户信息
@@ -131,4 +145,53 @@ public interface IdeaApiService {
     @GET("write/first_page.do")
     Observable<ChaptersWrapper> getChapters(@Query("write_id") String write_id, @Query("sectionid") String sectionid, @Query("page") String page, @Query("rows") String rows, @Query("user_id") String user_id);
 
+    /**
+     * 查询我发起的作品
+     * @param page  显示第几页
+     * @param rows  每页显示几条数据
+     * @param userId   登陆用户id
+     * @return
+     */
+    @GET("write/myStart.do")
+    Observable<BasicResponse<List<OpusBean>>> getMyStartOpus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
+
+    /**
+     * 查询我原创的作品
+     * @param page  显示第几页
+     * @param rows  每页显示几条数据
+     * @param userId   登陆用户id
+     * @return
+     */
+    @GET("write/myCreate.do")
+    Observable<BasicResponse<List<OpusBean>>> getMyOwnOpus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
+
+    /**
+     * 查询我参与的作品
+     * @param page  显示第几页
+     * @param rows  每页显示几条数据
+     * @param userId   登陆用户id
+     * @return
+     */
+    @GET("write/myJoin.do")
+    Observable<BasicResponse<List<OpusBean>>> getMyJoinOpus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
+
+    /**
+     * 查询我参与的作品
+     * @param page  显示第几页
+     * @param rows  每页显示几条数据
+     * @param userId   登陆用户id
+     * @return
+     */
+    @GET("watch/watchMeUsers.do")
+    Observable<BasicResponse<List<FansBean>>> getMyFans(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
+
+    /**
+     * 获取作品章节内容
+     * @param page  显示第几页
+     * @param rows  每页显示几条数据
+     * @param userId   登陆用户id
+     * @return
+     */
+    @GET("section/view.do")
+    Observable<ArticleWrapper> getArticle(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("write_id") String writeId, @Query("sectionid") String sectionId);
 }

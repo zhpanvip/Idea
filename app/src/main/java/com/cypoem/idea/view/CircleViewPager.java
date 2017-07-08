@@ -148,9 +148,7 @@ public class CircleViewPager extends FrameLayout {
 
     //  设置触摸事件，当滑动或者触摸时停止自动轮播
     private void setTouchListener() {
-        mViewPager.setOnTouchListener(new OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
+        mViewPager.setOnTouchListener((View v, MotionEvent event)->{
                 int action = event.getAction();
                 switch (action) {
                     case MotionEvent.ACTION_DOWN:
@@ -166,13 +164,13 @@ public class CircleViewPager extends FrameLayout {
                         break;
                 }
                 return false;
-            }
         });
     }
 
     private void startCircleViewPager() {
         if (!isLoop && mViewPager != null) {
-            mHandler.postDelayed(mRunnable, interval);// 每interval秒执行一次runnable.
+            // 每interval秒执行一次runnable.
+            mHandler.postDelayed(mRunnable, interval);
             isLoop = true;
         }
     }

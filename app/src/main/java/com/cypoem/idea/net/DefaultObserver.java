@@ -3,6 +3,7 @@ package com.cypoem.idea.net;
 import android.app.Activity;
 import android.text.TextUtils;
 import android.widget.Toast;
+
 import com.airong.core.BaseImpl;
 import com.airong.core.utils.LogUtils;
 import com.airong.core.utils.ToastUtils;
@@ -10,22 +11,26 @@ import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
 import com.google.gson.JsonParseException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
+
 import org.json.JSONException;
+
 import java.io.InterruptedIOException;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.text.ParseException;
+
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
+
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.BAD_NETWORK;
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.CONNECT_ERROR;
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.CONNECT_TIMEOUT;
+import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.ILLEGAL_ARGUMENT;
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.PARSE_ERROR;
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.UNKNOWN_ERROR;
 
 /**
  * Created by zhpan on 2017/4/18.
- *
  */
 
 public abstract class DefaultObserver<T extends BasicResponse> implements Observer<T> {
@@ -49,11 +54,9 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     @Override
     public void onSubscribe(Disposable d) {
         if (isAddInStop) {    //  在onStop中取消订阅
-            mBaseImpl.addRxStop(mBaseImpl,d);
-
-
+            mBaseImpl.addRxStop(mBaseImpl, d);
         } else { //  在onDestroy中取消订阅
-            mBaseImpl.addRxDestroy(mBaseImpl,d);
+            mBaseImpl.addRxDestroy(mBaseImpl, d);
         }
     }
 
@@ -74,8 +77,6 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
 
     @Override
     public void onError(Throwable e) {
-        LogUtils.e("Retrofit", e.getMessage());
-
         mBaseImpl.dismissProgress();
         if (e instanceof HttpException) {     //   HTTP错误
             onException(BAD_NETWORK);
@@ -88,9 +89,13 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
                 || e instanceof JSONException
                 || e instanceof ParseException) {   //  解析错误
             onException(PARSE_ERROR);
+        } else if (e instanceof IllegalArgumentException) {
+            onException(ILLEGAL_ARGUMENT);
         } else {
             onException(UNKNOWN_ERROR);
         }
+        if (e != null)
+            e.printStackTrace();
     }
 
     @Override
@@ -141,6 +146,9 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
             case PARSE_ERROR:
                 ToastUtils.show(R.string.parse_error, Toast.LENGTH_SHORT);
                 break;
+           /* case ILLEGAL_ARGUMENT:
+                ToastUtils.show(R.string.illegal_argument,Toast.LENGTH_SHORT);
+                break;*/
 
             case UNKNOWN_ERROR:
             default:
@@ -169,9 +177,17 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
          * 连接超时
          */
         CONNECT_TIMEOUT,
+
+        /**
+         * 非法参数异常
+         */
+        ILLEGAL_ARGUMENT,
+
         /**
          * 未知错误
          */
         UNKNOWN_ERROR,
+
+
     }
 }

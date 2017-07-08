@@ -14,6 +14,8 @@ import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CommonFragmentAdapter;
 import com.cypoem.idea.fragment.AuthorFragment;
+import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.ScrollableLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +50,8 @@ public class AuthorInfoActivity extends BaseActivity {
     TextView mTvLike;
     @BindView(R.id.tv_fans)
     TextView mTvFans;
+    @BindView(R.id.tv_introduce)
+    TextView mTvIntroduce;
     @BindView(R.id.iv_edit)
     ImageView mIvEdit;
     @BindView(R.id.ll_focus)
@@ -80,7 +84,26 @@ public class AuthorInfoActivity extends BaseActivity {
     }
 
     private void setData() {
-        ImageLoaderUtil.loadImg(mIvAuthor,"https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=304866327,2141533711&fm=11&gp=0.jpg");
+        UserBean user = UserInfoTools.getUser(this);
+        if(null!=user){
+            setUserData(user);
+        }else {
+
+        }
+
+    }
+
+    private void setUserData(UserBean user) {
+        ImageLoaderUtil.loadImg(mIvAuthor,user.getIcon(),R.drawable.head_pic);
+        mTvPenName.setText(user.getPen_name());
+        mTvSign.setText(user.getIntroduction());
+        mTvBirthday.setText(user.getBirthday());
+        mTvAddress.setText(user.getAddress());
+        mTvIntroduce.setText(user.getIntroduction());
+        mTvFans.setText(user.getWatchMeCount()+"");
+        mTvFocus.setText(user.getMyWatchCount()+"");
+        mTvCollect.setText(user.getKeep_count()+"");
+        mTvLike.setText(user.getEnjoy_count()+"");
     }
 
     private void setListener() {
@@ -109,17 +132,9 @@ public class AuthorInfoActivity extends BaseActivity {
         AuthorFragment fragmentStart = AuthorFragment.getFragment(new Bundle());
         AuthorFragment fragmentJoin = AuthorFragment.getFragment(new Bundle());
         AuthorFragment fragmentCreate = AuthorFragment.getFragment(new Bundle());
-        AuthorFragment fragmentCreate1 = AuthorFragment.getFragment(new Bundle());
-        AuthorFragment fragmentCreate2 = AuthorFragment.getFragment(new Bundle());
-        AuthorFragment fragmentCreate3 = AuthorFragment.getFragment(new Bundle());
-        AuthorFragment fragmentCreate4 = AuthorFragment.getFragment(new Bundle());
         mList.add(fragmentStart);
         mList.add(fragmentJoin);
         mList.add(fragmentCreate);
-        mList.add(fragmentCreate1);
-        mList.add(fragmentCreate2);
-        mList.add(fragmentCreate3);
-        mList.add(fragmentCreate4);
         mAdapter = new CommonFragmentAdapter(getSupportFragmentManager(), this);
         mAdapter.setFragmentList(mList);
         mViewPager.setAdapter(mAdapter);

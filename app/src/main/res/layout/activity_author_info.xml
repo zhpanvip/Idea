@@ -16,12 +16,12 @@
 
             <include layout="@layout/layout_author_info" />
 
+            <!--app:tabMode="scrollable"-->
             <android.support.design.widget.TabLayout
                 android:id="@+id/tl_author"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/mp_40"
                 android:layout_gravity="bottom"
-                app:tabMode="scrollable"
                 android:background="#fff"
                 android:backgroundTint="@color/background"
                 android:fillViewport="false"
@@ -41,22 +41,6 @@
                     android:layout_height="match_parent"
                     android:text="我参与的" />
 
-                <android.support.design.widget.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="我原创的" />
-                <android.support.design.widget.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="我原创的" />
-                <android.support.design.widget.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="我原创的" />
-                <android.support.design.widget.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="我原创的" />
                 <android.support.design.widget.TabItem
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

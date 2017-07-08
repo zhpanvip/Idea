@@ -10,11 +10,14 @@ import android.widget.Toast;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CollectAdapter;
+import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.CollectBean;
 import com.cypoem.idea.module.bean.Meizi;
+import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.wrapper.MeiziWrapper;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.utils.UserInfoTools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +28,11 @@ import io.reactivex.schedulers.Schedulers;
 
 public class CollectActivity extends BaseActivity {
 
+    private static final int ROWS = 10;
     @BindView(R.id.lv_collect)
     ListView mListView;
     private CollectAdapter mAdapter;
+    private int page=1;
 
     @Override
     protected int getLayoutId() {
@@ -45,32 +50,22 @@ public class CollectActivity extends BaseActivity {
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                StartReadActivity.start(CollectActivity.this);
+                StartReadActivity.start(CollectActivity.this,mAdapter.getList().get(position).getUid());
             }
         });
     }
 
     private void initData() {
-        List<CollectBean> mList=new ArrayList<>();
-        CollectBean collectBean=new CollectBean();
-        collectBean.setTime("2017-05-20");
-        collectBean.setPicUrl("http://pic17.nipic.com/20111020/6337790_120550160000_2.jpg");
-        collectBean.setArticlesNum(15);
-        collectBean.setAuther("含箫剑");
-        collectBean.setReadNum(565);
-        collectBean.setPraiseNum(122);
-        collectBean.setTitle("一只单身汪的日常");
-        collectBean.setSubTitle("汪汪汪");
-        mList.add(collectBean);
-        mList.add(collectBean);
-        mList.add(collectBean);
-        mList.add(collectBean);
-        mList.add(collectBean);
-        mList.add(collectBean);
-        mAdapter=new CollectAdapter(this,R.layout.item_collect);
+        List<OpusBean> mList = new ArrayList<>();
+        mAdapter = new CollectAdapter(this, R.layout.item_collect);
         mAdapter.setList(mList);
         mListView.setAdapter(mAdapter);
+
+        getData(true,page);
     }
+
+
+
     public static void start(Context context){
         Intent intent=new Intent(context,CollectActivity.class);
         context.startActivity(intent);
@@ -78,12 +73,14 @@ public class CollectActivity extends BaseActivity {
 
     @Override
     public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(false)), 100);
+        frame.postDelayed((() -> getData(false,++page)), 100);
     }
 
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(true)), 100);
+        page=1;
+        mAdapter.getList().clear();
+        frame.postDelayed((() -> getData(true,page)), 100);
     }
 
     @Override
@@ -92,20 +89,21 @@ public class CollectActivity extends BaseActivity {
         mPtrFrame.refreshComplete();
     }
 
-    private void getData(boolean showLoading) {
-        //  Retrofit请求数据
+    private void getData(boolean showLoading,int page) {
         IdeaApi.getApiService()
-                .getMeizi()
+                .getMyJoinOpus(UserInfoTools.getUser(this).getUid(),page,ROWS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<MeiziWrapper>(this, showLoading) {
+                .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this,showLoading) {
                     @Override
-                    public void onSuccess(MeiziWrapper response) {
-                        showToast( "请求数据成功");
-                        List<Meizi.ResultsBean> content = response.getResults();
-                        for (int i = 0; i < content.size() - content.size() + 2; i++) {
-                            showToast("Url:" + content.get(i).getUrl());
+                    public void onSuccess(BasicResponse<List<OpusBean>> response) {
+                        if(response.getResult().size()<ROWS){
+                            mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
+                        }else {
+                            mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
                         }
+                        mAdapter.getList().addAll(response.getResult());
+                        mAdapter.notifyDataSetChanged();
                     }
                 });
     }

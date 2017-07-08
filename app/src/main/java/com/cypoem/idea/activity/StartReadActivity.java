@@ -8,10 +8,26 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.StartReadAdapter;
+import com.cypoem.idea.constants.Constants;
+import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.module.bean.ArticleBean;
+import com.cypoem.idea.module.bean.OpusBean;
+import com.cypoem.idea.module.wrapper.ArticleWrapper;
+import com.cypoem.idea.net.DefaultObserver;
+import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.utils.UserInfoTools;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class StartReadActivity extends BaseActivity {
 
@@ -31,6 +47,9 @@ public class StartReadActivity extends BaseActivity {
     RecyclerViewPager mRecyclerView;
 
     private StartReadAdapter mAdapter;
+    private String writeId;
+    private String sectionId;
+    private int page = 1;
 
     @Override
     protected int getLayoutId() {
@@ -43,21 +62,19 @@ public class StartReadActivity extends BaseActivity {
     }
 
     private void initData() {
-        /*mAdapter = new StartReadAdapter(this, R.layout.item_read);
-        List<StartReadBean> list = new ArrayList<>();
-        list.add(new StartReadBean());
-        list.add(new StartReadBean());
-        list.add(new StartReadBean());
-        list.add(new StartReadBean());
+        Intent intent = getIntent();
+        sectionId = intent.getStringExtra("sectionId");
+
+        List<ArticleBean> list = new ArrayList<>();
+        mAdapter = new StartReadAdapter(this);
         mAdapter.setList(list);
-        mListView.setAdapter(mAdapter);*/
 
         LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
                 false);
         mRecyclerView.setTriggerOffset(0.15f);
         mRecyclerView.setFlingFactor(0.25f);
         mRecyclerView.setLayoutManager(layout);
-        mRecyclerView.setAdapter(new StartReadAdapter(this));
+        mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLongClickable(true);
 
@@ -66,64 +83,7 @@ public class StartReadActivity extends BaseActivity {
             startAnim();
         });
 
-       /* mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
-
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int i, int i2) {
-//                mPositionText.setText("First: " + mRecyclerViewPager.getFirstVisiblePosition());
-                int childCount = mRecyclerView.getChildCount();
-                int width = mRecyclerView.getChildAt(0).getWidth();
-                int padding = (mRecyclerView.getWidth() - width) / 2;
-
-                for (int j = 0; j < childCount; j++) {
-                    View v = recyclerView.getChildAt(j);
-                    //往左 从 padding 到 -(v.getWidth()-padding) 的过程中，由大到小
-                    float rate = 0;
-                    if (v.getTop() <= padding) {
-                        if (v.getTop() >= padding - v.getHeight()) {
-                            rate = (padding - v.getTop()) * 1f / v.getHeight();
-                        } else {
-                            rate = 1;
-                        }
-                        v.setScaleX(1 - rate * 0.1f);
-                        v.setScaleY(1 - rate * 0.1f);
-                    } else {
-                        //往右 从 padding 到 recyclerView.getHeight()-padding 的过程中，由大到小
-                        if (v.getTop() <= recyclerView.getHeight() - padding) {
-                            rate = (recyclerView.getHeight() - padding - v.getTop()) * 1f / v.getHeight();
-                        }
-                        v.setScaleX(0.9f + rate * 0.1f);
-                        v.setScaleY(0.9f + rate * 0.1f);
-                    }
-                }
-            }
-        });*/
-
-        /*mRecyclerView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
-            @Override
-            public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
-                if (mRecyclerView.getChildCount() < 3) {
-                    if (mRecyclerView.getChildAt(1) != null) {
-                        View v1 = mRecyclerView.getChildAt(1);
-                        v1.setScaleY(0.9f);
-                    }
-                } else {
-                    if (mRecyclerView.getChildAt(0) != null) {
-                        View v0 = mRecyclerView.getChildAt(0);
-                        v0.setScaleY(0.9f);
-                    }
-                    if (mRecyclerView.getChildAt(2) != null) {
-                        View v2 = mRecyclerView.getChildAt(2);
-                        v2.setScaleY(0.9f);
-                    }
-                }
-
-            }
-        });*/
+        //getData(true, page);
     }
 
     public void onHorizontalItemSelected(int position) {
@@ -137,10 +97,25 @@ public class StartReadActivity extends BaseActivity {
         llTab.startAnimation(animation);
     }
 
-    public static void start(Context context) {
+    public static void start(Context context,String sectionId) {
         Intent intent = new Intent(context, StartReadActivity.class);
+        intent.putExtra("sectionId",sectionId);
         context.startActivity(intent);
     }
 
+    private void getData(boolean showLoading, int page) {
+        IdeaApi.getApiService()
+                .getArticle(UserInfoTools.getUserId(this), page, Constants.NUM, sectionId, "1")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<ArticleWrapper>(this, showLoading) {
+                    @Override
+                    public void onSuccess(ArticleWrapper response) {
+                        List<ArticleBean.ResultBean> results = response.getResults();
+                        //mAdapter.getList().addAll(results);
+                        mAdapter.notifyDataSetChanged();
+                    }
+                });
+    }
 
 }

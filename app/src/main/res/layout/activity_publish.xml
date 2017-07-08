@@ -7,6 +7,7 @@
     android:background="@color/background"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
+    android:scrollbars="none"
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <LinearLayout
@@ -23,7 +24,7 @@
 
             <ImageView
                 android:id="@+id/iv_add_pic"
-                android:layout_width="@dimen/mp_70"
+                android:layout_width="@dimen/mp_75"
                 android:layout_height="@dimen/mp_70"
                 android:scaleType="fitXY"
                 android:src="@drawable/add_pic"/>
@@ -121,13 +122,18 @@
                 android:text="是否允许被重写"
                 android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_18"/>
-
-            <ImageView
+            <ToggleButton
+                android:id="@+id/tb_night_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/array_right"/>
+                android:background="#00000000"
+                android:textOff=""
+                android:layout_marginEnd="-30dp"
+                android:textOn=""
+                style="@style/ToggleButton"
+                android:checked="true"/>
         </RelativeLayout>
 
         <include layout="@layout/base_line"/>
@@ -144,12 +150,18 @@
                 android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_18"/>
 
-            <ImageView
+            <ToggleButton
+                android:id="@+id/tb__mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/array_right"/>
+                android:background="#00000000"
+                android:textOff=""
+                android:textOn=""
+                android:layout_marginEnd="-30dp"
+                style="@style/ToggleButton"
+                android:checked="true"/>
         </RelativeLayout>
 
         <include layout="@layout/base_line"/>

@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 package com.airong.core.utils;
+
 import android.util.Log;
+
 import com.airong.core.BuildConfig;
 
 
@@ -29,6 +31,7 @@ public class LogUtils {
 
     /**
      * 获取当前类名
+     *
      * @return
      */
     private static String getClassName() {
@@ -41,9 +44,12 @@ public class LogUtils {
     }
 
 
-    public static void w(String logString) {
+    public static void w(String msg) {
         if (DEBUG) {
-            Log.w(getClassName(), logString);
+            if (null == msg) {
+                msg = "数据为null";
+            }
+            Log.w(getClassName(), msg);
         }
     }
 
@@ -54,6 +60,9 @@ public class LogUtils {
      */
     public static void d(String tag, String msg) {
         if (DEBUG) {
+            if (null == msg) {
+                msg = "数据为null";
+            }
             Log.d(tag, msg);
         }
     }
@@ -65,6 +74,9 @@ public class LogUtils {
      */
     public static void e(String tag, String msg) {
         if (DEBUG) {
+            if (null == msg) {
+                msg = "数据为null";
+            }
             Log.e(tag, msg);
         }
     }
@@ -76,6 +88,9 @@ public class LogUtils {
      */
     public static void d(String msg) {
         if (DEBUG) {
+            if (null == msg) {
+                msg = "数据为null";
+            }
             Log.d(getClassName(), msg);
         }
     }
@@ -87,9 +102,13 @@ public class LogUtils {
      */
     public static void i(String msg) {
         if (DEBUG) {
+            if (null == msg) {
+                msg = "数据为null";
+            }
             Log.i(getClassName(), msg);
         }
     }
+
     /**
      * error log
      *
@@ -97,21 +116,29 @@ public class LogUtils {
      */
     public static void e(String msg) {
         if (DEBUG) {
+            if (null == msg) {
+                msg = "数据为null";
+            }
             Log.e(getClassName(), msg);
         }
     }
 
-    public static void i(String tag, String logString) {
+    public static void i(String tag, String msg) {
         if (DEBUG) {
-            Log.i(tag, logString);
+            if (null == msg) {
+                msg = "数据为null";
+            }
+            Log.i(tag, msg);
         }
     }
 
 
-
-    public static void w(String tag, String logString) {
+    public static void w(String tag, String msg) {
         if (DEBUG) {
-            Log.w(tag, logString);
+            if (null == msg) {
+                msg = "数据为null";
+            }
+            Log.w(tag, msg);
         }
     }
 

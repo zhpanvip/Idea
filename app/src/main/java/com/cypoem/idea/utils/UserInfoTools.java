@@ -160,14 +160,17 @@ public class UserInfoTools {
      * @param context
      * @return
      */
-    public static String getUid(Context context){
-        String uid;
+    public static String getUserId(Context context){
+        String userId;
         if(sUserInfoBean!=null){
-            uid=sUserInfoBean.getUserId();
+            userId=sUserInfoBean.getUserId();
         }else {
-            uid=getUserInfoBean(context).getUserId();
+            userId=getUserInfoBean(context).getUserId();
         }
-        return uid;
+        if(null==userId){
+            userId="";
+        }
+        return userId;
     }
 
     /**

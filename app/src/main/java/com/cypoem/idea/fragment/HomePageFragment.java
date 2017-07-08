@@ -39,7 +39,7 @@ public class HomePageFragment extends BaseFragment {
     private HomeAdapter mAdapter;
     private int page = 1;
     private final int ROWS = 10;
-    private  CircleViewPager circleViewPager;
+    private CircleViewPager circleViewPager;
     private int type;
 
     public static HomePageFragment getInstance(int type) {
@@ -59,10 +59,9 @@ public class HomePageFragment extends BaseFragment {
     protected void init(Bundle savedInstanceState) {
         initData();
         initPtr(false);
-        getData(false,page);
+        getData(true, page);
         if (!(type == FindFragment.HOTEST || type == FindFragment.NEWEST))
-        circleViewPager.setmPtrFrame(mPtrFrame);
-
+            circleViewPager.setmPtrFrame(mPtrFrame);
     }
 
     private void initData() {
@@ -85,13 +84,13 @@ public class HomePageFragment extends BaseFragment {
         mAdapter = new HomeAdapter(getContext());
         mAdapter.fillList(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener((position) -> StartReadActivity.start(getContext()));
+        mAdapter.setOnItemClickListener((position) -> StartReadActivity.start(getContext(),mAdapter.getList().get(position).getUid()));
 
         initViewPager();
     }
 
     private void initViewPager() {
-        if (type == FindFragment.HOTEST || type == FindFragment.NEWEST){
+        if (type == FindFragment.HOTEST || type == FindFragment.NEWEST) {
             return;
         }
         View headerView = View.inflate(getContext(), R.layout.header_home, null);
@@ -104,22 +103,21 @@ public class HomePageFragment extends BaseFragment {
         mUrlList.add("http://img2.niutuku.com/desk/1208/1922/ntk-1922-39448.jpg");
         circleViewPager.setUrlList(mUrlList);
         mAdapter.addHeaderView(headerView);
-
-        circleViewPager.setOnPageClickListener((position)-> showToast("forward Url+"+position));
+        circleViewPager.setOnPageClickListener((position) -> showToast("forward Url+" + position));
         circleViewPager.setInterval(5000);
     }
 
 
     @Override
     public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(false,++page)), 100);
+        frame.postDelayed((() -> getData(true, ++page)), 100);
     }
 
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
-        page=1;
+        page = 1;
         mAdapter.getList().clear();
-        frame.postDelayed((() -> getData(false,page)), 100);
+        frame.postDelayed((() -> getData(true, page)), 100);
     }
 
     @Override
@@ -128,7 +126,7 @@ public class HomePageFragment extends BaseFragment {
         mPtrFrame.refreshComplete();
     }
 
-    private void getData(boolean showLoading,int page) {
+    private void getData(boolean showLoading, int page) {
         //  Retrofit请求数据
         IdeaApi.getApiService()
                 .getHomePageData(page, ROWS)
@@ -138,16 +136,19 @@ public class HomePageFragment extends BaseFragment {
 
                     @Override
                     public void onSuccess(BasicResponse<List<HomePageBean>> response) {
-                        List<HomePageBean> result = response.getResult();
-                        List<HomePageBean> list = mAdapter.getList();
-                        if(result.size()< ROWS){
-                            mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
-                        }else {
-                            mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
-                        }
-                        list.addAll(result);
-                        mAdapter.notifyDataSetChanged();
+                        updateList(response.getResult());
                     }
                 });
+    }
+
+    private void updateList(List<HomePageBean> result) {
+        List<HomePageBean> list = mAdapter.getList();
+        if (result.size() < ROWS) {
+            mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
+        } else {
+            mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
+        }
+        list.addAll(result);
+        mAdapter.notifyDataSetChanged();
     }
 }

@@ -1,8 +1,11 @@
 package com.cypoem.idea.net;
 
+import android.util.Log;
+
 import com.airong.core.utils.LogUtils;
 import com.airong.core.utils.NetworkUtils;
 import com.airong.core.utils.Utils;
+import com.cypoem.idea.utils.UserInfoTools;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -47,6 +50,7 @@ public class IdeaApi {
         File cacheFile = new File(Utils.getContext().getCacheDir(), "cache");
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
 
+        LogUtils.e(UserInfoTools.getUserId(Utils.getContext()));
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(IdeaApiService.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .connectTimeout(IdeaApiService.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
@@ -54,7 +58,7 @@ public class IdeaApi {
                 .cache(cache)
                 .addInterceptor((chain) -> {     //  统一配置配置请求头
                     Request request = chain.request().newBuilder()
-                            .addHeader("user_id_just_test_header", "12345")
+                            .addHeader("userId",UserInfoTools.getUserId(Utils.getContext()))
                             .addHeader("psw_just_test", "4567")
                             .build();
                     return chain.proceed(request);

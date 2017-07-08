@@ -6,5 +6,5 @@ package com.cypoem.idea.constants;
  */
 
 public interface Constants {
-
+    int NUM=10;
 }

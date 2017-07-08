@@ -6,15 +6,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.FansAdapter;
+import com.cypoem.idea.constants.Constants;
+import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.FansBean;
-import com.cypoem.idea.module.bean.Meizi;
-import com.cypoem.idea.module.wrapper.MeiziWrapper;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.net.IdeaApiService;
+import com.cypoem.idea.utils.UserInfoTools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,11 +26,10 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class FansActivity extends BaseActivity {
-
     @BindView(R.id.lv_fans)
     ListView lvFans;
     private FansAdapter mAdapter;
-
+    private int page=1;
 
     @Override
     protected int getLayoutId() {
@@ -50,21 +50,12 @@ public class FansActivity extends BaseActivity {
 
     private void initData() {
         List<FansBean> mList=new ArrayList<>();
-        FansBean fansBean=new FansBean();
-        fansBean.setCreate(15);
-        fansBean.setHeadUrl("https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=304866327,2141533711&fm=11&gp=0.jpg");
-        fansBean.setJoin(55);
-        fansBean.setName("韩三少");
-        fansBean.setSing("一直被模仿，从未被超越");
-        fansBean.setPublish(10);
-        mList.add(fansBean);
-        mList.add(fansBean);
-        mList.add(fansBean);
-        mList.add(fansBean);
         mAdapter=new FansAdapter(this,R.layout.item_fans);
         mAdapter.setList(mList);
         lvFans.setAdapter(mAdapter);
+        getData(true,page);
     }
+
 
     public static void start(Context context){
         Intent intent=new Intent(context,FansActivity.class);
@@ -73,12 +64,14 @@ public class FansActivity extends BaseActivity {
 
     @Override
     public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(false)), 100);
+        frame.postDelayed((() -> getData(false,++page)), 100);
     }
 
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(false)), 100);
+        page=1;
+        mAdapter.getList().clear();
+        frame.postDelayed((() -> getData(false,page)), 100);
     }
 
     @Override
@@ -87,22 +80,21 @@ public class FansActivity extends BaseActivity {
         mPtrFrame.refreshComplete();
     }
 
-    private void getData(boolean showLoading) {
-      //  Toast.makeText(this, "请求数据成功", Toast.LENGTH_SHORT).show();
-
-        //  Retrofit请求数据
+    private void getData(boolean showLoading, int page) {
         IdeaApi.getApiService()
-                .getMeizi()
+                .getMyFans(UserInfoTools.getUserId(this),page, Constants.NUM)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<MeiziWrapper>(this, showLoading) {
+                .subscribe(new DefaultObserver<BasicResponse<List<FansBean>>>(this,showLoading) {
                     @Override
-                    public void onSuccess(MeiziWrapper response) {
-                        showToast( "请求数据成功");
-                        List<Meizi.ResultsBean> content = response.getResults();
-                        for (int i = 0; i < content.size() - content.size() + 2; i++) {
-                            showToast("Url:" + content.get(i).getUrl());
+                    public void onSuccess(BasicResponse<List<FansBean>> response) {
+                        if(response.getResult().size()<Constants.NUM){
+                            mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
+                        }else {
+                            mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
                         }
+                        mAdapter.getList().addAll(response.getResult());
+                        mAdapter.notifyDataSetChanged();
                     }
                 });
     }

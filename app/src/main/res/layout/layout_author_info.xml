@@ -127,6 +127,7 @@
         android:textSize="@dimen/f_18" />
 
     <TextView
+        android:id="@+id/tv_introduce"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/mp_10"

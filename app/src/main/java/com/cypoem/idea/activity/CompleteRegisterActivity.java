@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Toast;
+
+import com.airong.core.utils.LogUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.RegisterBean;
@@ -28,12 +30,19 @@ import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.callback.BitmapLoadCallback;
 import com.yalantis.ucrop.model.ExifInfo;
 import com.yalantis.ucrop.util.BitmapLoadUtils;
+
 import java.io.File;
+import java.util.HashMap;
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class CompleteRegisterActivity extends BaseActivity {
     private static final int REQUEST_SELECT_PICTURE = 0x01;
@@ -54,6 +63,7 @@ public class CompleteRegisterActivity extends BaseActivity {
     private String phone;
     String password;
     private int mMaxBitmapSize = 0;
+    private String picPath="";
 
     @Override
     protected int getLayoutId() {
@@ -287,7 +297,10 @@ public class CompleteRegisterActivity extends BaseActivity {
         final Uri resultUri = UCrop.getOutput(result);
         if (resultUri != null) {
 
-            showToast(resultUri.getPath() + "hahaha");
+            showToast(resultUri.getPath());
+            LogUtils.e(resultUri.getPath());
+            picPath = resultUri.getPath();
+
             int maxBitmapSize = getMaxBitmapSize();
             // ImageLoaderUtil.loadCircleImg(ivHeadPic,resultUri.getPath()+".jpg",R.drawable.camera);
             BitmapLoadUtils.decodeBitmapInBackground(this, resultUri, null, maxBitmapSize, maxBitmapSize, new BitmapLoadCallback() {
@@ -326,11 +339,24 @@ public class CompleteRegisterActivity extends BaseActivity {
     }
 
     private void completeRegister() {
-        RegisterPost registerPost = new RegisterPost();
-        registerPost.setPassword(password);
-        registerPost.setPhone(phone);
+        File file = new File(picPath);
+         MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM);
+        RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        builder.addFormDataPart("uploadFile", file.getName(), imageBody);
+        builder.addFormDataPart("phone", phone)
+                .addFormDataPart("password", password);
+        List<MultipartBody.Part> parts = builder.build().parts();
+
+       /*RequestBody requestFile=RequestBody.create(MediaType.parse("multipart/form-data"),file);
+        MultipartBody.Part filePart=MultipartBody.Part.createFormData("uploadFile",file.getName(),requestFile);
+        RequestBody phoneBody=RequestBody.create(MediaType.parse("multipart/form-data"),phone);
+        RequestBody passwordBody=RequestBody.create(MediaType.parse("multipart/form-data"),password);
+        HashMap<String,RequestBody> map=new HashMap<>();
+        map.put("phone",phoneBody);
+        map.put("password",passwordBody);*/
         IdeaApi.getApiService()
-                .register(registerPost)
+                .register(parts)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<RegisterBean>>(this, true) {
