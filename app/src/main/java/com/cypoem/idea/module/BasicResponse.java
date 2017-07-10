@@ -5,10 +5,9 @@ public class BasicResponse<T> {
     private int code;
     private String message;
     private String errMsg;
-
     private boolean error;
-
     private T result;
+
 
     public void setErrMsg(String errMsg) {
         this.errMsg = errMsg;

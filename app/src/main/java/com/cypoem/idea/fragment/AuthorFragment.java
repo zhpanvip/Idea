@@ -38,6 +38,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     private CollectAdapter mAdapter;
 
     private int page=1;
+    private String userId;
 
 
     public static AuthorFragment getFragment(Bundle bundle) {
@@ -58,6 +59,8 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     }
 
     private void initData() {
+        Bundle arguments = getArguments();
+        userId = arguments.getString("userId");
         List<OpusBean> mList = new ArrayList<>();
         mAdapter = new CollectAdapter(getContext(), R.layout.item_collect);
         mAdapter.setList(mList);
@@ -68,7 +71,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
 
     private void getData(boolean showLoading, int page) {
         IdeaApi.getApiService()
-                .getMyJoinOpus(UserInfoTools.getUser(getContext()).getUid(),page,ROWS)
+                .getMyJoinOpus(userId,page,ROWS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this,showLoading) {

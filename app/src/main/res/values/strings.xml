@@ -86,7 +86,16 @@
     <string name="toast_unexpected_error">Unexpected error</string>
     <string name="toast_cannot_retrieve_cropped_image">Cannot retrieve cropped image</string>
     <string name="password_can_not_empty">密码不能为空</string>
-    <string name="password_length_must_more_than_6">密码长度不能小于六位！</string>
+    <string name="password_length_must_more_than_6">密码长度不能小于六位</string>
     <string name="password_not_same">两次密码输入不一致</string>
-    <string name="illegal_argument">参数异常！</string>
+    <string name="illegal_argument">参数异常</string>
+    <string name="send_vertify_code_success">验证码已发送至您的手机</string>
+    <string name="write_must_know">注：支持原创 杜绝抄袭，杜绝非法转载</string>
+    <string name="is_can_renew">是否允许被续写</string>
+    <string name="is_can_override">是否允许被重写</string>
+    <string name="opus_brief">作品简介</string>
+    <string name="opus_label">作品标签</string>
+    <string name="opus_name">请输入作品名称</string>
+    <string name="add_a_picture">请添加一个图片</string>
+    <string name="height_width">720*1080</string>
 </resources>

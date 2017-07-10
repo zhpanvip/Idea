@@ -33,6 +33,15 @@ public class CreateEveryDayActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        getSubTitle().setVisibility(View.VISIBLE);
+        getSubTitle().setText("往期回看");
+        setToolBarTitle("创建每日一句");
+        getSubTitle().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EverydayLookBackActivity.start(CreateEveryDayActivity.this);
+            }
+        });
 
     }
 

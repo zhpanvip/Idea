@@ -1,17 +1,14 @@
 package com.cypoem.idea.net;
 
 import com.cypoem.idea.module.BasicResponse;
-import com.cypoem.idea.module.bean.ArticleBean;
-import com.cypoem.idea.module.bean.EveryDayReBackBean;
+import com.cypoem.idea.module.bean.EverydayReBackBean;
 import com.cypoem.idea.module.bean.FansBean;
 import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.module.bean.UserBean;
-import com.cypoem.idea.module.post_bean.AdvicePost;
 import com.cypoem.idea.module.post_bean.EverydaySayPost;
 import com.cypoem.idea.module.post_bean.PostOpus;
-import com.cypoem.idea.module.post_bean.RegisterPost;
 import com.cypoem.idea.module.post_bean.UpdateUserInfo;
 import com.cypoem.idea.module.wrapper.ArticleWrapper;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
@@ -29,6 +26,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.PartMap;
 import retrofit2.http.Query;
@@ -56,12 +54,12 @@ public interface IdeaApiService {
      * @return
      */
     @Multipart
-    @POST("user/register.do")
+    @PUT("user/register.do")
     Observable<BasicResponse<RegisterBean>> register(@Part List<MultipartBody.Part> partList);
 
     @Multipart
     @POST("user/register.do")
-    Observable<BasicResponse<RegisterBean>> register(@PartMap() Map<String, RequestBody> partMap,@Part MultipartBody.Part file);
+    Observable<BasicResponse<RegisterBean>> register(@Part("phone") RequestBody phone,@Part("password") RequestBody password,@Part MultipartBody.Part image);
 
     /**
      * 完善用户信息
@@ -112,7 +110,7 @@ public interface IdeaApiService {
      * @return
      */
     @GET("everySay/selectAll.do")
-    Observable<BasicResponse<EveryDayReBackBean>> lookBack(@Query("page") String page, @Query("rows") String number);
+    Observable<BasicResponse<EverydayReBackBean>> lookBack(@Query("page") int page, @Query("rows") int number);
 
     /**
      * 首页数据
@@ -126,12 +124,11 @@ public interface IdeaApiService {
 
     /**
      * 发布作品
-     * @param opus
+     * @param partList
      * @return
      */
-    @POST("everySay/add.do")
-    Observable<BasicResponse> publishOpus(@Body PostOpus opus);
-
+    @POST("/write/add.do")
+    Observable<BasicResponse<String>> publishOpus(@Part List<MultipartBody.Part> partList);
 
     /**
      * 查询当前书的所有章节

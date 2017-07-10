@@ -77,6 +77,8 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
 
     @Override
     public void onError(Throwable e) {
+        if (e != null)
+            e.printStackTrace();
         mBaseImpl.dismissProgress();
         if (e instanceof HttpException) {     //   HTTP错误
             onException(BAD_NETWORK);
@@ -94,8 +96,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
         } else {
             onException(UNKNOWN_ERROR);
         }
-        if (e != null)
-            e.printStackTrace();
+
     }
 
     @Override
@@ -146,9 +147,9 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
             case PARSE_ERROR:
                 ToastUtils.show(R.string.parse_error, Toast.LENGTH_SHORT);
                 break;
-           /* case ILLEGAL_ARGUMENT:
+            case ILLEGAL_ARGUMENT:
                 ToastUtils.show(R.string.illegal_argument,Toast.LENGTH_SHORT);
-                break;*/
+                break;
 
             case UNKNOWN_ERROR:
             default:

@@ -66,13 +66,13 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
             ArticleWebViewActivity.start(mContext, "阅读", "http://www.baidu.com");
         });
         holder.mRlAuthor.setOnClickListener((View v) -> {
-            AuthorInfoActivity.start(mContext);
+            //AuthorInfoActivity.start(mContext,);
         });
         holder.mTvFocus.setOnClickListener((View v) -> {
             Toast.makeText(mContext, "关注", Toast.LENGTH_SHORT).show();
         });
         ArticleBean articleBean = mList.get(position);
-        /*ArticleBean.UserBean user = articleBean.getUser();
+        /*ArticleBean.ResultBean user = articleBean.getResults();
         holder.mTvTitle.setText(articleBean.getSection_name());
         holder.mTvName.setText(user.getPen_name());
         holder.mTvAuther.setText(user.getPen_name());
@@ -90,7 +90,7 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
 
 
     // 可复用的VH
-    class StartReadViewHolder extends RecyclerView.ViewHolder {
+   static class StartReadViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout mRlAuthor;
         private TextView mTvAll;
         private TextView mTvFocus;

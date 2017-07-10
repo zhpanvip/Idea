@@ -244,7 +244,7 @@ public class MeFragment extends BaseFragment {
                 OpusActivity.start(getContext());
                 break;
             case R.id.head_img:
-                AuthorInfoActivity.start(getContext());
+                AuthorInfoActivity.start(getContext(),UserInfoTools.getUserId(getContext()));
                 break;
             case R.id.rl_catch:
                 clearCache();

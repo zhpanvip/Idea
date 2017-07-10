@@ -191,9 +191,10 @@ public class RegisterActivity extends BaseActivity {
                     registerActivity.dismissProgress();
                     SetPasswordActivity.start(registerActivity,registerActivity.phone);
                     registerActivity.finish();
+
                     break;
                 case SMSSDK.EVENT_GET_VERIFICATION_CODE:// 验证码获取成功
-                    registerActivity.showToast("验证码已发送至您的手机");
+                    registerActivity.showToast(R.string.send_vertify_code_success);
                     registerActivity.countDown();
                     registerActivity.dismissProgress();
                     break;

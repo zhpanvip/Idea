@@ -9,37 +9,33 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CommonFragmentAdapter;
 import com.cypoem.idea.fragment.AuthorFragment;
+import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.net.DefaultObserver;
+import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.ScrollableLayout;
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class AuthorInfoActivity extends BaseActivity {
 
     @BindView(R.id.iv_author)
     ImageView mIvAuthor;
-    @BindView(R.id.tv_pen_name_text)
-    TextView mTvPenNameText;
     @BindView(R.id.tv_pen_name)
     TextView mTvPenName;
-    @BindView(R.id.tv_sign_text)
-    TextView mTvSignText;
     @BindView(R.id.tv_sign)
     TextView mTvSign;
-    @BindView(R.id.tv_birthday_text)
-    TextView mTvBirthdayText;
     @BindView(R.id.tv_birthday)
     TextView mTvBirthday;
-    @BindView(R.id.tv_address_text)
-    TextView mTvAddressText;
     @BindView(R.id.tv_address)
     TextView mTvAddress;
     @BindView(R.id.tv_focus)
@@ -70,6 +66,7 @@ public class AuthorInfoActivity extends BaseActivity {
     @BindView(R.id.sl_view)
     ScrollableLayout mScrollView;
     List<AuthorFragment> mList;
+    private String userId="";
 
     @Override
     protected int getLayoutId() {
@@ -85,12 +82,11 @@ public class AuthorInfoActivity extends BaseActivity {
 
     private void setData() {
         UserBean user = UserInfoTools.getUser(this);
-        if(null!=user){
+        if(null!=user&&userId.equals(UserInfoTools.getUserId(this))){
             setUserData(user);
         }else {
-
+            getData(false);
         }
-
     }
 
     private void setUserData(UserBean user) {
@@ -127,11 +123,28 @@ public class AuthorInfoActivity extends BaseActivity {
         });
     }
 
+    private void getData(boolean showLoading) {
+        IdeaApi.getApiService()
+                .getUserInfo(userId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this,showLoading) {
+                    @Override
+                    public void onSuccess(BasicResponse<UserBean> response) {
+                        setUserData(response.getResult());
+                    }
+                });
+    }
+
     private void initData() {
+        Intent intent = getIntent();
+        userId=intent.getStringExtra("userId");
         mList = new ArrayList<>();
-        AuthorFragment fragmentStart = AuthorFragment.getFragment(new Bundle());
-        AuthorFragment fragmentJoin = AuthorFragment.getFragment(new Bundle());
-        AuthorFragment fragmentCreate = AuthorFragment.getFragment(new Bundle());
+        Bundle bundle = new Bundle();
+        bundle.putString("userId",userId);
+        AuthorFragment fragmentStart = AuthorFragment.getFragment(bundle);
+        AuthorFragment fragmentJoin = AuthorFragment.getFragment(bundle);
+        AuthorFragment fragmentCreate = AuthorFragment.getFragment(bundle);
         mList.add(fragmentStart);
         mList.add(fragmentJoin);
         mList.add(fragmentCreate);
@@ -141,8 +154,9 @@ public class AuthorInfoActivity extends BaseActivity {
         mScrollView.getHelper().setCurrentScrollableContainer(mList.get(0));
     }
 
-    public static void start(Context context) {
+    public static void start(Context context,String userId) {
         Intent intent = new Intent(context, AuthorInfoActivity.class);
+        intent.putExtra("userId",userId);
         context.startActivity(intent);
     }
 

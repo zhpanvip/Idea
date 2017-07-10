@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -19,10 +20,10 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.airong.core.utils.LogUtils;
+import com.airong.core.utils.SDCardUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.RegisterBean;
-import com.cypoem.idea.module.post_bean.RegisterPost;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.view.SexView;
@@ -32,7 +33,6 @@ import com.yalantis.ucrop.model.ExifInfo;
 import com.yalantis.ucrop.util.BitmapLoadUtils;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,10 +44,11 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
+import static com.cypoem.idea.constants.Constants.REQUEST_SELECT_PICTURE;
+import static com.cypoem.idea.constants.Constants.SAMPLE_CROPPED_IMAGE_NAME;
+import static com.cypoem.idea.constants.Constants.TAG;
+
 public class CompleteRegisterActivity extends BaseActivity {
-    private static final int REQUEST_SELECT_PICTURE = 0x01;
-    private static final String TAG = "CompleteRegister";
-    private static final String SAMPLE_CROPPED_IMAGE_NAME = "CropImage";
     @BindView(R.id.et_pen_name)
     EditText mEtPenName;
     @BindView(R.id.et_sign)
@@ -63,7 +64,7 @@ public class CompleteRegisterActivity extends BaseActivity {
     private String phone;
     String password;
     private int mMaxBitmapSize = 0;
-    private String picPath="";
+    private String picPath = "";
 
     @Override
     protected int getLayoutId() {
@@ -155,7 +156,7 @@ public class CompleteRegisterActivity extends BaseActivity {
 
     private void startCropActivity(@NonNull Uri uri) {
         String destinationFileName = SAMPLE_CROPPED_IMAGE_NAME;
-        destinationFileName += ".jpg";
+        destinationFileName += ".png";
       /*  switch (mRadioGroupCompressionSettings.getCheckedRadioButtonId()) {
             case R.id.radio_png:
                 destinationFileName += ".png";
@@ -181,7 +182,7 @@ public class CompleteRegisterActivity extends BaseActivity {
      */
     private UCrop advancedConfig(@NonNull UCrop uCrop) {
         UCrop.Options options = new UCrop.Options();
-        options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
+        options.setCompressionFormat(Bitmap.CompressFormat.PNG);
         /*switch (mRadioGroupCompressionSettings.getCheckedRadioButtonId()) {
             case R.id.radio_png:
                 options.setCompressionFormat(Bitmap.CompressFormat.PNG);
@@ -339,22 +340,23 @@ public class CompleteRegisterActivity extends BaseActivity {
     }
 
     private void completeRegister() {
-        File file = new File(picPath);
-         MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM);
+        String sdCardPath = SDCardUtils.getSDCardPath();
+        File file = new File(sdCardPath+"test.txt");
         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        builder.addFormDataPart("uploadFile", file.getName(), imageBody);
-        builder.addFormDataPart("phone", phone)
-                .addFormDataPart("password", password);
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("phone", phone)
+                .addFormDataPart("password", password)
+                .addFormDataPart("uploadFile", file.getName(), imageBody);
         List<MultipartBody.Part> parts = builder.build().parts();
-
-       /*RequestBody requestFile=RequestBody.create(MediaType.parse("multipart/form-data"),file);
-        MultipartBody.Part filePart=MultipartBody.Part.createFormData("uploadFile",file.getName(),requestFile);
-        RequestBody phoneBody=RequestBody.create(MediaType.parse("multipart/form-data"),phone);
-        RequestBody passwordBody=RequestBody.create(MediaType.parse("multipart/form-data"),password);
-        HashMap<String,RequestBody> map=new HashMap<>();
-        map.put("phone",phoneBody);
-        map.put("password",passwordBody);*/
+       /* RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Part body = MultipartBody.Part.createFormData("uploadFile", file.getName(), requestFile);
+        RequestBody phoneBody =
+                RequestBody.create(
+                        MediaType.parse("multipart/form-data"), phone);
+        RequestBody pswBody =
+                RequestBody.create(
+                        MediaType.parse("multipart/form-data"), password);*/
         IdeaApi.getApiService()
                 .register(parts)
                 .subscribeOn(Schedulers.io())

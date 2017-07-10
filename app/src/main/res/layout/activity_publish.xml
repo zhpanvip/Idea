@@ -16,6 +16,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/ll_add_pic"
             android:layout_width="match_parent"
             android:layout_height="@dimen/mp_180"
             android:background="@drawable/bg_everyday"
@@ -30,11 +31,10 @@
                 android:src="@drawable/add_pic"/>
 
             <TextView
-                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/mp_10"
-                android:text="请添加一个图片"
+                android:text="@string/add_a_picture"
                 android:textColor="@color/gray_99"
                 android:textSize="@dimen/f_16"/>
 
@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/mp_10"
-                android:text="720*1080"
+                android:text="@string/height_width"
                 android:textColor="@color/gray_99"
                 android:textSize="@dimen/f_16"/>
         </LinearLayout>
@@ -55,10 +55,11 @@
             <include layout="@layout/base_line"/>
 
             <EditText
+                android:id="@+id/et_opus_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
-                android:hint="请输入作品名称"
+                android:hint="@string/opus_name"
                 android:background="@null"
                 android:textColorHint="@color/item_text_color"
                 android:textColor="@color/item_text_color"
@@ -68,6 +69,7 @@
         <include layout="@layout/base_line"/>
 
         <RelativeLayout
+            android:id="@+id/rl_label"
             android:layout_width="match_parent"
             android:layout_height="@dimen/mp_45">
 
@@ -76,7 +78,30 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:textColor="@color/item_text_color"
-                android:text="作品标签"
+                android:text="@string/opus_label"
+                android:textSize="@dimen/f_18"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/array_right"/>
+        </RelativeLayout>
+
+        <include layout="@layout/base_line"/>
+
+        <RelativeLayout
+            android:id="@+id/rl_brief"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_45">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/opus_brief"
+                android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_18"/>
 
             <ImageView
@@ -97,33 +122,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="作品简介"
-                android:textColor="@color/item_text_color"
-                android:textSize="@dimen/f_18"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/array_right"/>
-        </RelativeLayout>
-
-        <include layout="@layout/base_line"/>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/mp_45">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:text="是否允许被重写"
+                android:text="@string/is_can_override"
                 android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_18"/>
             <ToggleButton
-                android:id="@+id/tb_night_mode"
+                android:id="@+id/tb_override"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -146,12 +149,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="是否允许被续写"
+                android:text="@string/is_can_renew"
                 android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_18"/>
 
             <ToggleButton
-                android:id="@+id/tb__mode"
+                android:id="@+id/tb_continue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -167,7 +170,7 @@
         <include layout="@layout/base_line"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_complete"
             android:layout_width="match_parent"
             android:layout_height="@dimen/mp_45"
             android:layout_marginTop="@dimen/mp_15"
@@ -181,6 +184,6 @@
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/mp_10"
             android:textColor="@color/item_text_color"
-            android:text="注：支持原创 杜绝抄袭，杜绝非法转载"/>
+            android:text="@string/write_must_know"/>
     </LinearLayout>
 </ScrollView>

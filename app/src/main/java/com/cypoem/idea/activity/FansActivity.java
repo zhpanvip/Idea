@@ -44,8 +44,12 @@ public class FansActivity extends BaseActivity {
     }
 
     private void setListener() {
-        lvFans.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id)->
-                AuthorInfoActivity.start(FansActivity.this));
+        lvFans.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id)->{
+            FansAdapter adapter = (FansAdapter) parent.getAdapter();
+            List<FansBean> list = adapter.getList();
+            AuthorInfoActivity.start(FansActivity.this,list.get(position).getUid());
+
+        });
     }
 
     private void initData() {

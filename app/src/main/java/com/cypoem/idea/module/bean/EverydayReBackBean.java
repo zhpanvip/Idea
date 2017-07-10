@@ -6,7 +6,7 @@ import java.util.List;
  * Created by zhpan on 2017/7/2.
  */
 
-public class EveryDayReBackBean {
+public class EverydayReBackBean {
 
     /**
      * total : 1
@@ -45,7 +45,7 @@ public class EveryDayReBackBean {
 
         private int uid;
         private String content;
-        private Object photo;
+        private String photo;
         private String publish_time;
         private String pen_name;
         private UserBean user;
@@ -67,11 +67,11 @@ public class EveryDayReBackBean {
             this.content = content;
         }
 
-        public Object getPhoto() {
+        public String getPhoto() {
             return photo;
         }
 
-        public void setPhoto(Object photo) {
+        public void setPhoto(String photo) {
             this.photo = photo;
         }
 
