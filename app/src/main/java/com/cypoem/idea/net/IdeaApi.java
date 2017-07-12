@@ -46,7 +46,7 @@ public class IdeaApi {
                 LogUtils.e("OKHttp-----", message);
             }
         });
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         File cacheFile = new File(Utils.getContext().getCacheDir(), "cache");
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
 

@@ -3,15 +3,8 @@ package com.cypoem.idea.module;
 public class BasicResponse<T> {
 
     private int code;
-    private String message;
-    private String errMsg;
-    private boolean error;
+    private String msg;
     private T result;
-
-
-    public void setErrMsg(String errMsg) {
-        this.errMsg = errMsg;
-    }
 
     public T getResult() {
         return result;
@@ -21,16 +14,12 @@ public class BasicResponse<T> {
         this.result = result;
     }
 
-    public boolean isError() {
-        return error;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setError(boolean error) {
-        this.error = error;
-    }
-
-    public String getErrMsg() {
-        return errMsg;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
     public int getCode() {
@@ -39,13 +28,5 @@ public class BasicResponse<T> {
 
     public void setCode(int code) {
         this.code = code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 }

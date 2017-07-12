@@ -12,10 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.airong.core.utils.LogUtils;
 import com.airong.core.utils.RegexUtils;
 import com.cypoem.idea.R;
 import com.google.gson.Gson;
 import com.mob.MobSDK;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.lang.ref.WeakReference;
 
@@ -207,6 +211,25 @@ public class RegisterActivity extends BaseActivity {
                     break;
             }
         }
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void registerSuccess(CompleteRegisterActivity.RegisterSuccess registerSuccess){
+        LogUtils.e(registerSuccess.msg);
+        finish();
     }
 
     static class MobResultBean {

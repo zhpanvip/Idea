@@ -9,8 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.airong.core.utils.LogUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.bean.UserBean;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -65,5 +69,23 @@ public class SetPasswordActivity extends BaseActivity {
         }
 
         CompleteRegisterActivity.start(this,phone,password);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void registerSuccess(CompleteRegisterActivity.RegisterSuccess registerSuccess){
+        LogUtils.e(registerSuccess.msg);
+        finish();
     }
 }

@@ -1,27 +1,20 @@
 package com.cypoem.idea.net;
 
-import android.app.Activity;
 import android.text.TextUtils;
 import android.widget.Toast;
-
 import com.airong.core.BaseImpl;
-import com.airong.core.utils.LogUtils;
 import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
 import com.google.gson.JsonParseException;
 import com.jakewharton.retrofit2.adapter.rxjava2.HttpException;
-
 import org.json.JSONException;
-
 import java.io.InterruptedIOException;
 import java.net.ConnectException;
 import java.net.UnknownHostException;
 import java.text.ParseException;
-
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.BAD_NETWORK;
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.CONNECT_ERROR;
 import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.CONNECT_TIMEOUT;
@@ -63,11 +56,6 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     @Override
     public void onNext(T response) {
         mBaseImpl.dismissProgress();
-        /*if (!response.isError()) {
-            onSuccess(response);
-        } else {
-            onFail(response);
-        }*/
         if (response.getCode() == 0) {
             onSuccess(response);
         } else {
@@ -116,14 +104,13 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
      * @param response 服务器返回的数据
      */
     public void onFail(T response) {
-        String message = response.getMessage();
+        String message = response.getMsg();
         if (TextUtils.isEmpty(message)) {
             ToastUtils.show(R.string.response_return_error);
         } else {
             ToastUtils.show(message);
         }
     }
-
     /**
      * 请求异常
      *
@@ -188,7 +175,5 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
          * 未知错误
          */
         UNKNOWN_ERROR,
-
-
     }
 }

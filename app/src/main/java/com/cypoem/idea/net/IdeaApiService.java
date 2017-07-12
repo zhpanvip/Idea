@@ -42,7 +42,7 @@ public interface IdeaApiService {
     int DEFAULT_TIMEOUT = 20000;
 
     String HOST = "http://hansanshao.cn:8080/";
-    String API_SERVER_URL = HOST + "/cys/";
+    String API_SERVER_URL = HOST + "cys/";
 
 
     @GET("福利/10/1")
@@ -53,6 +53,7 @@ public interface IdeaApiService {
      * @param partList 注册信息
      * @return
      */
+    @Headers("Accept-Encoding: gzip")
     @Multipart
     @PUT("user/register.do")
     Observable<BasicResponse<RegisterBean>> register(@Part List<MultipartBody.Part> partList);

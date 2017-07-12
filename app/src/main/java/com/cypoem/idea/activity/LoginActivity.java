@@ -97,8 +97,8 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
                // authorize(new SinaWeibo(this));
                 break;
             case R.id.tv_new_user:
-               // RegisterActivity.start(this);
-                CompleteRegisterActivity.start(this,"15515269670","123123");
+                RegisterActivity.start(this);
+               // CompleteRegisterActivity.start(this,"15515269670","123123");
                // SetPasswordActivity.start(this,"17602150874");
                 break;
             case R.id.tv_login_error:
@@ -209,7 +209,7 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
         UserInfoTools.setIsLogin(this,true);
         UserInfoTools.setUser(this,result);
         UserInfoTools.setUid(this,result.getUid());
-        showToast("登录成功");
+       // showToast("登录成功");
         finish();
     }
 

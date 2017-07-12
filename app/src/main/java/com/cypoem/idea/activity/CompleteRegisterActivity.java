@@ -32,6 +32,8 @@ import com.yalantis.ucrop.callback.BitmapLoadCallback;
 import com.yalantis.ucrop.model.ExifInfo;
 import com.yalantis.ucrop.util.BitmapLoadUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.File;
 import java.util.List;
 
@@ -341,32 +343,41 @@ public class CompleteRegisterActivity extends BaseActivity {
 
     private void completeRegister() {
         String sdCardPath = SDCardUtils.getSDCardPath();
-        File file = new File(sdCardPath+"test.txt");
-        RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        File file = new File(picPath);
+       /* RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("phone", phone)
                 .addFormDataPart("password", password)
-                .addFormDataPart("uploadFile", file.getName(), imageBody);
-        List<MultipartBody.Part> parts = builder.build().parts();
-       /* RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                .addFormDataPart("uploadFile", file.getName(),imageBody);
+        List<MultipartBody.Part> parts = builder.build().parts();*/
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("uploadFile", file.getName(), requestFile);
         RequestBody phoneBody =
                 RequestBody.create(
                         MediaType.parse("multipart/form-data"), phone);
         RequestBody pswBody =
                 RequestBody.create(
-                        MediaType.parse("multipart/form-data"), password);*/
+                        MediaType.parse("multipart/form-data"), password);
         IdeaApi.getApiService()
-                .register(parts)
+                .register(phoneBody, pswBody, body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<RegisterBean>>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse<RegisterBean> response) {
+                        EventBus.getDefault().post(new RegisterSuccess("register success"));
                         Toast.makeText(CompleteRegisterActivity.this, "请求数据成功", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 });
+    }
+
+    public class RegisterSuccess {
+        public String msg;
+
+        public RegisterSuccess(String msg) {
+            this.msg = msg;
+        }
     }
 }
