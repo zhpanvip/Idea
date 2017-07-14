@@ -128,7 +128,7 @@ public interface IdeaApiService {
      * @param partList
      * @return
      */
-    @POST("/write/add.do")
+    @POST("write/add.do")
     Observable<BasicResponse<String>> publishOpus(@Part List<MultipartBody.Part> partList);
 
     /**
