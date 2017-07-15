@@ -61,7 +61,6 @@
                 android:layout_centerVertical="true"
                 android:hint="@string/opus_name"
                 android:background="@null"
-                android:textColorHint="@color/item_text_color"
                 android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_18"/>
         </RelativeLayout>
@@ -82,15 +81,23 @@
                 android:textSize="@dimen/f_18"/>
 
             <ImageView
+                android:id="@+id/iv_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/array_right"/>
+
+            <LinearLayout
+                android:id="@+id/ll_label"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginEnd="@dimen/mp_15"
+                android:layout_toStartOf="@id/iv_arrow"/>
         </RelativeLayout>
-
         <include layout="@layout/base_line"/>
-
         <RelativeLayout
             android:id="@+id/rl_brief"
             android:layout_width="match_parent"
@@ -102,15 +109,30 @@
                 android:layout_centerVertical="true"
                 android:text="@string/opus_brief"
                 android:textColor="@color/item_text_color"
-                android:textSize="@dimen/f_18"/>
+                android:textSize="@dimen/f_18" />
+
 
             <ImageView
+                android:id="@+id/iv_arrow2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/array_right"/>
+                android:src="@drawable/array_right" />
+
+
+            <TextView
+                android:id="@+id/tv_describe"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/mp_15"
+                android:gravity="center"
+                android:maxEms="10"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_toStartOf="@id/iv_arrow2"/>
         </RelativeLayout>
+
 
         <include layout="@layout/base_line"/>
 

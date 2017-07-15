@@ -6,14 +6,12 @@ import android.support.v7.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.WindowManager;
-
 import com.airong.core.BaseApp;
 import com.airong.core.utils.Utils;
 import com.cypoem.idea.BuildConfig;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.mob.MobSDK;
 import com.squareup.leakcanary.LeakCanary;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashSet;

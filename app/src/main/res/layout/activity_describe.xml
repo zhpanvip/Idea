@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:id="@+id/et_describe"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_200"
+        android:background="@color/white"
+        android:gravity="top"
+        android:paddingStart="@dimen/mp_15"
+        android:paddingEnd="@dimen/mp_15"
+        android:hint="@string/opus_describe"
+        android:maxLength="300"
+        android:paddingTop="@dimen/mp_15" />
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/bg_btn_login"
+        android:gravity="center"
+        android:text="@string/label_ok"
+        android:layout_marginStart="@dimen/mp_15"
+        android:layout_marginEnd="@dimen/mp_15"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f_18" />
+
+</LinearLayout>

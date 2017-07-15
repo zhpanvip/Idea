@@ -58,7 +58,7 @@ public class HomePageFragment extends BaseFragment {
     @Override
     protected void init(Bundle savedInstanceState) {
         initData();
-        initPtr(false);
+        initPtr(true);
         getData(true, page);
         if (!(type == FindFragment.HOTEST || type == FindFragment.NEWEST))
             circleViewPager.setmPtrFrame(mPtrFrame);
@@ -132,7 +132,7 @@ public class HomePageFragment extends BaseFragment {
                 .getHomePageData(page, ROWS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<List<HomePageBean>>>(this, showLoading) {
+                .subscribe(new DefaultObserver<BasicResponse<List<HomePageBean>>>(this, false) {
 
                     @Override
                     public void onSuccess(BasicResponse<List<HomePageBean>> response) {

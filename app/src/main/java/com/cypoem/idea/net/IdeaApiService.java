@@ -8,14 +8,11 @@ import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.module.post_bean.EverydaySayPost;
-import com.cypoem.idea.module.post_bean.PostOpus;
-import com.cypoem.idea.module.post_bean.UpdateUserInfo;
 import com.cypoem.idea.module.wrapper.ArticleWrapper;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
-import com.cypoem.idea.module.wrapper.MeiziWrapper;
+
 import java.util.List;
 import java.util.Map;
-
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -26,9 +23,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 /**
@@ -42,20 +37,17 @@ public interface IdeaApiService {
     int DEFAULT_TIMEOUT = 20000;
 
     String HOST = "http://hansanshao.cn:8080/";
+    //  String HOST ="http://cypoem.com:8080/";
     String API_SERVER_URL = HOST + "cys/";
 
-
-    @GET("福利/10/1")
-    Observable<MeiziWrapper> getMeizi();
 
     /**
      * 注册接口
      * @param partList 注册信息
      * @return
      */
-    @Headers("Accept-Encoding: gzip")
     @Multipart
-    @PUT("user/register.do")
+    @POST("user/register.do")
     Observable<BasicResponse<RegisterBean>> register(@Part List<MultipartBody.Part> partList);
 
     @Multipart
@@ -67,8 +59,9 @@ public interface IdeaApiService {
      * @param userInfo 用户信息
      * @return
      */
+    @Multipart
     @POST("user/update.do")
-    Observable<BasicResponse> updateUserInfo(@Body UpdateUserInfo userInfo);
+    Observable<BasicResponse> updateUserInfo(@Part List<MultipartBody.Part> userInfo);
 
     /**
      * 登陆
@@ -128,8 +121,9 @@ public interface IdeaApiService {
      * @param partList
      * @return
      */
-    @POST("/write/add.do")
-    Observable<BasicResponse<String>> publishOpus(@Part List<MultipartBody.Part> partList);
+    @Multipart
+    @POST("write/add.do")
+    Observable<BasicResponse> publishOpus(@Part List<MultipartBody.Part> partList);
 
     /**
      * 查询当前书的所有章节
@@ -192,4 +186,14 @@ public interface IdeaApiService {
      */
     @GET("section/view.do")
     Observable<ArticleWrapper> getArticle(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("write_id") String writeId, @Query("sectionid") String sectionId);
+
+    /**
+     * 获取作品章节内容
+     * @param page  显示第几页
+     * @param rows  每页显示几条数据
+     * @return
+     */
+    @GET("write/viewByName.do")
+    Observable<BasicResponse<List<OpusBean>>> getSearchData(@Query("write_name") String content, @Query("page") int page, @Query("rows") int rows);
+
 }

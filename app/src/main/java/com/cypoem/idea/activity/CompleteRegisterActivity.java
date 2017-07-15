@@ -342,25 +342,24 @@ public class CompleteRegisterActivity extends BaseActivity {
     }
 
     private void completeRegister() {
-        String sdCardPath = SDCardUtils.getSDCardPath();
         File file = new File(picPath);
-       /* RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("phone", phone)
                 .addFormDataPart("password", password)
                 .addFormDataPart("uploadFile", file.getName(),imageBody);
-        List<MultipartBody.Part> parts = builder.build().parts();*/
-        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        List<MultipartBody.Part> parts = builder.build().parts();
+        /*RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("uploadFile", file.getName(), requestFile);
         RequestBody phoneBody =
                 RequestBody.create(
                         MediaType.parse("multipart/form-data"), phone);
         RequestBody pswBody =
                 RequestBody.create(
-                        MediaType.parse("multipart/form-data"), password);
+                        MediaType.parse("multipart/form-data"), password);*/
         IdeaApi.getApiService()
-                .register(phoneBody, pswBody, body)
+                .register(parts)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<RegisterBean>>(this, true) {

@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import com.cypoem.idea.R;
+import com.cypoem.idea.activity.SearchActivity;
 import com.cypoem.idea.adapter.CommonFragmentAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,8 @@ public class FindFragment extends BaseFragment {
     TextView mTitle;
     @BindView(R.id.vp_find)
     ViewPager mViewPager;
+    @BindView(R.id.iv_right)
+    ImageView mIvRight;
 
     public final static int NEWEST = 1;
     public final static int HOTEST = 2;
@@ -48,6 +52,8 @@ public class FindFragment extends BaseFragment {
     private void initData() {
         mTitle.setVisibility(View.GONE);
         mRgSelector.setVisibility(View.VISIBLE);
+        mIvRight.setVisibility(View.VISIBLE);
+        mIvRight.setBackgroundResource(R.drawable.ic_search);
         setViewPager();
         setListener();
     }
@@ -86,7 +92,7 @@ public class FindFragment extends BaseFragment {
         mViewPager.setCurrentItem(0);
     }
 
-    @OnClick({R.id.rb_left,R.id.rb_right})
+    @OnClick({R.id.rb_left,R.id.rb_right,R.id.iv_right})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.rb_left:
@@ -94,6 +100,9 @@ public class FindFragment extends BaseFragment {
                 break;
             case R.id.rb_right:
                 mViewPager.setCurrentItem(1);
+                break;
+            case R.id.iv_right:
+                SearchActivity.start(getContext());
                 break;
         }
     }

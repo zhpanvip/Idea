@@ -90,7 +90,7 @@ public abstract class BaseFragment extends BaseRxFragment {
         });
         mPtrFrame.setKeepHeaderWhenRefresh(true);
         if (isAutoRefresh)
-            mPtrFrame.postDelayed((() -> mPtrFrame.autoRefresh()), 1000);
+            mPtrFrame.postDelayed((() -> mPtrFrame.autoRefresh()), 200);
     }
 
     /**

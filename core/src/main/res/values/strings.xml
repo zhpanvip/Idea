@@ -2,4 +2,12 @@
     <string name="app_name">Core</string>
     <string name="add_instruction1">1，发布一个新的作品是指你将创建一个关于已有名著的某章节的重写，然后让别人参与。或者自己创作一个作品，让别人重写。</string>
     <string name="add_instruction2">2，参与已有作品的创作是指现在平台已有的作品。每位用户可以参与重写或者续写。</string>
+
+    <string name="connect_error">网络连接失败,请检查网络</string>
+    <string name="connect_timeout">连接超时,请稍后再试</string>
+    <string name="bad_network">服务器异常</string>
+    <string name="parse_error">解析服务器响应数据失败</string>
+    <string name="unknown_error">未知错误</string>
+    <string name="response_return_error">服务器返回数据失败</string>
+    <string name="illegal_argument">参数异常</string>
 </resources>

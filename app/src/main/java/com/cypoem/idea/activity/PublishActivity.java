@@ -14,7 +14,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -22,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -30,6 +33,7 @@ import com.airong.core.utils.LogUtils;
 import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
@@ -56,6 +60,8 @@ import static com.cypoem.idea.constants.Constants.TAG;
 
 public class PublishActivity extends BaseActivity {
 
+    public static final int SELECT_LABEL = 256;
+    public static final int ADD_DESCRIBE = 257;
     @BindView(R.id.iv_add_pic)
     ImageView ivAddPic;
     @BindView(R.id.et_opus_name)
@@ -74,11 +80,18 @@ public class PublishActivity extends BaseActivity {
     ScrollView activityPublish;
     @BindView(R.id.ll_add_pic)
     LinearLayout llAddPic;
+    @BindView(R.id.tv_describe)
+    TextView mTvDescribe;
+    @BindView(R.id.ll_label)
+    LinearLayout mLlLabel;
     private String picPath;
-    private int mMaxBitmapSize=0;
+    private int mMaxBitmapSize = 0;
     private String opusName;
-    private boolean isCanOverride;
-    private boolean isCanRenew;
+    private String isCanOverride = "0";
+    private String isCanRenew = "0";
+    private String[] positions;
+    private String label="";
+    private String describe="";
 
     @Override
     protected int getLayoutId() {
@@ -88,21 +101,30 @@ public class PublishActivity extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
         setListener();
+        positions = new String[0];
     }
 
     private void setListener() {
-        tbContinue.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked)->
-                isCanRenew=isChecked);
-        tbOverride.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked)->
-                isCanOverride=isChecked);
+        tbContinue.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
+            if (isChecked) {
+                isCanRenew = "0";
+            } else {
+                isCanRenew = "1";
+            }
+        });
+        tbOverride.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
+                if(isChecked){
+                    isCanOverride="0";
+                }else {
+                    isCanOverride="1";
+                }
+        });
     }
 
     public static void start(Context context) {
         Intent intent = new Intent(context, PublishActivity.class);
         context.startActivity(intent);
     }
-
-
 
 
     @OnClick({R.id.iv_add_pic, R.id.rl_label, R.id.rl_brief, R.id.btn_complete})
@@ -112,8 +134,10 @@ public class PublishActivity extends BaseActivity {
                 pickFromGallery();
                 break;
             case R.id.rl_label:
+                selectLabel();
                 break;
             case R.id.rl_brief:
+                addDescribe();
                 break;
             case R.id.btn_complete:
                 submit();
@@ -121,9 +145,27 @@ public class PublishActivity extends BaseActivity {
         }
     }
 
+    // 添加作品描述
+    private void addDescribe() {
+        Intent intent = new Intent(this, DescribeActivity.class);
+        describe=mTvDescribe.getText().toString();
+        intent.putExtra("describe", describe);
+        startActivityForResult(intent, ADD_DESCRIBE);
+    }
+
+    private void selectLabel() {
+        Intent intent = new Intent(this, AddLabelActivity.class);
+        intent.putExtra("positions", positions);
+        startActivityForResult(intent, SELECT_LABEL);
+    }
+
     private void submit() {
+        if (TextUtils.isEmpty(picPath)) {
+            showToast("请添加图片");
+            return;
+        }
         opusName = etOpusName.getText().toString().trim();
-        if(TextUtils.isEmpty(opusName)){
+        if (TextUtils.isEmpty(opusName)) {
             showToast("请输入作品名称");
             return;
         }
@@ -131,17 +173,20 @@ public class PublishActivity extends BaseActivity {
         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("phone", "")
-                .addFormDataPart("password", "")
+                .addFormDataPart("introduction", describe)
+                .addFormDataPart("write_name", opusName)
+                .addFormDataPart("reStatus", isCanOverride)
+                .addFormDataPart("upStatus", isCanRenew)
+                .addFormDataPart("type", label)
                 .addFormDataPart("uploadFile", file.getName(), imageBody);
         List<MultipartBody.Part> parts = builder.build().parts();
         IdeaApi.getApiService()
-                .register(parts)
+                .publishOpus(parts)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<RegisterBean>>(this, true) {
+                .subscribe(new DefaultObserver<BasicResponse>(this, true) {
                     @Override
-                    public void onSuccess(BasicResponse<RegisterBean> response) {
+                    public void onSuccess(BasicResponse response) {
                         Toast.makeText(PublishActivity.this, "请求数据成功", Toast.LENGTH_SHORT).show();
                         finish();
                     }
@@ -167,21 +212,54 @@ public class PublishActivity extends BaseActivity {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == RESULT_OK) {
-            if (requestCode == REQUEST_SELECT_PICTURE) {
-                final Uri selectedUri = data.getData();
-                if (selectedUri != null) {
-                    showToast(selectedUri.getPath());
-                    startCropActivity(data.getData());
-                } else {
-                    showToast(R.string.toast_cannot_retrieve_selected_image);
-                }
-            } else if (requestCode == UCrop.REQUEST_CROP) {
-                handleCropResult(data);
-            }
+        switch (resultCode) {
+            case RESULT_OK:
+                clipSuccess(requestCode, data);
+                break;
+            case UCrop.RESULT_ERROR:
+                handleCropError(data);
+                break;
+            case SELECT_LABEL:
+                label = data.getStringExtra("label");
+                String[] labels = label.split("-");
+                positions = data.getStringExtra("positions").split("-");
+                setLabel(labels);
+                break;
+            case ADD_DESCRIBE:
+                setDescribe(data);
+                break;
         }
-        if (resultCode == UCrop.RESULT_ERROR) {
-            handleCropError(data);
+    }
+
+    private void clipSuccess(int requestCode, Intent data) {
+        if (requestCode == REQUEST_SELECT_PICTURE) {
+            final Uri selectedUri = data.getData();
+            if (selectedUri != null) {
+                showToast(selectedUri.getPath());
+                startCropActivity(data.getData());
+            } else {
+                showToast(R.string.toast_cannot_retrieve_selected_image);
+            }
+        } else if (requestCode == UCrop.REQUEST_CROP) {
+            handleCropResult(data);
+        }
+    }
+
+    private void setDescribe(Intent data) {
+        describe = data.getStringExtra("describe");
+        mTvDescribe.setText(describe);
+    }
+
+    private void setLabel(String[] labels) {
+        mLlLabel.removeAllViews();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(0, 0, 10, 0);
+        for (int i = 0; i < labels.length; i++) {
+            View view = LayoutInflater.from(this).inflate(R.layout.item_label_normal, mLlLabel, false);
+            view.setLayoutParams(params);
+            TextView tvLabel = (TextView) view.findViewById(R.id.tv_label);
+            tvLabel.setText(labels[i]);
+            mLlLabel.addView(view);
         }
     }
 
@@ -189,9 +267,9 @@ public class PublishActivity extends BaseActivity {
         final Throwable cropError = UCrop.getError(result);
         if (cropError != null) {
             Log.e(TAG, "handleCropError: ", cropError);
-            showToast( cropError.getMessage());
+            showToast(cropError.getMessage());
         } else {
-            showToast( R.string.toast_unexpected_error);
+            showToast(R.string.toast_unexpected_error);
         }
     }
 

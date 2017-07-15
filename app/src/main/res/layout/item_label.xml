@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_label"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="7dp"
+    android:background="@drawable/selector_label"
+    android:paddingBottom="@dimen/mp_6"
+    android:paddingEnd="@dimen/mp_20"
+    android:paddingStart="@dimen/mp_20"
+    android:paddingTop="@dimen/mp_6"
+    android:layout_marginTop="@dimen/mp_10"
+    android:text="青春"
+    android:textColor="@drawable/selector_label_text"
+    android:textSize="@dimen/f_15" />

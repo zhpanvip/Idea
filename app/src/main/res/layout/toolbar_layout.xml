@@ -53,6 +53,15 @@
             android:textColor="@drawable/selector_text_color_white_red"
             android:textSize="15sp"/>
     </RadioGroup>
+
+    <ImageView
+        android:id="@+id/iv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="15dp"
+        android:layout_gravity="end"
+        android:visibility="gone"/>
+
     <TextView
         android:id="@+id/toolbar_title"
         style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"

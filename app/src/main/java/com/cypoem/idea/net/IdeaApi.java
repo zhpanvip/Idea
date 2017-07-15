@@ -1,7 +1,5 @@
 package com.cypoem.idea.net;
 
-import android.util.Log;
-
 import com.airong.core.utils.LogUtils;
 import com.airong.core.utils.NetworkUtils;
 import com.airong.core.utils.Utils;
@@ -9,13 +7,11 @@ import com.cypoem.idea.utils.UserInfoTools;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.concurrent.TimeUnit;
-
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
@@ -58,9 +54,8 @@ public class IdeaApi {
                 .cache(cache)
                 .addInterceptor((chain) -> {     //  统一配置配置请求头
                     Request request = chain.request().newBuilder()
-                            .addHeader("userId",UserInfoTools.getUserId(Utils.getContext()))
+                            .addHeader("user_id",UserInfoTools.getUserId(Utils.getContext()))
                             .addHeader("psw_just_test", "4567")
-
                             .build();
                     return chain.proceed(request);
                 })

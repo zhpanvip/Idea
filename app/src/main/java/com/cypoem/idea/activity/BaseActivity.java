@@ -19,12 +19,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.airong.core.BaseRxActivity;
 import com.airong.core.dialog.CustomDialog;
 import com.airong.core.view.PtrClassicListFooter;
 import com.airong.core.view.PtrClassicListHeader;
 import com.cypoem.idea.R;
 import com.cypoem.idea.app.SystemBarTintManager;
+
 import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -61,10 +63,10 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     protected abstract void init(Bundle savedInstanceState);
 
-    public void setNightMode(){
-            int currentNightMode=getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-            getDelegate().setDefaultNightMode(currentNightMode==Configuration.UI_MODE_NIGHT_NO?AppCompatDelegate.MODE_NIGHT_YES:AppCompatDelegate.MODE_NIGHT_NO);
-            recreate();
+    public void setNightMode() {
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        getDelegate().setDefaultNightMode(currentNightMode == Configuration.UI_MODE_NIGHT_NO ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+        recreate();
     }
 
     @Override
@@ -74,7 +76,7 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     //  初始化刷新加载框架，子类中需要的时候调用
     protected void initPtr(boolean isAutoRefresh) {
-        mPtrFrame = (PtrClassicFrameLayout)findViewById(R.id.list_view_frame);
+        mPtrFrame = (PtrClassicFrameLayout) findViewById(R.id.list_view_frame);
         if (mPtrFrame == null) return;
 
         //mPtrFrame = (PtrFrameLayout) findViewById(R.id.store_house_ptr_frame);
@@ -194,8 +196,7 @@ public abstract class BaseActivity extends BaseRxActivity {
             setSupportActionBar(getToolbar());
         }
     }
-
-
+    
     /**
      * this Activity of tool bar.
      * 获取头部.
@@ -211,13 +212,18 @@ public abstract class BaseActivity extends BaseRxActivity {
      */
     private void showBack() {
         //setNavigationIcon必须在setSupportActionBar(toolbar);方法后面加入
-        getToolbar().setNavigationIcon(R.drawable.icon_back);
+        getToolbar().setNavigationIcon(R.drawable.ic_back);
         //  返回按钮点击事件
-        getToolbar().setNavigationOnClickListener((v)-> onBackPressed());
+        getToolbar().setNavigationOnClickListener((v) -> backPress());
+    }
+
+    protected void backPress() {
+        onBackPressed();
     }
 
     /**
      * 是否显示后退按钮,默认显示,可在子类重写该方法.
+     *
      * @return 是否显示toolbar返回键
      */
     protected boolean isShowBacking() {
@@ -327,6 +333,7 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     /**
      * create custom dialog
+     *
      * @param dialogLayoutRes    dialog布局资源文件
      * @param cancelTouchOutside 点击外部是否可以取消
      * @return 自定义的dialog对应的View
@@ -366,7 +373,7 @@ public abstract class BaseActivity extends BaseRxActivity {
      * 设置系统标题栏透明
      *
      * @param activity 要设置的Activity
-     * @param on    是否透明
+     * @param on       是否透明
      */
     protected void setTranslucentStatus(Activity activity, boolean on) {
         Window win = activity.getWindow();
@@ -382,7 +389,8 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     /**
      * 设置状态栏颜色
-     * @param color    颜色
+     *
+     * @param color 颜色
      */
     public void setStatusBarColor(String color) {
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -396,7 +404,7 @@ public abstract class BaseActivity extends BaseRxActivity {
         }
     }
 
-    public  void initSystemBar(Activity activity, int color) {
+    public void initSystemBar(Activity activity, int color) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(activity, true);
         }
