@@ -28,6 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/label"
             android:layout_marginTop="5dp"
+            android:textColor="@color/item_text_color"
             android:layout_toRightOf="@id/iv_collect"
             android:textSize="@dimen/f_16" />
 
@@ -37,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/label"
             android:layout_marginTop="@dimen/mp_7"
+            android:textColor="@color/item_text_color"
             android:layout_toEndOf="@id/tv_title"
             android:textSize="@dimen/f_13" />
         <TextView
@@ -45,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_title"
             android:layout_marginTop="@dimen/mp_5"
+            android:textColor="@color/item_text_color"
             android:layout_toEndOf="@id/iv_collect"
             android:textSize="@dimen/f_13" />
         <TextView
@@ -54,8 +57,8 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="10dp"
-            android:layout_marginLeft="10dp"
-            android:textColor="@color/gray_66" />
+            android:textColor="@color/item_text_color"
+            android:layout_marginLeft="10dp" />
     </RelativeLayout>
 
 </LinearLayout>

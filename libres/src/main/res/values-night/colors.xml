@@ -30,5 +30,7 @@
     <color name="tab_selected_text">#9DBADC</color>
     <color name="line_color">#476486</color>
     <color name="item_title">#476486</color>
-
+    <color name="text_hint">#4E5B69</color>
+    <color name="edit_background">#091D38</color>
+    <color name="label_stroke">#FFFFFF</color>
 </resources>

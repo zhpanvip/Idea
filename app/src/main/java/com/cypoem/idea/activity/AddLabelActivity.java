@@ -13,6 +13,7 @@ import com.cypoem.idea.R;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -26,10 +27,9 @@ public class AddLabelActivity extends BaseActivity {
     @BindView(R.id.btn_complete)
     Button btnComplete;
 
-    private List<String> mLabels;
-    private String[] labelArray;
+    private String[] mLabels;
+   // private String[] labelArray;
     Set<Integer> selectedList;
-
     private TagAdapter<String> mAdapter;
 
     @Override
@@ -41,8 +41,7 @@ public class AddLabelActivity extends BaseActivity {
     protected void init(Bundle savedInstanceState) {
         String[] positions = getIntent().getStringArrayExtra("positions");
         selectedList = new ArraySet<>();
-        labelArray = getApplicationContext().getResources().getStringArray(R.array.label);
-        mLabels = Arrays.asList(labelArray);
+        mLabels = getApplicationContext().getResources().getStringArray(R.array.label);
         mAdapter=new TagAdapter<String>(mLabels) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
@@ -86,7 +85,7 @@ public class AddLabelActivity extends BaseActivity {
     }
 
     private void selectComplete() {
-        if (selectedList.size() == 0) {
+        if (mFlowLayout.getSelectedList().size() == 0) {
             showToast("请选择标签");
         } else {
             setValues();
@@ -96,9 +95,9 @@ public class AddLabelActivity extends BaseActivity {
     private void setValues() {
         String labels = "";
         String positions="";
-
+        selectedList=mFlowLayout.getSelectedList();
         for (Integer i : selectedList) {
-            labels += mLabels.get(i) + "-";
+            labels += mLabels[i] + "-";
             positions+=i+"-";
         }
         Intent intent = new Intent();
@@ -111,6 +110,8 @@ public class AddLabelActivity extends BaseActivity {
     private void showDig() {
         showTwoButtonDialog("您还没有选择标签，\n确定要退出吗？", "确定", "取消", (View v) -> {
             dismissDialog();
+            Intent intent=new Intent();
+            setResult(PublishActivity.SELECT_LABEL,intent);
             finish();
         }, (View v) -> dismissDialog());
     }
@@ -124,7 +125,7 @@ public class AddLabelActivity extends BaseActivity {
     }
 
     private void goBack() {
-        if (selectedList.size() == 0) {
+        if ( mFlowLayout.getSelectedList().size() == 0) {
             showDig();
         } else {
             setValues();

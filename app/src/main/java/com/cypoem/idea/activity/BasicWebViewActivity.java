@@ -56,6 +56,7 @@ public class BasicWebViewActivity extends BaseActivity {
     private void initWebView() {
         mWebView = new WebView(Utils.getContext());
         mWebView.setWebViewClient(new Client());
+        mWebView.setBackgroundColor(getResources().getColor(R.color.background));
         WebSettings setting = mWebView.getSettings();
         setting.setJavaScriptEnabled(true);
         setting.setDisplayZoomControls(false);

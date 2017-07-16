@@ -5,11 +5,11 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginEnd="7dp"
-    android:background="@drawable/selector_label"
+    android:background="@drawable/bg_label_normal"
     android:paddingBottom="@dimen/mp_6"
     android:paddingEnd="@dimen/mp_20"
     android:paddingStart="@dimen/mp_20"
     android:paddingTop="@dimen/mp_6"
     android:layout_marginTop="@dimen/mp_10"
-    android:textColor="@drawable/selector_label_text"
+    android:textColor="@color/item_text_color"
     android:textSize="@dimen/f_15" />

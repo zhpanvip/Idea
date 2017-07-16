@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.cypoem.idea.activity.SearchActivity">
+    android:background="@color/background">
 
     <include layout="@layout/search_bar" />
 
@@ -31,8 +30,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
+            android:textColor="@color/item_text_color"
             android:gravity="center_horizontal"
-            android:text="正在加载" />
+            android:text="@string/loading" />
     </LinearLayout>
 
     <FrameLayout
@@ -58,29 +58,25 @@
                     android:layout_marginTop="@dimen/mp_10"
                     android:orientation="vertical"
                     android:paddingEnd="@dimen/mp_15"
-                    android:paddingStart="@dimen/mp_15"
-                    android:visibility="gone">
+                    android:paddingStart="@dimen/mp_15">
 
                     <TextView
                         android:id="@+id/tv_hot_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/mp_3"
-                        android:layout_marginLeft="@dimen/mp_15"
                         android:gravity="left"
                         android:text="@string/hot_search"
-                        android:textColor="@color/gray_66"
+                        android:textColor="@color/item_text_color"
                         android:textSize="@dimen/f_14" />
 
                     <include layout="@layout/base_line" />
 
-                    <com.cypoem.idea.view.GridViewForScrollView
-                        android:id="@+id/gv_hot_key"
+                    <com.zhy.view.flowlayout.TagFlowLayout
+                        android:id="@+id/fl_hot"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:horizontalSpacing="7.5dp"
-                        android:numColumns="3"
-                        android:padding="@dimen/mp_15"
                         android:scrollbars="none"
                         android:stretchMode="columnWidth"
                         android:verticalSpacing="7.5dp" />
@@ -98,6 +94,7 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:paddingBottom="@dimen/mp_3"
                         android:layout_marginTop="@dimen/mp_40">
 
                         <TextView
@@ -106,20 +103,22 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="@dimen/mp_15"
-                            android:text="清空历史"
-                            android:textColor="@color/gray_66"
-                            android:textSize="@dimen/f_12" />
+                            android:text="@string/clear_history"
+                            android:textColor="@color/item_text_color"
+                            android:textSize="@dimen/f_12"
+                            android:layout_alignParentTop="true" />
 
                         <TextView
                             android:id="@+id/textView3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_marginLeft="15dp"
+                            android:layout_marginLeft="@dimen/mp_15"
                             android:text="@string/history_search"
-                            android:textColor="@color/gray_66"
-                            android:textSize="@dimen/f_14" />
+                            android:textColor="@color/item_text_color"
+                            android:textSize="@dimen/f_14"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_marginStart="17dp" />
                     </RelativeLayout>
 
 
@@ -130,6 +129,7 @@
                         android:cacheColorHint="@null"
                         android:divider="@null"
                         android:scrollbars="none" />
+                    <include layout="@layout/base_line"/>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>
@@ -147,7 +147,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="暂无数据"
+                android:text="@string/no_data"
+                android:textColor="@color/item_text_color"
                 android:visibility="gone" />
 
             <ListView

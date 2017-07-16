@@ -124,4 +124,8 @@
         <p> 官方网站：www.cypoem.com</p>
     </string>
     <string name="opus_describe">请输入作品描述</string>
+    <string name="search_hint">搜索作品类型</string>
+    <string name="loading">正在加载</string>
+    <string name="no_data">暂无数据</string>
+    <string name="clear_history">清空历史</string>
 </resources>

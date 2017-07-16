@@ -90,8 +90,8 @@ public class PublishActivity extends BaseActivity {
     private String isCanOverride = "0";
     private String isCanRenew = "0";
     private String[] positions;
-    private String label="";
-    private String describe="";
+    private String label = "";
+    private String describe = "";
 
     @Override
     protected int getLayoutId() {
@@ -113,11 +113,11 @@ public class PublishActivity extends BaseActivity {
             }
         });
         tbOverride.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
-                if(isChecked){
-                    isCanOverride="0";
-                }else {
-                    isCanOverride="1";
-                }
+            if (isChecked) {
+                isCanOverride = "0";
+            } else {
+                isCanOverride = "1";
+            }
         });
     }
 
@@ -148,7 +148,7 @@ public class PublishActivity extends BaseActivity {
     // 添加作品描述
     private void addDescribe() {
         Intent intent = new Intent(this, DescribeActivity.class);
-        describe=mTvDescribe.getText().toString();
+        describe = mTvDescribe.getText().toString();
         intent.putExtra("describe", describe);
         startActivityForResult(intent, ADD_DESCRIBE);
     }
@@ -220,10 +220,7 @@ public class PublishActivity extends BaseActivity {
                 handleCropError(data);
                 break;
             case SELECT_LABEL:
-                label = data.getStringExtra("label");
-                String[] labels = label.split("-");
-                positions = data.getStringExtra("positions").split("-");
-                setLabel(labels);
+                setLabel(data);
                 break;
             case ADD_DESCRIBE:
                 setDescribe(data);
@@ -250,7 +247,14 @@ public class PublishActivity extends BaseActivity {
         mTvDescribe.setText(describe);
     }
 
-    private void setLabel(String[] labels) {
+    private void setLabel(Intent data) {
+        label = data.getStringExtra("label");
+        if(TextUtils.isEmpty(label)){
+            mLlLabel.removeAllViews();
+            return;
+        }
+        String[] labels = label.split("-");
+        positions = data.getStringExtra("positions").split("-");
         mLlLabel.removeAllViews();
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 10, 0);

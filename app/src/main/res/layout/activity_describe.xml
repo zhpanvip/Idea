@@ -2,14 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical">
-
     <EditText
         android:id="@+id/et_describe"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_200"
-        android:background="@color/white"
+        android:background="@color/edit_background"
         android:gravity="top"
+        android:textColor="@color/item_text_color"
+        android:textColorHint="@color/text_hint"
         android:paddingStart="@dimen/mp_15"
         android:paddingEnd="@dimen/mp_15"
         android:hint="@string/opus_describe"

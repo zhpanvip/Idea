@@ -56,6 +56,12 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     protected void init(Bundle savedInstanceState) {
         initData();
         setListener();
+        initPtr(true);
+    }
+
+    @Override
+    protected void initPtr(boolean isAutoRefresh) {
+        super.initPtr(isAutoRefresh);
     }
 
     private void initData() {
@@ -66,7 +72,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
         mAdapter.setList(mList);
         mListView.setAdapter(mAdapter);
 
-        getData(true,page);
+        getData(false,page);
     }
 
     private void getData(boolean showLoading, int page) {
@@ -83,10 +89,17 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
                 });
     }
 
+
     @Override
     protected void onPtrLoadMoreBegin(PtrFrameLayout frame) {
         super.onPtrLoadMoreBegin(frame);
         getData(false,++page);
+    }
+
+    @Override
+    public void dismissProgress() {
+        super.dismissProgress();
+        mPtrFrame.refreshComplete();
     }
 
     @Override

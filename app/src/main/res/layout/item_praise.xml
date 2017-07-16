@@ -31,18 +31,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:textColor="@color/item_text_color"
                 android:text="Ta欣赏了你的《大话西游》作品" />
 
             <TextView
                 android:id="@+id/tv_notify_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/item_text_color"
                 android:text="+字里行间，能看到你对爱情深刻的领悟，这是我十分欣赏的" />
 
             <TextView
                 android:id="@+id/tv_notify_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/item_text_color"
                 android:text="2015-05-12 12;14" />
 
         </LinearLayout>

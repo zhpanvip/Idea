@@ -61,6 +61,7 @@
                 android:layout_centerVertical="true"
                 android:hint="@string/opus_name"
                 android:background="@null"
+                android:textColorHint="@color/text_hint"
                 android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_18"/>
         </RelativeLayout>
@@ -128,6 +129,7 @@
                 android:layout_marginEnd="@dimen/mp_15"
                 android:gravity="center"
                 android:maxEms="10"
+                android:textColor="@color/item_text_color"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:layout_toStartOf="@id/iv_arrow2"/>

@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
 import com.airong.core.utils.AppUtils;
 import com.airong.core.utils.CleanUtils;
 import com.airong.core.utils.FileUtils;
@@ -254,14 +253,34 @@ public class MeFragment extends BaseFragment {
                 SuggestActivity.start(getContext(),"我");
                 break;
             case R.id.rl_about_us:
-                BasicWebViewActivity.start(getContext(),"关于我们","file:///android_asset/www/about_us.html");
+                goAboutUs();
                 break;
             case R.id.rl_protocol:
-                BasicWebViewActivity.start(getContext(),"协议相关","file:///android_asset/www/protocol.html");
+                goProtocol();
                 break;
         }
     }
-
+    //  协议相关
+    private void goProtocol() {
+        String url;
+        if(UserInfoTools.isNightMode(getContext())){
+            url="file:///android_asset/www/protocol_night.html";
+        }else {
+            url="file:///android_asset/www/protocol.html";
+        }
+        BasicWebViewActivity.start(getContext(),"协议相关",url);
+    }
+    //  关于我们
+    private void goAboutUs() {
+        String url;
+        if(UserInfoTools.isNightMode(getContext())){
+            url="file:///android_asset/www/about_us_night.html";
+        }else {
+            url="file:///android_asset/www/about_us.html";
+        }
+        BasicWebViewActivity.start(getContext(),"关于我们",url);
+    }
+    //  清除缓存
     private void clearCache() {
         showTwoButtonDialog("确定要清除所有缓存吗？", "确定", "取消", (View v) -> {
             if (CleanUtils.cleanInternalCache()) {

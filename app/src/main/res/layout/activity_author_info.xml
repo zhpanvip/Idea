@@ -29,7 +29,7 @@
                 app:tabIndicatorColor="@color/text_theme"
                 app:tabIndicatorHeight="3.0dp"
                 app:tabSelectedTextColor="@color/text_theme"
-                app:tabTextColor="@color/gray_66">
+                app:tabTextColor="@color/item_text_color">
 
                 <android.support.design.widget.TabItem
                     android:layout_width="match_parent"

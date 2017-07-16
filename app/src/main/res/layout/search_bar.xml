@@ -30,9 +30,6 @@
                 android:layout_weight="1"
                 android:src="@drawable/sou" />
 
-
-
-
             <com.cypoem.idea.view.MaxByteLengthEditText
                 android:id="@+id/et_search_text"
                 android:layout_width="0dp"
@@ -40,13 +37,13 @@
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="12"
-                android:textColorHint="@color/text_light"
+                android:textColorHint="@color/text_hint"
                 android:background="@null"
-                android:hint="搜索作品类型"
+                android:hint="@string/search_hint"
                 android:imeOptions="actionSearch"
-                android:paddingLeft="@dimen/mp_5"
+                android:paddingStart="@dimen/mp_5"
                 android:singleLine="true"
-                android:textColor="@color/text_light"
+                android:textColor="@color/text_theme"
                 android:textSize="@dimen/f_14" />
 
             <ImageView

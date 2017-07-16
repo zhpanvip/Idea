@@ -7,6 +7,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.AdapterSearchHistory;
 import com.cypoem.idea.adapter.CollectAdapter;
@@ -31,8 +33,13 @@ import com.cypoem.idea.utils.SearchHistoryDao;
 import com.cypoem.idea.view.GridViewForScrollView;
 import com.cypoem.idea.view.InScrollListView;
 import com.cypoem.idea.view.MaxByteLengthEditText;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
+import com.zhy.view.flowlayout.TagFlowLayout;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -50,8 +57,6 @@ public class SearchActivity extends BaseActivity {
     TextView tvCancel;
     @BindView(R.id.tv_hot_search)
     TextView tvHotSearch;
-    @BindView(R.id.gv_hot_key)
-    GridViewForScrollView mGridView;
     @BindView(R.id.ll_hot_search)
     LinearLayout llHotSearch;
     @BindView(R.id.tv_clear_history)
@@ -73,6 +78,10 @@ public class SearchActivity extends BaseActivity {
     private CollectAdapter mAdapter;
     @BindView(R.id.tv_no_data)
     TextView mTvNoData;
+    @BindView(R.id.fl_hot)
+    TagFlowLayout mFlowLayout;
+
+    private TagAdapter<String> mTagAdapter;
 
     private String editContent;
     //搜索历史适配器
@@ -81,6 +90,7 @@ public class SearchActivity extends BaseActivity {
     private List<SearchHistoryBean> mListHistory;
     private int page = 1;
     private Animation mAnimation;
+    private String[] labelArray;
 
     @Override
     protected int getLayoutId() {
@@ -95,6 +105,21 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void initData() {
+        labelArray = getApplicationContext().getResources().getStringArray(R.array.label);
+        mTagAdapter=new TagAdapter<String>(labelArray) {
+            @Override
+            public View getView(FlowLayout parent, int position, String s) {
+                View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.item_label2, mFlowLayout, false);
+                TextView tv = (TextView) view.findViewById(R.id.tv_label);
+                tv.setText(s);
+                return tv;
+            }
+        };
+
+        mFlowLayout.setAdapter(mTagAdapter);
+
+
+
         adapterHistory = new AdapterSearchHistory(this);
         mListHistory = new ArrayList<>();
         getSearchHistory();
@@ -160,7 +185,7 @@ public class SearchActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                editContent=s.toString();
+                editContent = s.toString();
                 if (TextUtils.isEmpty(editContent)) {
                     llSearch.setVisibility(View.GONE);
                     ivClear.setVisibility(View.GONE);
@@ -173,7 +198,19 @@ public class SearchActivity extends BaseActivity {
         mLvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                StartReadActivity.start(SearchActivity.this,mAdapter.getList().get(position).getUid());
+                StartReadActivity.start(SearchActivity.this, mAdapter.getList().get(position).getUid());
+            }
+        });
+
+
+        mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                etSearchText.setText(labelArray[position]);
+                etSearchText.setSelection(labelArray[position].length());
+                mAdapter.getList().clear();
+                getData(page);
+                return false;
             }
         });
     }
@@ -240,21 +277,7 @@ public class SearchActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this, false) {
                     @Override
                     public void onSuccess(BasicResponse<List<OpusBean>> response) {
-                        llSearch.setVisibility(View.VISIBLE);
-                        dismissLoading();
-                        List<OpusBean> result = response.getResult();
-                        if (result != null) {
-                            if (result.size() == 0) {
-                                mTvNoData.setVisibility(View.VISIBLE);
-                            }else {
-                                mTvNoData.setVisibility(View.GONE);
-                            }
-                            mAdapter.getList().addAll(response.getResult());
-                            mAdapter.notifyDataSetChanged();
-                        } else {
-                            mTvNoData.setVisibility(View.VISIBLE);
-                        }
-
+                        getDataSuccess(response);
                     }
 
                     @Override
@@ -269,6 +292,23 @@ public class SearchActivity extends BaseActivity {
                         dismissDialog();
                     }
                 });
+    }
+
+    private void getDataSuccess(BasicResponse<List<OpusBean>> response) {
+        llSearch.setVisibility(View.VISIBLE);
+        dismissLoading();
+        List<OpusBean> result = response.getResult();
+        if (result != null) {
+            if (result.size() == 0) {
+                mTvNoData.setVisibility(View.VISIBLE);
+            } else {
+                mTvNoData.setVisibility(View.GONE);
+            }
+            mAdapter.getList().addAll(response.getResult());
+            mAdapter.notifyDataSetChanged();
+        } else {
+            mTvNoData.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
