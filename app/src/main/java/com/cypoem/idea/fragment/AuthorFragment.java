@@ -56,7 +56,8 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     protected void init(Bundle savedInstanceState) {
         initData();
         setListener();
-        initPtr(true);
+        initPtr(false);
+        mPtrFrame.setMode(PtrFrameLayout.Mode.LOAD_MORE);
     }
 
     @Override
@@ -71,7 +72,6 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
         mAdapter = new CollectAdapter(getContext(), R.layout.item_collect);
         mAdapter.setList(mList);
         mListView.setAdapter(mAdapter);
-
         getData(false,page);
     }
 

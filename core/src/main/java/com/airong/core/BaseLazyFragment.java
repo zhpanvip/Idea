@@ -41,5 +41,5 @@ public abstract class BaseLazyFragment extends BaseRxFragment {
     /**
      * 延迟加载 子类必须重写此方法
      */
-    protected abstract void lazyLoad();
+    protected  void lazyLoad(){}
 }

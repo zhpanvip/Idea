@@ -1,24 +1,28 @@
 package com.cypoem.idea.fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.SearchActivity;
 import com.cypoem.idea.adapter.CommonFragmentAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
  * Created by zhpan on 2017/4/21.
- *
  */
 
 public class FindFragment extends BaseFragment {
@@ -35,7 +39,7 @@ public class FindFragment extends BaseFragment {
     ViewPager mViewPager;
     @BindView(R.id.iv_right)
     ImageView mIvRight;
-
+    private List<HomePageFragment> mList;
     public final static int NEWEST = 1;
     public final static int HOTEST = 2;
 
@@ -47,6 +51,9 @@ public class FindFragment extends BaseFragment {
     @Override
     protected void init(Bundle savedInstanceState) {
         initData();
+        if(savedInstanceState!=null){
+            mViewPager.setCurrentItem(0);
+        }
     }
 
     private void initData() {
@@ -58,6 +65,13 @@ public class FindFragment extends BaseFragment {
         setListener();
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+        }
+    }
+
     private void setListener() {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -66,9 +80,9 @@ public class FindFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                if(position==0){
+                if (position == 0) {
                     mRbLeft.setChecked(true);
-                }else if(position==1){
+                } else if (position == 1) {
                     mRbRight.setChecked(true);
                 }
             }
@@ -80,7 +94,7 @@ public class FindFragment extends BaseFragment {
     }
 
     private void setViewPager() {
-        List<HomePageFragment> mList = new ArrayList<>();
+         mList = new ArrayList<>();
         HomePageFragment newFragment = HomePageFragment.getInstance(NEWEST);
         HomePageFragment hotFragment = HomePageFragment.getInstance(HOTEST);
         mList.add(newFragment);
@@ -92,9 +106,9 @@ public class FindFragment extends BaseFragment {
         mViewPager.setCurrentItem(0);
     }
 
-    @OnClick({R.id.rb_left,R.id.rb_right,R.id.iv_right})
-    public void onClick(View view){
-        switch (view.getId()){
+    @OnClick({R.id.rb_left, R.id.rb_right, R.id.iv_right})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.rb_left:
                 mViewPager.setCurrentItem(0);
                 break;

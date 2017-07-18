@@ -59,7 +59,7 @@ public class HomePageFragment extends BaseFragment {
     protected void init(Bundle savedInstanceState) {
         initData();
         initPtr(true);
-        getData(true, page);
+       // getData(true, page);
         if (!(type == FindFragment.HOTEST || type == FindFragment.NEWEST))
             circleViewPager.setmPtrFrame(mPtrFrame);
     }
@@ -74,7 +74,6 @@ public class HomePageFragment extends BaseFragment {
         }
         toolbarSubtitle.setVisibility(View.GONE);
         toolbarTitle.setText("首页");
-
         setRecycler();
     }
 

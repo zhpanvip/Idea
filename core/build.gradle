@@ -65,5 +65,6 @@ dependencies {
     compile 'com.github.yalantis:ucrop:2.2.1'
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.zhy:flowlayout-lib:1.0.3'
+    compile 'com.contrarywind:Android-PickerView:3.2.5'
     compile project(':libres')
 }

@@ -21,9 +21,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SetPasswordActivity extends BaseActivity {
-
-    @BindView(R.id.imageView)
-    ImageView imageView;
     @BindView(R.id.et_password)
     EditText etPassword;
     @BindView(R.id.et_confirm_password)

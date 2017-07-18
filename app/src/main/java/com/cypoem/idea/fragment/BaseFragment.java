@@ -4,6 +4,7 @@ import android.support.annotation.ColorInt;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.airong.core.BaseLazyFragment;
 import com.airong.core.BaseRxFragment;
 import com.airong.core.utils.ToastUtils;
 import com.airong.core.dialog.CustomDialog;
@@ -21,7 +22,7 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
  * Created by zhpan on 2017/4/22.
  */
 
-public abstract class BaseFragment extends BaseRxFragment {
+public abstract class BaseFragment extends BaseLazyFragment {
 
     PtrClassicFrameLayout mPtrFrame;
     //  对话框

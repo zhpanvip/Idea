@@ -115,7 +115,10 @@
         <activity android:name=".activity.EverydayLookBackActivity" />
         <activity android:name=".activity.SearchActivity" />
         <activity android:name=".activity.AddLabelActivity" />
-        <activity android:name=".activity.DescribeActivity"></activity>
+        <activity android:name=".activity.DescribeActivity" />
+        <activity android:name=".activity.SettingActivity" />
+        <activity android:name=".activity.EditInfoActivity" />
+        <activity android:name=".activity.EditActivity"></activity>
     </application>
 
 </manifest>

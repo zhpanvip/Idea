@@ -177,7 +177,7 @@ public class AuthorInfoActivity extends BaseActivity {
                 FansActivity.start(this);
                 break;
             case R.id.iv_edit:
-                setNightMode();
+                EditInfoActivity.start(this);
                 break;
         }
     }

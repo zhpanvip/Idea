@@ -34,6 +34,12 @@ public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
         return rootView;
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
     /**
      * 显示ProgressDialog
      */

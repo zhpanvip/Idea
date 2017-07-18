@@ -25,6 +25,7 @@
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
                 android:button="@null"
+                android:checked="true"
                 android:drawableTop="@drawable/tab1_selector"
                 android:gravity="center_horizontal|bottom"
                 android:paddingBottom="5dp"
@@ -85,11 +86,16 @@
         </RadioGroup>
     </LinearLayout>
 
+    <com.cypoem.idea.view.MViewPaper
+        android:id="@+id/vp_fragment"
+        android:layout_width="match_parent"
+        android:layout_above="@id/ll_tab"
+        android:layout_height="match_parent"/>
+
     <FrameLayout
         android:id="@+id/fl_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_above="@id/ll_tab"/>
+        android:orientation="vertical"/>
 
 </RelativeLayout>

@@ -26,6 +26,10 @@ import com.airong.core.view.PtrClassicListFooter;
 import com.airong.core.view.PtrClassicListHeader;
 import com.cypoem.idea.R;
 import com.cypoem.idea.app.SystemBarTintManager;
+import com.cypoem.idea.event.NightModeEvent;
+import com.cypoem.idea.utils.UserInfoTools;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -65,7 +69,9 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     public void setNightMode() {
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        UserInfoTools.setNightMode(this,currentNightMode == Configuration.UI_MODE_NIGHT_NO);
         getDelegate().setDefaultNightMode(currentNightMode == Configuration.UI_MODE_NIGHT_NO ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+        // EventBus.getDefault().post(new NightModeEvent(true));
         recreate();
     }
 

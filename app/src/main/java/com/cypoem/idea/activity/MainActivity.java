@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.View;
@@ -13,7 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.cypoem.idea.adapter.AdapterFragmentPager;
 import com.cypoem.idea.event.HideView;
+import com.cypoem.idea.event.LogoutEvent;
 import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.R;
 import com.cypoem.idea.fragment.AddFragment;
@@ -22,6 +25,7 @@ import com.cypoem.idea.fragment.HomePageFragment;
 import com.cypoem.idea.fragment.MeFragment;
 import com.cypoem.idea.fragment.MessageFragment;
 import com.cypoem.idea.utils.UserInfoTools;
+import com.cypoem.idea.view.MViewPaper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -43,18 +47,13 @@ public class MainActivity extends BaseActivity {
     RadioGroup rgTab;
     @BindView(R.id.ll_tab)
     LinearLayout llTab;
-
-    private HomePageFragment mHomePageFragment;
-    private FindFragment mFindFragment;
-    private AddFragment mAddFragment;
-    private MessageFragment mMessageFragment;
-    private MeFragment mMeFragment;
-    private FragmentManager mFragmentManger;
-    private FragmentTransaction fragmentTransaction;
+    @BindView(R.id.vp_fragment)
+    MViewPaper mViewPager;
     //  退出时间间隔
     private long exitTime = 0;
     //  上一次RadioGroup选中的Id
     private int preCheckedId;
+    private AdapterFragmentPager mAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -68,69 +67,67 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void init(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         initData();
         setListener();
-        EventBus.getDefault().register(this);
-        if (savedInstanceState == null) {
-            mRbHome.performClick();
-        }
     }
+
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
-
     @Subscribe
     public void setNightMode(NightModeEvent event) {
-        if (event.isNight) {
-            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else {
-            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
         recreate();
     }
 
+    @Subscribe
+    public void logout(LogoutEvent event){
+        mRbHome.setChecked(true);
+    }
+
     private void initData() {
-        mFragmentManger = getSupportFragmentManager();
         getToolbar().setVisibility(View.GONE);
+        mAdapter = new AdapterFragmentPager(getSupportFragmentManager());
+        mViewPager.setAdapter(mAdapter);
+    }
+
+    private boolean isLogin() {
+        return UserInfoTools.getIsLogin(this);
     }
 
     private void setListener() {
         rgTab.setOnCheckedChangeListener((RadioGroup group, @IdRes int checkedId) -> {
-
-            fragmentTransaction = mFragmentManger.beginTransaction();
             switch (checkedId) {
                 case R.id.rb_home:
-                    fragmentTransaction.replace(R.id.fl_fragment, HomePageFragment.getInstance(0));
+                    mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_HOME, false);
                     break;
                 case R.id.rb_find:
-                    fragmentTransaction.replace(R.id.fl_fragment, new FindFragment());
+                    mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_FIND, false);
                     break;
                 case R.id.rb_add:
-                    fragmentTransaction.replace(R.id.fl_fragment, new AddFragment());
+                    mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_PUBLISH, false);
                     break;
                 case R.id.rb_message:
-                    if (messageClicked(fragmentTransaction)) {
+                    if (messageClicked()) {
                         return;
                     }
                     break;
                 case R.id.rb_me:
-                    if (meClicked(fragmentTransaction)) {
+                    if (meClicked()) {
                         return;
                     }
                     break;
             }
-            fragmentTransaction.commit();
             preCheckedId = checkedId;
         });
     }
 
-    private boolean meClicked(FragmentTransaction fragmentTransaction) {
-        if (UserInfoTools.getIsLogin(this)) {
-            fragmentTransaction.replace(R.id.fl_fragment, new MeFragment());
-            goToMe(fragmentTransaction);
+    private boolean meClicked() {
+        if (isLogin()) {
+            mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_ME, false);
             return false;
         } else {
             goToLogin();
@@ -139,76 +136,20 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    private boolean messageClicked(FragmentTransaction fragmentTransaction) {
-        if (UserInfoTools.getIsLogin(this)) {
-            fragmentTransaction.replace(R.id.fl_fragment, new MessageFragment());
+    private boolean messageClicked() {
+        if (isLogin()) {
+            mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_MESSAGE, false);
             return false;
         } else {
             goToLogin();
             rgTab.check(preCheckedId);
             return true;
-        }
-    }
-
-    private void addClicked(FragmentTransaction fragmentTransaction) {
-        hideAllFragment(fragmentTransaction);
-        if (mAddFragment == null) {
-            mAddFragment = new AddFragment();
-            fragmentTransaction.add(R.id.fl_fragment, mAddFragment);
-        } else {
-            fragmentTransaction.show(mAddFragment);
-        }
-    }
-
-    private void findClicked(FragmentTransaction fragmentTransaction) {
-        hideAllFragment(fragmentTransaction);
-        if (mFindFragment == null) {
-            mFindFragment = new FindFragment();
-            fragmentTransaction.add(R.id.fl_fragment, mFindFragment);
-        } else {
-            fragmentTransaction.show(mFindFragment);
-        }
-    }
-
-    private void homeClicked(FragmentTransaction fragmentTransaction) {
-        hideAllFragment(fragmentTransaction);
-        if (mHomePageFragment == null) {
-            mHomePageFragment = HomePageFragment.getInstance(0);
-            fragmentTransaction.add(R.id.fl_fragment, mHomePageFragment);
-        } else {
-            fragmentTransaction.show(mHomePageFragment);
-        }
-    }
-
-    private void goToMessage(FragmentTransaction fragmentTransaction) {
-
-        hideAllFragment(fragmentTransaction);
-        if (mMessageFragment == null) {
-            mMessageFragment = new MessageFragment();
-            fragmentTransaction.add(R.id.fl_fragment, mMessageFragment);
-        } else {
-            fragmentTransaction.show(mMessageFragment);
-        }
-    }
-
-    private void goToMe(FragmentTransaction fragmentTransaction) {
-
-        //hideAllFragment(fragmentTransaction);
-        if (mMeFragment == null) {
-            Bundle bundle = new Bundle();
-            mMeFragment = MeFragment.getFragment(bundle);
-            fragmentTransaction.add(R.id.fl_fragment, mMeFragment);
-        } else {
-            fragmentTransaction.show(mMeFragment);
-            //  发送隐藏MeFragment中footer的消息
-            EventBus.getDefault().post(new HideView(true));
         }
     }
 
     private void goToLogin() {
         LoginActivity.start(this);
     }
-
 
     @Override
     protected boolean isShowBacking() {
@@ -217,14 +158,6 @@ public class MainActivity extends BaseActivity {
 
     public static void start(Context context) {
         context.startActivity(new Intent(context, MainActivity.class));
-    }
-
-    private void hideAllFragment(FragmentTransaction fragmentTransaction) {
-        if (mHomePageFragment != null) fragmentTransaction.hide(mHomePageFragment);
-        if (mFindFragment != null) fragmentTransaction.hide(mFindFragment);
-        if (mAddFragment != null) fragmentTransaction.hide(mAddFragment);
-        if (mMessageFragment != null) fragmentTransaction.hide(mMessageFragment);
-        if (mMeFragment != null) fragmentTransaction.hide(mMeFragment);
     }
 
     @Override

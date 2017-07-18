@@ -30,6 +30,15 @@ public class SexView extends View {
     private float mStrokeWidth; //  圆环宽度
     private Paint mPaint;
     private Context mContext;
+    private int centerColor;
+
+    public int getCenterColor() {
+        return centerColor;
+    }
+
+    public void setCenterColor(int centerColor) {
+        this.centerColor = centerColor;
+    }
 
     private double malePercent = 0.5;
 
@@ -49,6 +58,7 @@ public class SexView extends View {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SexView);
         maleColor = typedArray.getColor(R.styleable.SexView_maleColor, Color.parseColor("#1296DB"));
         femaleColor = typedArray.getColor(R.styleable.SexView_femaleColor, Color.parseColor("#D4237A"));
+        centerColor=getResources().getColor(R.color.item_color);
         typedArray.recycle();
         init(context);
     }

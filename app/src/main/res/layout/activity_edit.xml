@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:layout_height="match_parent">
+    <EditText
+        android:id="@+id/edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/input_phone"
+        android:background="@color/white"
+        android:paddingStart="@dimen/mp_15"
+        android:paddingEnd="@dimen/mp_15"
+        android:minHeight="@dimen/mp_50"
+        android:layout_marginTop="@dimen/mp_20"
+        android:textSize="@dimen/f_16" />
+
+    <!--<Button
+        android:id="@+id/btn_submit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/bg_btn_login"
+        android:gravity="center"
+        android:text="@string/submit"
+        android:layout_marginStart="@dimen/mp_15"
+        android:layout_marginEnd="@dimen/mp_15"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f_18" />-->
+
+</LinearLayout>

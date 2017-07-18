@@ -8,11 +8,13 @@
     android:paddingStart="@dimen/mp_15"
     android:paddingEnd="@dimen/mp_15"
     tools:context="com.cypoem.idea.activity.LoginActivity">
-    <ImageView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_150"
         android:scaleType="fitXY"
-        android:background="@drawable/background"/>
+        android:textSize="@dimen/mp_50"
+        android:gravity="center"
+        android:text="創意說"/>
 
     <EditText
         android:id="@+id/et_username"
