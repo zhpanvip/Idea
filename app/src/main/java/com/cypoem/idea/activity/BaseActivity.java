@@ -1,7 +1,6 @@
 package com.cypoem.idea.activity;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
@@ -26,17 +25,13 @@ import com.airong.core.view.PtrClassicListFooter;
 import com.airong.core.view.PtrClassicListHeader;
 import com.cypoem.idea.R;
 import com.cypoem.idea.app.SystemBarTintManager;
-import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.utils.UserInfoTools;
-
-import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import io.reactivex.Observable;
 
 public abstract class BaseActivity extends BaseRxActivity {
 
@@ -67,13 +62,7 @@ public abstract class BaseActivity extends BaseRxActivity {
 
     protected abstract void init(Bundle savedInstanceState);
 
-    public void setNightMode() {
-        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-        UserInfoTools.setNightMode(this,currentNightMode == Configuration.UI_MODE_NIGHT_NO);
-        getDelegate().setDefaultNightMode(currentNightMode == Configuration.UI_MODE_NIGHT_NO ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-        // EventBus.getDefault().post(new NightModeEvent(true));
-        recreate();
-    }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -220,10 +209,10 @@ public abstract class BaseActivity extends BaseRxActivity {
         //setNavigationIcon必须在setSupportActionBar(toolbar);方法后面加入
         getToolbar().setNavigationIcon(R.drawable.ic_back);
         //  返回按钮点击事件
-        getToolbar().setNavigationOnClickListener((v) -> backPress());
+        getToolbar().setNavigationOnClickListener((v) -> onBackPress());
     }
 
-    protected void backPress() {
+    protected void onBackPress() {
         onBackPressed();
     }
 

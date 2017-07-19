@@ -2,7 +2,10 @@ package com.cypoem.idea.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -13,7 +16,9 @@ import com.airong.core.utils.AppUtils;
 import com.airong.core.utils.CleanUtils;
 import com.airong.core.utils.FileUtils;
 import com.cypoem.idea.R;
+import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.event.LogoutEvent;
+import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.utils.SharedPreferencesHelper;
 import com.cypoem.idea.utils.UserInfoTools;
 
@@ -44,6 +49,8 @@ public class SettingActivity extends BaseActivity {
     @BindView(R.id.btn_exit)
     Button mBtnExit;
 
+    private boolean isChangeNightMode;
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_setting;
@@ -53,13 +60,19 @@ public class SettingActivity extends BaseActivity {
     protected void init(Bundle savedInstanceState) {
         setData();
         setListener();
+        if (savedInstanceState != null) {
+            isChangeNightMode = true;
+        }
     }
 
     private void setListener() {
-        mToggleButton.setOnClickListener((View v) -> setNightMode());
+        mToggleButton.setOnClickListener((View v) -> {
+            setNightMode();
+        });
     }
 
     private void setData() {
+        getToolbarTitle().setText("设置");
         mTvCache.setText(FileUtils.getDirSize(getCacheDir()));
         mTvVersion.setText("V " + AppUtils.getAppVersionName(this));
         mToggleButton.setChecked(UserInfoTools.isNightMode(this));
@@ -104,9 +117,9 @@ public class SettingActivity extends BaseActivity {
     private void goProtocol() {
         String url;
         if (UserInfoTools.isNightMode(this)) {
-            url = "file:///android_asset/www/protocol_night.html";
+            url = Constants.PROTOCOL_NIGHT;
         } else {
-            url = "file:///android_asset/www/protocol.html";
+            url = Constants.PROTOCOL;
         }
         BasicWebViewActivity.start(this, "协议相关", url);
     }
@@ -115,9 +128,9 @@ public class SettingActivity extends BaseActivity {
     private void goAboutUs() {
         String url;
         if (UserInfoTools.isNightMode(this)) {
-            url = "file:///android_asset/www/about_us_night.html";
+            url = Constants.ABOUT_US_NIGHT;
         } else {
-            url = "file:///android_asset/www/about_us.html";
+            url = Constants.ABOUT_US;
         }
         BasicWebViewActivity.start(this, "关于我们", url);
     }
@@ -133,5 +146,37 @@ public class SettingActivity extends BaseActivity {
             }
             dismissDialog();
         }, (View v) -> dismissDialog());
+    }
+
+    @Override
+    protected void onBackPress() {
+        goBack();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            goBack();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    private void goBack() {
+        if (isChangeNightMode) {  //  如果改变了夜间模式，则重启MainActivity
+            EventBus.getDefault().post(new NightModeEvent());
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra("nightMode", true);
+            startActivity(intent);
+            overridePendingTransition(R.anim.animo_no, R.anim.activity_close);
+        }
+        finish();
+    }
+
+    public void setNightMode() {
+        int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        UserInfoTools.setNightMode(this,currentNightMode == Configuration.UI_MODE_NIGHT_NO);
+        getDelegate().setDefaultNightMode(currentNightMode == Configuration.UI_MODE_NIGHT_NO ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+        recreate();
     }
 }

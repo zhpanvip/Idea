@@ -199,7 +199,7 @@
             android:layout_height="@dimen/mp_45"
             android:layout_marginTop="@dimen/mp_15"
             android:background="@drawable/bg_btn_login"
-            android:text="开始"
+            android:text="@string/start_write"
             android:textColor="@color/white"
             android:textSize="@dimen/f_18" />
 
@@ -207,6 +207,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/mp_10"
+            android:textSize="@dimen/f_12"
             android:textColor="@color/item_text_color"
             android:text="@string/write_must_know"/>
     </LinearLayout>

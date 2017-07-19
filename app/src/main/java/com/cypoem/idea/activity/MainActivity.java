@@ -70,6 +70,16 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().register(this);
         initData();
         setListener();
+        reStartActivity();
+    }
+
+    //  改变夜间模式后返回时重启Activity
+    private void reStartActivity() {
+        Intent intent = getIntent();
+        boolean nightMode = intent.getBooleanExtra("nightMode", false);
+        if(nightMode&&UserInfoTools.getIsLogin(this)){
+            mRbMe.performClick();
+        }
     }
 
 
@@ -80,7 +90,7 @@ public class MainActivity extends BaseActivity {
     }
     @Subscribe
     public void setNightMode(NightModeEvent event) {
-        recreate();
+        finish();
     }
 
     @Subscribe
@@ -89,9 +99,11 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initData() {
+
         getToolbar().setVisibility(View.GONE);
         mAdapter = new AdapterFragmentPager(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(4);
     }
 
     private boolean isLogin() {
@@ -123,6 +135,7 @@ public class MainActivity extends BaseActivity {
             }
             preCheckedId = checkedId;
         });
+
     }
 
     private boolean meClicked() {

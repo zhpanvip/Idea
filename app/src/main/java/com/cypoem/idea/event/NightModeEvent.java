@@ -5,9 +5,5 @@ package com.cypoem.idea.event;
  * Description: night mode event for EventBus
  */
 public class NightModeEvent {
-    public boolean isNight;
 
-    public NightModeEvent(boolean isNight) {
-        this.isNight = isNight;
-    }
 }

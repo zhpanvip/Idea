@@ -64,7 +64,7 @@ public class AddLabelActivity extends BaseActivity {
 
 
     @Override
-    protected void backPress() {
+    protected void onBackPress() {
         goBack();
     }
 

@@ -91,7 +91,7 @@
     <string name="password_not_same">两次密码输入不一致</string>
     <string name="illegal_argument">参数异常</string>
     <string name="send_vertify_code_success">验证码已发送至您的手机</string>
-    <string name="write_must_know">注：支持原创 杜绝抄袭，杜绝非法转载</string>
+    <string name="write_must_know">注：支持原创，杜绝抄袭、非法转载、色情文字图片、广告等</string>
     <string name="is_can_renew">是否允许被续写</string>
     <string name="is_can_override">是否允许被重写</string>
     <string name="opus_brief">作品简介</string>
@@ -128,4 +128,10 @@
     <string name="loading">正在加载</string>
     <string name="no_data">暂无数据</string>
     <string name="clear_history">清空历史</string>
+    <string name="chapter_title">请输入章节标题</string>
+    <string name="is_can_be_rewrite">是否允许被重写</string>
+    <string name="rewrite_explain">关闭意味着此文章会在本章结束</string>
+    <string name="start_write">开始创作</string>
+    <string name="article_content">这里是文章内容...</string>
+    <string name="write_complete">完成创作</string>
 </resources>

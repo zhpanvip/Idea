@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+
+
+    <Button
+        android:id="@+id/btn_complete"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_50"
+        android:layout_alignParentBottom="true"
+        android:background="@color/text_theme"
+        android:text="@string/write_complete"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f_18" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/btn_complete"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/et_title"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/mp_15"
+            android:background="@null"
+            android:backgroundTint="@color/item_color"
+            android:gravity="center"
+            android:hint="@string/chapter_title"
+            android:textColor="@color/item_text_color"
+            android:textColorHint="@color/text_hint" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/line_color" />
+
+        <RelativeLayout
+            android:id="@+id/rl_can_rewrite"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_60"
+            android:paddingStart="@dimen/mp_15">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_rewrite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/is_can_be_rewrite"
+                    android:textColor="@color/item_text_color_dark"
+                    android:textSize="@dimen/f_18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/mp_5"
+                    android:text="@string/rewrite_explain"
+                    android:textColor="@color/item_text_color"
+                    android:textSize="@dimen/f_14" />
+            </LinearLayout>
+
+
+            <ToggleButton
+                android:id="@+id/tb_rewrite"
+                style="@style/ToggleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="-30dp"
+                android:background="#00000000"
+                android:checked="true"
+                android:textOff=""
+                android:textOn="" />
+        </RelativeLayout>
+
+        <include layout="@layout/base_line" />
+
+        <EditText
+            android:id="@+id/et_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/edit_background"
+            android:gravity="top"
+            android:hint="@string/article_content"
+            android:padding="@dimen/mp_15"
+            android:textColor="@color/item_text_color"
+            android:textColorHint="@color/text_hint"
+            android:textSize="@dimen/f_16" />
+    </LinearLayout>
+</RelativeLayout>

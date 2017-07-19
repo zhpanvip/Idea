@@ -62,7 +62,7 @@ public class DescribeActivity extends BaseActivity {
     }
 
     @Override
-    protected void backPress() {
+    protected void onBackPress() {
         goBack();
     }
 

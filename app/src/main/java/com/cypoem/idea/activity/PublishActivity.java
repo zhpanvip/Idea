@@ -140,7 +140,8 @@ public class PublishActivity extends BaseActivity {
                 addDescribe();
                 break;
             case R.id.btn_complete:
-                submit();
+                //submit();
+                WriteActivity.start(this);
                 break;
         }
     }
