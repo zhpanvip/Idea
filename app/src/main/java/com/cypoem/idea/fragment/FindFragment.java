@@ -95,8 +95,8 @@ public class FindFragment extends BaseFragment {
 
     private void setViewPager() {
          mList = new ArrayList<>();
-        HomePageFragment newFragment = HomePageFragment.getInstance(NEWEST);
-        HomePageFragment hotFragment = HomePageFragment.getInstance(HOTEST);
+        HomePageFragment newFragment = HomePageFragment.getFragment(NEWEST);
+        HomePageFragment hotFragment = HomePageFragment.getFragment(HOTEST);
         mList.add(newFragment);
         mList.add(hotFragment);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

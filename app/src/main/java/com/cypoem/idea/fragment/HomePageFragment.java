@@ -14,6 +14,7 @@ import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.CircleViewPager;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class HomePageFragment extends BaseFragment {
     private CircleViewPager circleViewPager;
     private int type;
 
-    public static HomePageFragment getInstance(int type) {
+    public static HomePageFragment getFragment(int type) {
         HomePageFragment fragment = new HomePageFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
@@ -84,7 +85,6 @@ public class HomePageFragment extends BaseFragment {
         mAdapter.fillList(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((position) -> StartReadActivity.start(getContext(),mAdapter.getList().get(position).getUid()));
-
         initViewPager();
     }
 
@@ -102,20 +102,19 @@ public class HomePageFragment extends BaseFragment {
         mUrlList.add("http://img2.niutuku.com/desk/1208/1922/ntk-1922-39448.jpg");
         circleViewPager.setUrlList(mUrlList);
         mAdapter.addHeaderView(headerView);
-        circleViewPager.setOnPageClickListener((position) -> showToast("forward Url+" + position));
+        circleViewPager.setOnPageClickListener((position) -> showToast("forward Url+" + position+ UserInfoTools.getUser(getContext()).getPen_name()));
         circleViewPager.setInterval(5000);
     }
 
 
     @Override
     public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(true, ++page)), 100);
+        frame.postDelayed((() -> getData(false, ++page)), 100);
     }
 
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
         page = 1;
-        mAdapter.getList().clear();
         frame.postDelayed((() -> getData(true, page)), 100);
     }
 
@@ -125,16 +124,18 @@ public class HomePageFragment extends BaseFragment {
         mPtrFrame.refreshComplete();
     }
 
-    private void getData(boolean showLoading, int page) {
+    private void getData(boolean isRefresh, int page) {
         //  Retrofit请求数据
         IdeaApi.getApiService()
                 .getHomePageData(page, ROWS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<HomePageBean>>>(this, false) {
-
                     @Override
                     public void onSuccess(BasicResponse<List<HomePageBean>> response) {
+                        if(isRefresh){
+                            mAdapter.getList().clear();
+                        }
                         updateList(response.getResult());
                     }
                 });

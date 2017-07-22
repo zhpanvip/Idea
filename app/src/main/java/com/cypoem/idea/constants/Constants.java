@@ -10,8 +10,17 @@ public interface Constants {
     int REQUEST_SELECT_PICTURE = 0x01;
     String TAG = "CropImage";
     String SAMPLE_CROPPED_IMAGE_NAME = "CropImage";
-    String ABOUT_US="file:///android_asset/www/about_us.html";
-    String ABOUT_US_NIGHT="file:///android_asset/www/about_us_night.html";
-    String PROTOCOL="file:///android_asset/www/protocol.html";
-    String PROTOCOL_NIGHT="file:///android_asset/www/protocol_night.html";
+    String ABOUT_US = "file:///android_asset/www/about_us.html";
+    String ABOUT_US_NIGHT = "file:///android_asset/www/about_us_night.html";
+    String PROTOCOL = "file:///android_asset/www/protocol.html";
+    String PROTOCOL_NIGHT = "file:///android_asset/www/protocol_night.html";
+
+
+    int MY_START_OPUS = 1;  //  我发起的
+    int MY_OWN_OPUS = 2;    //  我原创的
+    int MY_JOIN_OPUS = 3;   //  我参与的
+    int MY_DRAFT=4;     //  我的草稿
+
+    int FOLLOWS=0;
+    int FOCUS=1;
 }

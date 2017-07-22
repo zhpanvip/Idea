@@ -134,4 +134,6 @@
     <string name="start_write">开始创作</string>
     <string name="article_content">这里是文章内容...</string>
     <string name="write_complete">完成创作</string>
+    <string name="select_head_pic">您还没有选择头像哦</string>
+    <string name="input_pen_name">给自己起个笔名吧</string>
 </resources>

@@ -64,10 +64,6 @@ public class SharedPreferencesHelper {
             SharedPreferences.Editor editor = share.edit();
             editor.putString(className, json);
             editor.apply();
-            gsonb = null;
-            gson = null;
-            editor = null;
-            share = null;
         }
 
     }
@@ -85,13 +81,11 @@ public class SharedPreferencesHelper {
     public static <T> String getObjectJson(Context context, Class<T> classOfT) {
         String json = "";
         if(context != null && classOfT != null) {
-            String packaggeName = context.getPackageName();
-            SharedPreferences share = context.getSharedPreferences(packaggeName, 0);
+            String packageName = context.getPackageName();
+            SharedPreferences share = context.getSharedPreferences(packageName, 0);
             String name = classOfT.getSimpleName();
             json = share.getString(name, "");
-            share = null;
         }
-
         return json;
     }
 
@@ -148,6 +142,13 @@ public class SharedPreferencesHelper {
         SharedPreferences.Editor editor = sp.edit();
         editor.clear();
         SharedPreferencesCompat.apply(editor);
+
+        String packageName = context.getPackageName();
+        SharedPreferences sp1 = context.getSharedPreferences(packageName,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = sp1.edit();
+        edit.clear();
+        SharedPreferencesCompat.apply(edit);
     }
 
     /**

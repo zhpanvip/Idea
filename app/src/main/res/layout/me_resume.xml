@@ -3,8 +3,7 @@
     android:id="@+id/ll_main"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="@color/theme_style"
-    android:orientation="vertical">
+    android:background="@color/theme_style">
 
     <ImageView
         android:id="@+id/head_img"
@@ -18,8 +17,8 @@
         android:id="@+id/ll_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginStart="@dimen/mp_10"
+        android:layout_marginTop="@dimen/mp_35"
         android:layout_toEndOf="@id/head_img"
         android:orientation="horizontal">
 
@@ -46,8 +45,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_name"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="@dimen/mp_10"
         android:layout_marginTop="10dp"
         android:layout_toEndOf="@id/head_img"
         android:orientation="horizontal">
@@ -66,7 +65,7 @@
             android:ellipsize="end"
             android:maxLength="70"
             android:maxLines="2"
-            android:text="一直被模仿 从未被超越"
+            android:text="一直被模仿，从未被超越"
             android:textColor="@color/text_light"
             android:textSize="14sp" />
 
@@ -83,7 +82,6 @@
             android:id="@+id/ll_focus"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-
             android:layout_weight="1"
             android:gravity="center"
             android:orientation="vertical">
@@ -193,7 +191,5 @@
                 android:text="@string/value"
                 android:textColor="@color/text_light" />
         </LinearLayout>
-
     </LinearLayout>
-
 </RelativeLayout>

@@ -83,7 +83,7 @@ public class StartReadActivity extends BaseActivity {
             startAnim();
         });
 
-        //getData(true, page);
+        getData(true, page);
     }
 
     public void onHorizontalItemSelected(int position) {
@@ -108,11 +108,11 @@ public class StartReadActivity extends BaseActivity {
                 .getArticle(UserInfoTools.getUserId(this), page, Constants.NUM, sectionId, "1")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<ArticleWrapper>(this, showLoading) {
+                .subscribe(new DefaultObserver<BasicResponse<List<ArticleBean>>>(this,true) {
                     @Override
-                    public void onSuccess(ArticleWrapper response) {
-                        List<ArticleBean.ResultBean> results = response.getResults();
-                        //mAdapter.getList().addAll(results);
+                    public void onSuccess(BasicResponse<List<ArticleBean>> response) {
+                        List<ArticleBean> results = response.getResult();
+                        mAdapter.getList().addAll(results);
                         mAdapter.notifyDataSetChanged();
                     }
                 });

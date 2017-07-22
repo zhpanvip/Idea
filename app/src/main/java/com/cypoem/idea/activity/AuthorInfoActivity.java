@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CommonFragmentAdapter;
+import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.fragment.AuthorFragment;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.UserBean;
@@ -19,6 +20,11 @@ import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.ScrollableLayout;
+import com.cypoem.idea.view.SexView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
@@ -32,6 +38,8 @@ public class AuthorInfoActivity extends BaseActivity {
     ImageView mIvAuthor;
     @BindView(R.id.tv_pen_name)
     TextView mTvPenName;
+    @BindView(R.id.sex_view)
+    SexView mSexView;
     @BindView(R.id.tv_sign)
     TextView mTvSign;
     @BindView(R.id.tv_birthday)
@@ -40,6 +48,8 @@ public class AuthorInfoActivity extends BaseActivity {
     TextView mTvAddress;
     @BindView(R.id.tv_focus)
     TextView mTvFocus;
+    @BindView(R.id.tv_follow)
+    TextView mTvFollow;
     @BindView(R.id.tv_collect)
     TextView mTvCollect;
     @BindView(R.id.tv_like)
@@ -78,6 +88,19 @@ public class AuthorInfoActivity extends BaseActivity {
         initData();
         setData();
         setListener();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void updateInfoSuccess(EditInfoActivity.UpdateInfoSuccess success){
+        UserBean user = UserInfoTools.getUser(this);
+        setUserData(user);
     }
 
     private void setData() {
@@ -85,6 +108,8 @@ public class AuthorInfoActivity extends BaseActivity {
         if(null!=user&&userId.equals(UserInfoTools.getUserId(this))){
             setUserData(user);
         }else {
+            mIvEdit.setVisibility(View.GONE);
+            mTvFollow.setVisibility(View.VISIBLE);
             getData(false);
         }
     }
@@ -92,6 +117,8 @@ public class AuthorInfoActivity extends BaseActivity {
     private void setUserData(UserBean user) {
         ImageLoaderUtil.loadImg(mIvAuthor,user.getIcon(),R.drawable.head_pic);
         mTvPenName.setText(user.getPen_name());
+        String sex = user.getSex();
+        mSexView.setMalePercent(Double.parseDouble(sex));
         mTvSign.setText(user.getIntroduction());
         mTvBirthday.setText(user.getBirthday());
         mTvAddress.setText(user.getAddress());
@@ -100,6 +127,7 @@ public class AuthorInfoActivity extends BaseActivity {
         mTvFocus.setText(user.getMyWatchCount()+"");
         mTvCollect.setText(user.getKeep_count()+"");
         mTvLike.setText(user.getEnjoy_count()+"");
+
     }
 
     private void setListener() {
@@ -140,11 +168,11 @@ public class AuthorInfoActivity extends BaseActivity {
         Intent intent = getIntent();
         userId=intent.getStringExtra("userId");
         mList = new ArrayList<>();
-        Bundle bundle = new Bundle();
-        bundle.putString("userId",userId);
-        AuthorFragment fragmentStart = AuthorFragment.getFragment(bundle);
-        AuthorFragment fragmentJoin = AuthorFragment.getFragment(bundle);
-        AuthorFragment fragmentCreate = AuthorFragment.getFragment(bundle);
+        /*Bundle bundle = new Bundle();
+        bundle.putString("userId",userId);*/
+        AuthorFragment fragmentStart = AuthorFragment.getFragment(Constants.MY_START_OPUS,userId);
+        AuthorFragment fragmentJoin = AuthorFragment.getFragment(Constants.MY_JOIN_OPUS,userId);
+        AuthorFragment fragmentCreate = AuthorFragment.getFragment(Constants.MY_OWN_OPUS,userId);
         mList.add(fragmentStart);
         mList.add(fragmentJoin);
         mList.add(fragmentCreate);
@@ -171,14 +199,23 @@ public class AuthorInfoActivity extends BaseActivity {
                 PraiseActivity.start(this);
                 break;
             case R.id.ll_fans:
-                FansActivity.start(this);
+                FansActivity.start(this, Constants.FOLLOWS);
                 break;
             case R.id.ll_focus:
-                FansActivity.start(this);
+                FansActivity.start(this,Constants.FOCUS);
                 break;
             case R.id.iv_edit:
                 EditInfoActivity.start(this);
                 break;
+            case R.id.tv_follow:
+                follow();
+                break;
         }
+    }
+
+
+
+    private void follow() {
+
     }
 }

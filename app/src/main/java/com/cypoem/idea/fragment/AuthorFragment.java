@@ -9,6 +9,7 @@ import com.cypoem.idea.R;
 import com.cypoem.idea.activity.CollectActivity;
 import com.cypoem.idea.activity.StartReadActivity;
 import com.cypoem.idea.adapter.CollectAdapter;
+import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.CollectBean;
 import com.cypoem.idea.module.bean.OpusBean;
@@ -37,12 +38,16 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     ListView mListView;
     private CollectAdapter mAdapter;
 
-    private int page=1;
+    private int page = 1;
     private String userId;
+    private int type;
 
 
-    public static AuthorFragment getFragment(Bundle bundle) {
+    public static AuthorFragment getFragment(int type, String userId) {
         AuthorFragment authorFragment = new AuthorFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", type);
+        bundle.putString("userId", userId);
         authorFragment.setArguments(bundle);
         return authorFragment;
     }
@@ -68,21 +73,28 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     private void initData() {
         Bundle arguments = getArguments();
         userId = arguments.getString("userId");
+        type = arguments.getInt("type", 1);
         List<OpusBean> mList = new ArrayList<>();
         mAdapter = new CollectAdapter(getContext(), R.layout.item_collect);
         mAdapter.setList(mList);
         mListView.setAdapter(mAdapter);
-        getData(false,page);
+        getData(page);
     }
 
-    private void getData(boolean showLoading, int page) {
+    private void getData(int page) {
         IdeaApi.getApiService()
-                .getMyJoinOpus(userId,page,ROWS)
+                .getMyOpus(userId, page, ROWS, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this,showLoading) {
+                .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this,false) {
                     @Override
                     public void onSuccess(BasicResponse<List<OpusBean>> response) {
+                        List<OpusBean> result = response.getResult();
+                        if (result.size() < Constants.NUM) {
+                            mPtrFrame.setMode(PtrFrameLayout.Mode.NONE);
+                        } else {
+                            mPtrFrame.setMode(PtrFrameLayout.Mode.LOAD_MORE);
+                        }
                         mAdapter.getList().addAll(response.getResult());
                         mAdapter.notifyDataSetChanged();
                     }
@@ -93,7 +105,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     @Override
     protected void onPtrLoadMoreBegin(PtrFrameLayout frame) {
         super.onPtrLoadMoreBegin(frame);
-        getData(false,++page);
+        getData(++page);
     }
 
     @Override
@@ -105,14 +117,14 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     @Override
     protected void onPtrRefreshBegin(PtrFrameLayout frame) {
         super.onPtrRefreshBegin(frame);
-        page=1;
+        page = 1;
         mAdapter.getList().clear();
-        getData(false,page);
+        getData(page);
     }
 
     private void setListener() {
         mListView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) ->
-                StartReadActivity.start(getContext(),mAdapter.getList().get(position).getUid())
+                StartReadActivity.start(getContext(), mAdapter.getList().get(position).getUid())
         );
     }
 

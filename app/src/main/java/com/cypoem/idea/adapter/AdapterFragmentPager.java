@@ -1,5 +1,6 @@
 package com.cypoem.idea.adapter;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -53,11 +54,11 @@ public class AdapterFragmentPager extends FragmentPagerAdapter {
 
     public AdapterFragmentPager(FragmentManager fm) {
         super(fm);
-        fragmentList.put(PAGE_HOME, HomePageFragment.getInstance(0));
+        fragmentList.put(PAGE_HOME, HomePageFragment.getFragment(0));
         fragmentList.put(PAGE_FIND, new FindFragment());
         fragmentList.put(PAGE_PUBLISH, new AddFragment());
         fragmentList.put(PAGE_MESSAGE, new MessageFragment());
-        fragmentList.put(PAGE_ME, new MeFragment());
+        fragmentList.put(PAGE_ME,MeFragment.getFragment(new Bundle()));
     }
 
     public AdapterFragmentPager(FragmentManager fm, List<Fragment> fragments) {

@@ -11,49 +11,49 @@
         android:id="@+id/sl_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
 
-            <include layout="@layout/layout_author_info" />
+        <include layout="@layout/layout_author_info" />
 
-            <!--app:tabMode="scrollable"-->
-            <android.support.design.widget.TabLayout
-                android:id="@+id/tl_author"
+        <!--app:tabMode="scrollable"-->
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tl_author"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_40"
+            android:layout_gravity="bottom"
+            android:background="#fff"
+            android:backgroundTint="@color/background"
+            android:fillViewport="false"
+            app:layout_scrollFlags="scroll"
+            app:tabIndicatorColor="@color/text_theme"
+            app:tabIndicatorHeight="3.0dp"
+            app:tabSelectedTextColor="@color/text_theme"
+            app:tabTextColor="@color/item_text_color">
+
+            <android.support.design.widget.TabItem
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/mp_40"
-                android:layout_gravity="bottom"
-                android:background="#fff"
-                android:backgroundTint="@color/background"
-                android:fillViewport="false"
-                app:layout_scrollFlags="scroll"
-                app:tabIndicatorColor="@color/text_theme"
-                app:tabIndicatorHeight="3.0dp"
-                app:tabSelectedTextColor="@color/text_theme"
-                app:tabTextColor="@color/item_text_color">
+                android:layout_height="match_parent"
+                android:text="我发起的" />
 
-                <android.support.design.widget.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="我发起的" />
-
-                <android.support.design.widget.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="我参与的" />
-
-                <android.support.design.widget.TabItem
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="我原创的" />
-
-            </android.support.design.widget.TabLayout>
-
-            <include layout="@layout/base_line" />
-
-            <android.support.v4.view.ViewPager
-                android:id="@+id/vp_author"
+            <android.support.design.widget.TabItem
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:text="我参与的" />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="我原创的" />
+
+        </android.support.design.widget.TabLayout>
+
+        <include layout="@layout/base_line" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
     </com.cypoem.idea.view.ScrollableLayout>

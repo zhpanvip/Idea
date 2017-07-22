@@ -30,7 +30,6 @@ public class IdeaApi {
     private IdeaApiService service;
 
     private IdeaApi() {
-        // HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         //   日志拦截器
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor((message) -> {
 

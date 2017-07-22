@@ -3,7 +3,6 @@
     android:id="@+id/ll_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/splash1"
     android:orientation="vertical">
 
 
@@ -18,8 +17,7 @@
         <ImageView
             android:id="@+id/iv_pic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/splash1" />
+            android:layout_height="match_parent" />
 
         <TextView
             android:id="@+id/btn_count_down"
@@ -59,7 +57,6 @@
             android:layout_below="@id/tv_content"
             android:layout_marginTop="@dimen/mp_5"
             android:gravity="right"
-            android:text="2017-05-20"
             android:textColor="@color/white" />
 
         <LinearLayout

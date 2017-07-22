@@ -19,7 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -30,10 +32,10 @@
                 android:textSize="@dimen/f_18" />
 
             <TextView
+                android:id="@+id/tv_user_id"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/mp_5"
-                android:text="用户ID：201706180096"
                 android:textColor="@color/item_text_color"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -46,16 +48,14 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/array_right" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/iv_head_pic"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/mp_15"
             android:layout_toStartOf="@+id/iv_arrow"
-            android:src="@drawable/head_pic"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="0dp" />
+            android:src="@drawable/head_pic" />
     </RelativeLayout>
 
     <include layout="@layout/base_line" />
@@ -202,7 +202,6 @@
             android:layout_marginEnd="@dimen/mp_10"
             android:layout_toStartOf="@id/iv_arrow4"
             android:gravity="center_vertical"
-            android:text="河南 开封"
             android:textColor="@color/item_text_color"
             android:textSize="@dimen/f_18" />
     </RelativeLayout>

@@ -36,7 +36,7 @@ public class UserBean {
     private String reg_date;
     private String user_status;
     private String password;
-    private Object cover_photo;
+    private String cover_photo;
     private String introduction;
     private String dictum;
     private int watchMeCount;
@@ -142,11 +142,11 @@ public class UserBean {
         this.password = password;
     }
 
-    public Object getCover_photo() {
+    public String getCover_photo() {
         return cover_photo;
     }
 
-    public void setCover_photo(Object cover_photo) {
+    public void setCover_photo(String cover_photo) {
         this.cover_photo = cover_photo;
     }
 

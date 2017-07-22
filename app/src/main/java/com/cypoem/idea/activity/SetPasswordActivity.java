@@ -7,17 +7,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-
 import com.airong.core.utils.LogUtils;
 import com.cypoem.idea.R;
-import com.cypoem.idea.module.bean.UserBean;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class SetPasswordActivity extends BaseActivity {
@@ -36,6 +30,7 @@ public class SetPasswordActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        EventBus.getDefault().register(this);
         getToolbar().setVisibility(View.GONE);
         Intent intent = getIntent();
         phone = intent.getStringExtra("phone");
@@ -69,15 +64,10 @@ public class SetPasswordActivity extends BaseActivity {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
+    public void onDestroy() {
+        super.onDestroy();
         EventBus.getDefault().unregister(this);
+
     }
 
     @Subscribe

@@ -8,6 +8,7 @@
     android:background="@color/background"
     android:orientation="vertical">
     <LinearLayout
+        android:id="@+id/ll_pic"
         android:layout_width="200dp"
         android:layout_height="300dp"
         android:layout_marginTop="20dp"
@@ -45,22 +46,24 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/mp_20"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="一句："
             android:textColor="@color/gray_66"
-            android:textSize="@dimen/f_25"
-            android:text="一句"/>
+            android:textSize="@dimen/f_25" />
+
         <com.cypoem.idea.view.MaxByteLengthEditText
             android:id="@+id/et_sentence1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:text="" />
     </LinearLayout>
-    <com.cypoem.idea.view.MaxByteLengthEditText
+    <!--<com.cypoem.idea.view.MaxByteLengthEditText
         android:id="@+id/et_sentence2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content" />-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

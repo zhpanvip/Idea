@@ -27,13 +27,13 @@ import java.util.List;
 
 public class EverydayAdapter extends RecyclerView.Adapter<EverydayAdapter.EverydayViewHolder> {
     private Context mContext;
-    private List<EverydayReBackBean.EverySayBean> mList;
+    private List<EverydayReBackBean> mList;
 
-    public List<EverydayReBackBean.EverySayBean> getList() {
+    public List<EverydayReBackBean> getList() {
         return mList;
     }
 
-    public void setList(List<EverydayReBackBean.EverySayBean> data) {
+    public void setList(List<EverydayReBackBean> data) {
         this.mList = data;
     }
 
@@ -49,7 +49,7 @@ public class EverydayAdapter extends RecyclerView.Adapter<EverydayAdapter.Everyd
 
     @Override
     public void onBindViewHolder(EverydayViewHolder holder, int position) {
-        EverydayReBackBean.EverySayBean everyday = mList.get(position);
+        EverydayReBackBean everyday = mList.get(position);
         holder.mTvTime.setText(everyday.getPublish_time().substring(0,10));
         holder.mTvContent.setText(everyday.getContent());
         if(!TextUtils.isEmpty(everyday.getPhoto()))

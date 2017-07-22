@@ -85,6 +85,7 @@ public class RegisterActivity extends BaseActivity {
 
     private void initData() {
         getToolbar().setVisibility(View.GONE);
+        EventBus.getDefault().register(this);
         initMob();
     }
 
@@ -129,6 +130,7 @@ public class RegisterActivity extends BaseActivity {
     public void onDestroy() {
         super.onDestroy();
         SMSSDK.unregisterEventHandler(eventHandler);
+        EventBus.getDefault().unregister(this);
     }
 
 
@@ -213,18 +215,6 @@ public class RegisterActivity extends BaseActivity {
         }
     }
 
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        EventBus.getDefault().register(this);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        EventBus.getDefault().unregister(this);
-    }
 
     @Subscribe
     public void registerSuccess(CompleteRegisterActivity.RegisterSuccess registerSuccess){

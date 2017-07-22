@@ -55,6 +55,7 @@ public class StartReadAdapter extends RecyclerView.Adapter<StartReadAdapter.Simp
     public void onBindViewHolder(SimpleViewHolder holder, int position) {
         OpusAdapter adapter = new OpusAdapter(mContext, OpusAdapter.START_READ);
         ArticleBean articleBean = mItems.get(position);
+
         ArrayList<ArticleBean> articleList = new ArrayList<>();
         articleList.add(articleBean);
         adapter.setList(articleList);

@@ -45,17 +45,9 @@ public class UserInfoBean {
      */
     private String imei = "";
 
-    /**
-     * 用户账号名
-     */
-    private String userAccount = "";
 
     public String password;
 
-    /**
-     * 笔名
-     */
-    private String penName;
 
     /**
      * 是否开启夜间模式
@@ -80,13 +72,6 @@ public class UserInfoBean {
         isNightMode = nightMode;
     }
 
-    public String getPenName() {
-        return penName;
-    }
-
-    public void setPenName(String penName) {
-        this.penName = penName;
-    }
 
     public String getPassword() {
         return password;
@@ -94,14 +79,6 @@ public class UserInfoBean {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount;
     }
 
     public boolean isLogin() {

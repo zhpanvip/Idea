@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -31,6 +32,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.rb_home)
@@ -49,6 +51,8 @@ public class MainActivity extends BaseActivity {
     LinearLayout llTab;
     @BindView(R.id.vp_fragment)
     MViewPaper mViewPager;
+    @BindView(R.id.iv_add)
+    ImageView mIvBackground;
     //  退出时间间隔
     private long exitTime = 0;
     //  上一次RadioGroup选中的Id
@@ -98,12 +102,16 @@ public class MainActivity extends BaseActivity {
         mRbHome.setChecked(true);
     }
 
+    @Subscribe
+    public void joinOpus(AddFragment.JoinOpus joinOpus){
+        mIvBackground.setVisibility(View.VISIBLE);
+    }
     private void initData() {
 
         getToolbar().setVisibility(View.GONE);
         mAdapter = new AdapterFragmentPager(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setOffscreenPageLimit(4);
+        mViewPager.setOffscreenPageLimit(1);
     }
 
     private boolean isLogin() {
@@ -132,6 +140,7 @@ public class MainActivity extends BaseActivity {
                         return;
                     }
                     break;
+
             }
             preCheckedId = checkedId;
         });
@@ -176,6 +185,10 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if(mIvBackground.getVisibility()==View.VISIBLE){
+                mIvBackground.setVisibility(View.GONE);
+                return true;
+            }
             if ((System.currentTimeMillis() - exitTime) > 2000) {
                 showToast("再按一次退出程序");
                 exitTime = System.currentTimeMillis();
@@ -186,5 +199,14 @@ public class MainActivity extends BaseActivity {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @OnClick({R.id.iv_add})
+    public void onClick(View v){
+        switch (v.getId()){
+            case R.id.iv_add:
+                mIvBackground.setVisibility(View.GONE);
+                break;
+        }
     }
 }

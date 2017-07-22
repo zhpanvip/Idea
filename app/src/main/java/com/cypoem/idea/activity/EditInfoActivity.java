@@ -1,42 +1,94 @@
 package com.cypoem.idea.activity;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.airong.core.utils.ImageLoaderUtil;
+import com.airong.core.utils.ImageUtils;
+import com.airong.core.utils.LogUtils;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.cypoem.idea.R;
+import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.JsonBean;
+import com.cypoem.idea.module.bean.RegisterBean;
+import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.net.DefaultObserver;
+import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.net.IdeaApiService;
 import com.cypoem.idea.utils.GetJsonDataUtil;
+import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.SexView;
 import com.google.gson.Gson;
+import com.yalantis.ucrop.UCrop;
+import com.yalantis.ucrop.callback.BitmapLoadCallback;
+import com.yalantis.ucrop.model.ExifInfo;
+import com.yalantis.ucrop.util.BitmapLoadUtils;
 
+import org.greenrobot.eventbus.EventBus;
 import org.json.JSONArray;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+
+import static com.cypoem.idea.constants.Constants.REQUEST_SELECT_PICTURE;
+import static com.cypoem.idea.constants.Constants.SAMPLE_CROPPED_IMAGE_NAME;
+import static com.cypoem.idea.constants.Constants.TAG;
 
 public class EditInfoActivity extends BaseActivity {
-
+    //  个人简介
     private static final int INTRODUCE = 100;
+    //  格言
     private static final int SIGN = 101;
+    //  笔名
     private static final int PEN_NAME = 102;
+    // 头像
+    private static final int HEAD_PIC=103;
+    //  性别
+    private static final int SEX=104;
+    //  生日
+    private static final int BIRTHDAY=105;
+    //  地址
+    private static final int ADDRESS = 106;
+
+    //  Dialog id
     private static final int DIALOG_ID = 200;
     @BindView(R.id.iv_head_pic)
-    CircleImageView ivHeadPic;
+    ImageView ivHeadPic;
     @BindView(R.id.rl_head_pic)
     RelativeLayout rlHeadPic;
     @BindView(R.id.rl_pen_name)
@@ -63,19 +115,27 @@ public class EditInfoActivity extends BaseActivity {
     TextView tvDate;
     @BindView(R.id.sex_view)
     SexView mSexView;
+    @BindView(R.id.tv_user_id)
+    TextView tvUserId;
     private int year, month, day;
     /**
      * 省市联动数据
      */
     private ArrayList<JsonBean> options1Items = new ArrayList<>();
     private ArrayList<ArrayList<String>> options2Items = new ArrayList<>();
-   // private ArrayList<ArrayList<ArrayList<String>>> options3Items = new ArrayList<>();
-    private Thread thread;
     private static final int MSG_LOAD_DATA = 0x0001;
     private static final int MSG_LOAD_SUCCESS = 0x0002;
     private static final int MSG_LOAD_FAILED = 0x0003;
-    private boolean isLoaded = false;
-    private int percent;
+    private double percent = 0.5;
+    private String sign = "";
+    private String penName = "";
+    private String sex = "";
+    private String birthday = "";
+    private String address = "";
+    private String introduction = "";
+    private String picPath;
+    private int mMaxBitmapSize = 0;
+
 
     @Override
     protected int getLayoutId() {
@@ -92,6 +152,42 @@ public class EditInfoActivity extends BaseActivity {
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
+        setData();
+    }
+
+    private void setData() {
+        setUserInfo();
+    }
+
+    //  初始化设置用户信息
+    private void setUserInfo() {
+        UserBean user = UserInfoTools.getUser(this);
+        penName = user.getPen_name();
+        sign = user.getDictum();
+        sex = user.getSex();
+        mSexView.setMalePercent(Double.parseDouble(sex));
+        birthday = user.getBirthday() == null ? "" : user.getBirthday();
+        address = user.getAddress() == null ? "" : user.getAddress();
+        introduction = user.getIntroduction() == null ? "" : user.getIntroduction();
+        tvSign.setText(sign);
+        tvPenName.setText(penName);
+        tvDate.setText(birthday);
+        tvAddress.setText(address);
+        tvIntroduce.setText(introduction);
+        tvUserId.setText(user.getUid());
+        ImageLoaderUtil.loadCircleImg(ivHeadPic, IdeaApiService.HOST+user.getIcon(),R.drawable.head_pic);
+    }
+
+    private void refreshUserInfo(){
+        UserInfoTools.setPenName(this,penName);
+        UserInfoTools.setSign(this,sign);
+        UserInfoTools.setSex(this,sex);
+        UserInfoTools.setBirthday(this,birthday);
+        UserInfoTools.setAddress(this,address);
+        UserInfoTools.setAudthorBrief(this,introduction);
+        UserInfoTools.setHeadPic(this,picPath);
+        mSexView.setMalePercent(Double.parseDouble(sex));
+        setUserInfo();
     }
 
     public static void start(Context context) {
@@ -104,15 +200,112 @@ public class EditInfoActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch (resultCode) {
             case INTRODUCE:
-                tvIntroduce.setText(data.getStringExtra("result"));
+                introduction = data.getStringExtra("result");
+                postData(INTRODUCE,introduction);
                 break;
             case SIGN:
-                tvSign.setText(data.getStringExtra("result"));
+                sign = data.getStringExtra("result");
+                postData(SIGN,sign);
                 break;
             case PEN_NAME:
-                tvPenName.setText(data.getStringExtra("result"));
+                penName = data.getStringExtra("result");
+                postData(PEN_NAME,penName);
+                break;
+            case UCrop.RESULT_ERROR:
+                handleCropError(data);
+                break;
+            case RESULT_OK://
+                selectPicResult(requestCode, data);
                 break;
         }
+    }
+
+    /**********************************************选择头像部分*********************************************************/
+    //  选择图片结果处理
+    private void selectPicResult(int requestCode, Intent data) {
+        if (requestCode == REQUEST_SELECT_PICTURE) {
+            final Uri selectedUri = data.getData();
+            if (selectedUri != null) {
+                startCropActivity(data.getData());
+            } else {
+                Toast.makeText(EditInfoActivity.this, R.string.toast_cannot_retrieve_selected_image, Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == UCrop.REQUEST_CROP) {
+            handleCropResult(data);
+        }
+    }
+
+    //  处理选择图片错误的情况
+    private void handleCropError(@NonNull Intent result) {
+        final Throwable cropError = UCrop.getError(result);
+        if (cropError != null) {
+            Log.e(TAG, "handleCropError: ", cropError);
+            showToast(cropError.getMessage());
+        } else {
+            showToast(R.string.toast_unexpected_error);
+        }
+    }
+
+    /**
+     * 剪切成功
+     *
+     * @param result
+     */
+    private void handleCropResult(@NonNull Intent result) {
+        final Uri resultUri = UCrop.getOutput(result);
+        if (resultUri != null) {
+            LogUtils.e(resultUri.getPath());
+            picPath = resultUri.getPath();
+            int maxBitmapSize = getMaxBitmapSize();
+            postData(HEAD_PIC,"");
+            BitmapLoadUtils.decodeBitmapInBackground(this, resultUri, null, maxBitmapSize, maxBitmapSize, new BitmapLoadCallback() {
+                @Override
+                public void onBitmapLoaded(@NonNull Bitmap bitmap, @NonNull ExifInfo exifInfo, @NonNull String s, @Nullable String s1) {
+                    //ivHeadPic.setImageBitmap(bitmap);
+
+                }
+
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    showToast("选择图片失败");
+                }
+            });
+        } else {
+            showToast(R.string.toast_cannot_retrieve_cropped_image);
+        }
+    }
+
+    public int getMaxBitmapSize() {
+        if (mMaxBitmapSize <= 0) {
+            mMaxBitmapSize = BitmapLoadUtils.calculateMaxBitmapSize(this);
+        }
+        return mMaxBitmapSize;
+    }
+
+    private void startCropActivity(@NonNull Uri uri) {
+        String destinationFileName = SAMPLE_CROPPED_IMAGE_NAME;
+        destinationFileName += ".png";
+        UCrop uCrop = UCrop.of(uri, Uri.fromFile(new File(getCacheDir(), destinationFileName)));
+        uCrop = uCrop.withAspectRatio(1, 1);
+        uCrop = advancedConfig(uCrop);
+        uCrop.start(EditInfoActivity.this);
+    }
+
+    /**
+     * Sometimes you want to adjust more options, it's done via {@link com.yalantis.ucrop.UCrop.Options} class.
+     *
+     * @param uCrop - ucrop builder instance
+     * @return - ucrop builder instance
+     */
+    private UCrop advancedConfig(@NonNull UCrop uCrop) {
+        UCrop.Options options = new UCrop.Options();
+        options.setCompressionFormat(Bitmap.CompressFormat.PNG);
+
+        options.setCompressionQuality(40);
+
+        options.setHideBottomControls(true);
+        options.setFreeStyleCropEnabled(false);
+        return uCrop.withOptions(options);
     }
 
     private void editIntroduce() {
@@ -147,7 +340,8 @@ public class EditInfoActivity extends BaseActivity {
     DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            tvDate.setText(year + "-" + (month + 1) + "-" + dayOfMonth);
+            birthday=year + "-" + (month + 1) + "-" + dayOfMonth;
+            postData(BIRTHDAY,birthday);
         }
     };
 
@@ -156,23 +350,24 @@ public class EditInfoActivity extends BaseActivity {
         SexView sexView = (SexView) dialog.findViewById(R.id.sex_view);
         sexView.setCenterColor(Color.parseColor("#FFFFFF"));
         SeekBar seekBar = (SeekBar) dialog.findViewById(R.id.seek_bar);
-        Button btnConfirm= (Button) dialog.findViewById(R.id.btn_confirm);
-        setListener(seekBar,sexView);
+        Button btnConfirm = (Button) dialog.findViewById(R.id.btn_confirm);
+        setListener(seekBar, sexView);
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSexView.setMalePercent(1 - percent / 100.0);
+                sex=(percent/100.0)+"";
+                postData(SEX,sex);
+               // mSexView.setMalePercent(1 - percent / 100.0);
                 dismissDialog();
             }
         });
-
     }
 
-    private void setListener(SeekBar seekBar,SexView sexView) {
+    private void setListener(SeekBar seekBar, SexView sexView) {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                percent =progress;
+                percent = 1 - progress;
                 sexView.setMalePercent(1 - progress / 100.0);
             }
 
@@ -195,8 +390,20 @@ public class EditInfoActivity extends BaseActivity {
         startActivityForResult(intent, PEN_NAME);
     }
 
-    private void editHeadPic() {
-
+    private void pickFromGallery() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            requestPermission(Manifest.permission.READ_EXTERNAL_STORAGE,
+                    getString(R.string.permission_read_storage_rationale),
+                    REQUEST_STORAGE_READ_ACCESS_PERMISSION);
+        } else {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+            startActivityForResult(Intent.createChooser(intent, getString(R.string.label_select_picture)), REQUEST_SELECT_PICTURE);
+        }
     }
 
 
@@ -205,7 +412,7 @@ public class EditInfoActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_head_pic:
-                editHeadPic();
+                pickFromGallery();
                 break;
             case R.id.rl_pen_name:
                 editPenName();
@@ -276,15 +483,7 @@ public class EditInfoActivity extends BaseActivity {
              * 添加城市数据
              */
             options2Items.add(CityList);
-
-            /**
-             * 添加地区数据
-             */
-         //   options3Items.add(Province_AreaList);
         }
-
-        // mHandler.sendEmptyMessage(MSG_LOAD_SUCCESS);
-
     }
 
     public ArrayList<JsonBean> parseData(String result) {//Gson 解析
@@ -311,14 +510,15 @@ public class EditInfoActivity extends BaseActivity {
                 //返回的分别是三个级别的选中位置
                 String province = options1Items.get(options1).getPickerViewText();
                 String selectedResult;
-                if("北京市".equals(province)||"天津市".equals(province)||"上海市".equals(province)
-                        ||"香港".equals(province)||"澳门".equals(province)||"深圳市".equals(province)){
+                if ("北京市".equals(province) || "天津市".equals(province) || "上海市".equals(province)
+                        || "香港".equals(province) || "澳门".equals(province) || "深圳市".equals(province)) {
                     selectedResult = options1Items.get(options1).getPickerViewText();
-                }else {
-                    selectedResult = options1Items.get(options1).getPickerViewText() +" "+
+                } else {
+                    selectedResult = options1Items.get(options1).getPickerViewText() + " " +
                             options2Items.get(options1).get(options2);
                 }
-                tvAddress.setText(selectedResult);
+                address=selectedResult;
+                postData(ADDRESS,selectedResult);
             }
         }).setTitleText("城市选择")
                 .setDividerColor(Color.GRAY)
@@ -328,6 +528,51 @@ public class EditInfoActivity extends BaseActivity {
                 .build();
         pvOptions.setPicker(options1Items, options2Items);//二级选择器
         pvOptions.show();
+    }
+
+    private void postData(int requestCode,String result) {
+        /*Drawable drawable = ivHeadPic.getDrawable();
+        Bitmap bitmap = ImageUtils.drawable2Bitmap(drawable);*/
+        File file = new File(picPath);
+        RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+
+        /*RequestBody imageBody;
+        if (TextUtils.isEmpty(picPath)) {
+            byte[] bytes = ImageUtils.bitmap2Bytes(bitmap, Bitmap.CompressFormat.PNG);
+            imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), bytes);
+        } else {
+            File file = new File(picPath);
+            imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        }*/
+
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("uid",UserInfoTools.getUserId(this))
+                .addFormDataPart("dictum", sign)
+                .addFormDataPart("pen_name", penName)
+                .addFormDataPart("sex", sex)
+                .addFormDataPart("birthday", birthday)
+                .addFormDataPart("address", address)
+                .addFormDataPart("introduction", introduction)
+                .addFormDataPart("type", "0")
+                .addFormDataPart("uploadFile", "head_pic", imageBody);
+        List<MultipartBody.Part> parts = builder.build().parts();
+        IdeaApi.getApiService()
+                .updateUserInfo(parts)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(this, false) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                        EventBus.getDefault().post(new UpdateInfoSuccess());
+                        showToast(response.getMsg());
+                        refreshUserInfo();
+                    }
+                });
+    }
+
+    public static class UpdateInfoSuccess{
+
     }
 
 }

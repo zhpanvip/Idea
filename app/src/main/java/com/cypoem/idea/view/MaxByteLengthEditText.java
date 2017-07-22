@@ -14,7 +14,7 @@ import java.io.UnsupportedEncodingException;
  */
 public class MaxByteLengthEditText extends AppCompatEditText {
 
-    private int maxByteLength = 20;
+    private int maxByteLength = 60;
 
     private String encoding = "GBK";
 

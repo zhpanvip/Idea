@@ -6,6 +6,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -21,8 +22,10 @@ import com.airong.core.utils.CleanUtils;
 import com.airong.core.utils.FileUtils;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.activity.BasicWebViewActivity;
+import com.cypoem.idea.activity.EditInfoActivity;
 import com.cypoem.idea.activity.SettingActivity;
 import com.cypoem.idea.activity.SuggestActivity;
+import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.event.HideView;
 import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.R;
@@ -33,6 +36,7 @@ import com.cypoem.idea.activity.OpusActivity;
 import com.cypoem.idea.activity.PraiseActivity;
 import com.cypoem.idea.activity.WalletActivity;
 import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.net.IdeaApiService;
 import com.cypoem.idea.utils.UserInfoTools;
 
 import org.greenrobot.eventbus.EventBus;
@@ -103,46 +107,42 @@ public class MeFragment extends BaseFragment {
     @Override
     protected void init(Bundle savedInstanceState) {
         initData();
-        scrollView.scrollBy(0, 500);
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        outState.putInt("scrollX", scrollView.getScrollX());
-        outState.putInt("scrollY", scrollView.getScrollY());
-        Log.e("MeFragment", "scrollX:" + scrollView.getScrollX() + "------scrollY:" + scrollView.getScrollY());
-        super.onSaveInstanceState(outState);
-    }
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState != null) {
             scrollView.scrollTo(savedInstanceState.getInt("scrollX"), savedInstanceState.getInt("scrollY"));
-            Log.e("MeFragment", "saved scrollX:" + savedInstanceState.getInt("scrollX") + "------saved scrollY:" + savedInstanceState.getInt("scrollY"));
         }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-       // isNull = savedInstanceState == null;
         super.onCreate(savedInstanceState);
     }
 
     private void initData() {
         setTitleBar();
         setUserInfo();
+        EventBus.getDefault().register(this);
     }
 
     private void setUserInfo() {
         UserBean user = UserInfoTools.getUser(getContext());
-        ImageLoaderUtil.loadCircleImg(headImg, user.getIcon(), R.drawable.head_pic);
+        ImageLoaderUtil.loadCircleImg(headImg, IdeaApiService.HOST+user.getIcon(), R.drawable.head_pic);
         tvFocus.setText(user.getMyWatchCount() + "");
         tvFans.setText(user.getWatchMeCount() + "");
         tvCollect.setText(user.getKeep_count() + "");
         tvLike.setText(user.getEnjoy_count() + "");
         tvName.setText(user.getPen_name());
-        tvSign.setText(user.getIntroduction());
+        String dictum = user.getDictum();
+        if(TextUtils.isEmpty(dictum)){
+            tvSign.setVisibility(View.GONE);
+        }else {
+            tvSign.setText(dictum);
+        }
     }
 
     private void setTitleBar() {
@@ -151,9 +151,16 @@ public class MeFragment extends BaseFragment {
         mIvRight.setVisibility(View.VISIBLE);
     }
 
+
     @Override
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void updateInfoSuccess(EditInfoActivity.UpdateInfoSuccess success){
+        setUserInfo();
     }
 
 
@@ -162,13 +169,13 @@ public class MeFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_focus:
-                FansActivity.start(getContext());
+                FansActivity.start(getContext(),Constants.FOCUS);
                 break;
             case R.id.ll_collect:
                 CollectActivity.start(getContext());
                 break;
             case R.id.ll_fans:
-                FansActivity.start(getContext());
+                FansActivity.start(getContext(),Constants.FOLLOWS);
                 break;
             case R.id.ll_like:
                 PraiseActivity.start(getContext());
@@ -177,16 +184,16 @@ public class MeFragment extends BaseFragment {
                 WalletActivity.start(getContext());
                 break;
             case R.id.rl_publish:
-                OpusActivity.start(getContext());
+                OpusActivity.start(getContext(), Constants.MY_START_OPUS);
                 break;
             case R.id.rl_create:
-                OpusActivity.start(getContext());
+                OpusActivity.start(getContext(),Constants.MY_OWN_OPUS);
                 break;
             case R.id.rl_join:
-                OpusActivity.start(getContext());
+                OpusActivity.start(getContext(),Constants.MY_JOIN_OPUS);
                 break;
             case R.id.rl_draft:
-                OpusActivity.start(getContext());
+                OpusActivity.start(getContext(),Constants.MY_DRAFT);
                 break;
             case R.id.head_img:
                 AuthorInfoActivity.start(getContext(), UserInfoTools.getUserId(getContext()));
@@ -196,8 +203,4 @@ public class MeFragment extends BaseFragment {
                 break;
         }
     }
-
-
-
-
 }

@@ -1,6 +1,7 @@
 package com.cypoem.idea.net;
 
 import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.module.bean.ArticleBean;
 import com.cypoem.idea.module.bean.EverydayReBackBean;
 import com.cypoem.idea.module.bean.FansBean;
 import com.cypoem.idea.module.bean.HomePageBean;
@@ -13,6 +14,7 @@ import com.cypoem.idea.module.wrapper.ChaptersWrapper;
 
 import java.util.List;
 import java.util.Map;
+
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -36,13 +38,14 @@ public interface IdeaApiService {
      */
     int DEFAULT_TIMEOUT = 20000;
 
-    String HOST = "http://hansanshao.cn:8080/";
-    //  String HOST ="http://cypoem.com:8080/";
+    //String HOST = "http://hansanshao.cn:8080/";
+    String HOST = "http://cypoem.com:8080/";
     String API_SERVER_URL = HOST + "cys/";
 
 
     /**
      * 注册接口
+     *
      * @param partList 注册信息
      * @return
      */
@@ -50,12 +53,9 @@ public interface IdeaApiService {
     @POST("user/register.do")
     Observable<BasicResponse<RegisterBean>> register(@Part List<MultipartBody.Part> partList);
 
-    @Multipart
-    @POST("user/register.do")
-    Observable<BasicResponse<RegisterBean>> register(@Part("phone") RequestBody phone,@Part("password") RequestBody password,@Part MultipartBody.Part image);
-
     /**
      * 完善用户信息
+     *
      * @param userInfo 用户信息
      * @return
      */
@@ -65,24 +65,27 @@ public interface IdeaApiService {
 
     /**
      * 登陆
+     *
      * @param mapLogin 登陆信息
      * @return
      */
     @FormUrlEncoded
     @POST("user/login.do")
-    Observable<BasicResponse<UserBean>> login(@FieldMap Map<String,Object> mapLogin);
+    Observable<BasicResponse<UserBean>> login(@FieldMap Map<String, Object> mapLogin);
 
     /**
      * 意见反馈
+     *
      * @param adviceMap 意见信息
      * @return
      */
     @FormUrlEncoded
     @POST("advice/add.do")
-    Observable<BasicResponse<String>> postAdvice(@FieldMap Map<String,String> adviceMap);
+    Observable<BasicResponse<String>> postAdvice(@FieldMap Map<String, String> adviceMap);
 
     /**
      * 根据用户id获取用户信息
+     *
      * @param user_id
      * @return
      */
@@ -91,23 +94,27 @@ public interface IdeaApiService {
 
     /**
      * 每日一句
-     * @param everydaySay
+     *
+     * @param userInfo
      * @return
      */
+    @Multipart
     @POST("everySay/add.do")
-    Observable<BasicResponse> publishEverydaySay(@Body EverydaySayPost everydaySay);
+    Observable<BasicResponse> publishEverydaySay(@Part List<MultipartBody.Part> userInfo);
 
     /**
      * 每日一句往期回看
-     * @param page 当前页数
+     *
+     * @param page   当前页数
      * @param number 每页显示的条目
      * @return
      */
     @GET("everySay/selectAll.do")
-    Observable<BasicResponse<EverydayReBackBean>> lookBack(@Query("page") int page, @Query("rows") int number);
+    Observable<BasicResponse<List<EverydayReBackBean>>> lookBack(@Query("page") int page, @Query("rows") int number);
 
     /**
      * 首页数据
+     *
      * @param page
      * @param number
      * @return
@@ -118,6 +125,7 @@ public interface IdeaApiService {
 
     /**
      * 发布作品
+     *
      * @param partList
      * @return
      */
@@ -127,10 +135,11 @@ public interface IdeaApiService {
 
     /**
      * 查询当前书的所有章节
-     * @param write_id 作品id
+     *
+     * @param write_id  作品id
      * @param sectionid 章节id
-     * @param page  显示第几页
-     * @param rows  每页显示几条数据
+     * @param page      显示第几页
+     * @param rows      每页显示几条数据
      * @param user_id   登陆用户id
      * @return
      */
@@ -138,62 +147,72 @@ public interface IdeaApiService {
     Observable<ChaptersWrapper> getChapters(@Query("write_id") String write_id, @Query("sectionid") String sectionid, @Query("page") String page, @Query("rows") String rows, @Query("user_id") String user_id);
 
     /**
-     * 查询我发起的作品
-     * @param page  显示第几页
-     * @param rows  每页显示几条数据
-     * @param userId   登陆用户id
+     * 查询我参与的/我发起的/我原创的作品
+     *
+     * @param page   显示第几页
+     * @param rows   每页显示几条数据
+     * @param userId 登陆用户id
      * @return
      */
-    @GET("write/myStart.do")
-    Observable<BasicResponse<List<OpusBean>>> getMyStartOpus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
+    @GET("write/myWrites.do")
+    Observable<BasicResponse<List<OpusBean>>> getMyOpus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows,@Query("type") int type);
+
+    @GET("section/viewKeepWrite.do")
+    Observable<BasicResponse<List<OpusBean>>> getCollect(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
 
     /**
-     * 查询我原创的作品
-     * @param page  显示第几页
-     * @param rows  每页显示几条数据
-     * @param userId   登陆用户id
+     * 查询我关注我的
+     * @param page   显示第几页
+     * @param rows   每页显示几条数据
+     * @param userId 登陆用户id
      * @return
      */
-    @GET("write/myCreate.do")
-    Observable<BasicResponse<List<OpusBean>>> getMyOwnOpus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
+    @GET("watch/myWatchUsers.do")
+    Observable<BasicResponse<List<FansBean>>> getMyFocus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
+
+
 
     /**
-     * 查询我参与的作品
-     * @param page  显示第几页
-     * @param rows  每页显示几条数据
-     * @param userId   登陆用户id
-     * @return
-     */
-    @GET("write/myJoin.do")
-    Observable<BasicResponse<List<OpusBean>>> getMyJoinOpus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
-
-    /**
-     * 查询我参与的作品
-     * @param page  显示第几页
-     * @param rows  每页显示几条数据
-     * @param userId   登陆用户id
+     * 查询我的粉丝
+     * @param page   显示第几页
+     * @param rows   每页显示几条数据
+     * @param userId 登陆用户id
      * @return
      */
     @GET("watch/watchMeUsers.do")
-    Observable<BasicResponse<List<FansBean>>> getMyFans(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
+    Observable<BasicResponse<List<FansBean>>> getMyFollows(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
+
 
     /**
      * 获取作品章节内容
-     * @param page  显示第几页
-     * @param rows  每页显示几条数据
-     * @param userId   登陆用户id
+     *
+     * @param page   显示第几页
+     * @param rows   每页显示几条数据
+     * @param userId 登陆用户id
      * @return
      */
     @GET("section/view.do")
-    Observable<ArticleWrapper> getArticle(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("write_id") String writeId, @Query("sectionid") String sectionId);
+    Observable<BasicResponse<List<ArticleBean>>> getArticle(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("write_id") String writeId, @Query("sectionid") String sectionId);
 
     /**
      * 获取作品章节内容
-     * @param page  显示第几页
-     * @param rows  每页显示几条数据
+     *
+     * @param page 显示第几页
+     * @param rows 每页显示几条数据
      * @return
      */
     @GET("write/viewByName.do")
     Observable<BasicResponse<List<OpusBean>>> getSearchData(@Query("write_name") String content, @Query("page") int page, @Query("rows") int rows);
+
+
+    /**
+     * 添加章节内容
+     *
+     * @param chapterMap 章节内容数据
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("advice/add.do")
+    Observable<BasicResponse<String>> addChapter(@FieldMap Map<String, String> chapterMap);
 
 }

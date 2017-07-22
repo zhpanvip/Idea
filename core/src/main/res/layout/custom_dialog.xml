@@ -8,8 +8,8 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:layout_width="260dp"
-        android:layout_height="160dp"
+        android:layout_width="290dp"
+        android:layout_height="180dp"
         android:layout_gravity="center"
         android:background="@drawable/bg_dialog"
         android:gravity="center"
@@ -18,7 +18,7 @@
             <TextView
                 android:id="@+id/tv_dialog_content"
                 android:layout_width="match_parent"
-                android:layout_height="110dp"
+                android:layout_height="130dp"
                 android:gravity="center"
                 android:text="Content"
                 android:textColor="@color/item_text_color_dark"

@@ -12,6 +12,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -67,6 +68,7 @@ public class CompleteRegisterActivity extends BaseActivity {
     String password;
     private int mMaxBitmapSize = 0;
     private String picPath = "";
+    private String sex = "0.5";
 
     @Override
     protected int getLayoutId() {
@@ -85,6 +87,7 @@ public class CompleteRegisterActivity extends BaseActivity {
         mSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                sex = (progress) / 100.0 + "";
                 mSexView.setMalePercent(1 - progress / 100.0);
             }
 
@@ -159,17 +162,7 @@ public class CompleteRegisterActivity extends BaseActivity {
     private void startCropActivity(@NonNull Uri uri) {
         String destinationFileName = SAMPLE_CROPPED_IMAGE_NAME;
         destinationFileName += ".png";
-      /*  switch (mRadioGroupCompressionSettings.getCheckedRadioButtonId()) {
-            case R.id.radio_png:
-                destinationFileName += ".png";
-                break;
-            case R.id.radio_jpeg:
-                destinationFileName += ".jpg";
-                break;
-        }*/
-
         UCrop uCrop = UCrop.of(uri, Uri.fromFile(new File(getCacheDir(), destinationFileName)));
-
         uCrop = basisConfig(uCrop);
         uCrop = advancedConfig(uCrop);
         uCrop.start(CompleteRegisterActivity.this);
@@ -185,108 +178,16 @@ public class CompleteRegisterActivity extends BaseActivity {
     private UCrop advancedConfig(@NonNull UCrop uCrop) {
         UCrop.Options options = new UCrop.Options();
         options.setCompressionFormat(Bitmap.CompressFormat.PNG);
-        /*switch (mRadioGroupCompressionSettings.getCheckedRadioButtonId()) {
-            case R.id.radio_png:
-                options.setCompressionFormat(Bitmap.CompressFormat.PNG);
-                break;
-            case R.id.radio_jpeg:
-            default:
-                options.setCompressionFormat(Bitmap.CompressFormat.JPEG);
-                break;
-        }*/
+
         options.setCompressionQuality(40);
 
         options.setHideBottomControls(true);
         options.setFreeStyleCropEnabled(false);
-
-        /*
-        If you want to configure how gestures work for all UCropActivity tabs
-
-        options.setAllowedGestures(UCropActivity.SCALE, UCropActivity.ROTATE, UCropActivity.ALL);
-        * */
-
-        /*
-        This sets max size for bitmap that will be decoded from source Uri.
-        More size - more memory allocation, default implementation uses screen diagonal.
-
-        options.setMaxBitmapSize(640);
-        * */
-
-
-       /*
-
-        Tune everything (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
-
-        options.setMaxScaleMultiplier(5);
-        options.setImageToCropBoundsAnimDuration(666);
-        options.setDimmedLayerColor(Color.CYAN);
-        options.setCircleDimmedLayer(true);
-        options.setShowCropFrame(false);
-        options.setCropGridStrokeWidth(20);
-        options.setCropGridColor(Color.GREEN);
-        options.setCropGridColumnCount(2);
-        options.setCropGridRowCount(1);
-        options.setToolbarCropDrawable(R.drawable.your_crop_icon);
-        options.setToolbarCancelDrawable(R.drawable.your_cancel_icon);
-
-        // Color palette
-        options.setToolbarColor(ContextCompat.getColor(this, R.color.your_color_res));
-        options.setStatusBarColor(ContextCompat.getColor(this, R.color.your_color_res));
-        options.setActiveWidgetColor(ContextCompat.getColor(this, R.color.your_color_res));
-        options.setToolbarWidgetColor(ContextCompat.getColor(this, R.color.your_color_res));
-        options.setRootViewBackgroundColor(ContextCompat.getColor(this, R.color.your_color_res));
-
-        // Aspect ratio options
-        options.setAspectRatioOptions(1,
-            new AspectRatio("WOW", 1, 2),
-            new AspectRatio("MUCH", 3, 4),
-            new AspectRatio("RATIO", CropImageView.DEFAULT_ASPECT_RATIO, CropImageView.DEFAULT_ASPECT_RATIO),
-            new AspectRatio("SO", 16, 9),
-            new AspectRatio("ASPECT", 1, 1));
-
-       */
-
         return uCrop.withOptions(options);
     }
 
-
     private UCrop basisConfig(@NonNull UCrop uCrop) {
         uCrop = uCrop.withAspectRatio(1, 1);
-        /*switch (mRadioGroupAspectRatio.getCheckedRadioButtonId()) {
-            case R.id.radio_origin:
-                uCrop = uCrop.useSourceImageAspectRatio();
-                break;
-            case R.id.radio_square:
-                uCrop = uCrop.withAspectRatio(1, 1);
-                break;
-            case R.id.radio_dynamic:
-                // do nothing
-                break;
-            default:
-                try {
-                    float ratioX = Float.valueOf(mEditTextRatioX.getText().toString().trim());
-                    float ratioY = Float.valueOf(mEditTextRatioY.getText().toString().trim());
-                    if (ratioX > 0 && ratioY > 0) {
-                        uCrop = uCrop.withAspectRatio(ratioX, ratioY);
-                    }
-                } catch (NumberFormatException e) {
-                    Log.i(TAG, String.format("Number please: %s", e.getMessage()));
-                }
-                break;
-        }*/
-
-       /* if (mCheckBoxMaxSize.isChecked()) {
-            try {
-                int maxWidth = Integer.valueOf(mEditTextMaxWidth.getText().toString().trim());
-                int maxHeight = Integer.valueOf(mEditTextMaxHeight.getText().toString().trim());
-                if (maxWidth > 0 && maxHeight > 0) {
-                    uCrop = uCrop.withMaxResultSize(maxWidth, maxHeight);
-                }
-            } catch (NumberFormatException e) {
-                Log.e(TAG, "Number please", e);
-            }
-        }*/
-
         return uCrop;
     }
 
@@ -299,11 +200,8 @@ public class CompleteRegisterActivity extends BaseActivity {
     private void handleCropResult(@NonNull Intent result) {
         final Uri resultUri = UCrop.getOutput(result);
         if (resultUri != null) {
-
-            showToast(resultUri.getPath());
             LogUtils.e(resultUri.getPath());
             picPath = resultUri.getPath();
-
             int maxBitmapSize = getMaxBitmapSize();
             // ImageLoaderUtil.loadCircleImg(ivHeadPic,resultUri.getPath()+".jpg",R.drawable.camera);
             BitmapLoadUtils.decodeBitmapInBackground(this, resultUri, null, maxBitmapSize, maxBitmapSize, new BitmapLoadCallback() {
@@ -342,13 +240,26 @@ public class CompleteRegisterActivity extends BaseActivity {
     }
 
     private void completeRegister() {
+        String penName = mEtPenName.getText().toString().trim();
+        String sign = mEtSign.getText().toString().trim();
+        if (TextUtils.isEmpty(picPath)) {
+            showToast(R.string.select_head_pic);
+            return;
+        }
+        if (TextUtils.isEmpty(penName)) {
+            showToast(R.string.input_pen_name);
+            return;
+        }
         File file = new File(picPath);
         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
+                .addFormDataPart("dictum", sign)
+                .addFormDataPart("pen_name", penName)
+                .addFormDataPart("sex", sex)
                 .addFormDataPart("phone", phone)
                 .addFormDataPart("password", password)
-                .addFormDataPart("uploadFile", file.getName(),imageBody);
+                .addFormDataPart("uploadFile", file.getName(), imageBody);
         List<MultipartBody.Part> parts = builder.build().parts();
         /*RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("uploadFile", file.getName(), requestFile);
@@ -366,7 +277,7 @@ public class CompleteRegisterActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BasicResponse<RegisterBean> response) {
                         EventBus.getDefault().post(new RegisterSuccess("register success"));
-                        Toast.makeText(CompleteRegisterActivity.this, "请求数据成功", Toast.LENGTH_SHORT).show();
+                        showToast("注册成功，请登陆");
                         finish();
                     }
                 });

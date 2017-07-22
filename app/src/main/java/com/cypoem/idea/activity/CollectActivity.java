@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CollectAdapter;
+import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.CollectBean;
 import com.cypoem.idea.module.bean.Meizi;
@@ -27,8 +28,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 public class CollectActivity extends BaseActivity {
-
-    private static final int ROWS = 10;
     @BindView(R.id.lv_collect)
     ListView mListView;
     private CollectAdapter mAdapter;
@@ -47,11 +46,8 @@ public class CollectActivity extends BaseActivity {
     }
 
     private void setListener() {
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        mListView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id)-> {
                 StartReadActivity.start(CollectActivity.this,mAdapter.getList().get(position).getUid());
-            }
         });
     }
 
@@ -91,13 +87,13 @@ public class CollectActivity extends BaseActivity {
 
     private void getData(boolean showLoading,int page) {
         IdeaApi.getApiService()
-                .getMyJoinOpus(UserInfoTools.getUser(this).getUid(),page,ROWS)
+                .getCollect(UserInfoTools.getUser(this).getUid(),page, Constants.NUM)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this,showLoading) {
                     @Override
                     public void onSuccess(BasicResponse<List<OpusBean>> response) {
-                        if(response.getResult().size()<ROWS){
+                        if(response.getResult().size()< Constants.NUM){
                             mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
                         }else {
                             mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);

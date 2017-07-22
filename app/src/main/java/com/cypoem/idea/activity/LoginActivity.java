@@ -209,9 +209,10 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
         UserInfoTools.setIsLogin(this,true);
         UserInfoTools.setUser(this,result);
         UserInfoTools.setUid(this,result.getUid());
-       // showToast("登录成功");
         finish();
     }
+
+
 
 
     public boolean handleMessage(Message msg) {

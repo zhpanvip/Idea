@@ -13,6 +13,8 @@ import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -54,11 +56,10 @@ public class EverydayLookBackActivity extends BaseActivity {
                 .lookBack(page, Constants.NUM)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<EverydayReBackBean>>(this,showLoading) {
+                .subscribe(new DefaultObserver<BasicResponse<List<EverydayReBackBean>>>(this,showLoading) {
                     @Override
-                    public void onSuccess(BasicResponse<EverydayReBackBean> response) {
-
-                        adapter.getList().addAll(response.getResult().getEverySay());
+                    public void onSuccess(BasicResponse<List<EverydayReBackBean>> response) {
+                        adapter.getList().addAll(response.getResult());
                         adapter.notifyDataSetChanged();
                     }
                 });

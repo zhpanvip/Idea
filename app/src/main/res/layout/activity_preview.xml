@@ -10,38 +10,41 @@
         android:layout_marginTop="@dimen/mp_20"
         android:paddingEnd="@dimen/mp_40"
         android:layout_weight="5">
-        <include layout="@layout/item_preview"/>
+
+        <include layout="@layout/item_preview" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:paddingStart="@dimen/mp_20"
+        android:gravity="center_vertical"
         android:paddingEnd="@dimen/mp_20"
-        android:gravity="center_vertical">
+        android:paddingStart="@dimen/mp_20">
+
         <TextView
-            android:id="@+id/tv_preview"
+            android:id="@+id/tv_share"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:text="@string/share"
-            android:textSize="@dimen/f_18"
-            android:gravity="center"
-            android:textColor="@color/text_theme"
+            android:layout_height="41dp"
             android:layout_marginEnd="20dp"
-            android:background="@drawable/bg_btn_not_fill"/>
-        <TextView
-            android:id="@+id/tv_publish"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:text="@string/publish"
-            android:textSize="@dimen/f_18"
-            android:layout_marginStart="@dimen/mp_20"
+            android:layout_weight="0.79"
+            android:background="@drawable/bg_btn_not_fill"
             android:gravity="center"
+            android:text="@string/share"
+            android:textColor="@color/text_theme"
+            android:textSize="@dimen/f_18" />
+
+        <TextView
+            android:id="@+id/btn_publish"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="@dimen/mp_20"
+            android:layout_weight="1"
+            android:background="@drawable/bg_btn_login"
+            android:gravity="center"
+            android:text="@string/publish"
             android:textColor="@color/white"
-            android:background="@drawable/bg_btn_login"/>
+            android:textSize="@dimen/f_18" />
     </LinearLayout>
 
 </LinearLayout>
