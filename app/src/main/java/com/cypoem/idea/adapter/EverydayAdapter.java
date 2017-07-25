@@ -11,14 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.bean.EverydayReBackBean;
 import com.cypoem.idea.net.IdeaApiService;
-
 import java.util.List;
 
 /**

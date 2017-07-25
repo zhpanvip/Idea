@@ -128,7 +128,7 @@ public class PreviewActivity extends BaseActivity {
         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("uid", UserInfoTools.getUserId(this))
+                .addFormDataPart("user_id", UserInfoTools.getUserId(this))
                 .addFormDataPart("content", content)
                 .addFormDataPart("pen_name", penName)
                 .addFormDataPart("uploadFile", "head_pic", imageBody);

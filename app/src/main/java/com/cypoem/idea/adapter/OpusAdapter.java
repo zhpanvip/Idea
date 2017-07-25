@@ -11,13 +11,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airong.core.utils.ImageLoaderUtil;
+import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.ArticleWebViewActivity;
 import com.cypoem.idea.activity.AuthorInfoActivity;
+import com.cypoem.idea.activity.StartReadActivity;
+import com.cypoem.idea.constants.Constants;
+import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleBean;
+import com.cypoem.idea.net.DefaultObserver;
+import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.net.IdeaApiService;
+import com.cypoem.idea.utils.UserInfoTools;
 
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by zhpan on 2017/5/29.
@@ -65,21 +75,56 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
         holder.mTvAll.setOnClickListener((View v) -> {
             ArticleWebViewActivity.start(mContext, "阅读", "http://www.baidu.com");
         });
-        holder.mRlAuthor.setOnClickListener((View v) -> {
-            //AuthorInfoActivity.start(mContext,);
-        });
-        holder.mTvFocus.setOnClickListener((View v) -> {
-            Toast.makeText(mContext, "关注", Toast.LENGTH_SHORT).show();
-        });
+
+
         ArticleBean articleBean = mList.get(position);
-        /*ArticleBean.ResultBean user = articleBean.getResults();
+        ArticleBean.UserBean user = articleBean.getUser();
         holder.mTvTitle.setText(articleBean.getSection_name());
         holder.mTvName.setText(user.getPen_name());
         holder.mTvAuther.setText(user.getPen_name());
         holder.mTvTime.setText(articleBean.getCreate_time());
-        holder.mTvContent.setText(articleBean.getContent());*/
+        holder.mTvContent.setText(articleBean.getContent());
+        ImageLoaderUtil.loadCircleImg(holder.mIvHeader, IdeaApiService.HOST+user.getIcon(), R.drawable.head_pic);
 
-        ImageLoaderUtil.loadCircleImg(holder.mIvHeader, "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=304866327,2141533711&fm=11&gp=0.jpg", R.drawable.head_pic);
+        holder.mTvFocus.setOnClickListener((View v) -> {
+           // Toast.makeText(mContext, "关注", Toast.LENGTH_SHORT).show();
+            if(user.isFollow()){
+                cancelFocus(user.getUid());
+            }else {
+                addFocus(user.getUid());
+            }
+
+        });
+
+        holder.mRlAuthor.setOnClickListener((View v) -> {
+            AuthorInfoActivity.start(mContext,user.getUid());
+        });
+    }
+
+    private void addFocus(String focusId){
+        IdeaApi.getApiService()
+                .addFocus(UserInfoTools.getUserId(mContext),focusId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<String>>(((StartReadActivity)mContext),true) {
+                    @Override
+                    public void onSuccess(BasicResponse<String> response) {
+                        ToastUtils.show(response.getMsg());
+                    }
+                });
+    }
+
+    private void cancelFocus(String focusId){
+        IdeaApi.getApiService()
+                .cancelFocus(UserInfoTools.getUserId(mContext),focusId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<String>>((StartReadActivity)mContext,true) {
+                    @Override
+                    public void onSuccess(BasicResponse<String> response) {
+                        ToastUtils.show(response.getMsg());
+                    }
+                });
     }
 
     @Override

@@ -1,284 +1,396 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    android:orientation="vertical">
+    android:background="@color/background">
 
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:background="@color/item_title"
-        android:gravity="center_vertical"
-        android:paddingStart="20dp"
-        android:paddingEnd="@dimen/mp_10"
-        android:text="@string/read_setting"
-        android:textColor="@color/theme_style"
-        android:textSize="16sp" />
-    <RelativeLayout
-        android:id="@+id/rl_night"
-        android:layout_width="match_parent"
-        android:background="@color/item_color"
-        android:layout_height="@dimen/mp_50">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@color/item_title"
             android:gravity="center_vertical"
-            android:orientation="vertical"
+            android:paddingEnd="@dimen/mp_10"
+            android:paddingStart="20dp"
+            android:text="@string/safe_setting"
+            android:textColor="@color/theme_style"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_phone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_50"
+            android:background="@color/item_color"
             android:paddingEnd="@dimen/mp_10"
             android:paddingStart="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/night_mode"
+                android:layout_centerVertical="true"
+                android:text="@string/phone_num"
                 android:textColor="@color/item_text_color_dark"
                 android:textSize="@dimen/f_18" />
 
-            <!--<TextView
+            <ImageView
+                android:id="@+id/iv_phone_array"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="适用于夜间长期阅读" />-->
-        </LinearLayout>
-        <ToggleButton
-            android:id="@+id/tb_night_mode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:background="#00000000"
-            android:textOff=""
-            android:textOn=""
-            android:layout_marginEnd="-25dp"
-            style="@style/ToggleButton"
-            android:checked="true"/>
-    </RelativeLayout>
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/mp_15"
+                android:src="@drawable/array_right" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:background="@color/item_title"
-        android:gravity="center_vertical"
-        android:paddingStart="20dp"
-        android:paddingEnd="@dimen/mp_10"
-        android:text="@string/system_setting"
-        android:textColor="@color/theme_style"
-        android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/mp_15"
+                android:layout_toLeftOf="@id/iv_phone_array"
+                android:textColor="@color/item_text_color_dark"
+                android:textSize="@dimen/f_16" />
 
-    <RelativeLayout
-        android:id="@+id/rl_catch"
-        android:layout_width="match_parent"
-        android:paddingStart="20dp"
-        android:paddingEnd="@dimen/mp_10"
-        android:background="@color/item_color"
-        android:layout_height="@dimen/mp_50">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/clean_cache"
-            android:layout_centerVertical="true"
-            android:textColor="@color/item_text_color_dark"
-            android:textSize="@dimen/f_18" />
-        <!--  <ImageView
-              android:id="@+id/iv_catch_array"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentRight="true"
-              android:layout_marginEnd="@dimen/mp_15"
-              android:layout_centerVertical="true"
-              android:src="@drawable/array_right"/>-->
-        <TextView
-            android:id="@+id/tv_cache"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textColor="@color/item_text_color_dark"
-            android:layout_marginEnd="@dimen/mp_15"
-            android:layout_alignParentEnd="true"
-            android:textSize="@dimen/f_16" />
+        </RelativeLayout>
 
-    </RelativeLayout>
-    <include layout="@layout/base_line" />
-    <RelativeLayout
-        android:id="@+id/rl_update"
-        android:layout_width="match_parent"
-        android:paddingStart="20dp"
-        android:paddingEnd="@dimen/mp_10"
-        android:background="@color/item_color"
-        android:layout_height="@dimen/mp_50">
-        <LinearLayout
-            android:id="@+id/ll_update"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+        <include layout="@layout/base_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_update_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_50"
+            android:background="@color/item_color"
+            android:paddingEnd="@dimen/mp_10"
+            android:paddingStart="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/version_update"
+                android:layout_centerVertical="true"
+                android:text="@string/update_password"
                 android:textColor="@color/item_text_color_dark"
                 android:textSize="@dimen/f_18" />
+
+            <ImageView
+                android:id="@+id/iv_password_array"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/mp_15"
+                android:src="@drawable/array_right" />
+
+            <TextView
+                android:id="@+id/tv_password"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/mp_15"
+                android:layout_toLeftOf="@id/iv_password_array"
+                android:textColor="@color/item_text_color_dark"
+                android:textSize="@dimen/f_16" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@color/item_title"
+            android:gravity="center_vertical"
+            android:paddingEnd="@dimen/mp_10"
+            android:paddingStart="20dp"
+            android:text="@string/read_setting"
+            android:textColor="@color/theme_style"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_night"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_50"
+            android:background="@color/item_color">
+
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/item_text_color"
-                    android:text="@string/current_version_code" />
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:paddingEnd="@dimen/mp_10"
+                android:paddingStart="20dp">
 
                 <TextView
-                    android:id="@+id/tv_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/night_mode"
+                    android:textColor="@color/item_text_color_dark"
+                    android:textSize="@dimen/f_18" />
+
+                <!--<TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:textColor="@color/item_text_color"/>
+                    android:text="适用于夜间长期阅读" />-->
             </LinearLayout>
 
+            <ToggleButton
+                android:id="@+id/tb_night_mode"
+                style="@style/ToggleButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="-25dp"
+                android:background="#00000000"
+                android:checked="true"
+                android:textOff=""
+                android:textOn="" />
+        </RelativeLayout>
 
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/iv_update_array"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/mp_15"
-            android:layout_centerVertical="true"
-            android:src="@drawable/array_right"/>
-    </RelativeLayout>
-
-    <include layout="@layout/base_line" />
-    <RelativeLayout
-        android:id="@+id/rl_about_us"
-        android:layout_width="match_parent"
-        android:paddingStart="20dp"
-        android:paddingEnd="@dimen/mp_10"
-        android:background="@color/item_color"
-        android:layout_height="@dimen/mp_50">
-        <LinearLayout
-            android:id="@+id/ll_about_us"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:background="@color/item_title"
             android:gravity="center_vertical"
-            android:orientation="vertical">
+            android:paddingEnd="@dimen/mp_10"
+            android:paddingStart="20dp"
+            android:text="@string/system_setting"
+            android:textColor="@color/theme_style"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/rl_catch"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_50"
+            android:background="@color/item_color"
+            android:paddingEnd="@dimen/mp_10"
+            android:paddingStart="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/about_us"
+                android:layout_centerVertical="true"
+                android:text="@string/clean_cache"
                 android:textColor="@color/item_text_color_dark"
                 android:textSize="@dimen/f_18" />
-
+            <!--  <ImageView
+                  android:id="@+id/iv_catch_array"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_alignParentRight="true"
+                  android:layout_marginEnd="@dimen/mp_15"
+                  android:layout_centerVertical="true"
+                  android:src="@drawable/array_right"/>-->
             <TextView
+                android:id="@+id/tv_cache"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/item_text_color"
-                android:text="@string/about_us_describe" />
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/iv_about_us"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/mp_15"
-            android:layout_centerVertical="true"
-            android:src="@drawable/array_right"/>
-    </RelativeLayout>
-
-    <include layout="@layout/base_line" />
-    <RelativeLayout
-        android:id="@+id/rl_advice"
-        android:layout_width="match_parent"
-        android:paddingStart="20dp"
-        android:paddingEnd="@dimen/mp_10"
-        android:background="@color/item_color"
-        android:layout_height="@dimen/mp_50">
-        <LinearLayout
-            android:id="@+id/ll_advice"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/advice"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/mp_15"
                 android:textColor="@color/item_text_color_dark"
-                android:textSize="@dimen/f_18" />
+                android:textSize="@dimen/f_16" />
 
-            <TextView
+        </RelativeLayout>
+
+        <include layout="@layout/base_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_update"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_50"
+            android:background="@color/item_color"
+            android:paddingEnd="@dimen/mp_10"
+            android:paddingStart="20dp">
+
+            <LinearLayout
+                android:id="@+id/ll_update"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/version_update"
+                    android:textColor="@color/item_text_color_dark"
+                    android:textSize="@dimen/f_18" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/current_version_code"
+                        android:textColor="@color/item_text_color" />
+
+                    <TextView
+                        android:id="@+id/tv_version"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/item_text_color" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_update_array"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/item_text_color"
-                android:text="@string/advice_describe" />
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/iv_advice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/mp_15"
-            android:layout_centerVertical="true"
-            android:src="@drawable/array_right"/>
-    </RelativeLayout>
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/mp_15"
+                android:src="@drawable/array_right" />
+        </RelativeLayout>
 
-    <include layout="@layout/base_line" />
-    <RelativeLayout
-        android:id="@+id/rl_protocol"
-        android:layout_width="match_parent"
-        android:background="@color/item_color"
-        android:paddingStart="20dp"
-        android:paddingEnd="@dimen/mp_10"
-        android:layout_height="@dimen/mp_50">
-        <LinearLayout
-            android:id="@+id/ll_protocol"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="vertical">
+        <include layout="@layout/base_line" />
 
-            <TextView
+        <RelativeLayout
+            android:id="@+id/rl_about_us"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_50"
+            android:background="@color/item_color"
+            android:paddingEnd="@dimen/mp_10"
+            android:paddingStart="20dp">
+
+            <LinearLayout
+                android:id="@+id/ll_about_us"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/about_us"
+                    android:textColor="@color/item_text_color_dark"
+                    android:textSize="@dimen/f_18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/about_us_describe"
+                    android:textColor="@color/item_text_color" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_about_us"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/protocol"
-                android:textColor="@color/item_text_color_dark"
-                android:textSize="@dimen/f_18" />
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/mp_15"
+                android:src="@drawable/array_right" />
+        </RelativeLayout>
 
-            <TextView
+        <include layout="@layout/base_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_advice"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_50"
+            android:background="@color/item_color"
+            android:paddingEnd="@dimen/mp_10"
+            android:paddingStart="20dp">
+
+            <LinearLayout
+                android:id="@+id/ll_advice"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/advice"
+                    android:textColor="@color/item_text_color_dark"
+                    android:textSize="@dimen/f_18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/advice_describe"
+                    android:textColor="@color/item_text_color" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_advice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:textColor="@color/item_text_color"
-                android:text="@string/protocol_describe" />
-        </LinearLayout>
-        <ImageView
-            android:id="@+id/iv_protocol"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/mp_15"
-            android:layout_centerVertical="true"
-            android:src="@drawable/array_right"/>
-    </RelativeLayout>
-    <include layout="@layout/base_line"/>
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/mp_15"
+                android:src="@drawable/array_right" />
+        </RelativeLayout>
 
-    <Button
-        android:id="@+id/btn_exit"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_45"
-        android:layout_marginEnd="@dimen/mp_15"
-        android:layout_marginStart="@dimen/mp_15"
-        android:layout_marginTop="@dimen/mp_25"
-        android:background="@drawable/bg_btn_login"
-        android:text="退出登录"
-        android:textColor="@color/white" />
-</LinearLayout>
+        <include layout="@layout/base_line" />
+
+        <RelativeLayout
+            android:id="@+id/rl_protocol"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_50"
+            android:background="@color/item_color"
+            android:paddingEnd="@dimen/mp_10"
+            android:paddingStart="20dp">
+
+            <LinearLayout
+                android:id="@+id/ll_protocol"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/protocol"
+                    android:textColor="@color/item_text_color_dark"
+                    android:textSize="@dimen/f_18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/protocol_describe"
+                    android:textColor="@color/item_text_color" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_protocol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/mp_15"
+                android:src="@drawable/array_right" />
+        </RelativeLayout>
+
+        <include layout="@layout/base_line" />
+
+        <Button
+            android:id="@+id/btn_exit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_45"
+            android:layout_marginTop="@dimen/mp_15"
+            android:background="@color/text_theme"
+            android:text="退出登录"
+            android:textColor="@color/white" />
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

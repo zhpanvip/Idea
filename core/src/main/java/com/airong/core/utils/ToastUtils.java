@@ -35,7 +35,7 @@ public class ToastUtils {
     }
 
     public static void show(CharSequence text, int duration) {
-        text = TextUtils.isEmpty(text == null ? "" : text.toString()) ? "请检查您的网络！"
+        text = TextUtils.isEmpty(text == null ? "" : text.toString()) ? "null"
                 : text;
         if (toast == null) {
             toast = Toast.makeText(context, text, duration);

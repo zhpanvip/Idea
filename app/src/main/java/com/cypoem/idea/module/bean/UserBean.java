@@ -26,7 +26,7 @@ public class UserBean {
          * keep_count : 3
          */
 
-    private String uid;
+    private String user_id;
     private String pen_name;
     private String sex;
     private String icon;
@@ -63,11 +63,11 @@ public class UserBean {
     }
 
     public String getUid() {
-        return uid;
+        return user_id;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUid(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getPen_name() {

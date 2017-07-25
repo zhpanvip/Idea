@@ -14,18 +14,13 @@ import com.cypoem.idea.adapter.StartReadAdapter;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleBean;
-import com.cypoem.idea.module.bean.OpusBean;
-import com.cypoem.idea.module.wrapper.ArticleWrapper;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
-import in.srain.cube.views.ptr.PtrFrameLayout;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -65,7 +60,7 @@ public class StartReadActivity extends BaseActivity {
         Intent intent = getIntent();
         sectionId = intent.getStringExtra("sectionId");
 
-        List<ArticleBean> list = new ArrayList<>();
+        List< List<ArticleBean>> list = new ArrayList<>();
         mAdapter = new StartReadAdapter(this);
         mAdapter.setList(list);
 
@@ -112,7 +107,7 @@ public class StartReadActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BasicResponse<List<ArticleBean>> response) {
                         List<ArticleBean> results = response.getResult();
-                        mAdapter.getList().addAll(results);
+                        mAdapter.getList().add(results);
                         mAdapter.notifyDataSetChanged();
                     }
                 });

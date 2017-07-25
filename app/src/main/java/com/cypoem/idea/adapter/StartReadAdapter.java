@@ -24,14 +24,13 @@ public class StartReadAdapter extends RecyclerView.Adapter<StartReadAdapter.Simp
     private static final int DEFAULT_ITEM_COUNT = 100;
 
     private final Context mContext;
-    private List<ArticleBean> mItems;
-    private int mCurrentItemId = 0;
+    private List<List<ArticleBean>> mItems;
 
-    public List<ArticleBean> getList() {
+    public List<List<ArticleBean>> getList() {
         return mItems;
     }
 
-    public void setList(List<ArticleBean> list) {
+    public void setList(List<List<ArticleBean>> list) {
         mItems = list;
     }
 
@@ -54,10 +53,7 @@ public class StartReadAdapter extends RecyclerView.Adapter<StartReadAdapter.Simp
     @Override
     public void onBindViewHolder(SimpleViewHolder holder, int position) {
         OpusAdapter adapter = new OpusAdapter(mContext, OpusAdapter.START_READ);
-        ArticleBean articleBean = mItems.get(position);
-
-        ArrayList<ArticleBean> articleList = new ArrayList<>();
-        articleList.add(articleBean);
+        List<ArticleBean> articleList = mItems.get(position);
         adapter.setList(articleList);
         // 创建线性布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);

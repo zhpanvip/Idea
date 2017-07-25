@@ -2,6 +2,7 @@ package com.cypoem.idea.activity;
 
 import android.content.Context;
 import android.content.Intent;
+
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;

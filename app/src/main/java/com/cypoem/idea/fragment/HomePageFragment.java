@@ -1,21 +1,29 @@
 package com.cypoem.idea.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.StartReadActivity;
 import com.cypoem.idea.adapter.HomeAdapter;
+import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.CircleViewPager;
+import com.zhouwei.mzbanner.MZBannerView;
+import com.zhouwei.mzbanner.holder.MZHolderCreator;
+import com.zhouwei.mzbanner.holder.MZViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +48,7 @@ public class HomePageFragment extends BaseFragment {
     private HomeAdapter mAdapter;
     private int page = 1;
     private final int ROWS = 10;
-    private CircleViewPager circleViewPager;
+   private MZBannerView bannerView;
     private int type;
 
     public static HomePageFragment getFragment(int type) {
@@ -60,9 +68,10 @@ public class HomePageFragment extends BaseFragment {
     protected void init(Bundle savedInstanceState) {
         initData();
         initPtr(true);
-       // getData(true, page);
-        if (!(type == FindFragment.HOTEST || type == FindFragment.NEWEST))
-            circleViewPager.setmPtrFrame(mPtrFrame);
+        // getData(true, page);
+        if (!(type == FindFragment.HOTEST || type == FindFragment.NEWEST));
+
+          //  bannerView.setPtrFrame(mPtrFrame);
     }
 
     private void initData() {
@@ -84,7 +93,12 @@ public class HomePageFragment extends BaseFragment {
         mAdapter = new HomeAdapter(getContext());
         mAdapter.fillList(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener((position) -> StartReadActivity.start(getContext(),mAdapter.getList().get(position).getUid()));
+        mAdapter.setOnItemClickListener((position) -> {
+            if (type == Constants.HOME) {  //  Home有header 因此要-1
+                position = position - 1;
+            }
+            StartReadActivity.start(getContext(), mAdapter.getList().get(position).getUid());
+        });
         initViewPager();
     }
 
@@ -93,17 +107,22 @@ public class HomePageFragment extends BaseFragment {
             return;
         }
         View headerView = View.inflate(getContext(), R.layout.header_home, null);
-        circleViewPager = (CircleViewPager) headerView.findViewById(R.id.cvp_header);
+        bannerView = (MZBannerView) headerView.findViewById(R.id.banner);
+        bannerView.setDuration(5000);
         List<String> mUrlList = new ArrayList<>();
         mUrlList.add("http://d.5857.com/gqyhx_131102/004.jpg");
         mUrlList.add("http://img2.imgtn.bdimg.com/it/u=1563338466,3557560859&fm=214&gp=0.jpg");
         mUrlList.add("http://attachments.gfan.com/forum/201501/31/2123227t3eheezfvte0e0u.jpg");
         mUrlList.add("http://img2.imgtn.bdimg.com/it/u=872760111,3711017955&fm=214&gp=0.jpg");
         mUrlList.add("http://img2.niutuku.com/desk/1208/1922/ntk-1922-39448.jpg");
-        circleViewPager.setUrlList(mUrlList);
+        // 设置数据
+        bannerView.setPages(mUrlList, new MZHolderCreator<BannerViewHolder>() {
+            @Override
+            public BannerViewHolder createViewHolder() {
+                return new BannerViewHolder();
+            }
+        });
         mAdapter.addHeaderView(headerView);
-        circleViewPager.setOnPageClickListener((position) -> showToast("forward Url+" + position+ UserInfoTools.getUser(getContext()).getPen_name()));
-        circleViewPager.setInterval(5000);
     }
 
 
@@ -133,7 +152,7 @@ public class HomePageFragment extends BaseFragment {
                 .subscribe(new DefaultObserver<BasicResponse<List<HomePageBean>>>(this, false) {
                     @Override
                     public void onSuccess(BasicResponse<List<HomePageBean>> response) {
-                        if(isRefresh){
+                        if (isRefresh) {
                             mAdapter.getList().clear();
                         }
                         updateList(response.getResult());
@@ -150,5 +169,23 @@ public class HomePageFragment extends BaseFragment {
         }
         list.addAll(result);
         mAdapter.notifyDataSetChanged();
+    }
+
+
+    public static class BannerViewHolder implements MZViewHolder<String> {
+        private ImageView mImageView;
+        @Override
+        public View createView(Context context) {
+            // 返回页面布局
+            View view = LayoutInflater.from(context).inflate(R.layout.banner_item,null);
+            mImageView = (ImageView) view.findViewById(R.id.banner_image);
+            return view;
+        }
+
+        @Override
+        public void onBind(Context context, int position, String data) {
+            // 数据绑定
+            ImageLoaderUtil.loadImg(mImageView,data);
+        }
     }
 }

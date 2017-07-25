@@ -6,9 +6,19 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.cypoem.idea.R;
+import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.net.DefaultObserver;
+import com.cypoem.idea.net.IdeaApi;
+
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MultipartBody;
 
 public class SplashActivity extends BaseActivity {
     @BindView(R.id.ll_splash)
@@ -21,8 +31,8 @@ public class SplashActivity extends BaseActivity {
     @BindView(R.id.tv_publish)
     TextView mTvPublish;
     private final static long ANIMATION_DURATION = 5000;
-    private final static long SECOND=1000;
-    private boolean isGo2Main=true;
+    private final static long SECOND = 1000;
+    private boolean isGo2Main = true;
 
     @Override
     protected int getLayoutId() {
@@ -35,22 +45,35 @@ public class SplashActivity extends BaseActivity {
         mButton.setVisibility(View.VISIBLE);
         //  给启动页面设置动画
         setAnimation();
-       // finishActivity();
         setCountDown();
     }
 
+    private void getData() {
+        IdeaApi.getApiService()
+                .test()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                        showToast(response.getMsg());
+                        MainActivity.start(SplashActivity.this);
+                    }
+                });
+    }
+
     private void setCountDown() {
-        CountDownTimer countDownTimer=new CountDownTimer(ANIMATION_DURATION,SECOND){
+        CountDownTimer countDownTimer = new CountDownTimer(ANIMATION_DURATION, SECOND) {
             @Override
             public void onTick(long millisUntilFinished) {
-                mButton.setText("跳过"+millisUntilFinished/SECOND+"s");
+                mButton.setText("跳过" + millisUntilFinished / SECOND + "s");
             }
 
             @Override
             public void onFinish() {
-                mButton.setText("跳过"+0+"s");
-                if(isGo2Main)
-                goToMain();
+                mButton.setText("跳过" + 0 + "s");
+                if (isGo2Main)
+                    goToMain();
             }
         };
         countDownTimer.start();
@@ -61,7 +84,7 @@ public class SplashActivity extends BaseActivity {
         // ObjectAnimator animatorX = ObjectAnimator.ofFloat(mIvSplash, "scaleX", 1f, SCALE_END);
         // ObjectAnimator animatorY = ObjectAnimator.ofFloat(mIvSplash, "scaleY", 1f, SCALE_END);
 
-       // AnimatorSet set = new AnimatorSet();
+        // AnimatorSet set = new AnimatorSet();
         //  set.setDuration(ANIMATION_DURATION).play(animatorX).with(animatorY);
         // set.start();
         /*set.addListener(new AnimatorListenerAdapter() {
@@ -72,6 +95,7 @@ public class SplashActivity extends BaseActivity {
             }
         });*/
     }
+
 
     //  splash界面休眠3秒后销毁
    /* private void finishActivity() {
@@ -96,18 +120,18 @@ public class SplashActivity extends BaseActivity {
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return keyCode == KeyEvent.KEYCODE_BACK||super.onKeyDown(keyCode, event);
+        return keyCode == KeyEvent.KEYCODE_BACK || super.onKeyDown(keyCode, event);
     }
 
     @OnClick({R.id.btn_count_down, R.id.tv_publish})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_count_down:
-                isGo2Main=false;
-               goToMain();
+                isGo2Main = false;
+                goToMain();
                 break;
             case R.id.tv_publish:
-                isGo2Main=false;
+                isGo2Main = false;
                 CreateEveryDayActivity.start(this);
                 finish();
                 break;

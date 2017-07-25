@@ -21,6 +21,8 @@ public interface Constants {
     int MY_JOIN_OPUS = 3;   //  我参与的
     int MY_DRAFT=4;     //  我的草稿
 
-    int FOLLOWS=0;
-    int FOCUS=1;
+    int FOLLOWS=0;  //  粉丝
+    int FOCUS=1;    //  关注
+
+    int HOME = 0;   //  主页
 }

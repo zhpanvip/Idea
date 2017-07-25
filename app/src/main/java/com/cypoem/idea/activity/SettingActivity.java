@@ -17,7 +17,6 @@ import com.airong.core.utils.CleanUtils;
 import com.airong.core.utils.FileUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.constants.Constants;
-import com.cypoem.idea.event.LogoutEvent;
 import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.utils.SharedPreferencesHelper;
 import com.cypoem.idea.utils.UserInfoTools;
@@ -48,6 +47,12 @@ public class SettingActivity extends BaseActivity {
     ToggleButton mToggleButton;
     @BindView(R.id.btn_exit)
     Button mBtnExit;
+    @BindView(R.id.rl_phone)
+    RelativeLayout mRlPhone;
+    @BindView(R.id.tv_phone)
+    TextView mTvPhone;
+    @BindView(R.id.rl_update_password)
+    RelativeLayout mRlUpdatePsw;
 
     private boolean isChangeNightMode;
 
@@ -60,9 +65,8 @@ public class SettingActivity extends BaseActivity {
     protected void init(Bundle savedInstanceState) {
         setData();
         setListener();
-        if (savedInstanceState != null) {
-            isChangeNightMode = true;
-        }
+        isChangeNightMode=UserInfoTools.isChangeNightMode(this);
+        UserInfoTools.setChangeNightMode(this,false);
     }
 
     private void setListener() {
@@ -76,6 +80,8 @@ public class SettingActivity extends BaseActivity {
         mTvCache.setText(FileUtils.getDirSize(getCacheDir()));
         mTvVersion.setText("V " + AppUtils.getAppVersionName(this));
         mToggleButton.setChecked(UserInfoTools.isNightMode(this));
+        String phone = UserInfoTools.getUser(this).getPhone();
+        mTvPhone.setText(phone);
     }
 
 
@@ -84,7 +90,8 @@ public class SettingActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    @OnClick({R.id.rl_catch, R.id.ll_advice, R.id.rl_about_us, R.id.rl_protocol, R.id.btn_exit})
+    @OnClick({R.id.rl_catch, R.id.ll_advice, R.id.rl_about_us, R.id.rl_protocol, R.id.btn_exit,
+    R.id.rl_update,R.id.rl_phone,R.id.rl_update_password})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_catch:
@@ -102,14 +109,29 @@ public class SettingActivity extends BaseActivity {
             case R.id.btn_exit:
                 logout();
                 break;
+            case R.id.rl_update_password:
+
+                break;
+            case R.id.rl_phone:
+
+                break;
+            case R.id.rl_update:
+                showToast("未发现新版本");
+                break;
         }
     }
 
     private void logout() {
+        showTwoButtonDialog("确定退出登录吗？", "确定", "取消",
+                (View v) -> confirmLogout(),
+                (View v) -> dismissDialog());
+    }
+
+    private void confirmLogout() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("nightMode", true);
         startActivity(intent);
-        overridePendingTransition(R.anim.animo_no, R.anim.activity_close);
+        overridePendingTransition(R.anim.animo_alph_open, R.anim.animo_alph_close);
         SharedPreferencesHelper.clear(this);
         UserInfoTools.setIsLogin(this, false);
         //  发送广播结束MainActivity
@@ -172,15 +194,19 @@ public class SettingActivity extends BaseActivity {
             Intent intent = new Intent(this, MainActivity.class);
             intent.putExtra("nightMode", true);
             startActivity(intent);
-            overridePendingTransition(R.anim.animo_no, R.anim.activity_close);
+            overridePendingTransition(R.anim.animo_alph_close, R.anim.activity_close);
         }
         finish();
     }
 
-    public void setNightMode() {
+    private void setNightMode() {
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
         UserInfoTools.setNightMode(this, currentNightMode == Configuration.UI_MODE_NIGHT_NO);
         getDelegate().setDefaultNightMode(currentNightMode == Configuration.UI_MODE_NIGHT_NO ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-        recreate();
+        //recreate();
+        UserInfoTools.setChangeNightMode(this,true);
+        startActivity(new Intent(this,SettingActivity.class));
+        overridePendingTransition(R.anim.animo_alph_close, R.anim.animo_alph_close);
+        finish();
     }
 }

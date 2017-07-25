@@ -32,6 +32,15 @@ public class UserInfoTools {
         SharedPreferencesHelper.saveObject(context, sUserInfoBean);
     }
 
+    public static void setChangeNightMode(Context context,boolean isChanged) {
+        SharedPreferencesHelper.put(context,"isChangeNightMode",isChanged);
+    }
+
+    public static boolean isChangeNightMode(Context context){
+        boolean isChangeNightMode = (boolean) SharedPreferencesHelper.get(context, "isChangeNightMode", false);
+        return isChangeNightMode;
+    }
+
 
     public static UserInfoBean getUserInfoBean(Context context) {
         if (sUserInfoBean == null) {

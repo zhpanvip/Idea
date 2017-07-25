@@ -136,4 +136,7 @@
     <string name="write_complete">完成创作</string>
     <string name="select_head_pic">您还没有选择头像哦</string>
     <string name="input_pen_name">给自己起个笔名吧</string>
+    <string name="safe_setting">安全设置</string>
+    <string name="phone_num">手机号</string>
+    <string name="update_password">修改密码</string>
 </resources>

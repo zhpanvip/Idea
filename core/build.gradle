@@ -66,5 +66,6 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.zhy:flowlayout-lib:1.0.3'
     compile 'com.contrarywind:Android-PickerView:3.2.5'
+    compile 'com.github.pinguo-zhouwei:MZBannerView:v1.1.2'
     compile project(':libres')
 }

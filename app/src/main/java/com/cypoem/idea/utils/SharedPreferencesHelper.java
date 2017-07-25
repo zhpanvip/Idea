@@ -53,6 +53,33 @@ public class SharedPreferencesHelper {
         SharedPreferencesCompat.apply(editor);
     }
 
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param context
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public static Object get(Context context, String key, Object defaultObject) {
+        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
+                Context.MODE_PRIVATE);
+
+        if (defaultObject instanceof String) {
+            return sp.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer) {
+            return sp.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean) {
+            return sp.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float) {
+            return sp.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long) {
+            return sp.getLong(key, (Long) defaultObject);
+        }
+
+        return null;
+    }
+
     public static <T> void saveObject(Context context, T bean) {
         if(context != null && bean != null) {
             String packaggeName = context.getPackageName();
@@ -87,34 +114,6 @@ public class SharedPreferencesHelper {
             json = share.getString(name, "");
         }
         return json;
-    }
-
-
-    /**
-     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
-     *
-     * @param context
-     * @param key
-     * @param defaultObject
-     * @return
-     */
-    public static Object get(Context context, String key, Object defaultObject) {
-        SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
-                Context.MODE_PRIVATE);
-
-        if (defaultObject instanceof String) {
-            return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer) {
-            return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean) {
-            return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float) {
-            return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long) {
-            return sp.getLong(key, (Long) defaultObject);
-        }
-
-        return null;
     }
 
     /**
@@ -175,6 +174,8 @@ public class SharedPreferencesHelper {
                 Context.MODE_PRIVATE);
         return sp.getAll();
     }
+
+
 
     /**
      * 创建一个解决SharedPreferencesCompat.apply方法的一个兼容类

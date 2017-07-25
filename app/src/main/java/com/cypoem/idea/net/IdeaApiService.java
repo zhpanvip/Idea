@@ -9,7 +9,6 @@ import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.module.post_bean.EverydaySayPost;
-import com.cypoem.idea.module.wrapper.ArticleWrapper;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
 
 import java.util.List;
@@ -215,4 +214,26 @@ public interface IdeaApiService {
     @POST("advice/add.do")
     Observable<BasicResponse<String>> addChapter(@FieldMap Map<String, String> chapterMap);
 
+    /**
+     * 添加关注
+     *
+     * @param userId 用户id
+     *  @param  focusId   关注用户的id
+     * @return
+     */
+    @POST("watch/add.do")
+    Observable<BasicResponse<String>> addFocus(@Query("user_id") String userId,@Query("watch_user_id") String focusId);
+
+    /**
+     * 取消关注
+     *
+     * @param userId 用户id
+     *  @param  focusId   关注用户的id
+     * @return
+     */
+    @POST("watch/add.do")
+    Observable<BasicResponse<String>> cancelFocus(@Query("user_id") String userId,@Query("watch_user_id") String focusId);
+
+    @POST("user/ceshi.do")
+    Observable<BasicResponse> test();
 }

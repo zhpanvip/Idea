@@ -56,11 +56,11 @@ public class CircleViewPager extends FrameLayout {
 
     PtrClassicFrameLayout mPtrFrame;
 
-    public void setmPtrFrame(PtrClassicFrameLayout mPtrFrame) {
-        this.mPtrFrame = mPtrFrame;
+    public void setPtrFrame(PtrClassicFrameLayout ptrFrame) {
+        this.mPtrFrame = ptrFrame;
     }
 
-    Handler mHandler = new Handler();
+    static Handler mHandler = new Handler();
     Runnable mRunnable = new Runnable() {
         @Override
         public void run() {
