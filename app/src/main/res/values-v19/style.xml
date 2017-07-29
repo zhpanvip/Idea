@@ -6,7 +6,6 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <!--<item name="android:windowAnimationStyle">@style/ActivityInOutAnimation</item>-->
        <!-- <item name="android:windowTranslucentStatus">true</item>-->
     </style>
 
@@ -38,10 +37,5 @@
 
     <style name="ToggleButton" parent="@android:style/Widget.CompoundButton">
         <item name="android:button">@drawable/selector_toggle_button</item>
-    </style>
-
-    <style name="ActivityInOutAnimation" parent="AppTheme">
-        <item name="android:activityOpenEnterAnimation">@anim/activity_open</item>
-        <item name="android:activityCloseExitAnimation">@anim/activity_close</item>
     </style>
 </resources>

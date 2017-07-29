@@ -200,11 +200,15 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void setNightMode() {
+        //  获取当前模式
         int currentNightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        //  将是否为夜间模式保存到SharedPreferences
         UserInfoTools.setNightMode(this, currentNightMode == Configuration.UI_MODE_NIGHT_NO);
-        getDelegate().setDefaultNightMode(currentNightMode == Configuration.UI_MODE_NIGHT_NO ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-        //recreate();
+        //  切换模式
+        getDelegate().setDefaultNightMode(currentNightMode == Configuration.UI_MODE_NIGHT_NO ?
+                AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
         UserInfoTools.setChangeNightMode(this,true);
+        //recreate();
         startActivity(new Intent(this,SettingActivity.class));
         overridePendingTransition(R.anim.animo_alph_close, R.anim.animo_alph_close);
         finish();

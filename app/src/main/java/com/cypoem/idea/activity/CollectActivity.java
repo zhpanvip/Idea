@@ -6,16 +6,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CollectAdapter;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
-import com.cypoem.idea.module.bean.CollectBean;
-import com.cypoem.idea.module.bean.Meizi;
 import com.cypoem.idea.module.bean.OpusBean;
-import com.cypoem.idea.module.wrapper.MeiziWrapper;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
@@ -47,7 +43,9 @@ public class CollectActivity extends BaseActivity {
 
     private void setListener() {
         mListView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id)-> {
-                StartReadActivity.start(CollectActivity.this,mAdapter.getList().get(position).getUid());
+            OpusBean opusBean = mAdapter.getList().get(position);
+            String uid = opusBean.getUid();
+            StartReadActivity.start(CollectActivity.this,"","");
         });
     }
 
@@ -87,7 +85,7 @@ public class CollectActivity extends BaseActivity {
 
     private void getData(boolean showLoading,int page) {
         IdeaApi.getApiService()
-                .getCollect(UserInfoTools.getUser(this).getUid(),page, Constants.NUM)
+                .getCollect(UserInfoTools.getUser(this).getUserId(),page, Constants.NUM)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this,showLoading) {

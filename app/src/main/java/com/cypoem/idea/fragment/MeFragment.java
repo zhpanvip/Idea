@@ -169,13 +169,13 @@ public class MeFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_focus:
-                FansActivity.start(getContext(),Constants.FOCUS);
+                FansActivity.start(getContext(),Constants.FOCUS,UserInfoTools.getUserId(getContext()));
                 break;
             case R.id.ll_collect:
                 CollectActivity.start(getContext());
                 break;
             case R.id.ll_fans:
-                FansActivity.start(getContext(),Constants.FOLLOWS);
+                FansActivity.start(getContext(),Constants.FOLLOWS,UserInfoTools.getUserId(getContext()));
                 break;
             case R.id.ll_like:
                 PraiseActivity.start(getContext());

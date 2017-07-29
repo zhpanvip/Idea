@@ -70,8 +70,8 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
         mBaseImpl.dismissProgress();
         if (e instanceof HttpException) {     //   HTTP错误
             onException(BAD_NETWORK);
-        } else if (e instanceof ConnectException/*
-                || e instanceof UnknownHostException*/) {   //   连接错误
+        } else if (e instanceof ConnectException
+                || e instanceof UnknownHostException) {   //   连接错误
             onException(CONNECT_ERROR);
         } else if (e instanceof InterruptedIOException) {   //  连接超时
             onException(CONNECT_TIMEOUT);

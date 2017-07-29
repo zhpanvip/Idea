@@ -10,8 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
         android:orientation="vertical">
-        <include layout="@layout/base_line"/>
+
+        <include layout="@layout/base_line" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,18 +22,19 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/ll_comment"
                 android:layout_width="@dimen/mp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:gravity="center"
                 android:background="@color/item_color"
+                android:gravity="center"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="评论"
+                    android:text="@string/comment"
                     android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
@@ -39,12 +42,13 @@
                     android:id="@+id/tv_comment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23"
+                    android:text="@string/zero"
                     android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_16" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_like"
                 android:layout_width="@dimen/mp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -54,7 +58,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="赞"
+                    android:text="@string/like"
                     android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
@@ -62,12 +66,13 @@
                     android:id="@+id/tv_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23"
+                    android:text="@string/zero"
                     android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_16" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_value"
                 android:layout_width="@dimen/mp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -77,7 +82,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="欣赏值"
+                    android:text="@string/like_value"
                     android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
@@ -85,12 +90,13 @@
                     android:id="@+id/tv_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23"
+                    android:text="@string/zero"
                     android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_16" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_rewrite"
                 android:layout_width="@dimen/mp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -100,20 +106,21 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="重写"
+                    android:text="@string/rewrite"
                     android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
                 <TextView
-                    android:id="@+id/tv_override"
+                    android:id="@+id/tv_rewrite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23"
+                    android:text="@string/zero"
                     android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_16" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_continue"
                 android:layout_width="@dimen/mp_0"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -121,9 +128,10 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/textView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="续写"
+                    android:text="@string/continue_write"
                     android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
@@ -131,7 +139,7 @@
                     android:id="@+id/tv_continue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="23"
+                    android:text="@string/zero"
                     android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_16" />
             </LinearLayout>
@@ -150,8 +158,8 @@
         android:id="@+id/rv_read"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
+        android:layout_above="@id/ll_tab"
         android:background="@color/background"
-        android:layout_above="@id/ll_tab"/>
+        android:clipToPadding="false" />
 
 </RelativeLayout>

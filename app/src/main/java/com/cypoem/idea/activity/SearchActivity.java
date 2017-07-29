@@ -198,7 +198,7 @@ public class SearchActivity extends BaseActivity {
         mLvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                StartReadActivity.start(SearchActivity.this, mAdapter.getList().get(position).getUid());
+                StartReadActivity.start(SearchActivity.this,"","");
             }
         });
 

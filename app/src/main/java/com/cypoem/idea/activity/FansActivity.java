@@ -30,6 +30,7 @@ public class FansActivity extends BaseActivity {
     private FansAdapter mAdapter;
     private int page = 1;
     private int type;
+    private String userId;
 
     @Override
     protected int getLayoutId() {
@@ -47,7 +48,7 @@ public class FansActivity extends BaseActivity {
         lvFans.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
             FansAdapter adapter = (FansAdapter) parent.getAdapter();
             List<FansBean> list = adapter.getList();
-            AuthorInfoActivity.start(FansActivity.this, list.get(position).getUid());
+            AuthorInfoActivity.start(FansActivity.this, list.get(position).getUserId());
 
         });
     }
@@ -55,6 +56,7 @@ public class FansActivity extends BaseActivity {
     private void initData() {
         Intent intent = getIntent();
         type = intent.getIntExtra("type", 0);
+        userId = intent.getStringExtra("userId");
         List<FansBean> mList = new ArrayList<>();
         mAdapter = new FansAdapter(this, R.layout.item_fans);
         mAdapter.setList(mList);
@@ -63,9 +65,10 @@ public class FansActivity extends BaseActivity {
     }
 
 
-    public static void start(Context context, int type) {
+    public static void start(Context context, int type, String userId) {
         Intent intent = new Intent(context, FansActivity.class);
         intent.putExtra("type", type);
+        intent.putExtra("userId", userId);
         context.startActivity(intent);
     }
 
@@ -90,7 +93,7 @@ public class FansActivity extends BaseActivity {
     private void getData(boolean showLoading, int page) {
         if (type == Constants.FOCUS) {
             IdeaApi.getApiService()
-                    .getMyFocus(UserInfoTools.getUserId(this), page, Constants.NUM)
+                    .getMyFocus(userId, page, Constants.NUM)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new DefaultObserver<BasicResponse<List<FansBean>>>(this, showLoading) {
@@ -105,9 +108,9 @@ public class FansActivity extends BaseActivity {
                             mAdapter.notifyDataSetChanged();
                         }
                     });
-        }else if(type==Constants.FOLLOWS){
+        } else if (type == Constants.FOLLOWS) {
             IdeaApi.getApiService()
-                    .getMyFollows(UserInfoTools.getUserId(this), page, Constants.NUM)
+                    .getMyFollows(userId, page, Constants.NUM)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new DefaultObserver<BasicResponse<List<FansBean>>>(this, showLoading) {

@@ -6,15 +6,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.airong.core.utils.LogUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
-import com.cypoem.idea.module.bean.RegisterBean;
-import com.cypoem.idea.module.bean.UserBean;
-import com.cypoem.idea.module.post_bean.AdvicePost;
-import com.cypoem.idea.module.post_bean.RegisterPost;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
@@ -68,7 +62,7 @@ public class SuggestActivity extends BaseActivity {
         adviceMap.put("phone", phone);
         adviceMap.put("suggestion", advice);
         adviceMap.put("interface_source", fromWhere);
-        adviceMap.put("user_id", UserInfoTools.getUser(this).getUid());
+        adviceMap.put("user_id", UserInfoTools.getUser(this).getUserId());
         adviceMap.put("user_type", "1");
         IdeaApi.getApiService()
                 .postAdvice(adviceMap)
@@ -77,7 +71,7 @@ public class SuggestActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse<String> response) {
-                        showToast(response.getResult());
+                        showToast("感谢您的反馈，问题已提交处理");
                         finish();
                     }
                 });

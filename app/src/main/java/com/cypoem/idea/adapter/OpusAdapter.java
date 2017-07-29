@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.airong.core.utils.ImageLoaderUtil;
 import com.airong.core.utils.ToastUtils;
@@ -16,7 +15,6 @@ import com.cypoem.idea.R;
 import com.cypoem.idea.activity.ArticleWebViewActivity;
 import com.cypoem.idea.activity.AuthorInfoActivity;
 import com.cypoem.idea.activity.StartReadActivity;
-import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleBean;
 import com.cypoem.idea.net.DefaultObserver;
@@ -39,6 +37,7 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
     private String fromWhere;
     public static final String OPUS = "opus";
     public static final String START_READ = "startRead";
+    private boolean isFocus;
 
     public OpusAdapter(Context mContext, String fromWhere) {
         this.mContext = mContext;
@@ -76,7 +75,6 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
             ArticleWebViewActivity.start(mContext, "阅读", "http://www.baidu.com");
         });
 
-
         ArticleBean articleBean = mList.get(position);
         ArticleBean.UserBean user = articleBean.getUser();
         holder.mTvTitle.setText(articleBean.getSection_name());
@@ -84,24 +82,30 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
         holder.mTvAuther.setText(user.getPen_name());
         holder.mTvTime.setText(articleBean.getCreate_time());
         holder.mTvContent.setText(articleBean.getContent());
+        int watch_status = articleBean.getWatch_status();
+        if(watch_status==1){
+            isFocus=true;
+            holder.mTvFocus.setText("已关注");
+        }else {
+            isFocus=false;
+            holder.mTvFocus.setText("关注");
+        }
         ImageLoaderUtil.loadCircleImg(holder.mIvHeader, IdeaApiService.HOST+user.getIcon(), R.drawable.head_pic);
-
         holder.mTvFocus.setOnClickListener((View v) -> {
-           // Toast.makeText(mContext, "关注", Toast.LENGTH_SHORT).show();
-            if(user.isFollow()){
-                cancelFocus(user.getUid());
+            if(isFocus){
+                cancelFocus(user.getUserId(),holder.mTvFocus);
             }else {
-                addFocus(user.getUid());
+                addFocus(user.getUserId(),holder.mTvFocus);
             }
 
         });
 
         holder.mRlAuthor.setOnClickListener((View v) -> {
-            AuthorInfoActivity.start(mContext,user.getUid());
+            AuthorInfoActivity.start(mContext,user.getUserId());
         });
     }
 
-    private void addFocus(String focusId){
+    private void addFocus(String focusId,TextView tvFocus){
         IdeaApi.getApiService()
                 .addFocus(UserInfoTools.getUserId(mContext),focusId)
                 .subscribeOn(Schedulers.io())
@@ -110,11 +114,13 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
                     @Override
                     public void onSuccess(BasicResponse<String> response) {
                         ToastUtils.show(response.getMsg());
+                        isFocus=true;
+                        tvFocus.setText("已关注");
                     }
                 });
     }
 
-    private void cancelFocus(String focusId){
+    private void cancelFocus(String focusId,TextView tvFocus){
         IdeaApi.getApiService()
                 .cancelFocus(UserInfoTools.getUserId(mContext),focusId)
                 .subscribeOn(Schedulers.io())
@@ -123,6 +129,8 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
                     @Override
                     public void onSuccess(BasicResponse<String> response) {
                         ToastUtils.show(response.getMsg());
+                        isFocus=false;
+                        tvFocus.setText("+关注");
                     }
                 });
     }

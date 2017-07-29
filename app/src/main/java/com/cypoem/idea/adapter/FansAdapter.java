@@ -10,6 +10,7 @@ import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.bean.FansBean;
 import com.cypoem.idea.net.IdeaApiService;
+import com.cypoem.idea.view.SexView;
 
 import java.util.List;
 
@@ -30,7 +31,8 @@ public class FansAdapter extends CommonAdapter<FansBean> {
         TextView tvName=holder.getView(R.id.tv_name);
         TextView tvSign=holder.getView(R.id.tv_sign);
         TextView tvArticle=holder.getView(R.id.tv_article);
-
+        SexView sexView=holder.getView(R.id.iv_sex);
+        sexView.setMalePercent(Double.parseDouble(fansBean.getSex()));
         ImageLoaderUtil.loadCircleImg(ivHead, IdeaApiService.HOST+fansBean.getIcon(),R.drawable.head_pic);
         tvName.setText(fansBean.getPen_name());
         tvSign.setText(fansBean.getIntroduction());

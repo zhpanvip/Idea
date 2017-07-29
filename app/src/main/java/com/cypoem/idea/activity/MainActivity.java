@@ -82,6 +82,7 @@ public class MainActivity extends BaseActivity {
         Intent intent = getIntent();
         boolean nightMode = intent.getBooleanExtra("nightMode", false);
         if(nightMode&&UserInfoTools.getIsLogin(this)){
+            //  自动切换到“我的”页面
             mRbMe.performClick();
         }
     }
@@ -92,6 +93,11 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+
+    /**
+     * 接收到夜间模式改变的事件后结束当前Activity
+     * @param event
+     */
     @Subscribe
     public void setNightMode(NightModeEvent event) {
         finish();

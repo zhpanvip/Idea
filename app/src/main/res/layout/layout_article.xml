@@ -10,135 +10,6 @@
     android:layout_marginTop="@dimen/mp_10">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/mp_20"
-        android:orientation="vertical"
-        android:layout_marginBottom="@dimen/mp_20"
-        android:weightSum="1"
-        android:background="@drawable/bg_not_fill_green">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/mp_0"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/mp_10"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="如若可以，浅笑安然"
-                android:textColor="@color/item_text_color"
-                android:textSize="@dimen/f_18" />
-
-            <TextView
-                android:id="@+id/tv_author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:text="时间：2017-05-23"
-                android:textColor="@color/item_text_color"
-                android:textSize="@dimen/f_16" />
-
-            <TextView
-                android:id="@+id/tv_article"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:textColor="@color/item_text_color"
-                android:maxLines="12"
-                android:text="最美人间四月已经怅然若失的走过，五月伊始，岁月的流波中，我们不停的穿梭，轮回中夹杂着欢乐、忧伤和梦想。听风，听雨，看叶，赏花，随其自然。许多风景，许多美好，犹如从前过往，总能让人念念不忘。
-
-春风吹过，桃花飘落，花开花谢，云卷云舒。年华背后，我们总是在重复的上演人生戏码。离别与重逢中，故事慢慢的被搁浅。有太多的情节，太多的念想，犹如烟雨迷蒙中的孤影，飘飘渺渺。有些美好，无须言语，有些故事，无须结局。假如我们偶遇人海中，就假装不曾往来，然后以擦肩而过之态，像对待陌生人那样的离开。如若可以，便轻轻的，道一句别来无恙。韶华正好，岁月如诗，一些过往如若云烟。收集时间的片段，相约在时光深处，静看花开倾世。某年，某月，等风吹来时，再细数那些繁花似锦的美丽。一场花开的相遇，一场短暂的欢悦，在时间长河里渐行渐远。如若可以，便向时间讨一味初色的美，在春光中，让彼此有可以期待的美丽。
-
-红尘渡口，灯火阑珊，款款烟雨中，琴声瑟瑟，弹指间舞落一世繁华，你我且做一个忠实的聆听者，静听那一曲浪漫的忧伤，品那一段藏不住的沧桑。如花年华中，寻找熟悉的过往，曾经再美丽的，不过是梦断成空。如若可以，便拾一段青烟，熏染心笺，挽留那份残存的余温。
-
-浅浅年岁，凉凉夜色，旧时风景，难掩芳时的梦。新的春光，过了今夜又是新的一朝，挥挥一袖的风雨，安然的浅笑。生命的路口中，把最美的风景装在心坎上，从容的转身，踏上另一段新的旅程。如若可以，别离前便拥抱一下，然后再转身，让温暖如风般永存心尖。
-
-时光匆匆，岁月如歌，如若有情，毋须携手，且行且珍惜;似水流年，浮生如梦，如若有意，毋须挽留，且看盛世花开。"
-                android:textSize="@dimen/f_15" />
-
-            <TextView
-                android:id="@+id/tv_all"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/mp_10"
-                android:gravity="center_horizontal"
-                android:text="查看所有章节>>"
-                android:textColor="@color/text_theme"
-                android:textSize="@dimen/f_16" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/mp_1"
-                android:layout_marginEnd="@dimen/mp_15"
-                android:layout_marginStart="@dimen/mp_15"
-                android:layout_marginTop="@dimen/mp_10"
-                android:background="@color/line_color" />
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/rl_author"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/mp_60"
-            android:layout_marginEnd="@dimen/mp_15"
-            android:layout_marginStart="@dimen/mp_15"
-            android:layout_marginBottom="@dimen/mp_15"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/mp_10">
-
-            <ImageView
-                android:id="@+id/iv_head_pic"
-                android:layout_width="@dimen/mp_50"
-                android:layout_height="@dimen/mp_50"
-                android:layout_centerVertical="true"
-                android:src="@drawable/head_pic" />
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/mp_10"
-                android:layout_marginTop="@dimen/mp_5"
-                android:layout_toEndOf="@id/iv_head_pic"
-                android:text="韩三少的剑"
-                android:textColor="@color/item_text_color_dark"
-                android:textSize="@dimen/f_18" />
-
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/tv_name"
-                android:layout_marginStart="@dimen/mp_10"
-                android:layout_marginTop="@dimen/mp_5"
-                android:layout_toEndOf="@id/iv_head_pic"
-                android:text="2017-05-24 创作"
-                android:textColor="@color/item_text_color"
-                android:textSize="@dimen/f_14" />
-
-            <TextView
-                android:id="@+id/tv_focus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/bg_btn_login"
-                android:paddingBottom="@dimen/mp_5"
-                android:paddingEnd="@dimen/mp_10"
-                android:paddingStart="@dimen/mp_10"
-                android:paddingTop="@dimen/mp_5"
-                android:text="+关注"
-                android:textSize="@dimen/f_14"
-                android:textColor="@color/white" />
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/ll_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -190,5 +61,131 @@
             android:text="文艺"
             android:textSize="@dimen/f_10" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/mp_20"
+        android:layout_marginTop="@dimen/mp_20"
+        android:background="@drawable/bg_not_fill_green"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_0"
+            android:layout_margin="@dimen/mp_10"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="如若可以，浅笑安然"
+                android:textColor="@color/item_text_color"
+                android:textSize="@dimen/f_18" />
+
+            <TextView
+                android:id="@+id/tv_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="时间：2017-05-23"
+                android:textColor="@color/item_text_color"
+                android:textSize="@dimen/f_16" />
+
+            <TextView
+                android:id="@+id/tv_article"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="12"
+                android:text="最美人间四月已经怅然若失的走过，五月伊始，岁月的流波中，我们不停的穿梭，轮回中夹杂着欢乐、忧伤和梦想。听风，听雨，看叶，赏花，随其自然。许多风景，许多美好，犹如从前过往，总能让人念念不忘。
+
+春风吹过，桃花飘落，花开花谢，云卷云舒。年华背后，我们总是在重复的上演人生戏码。离别与重逢中，故事慢慢的被搁浅。有太多的情节，太多的念想，犹如烟雨迷蒙中的孤影，飘飘渺渺。有些美好，无须言语，有些故事，无须结局。假如我们偶遇人海中，就假装不曾往来，然后以擦肩而过之态，像对待陌生人那样的离开。如若可以，便轻轻的，道一句别来无恙。韶华正好，岁月如诗，一些过往如若云烟。收集时间的片段，相约在时光深处，静看花开倾世。某年，某月，等风吹来时，再细数那些繁花似锦的美丽。一场花开的相遇，一场短暂的欢悦，在时间长河里渐行渐远。如若可以，便向时间讨一味初色的美，在春光中，让彼此有可以期待的美丽。
+
+红尘渡口，灯火阑珊，款款烟雨中，琴声瑟瑟，弹指间舞落一世繁华，你我且做一个忠实的聆听者，静听那一曲浪漫的忧伤，品那一段藏不住的沧桑。如花年华中，寻找熟悉的过往，曾经再美丽的，不过是梦断成空。如若可以，便拾一段青烟，熏染心笺，挽留那份残存的余温。
+
+浅浅年岁，凉凉夜色，旧时风景，难掩芳时的梦。新的春光，过了今夜又是新的一朝，挥挥一袖的风雨，安然的浅笑。生命的路口中，把最美的风景装在心坎上，从容的转身，踏上另一段新的旅程。如若可以，别离前便拥抱一下，然后再转身，让温暖如风般永存心尖。
+
+时光匆匆，岁月如歌，如若有情，毋须携手，且行且珍惜;似水流年，浮生如梦，如若有意，毋须挽留，且看盛世花开。"
+                android:textColor="@color/item_text_color"
+                android:textSize="@dimen/f_15" />
+
+            <TextView
+                android:id="@+id/tv_all"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/mp_10"
+                android:gravity="center_horizontal"
+                android:text="查看所有章节>>"
+                android:textColor="@color/text_theme"
+                android:textSize="@dimen/f_16" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mp_1"
+                android:layout_marginEnd="@dimen/mp_15"
+                android:layout_marginStart="@dimen/mp_15"
+                android:layout_marginTop="@dimen/mp_10"
+                android:background="@color/line_color" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_author"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_60"
+            android:layout_marginBottom="@dimen/mp_15"
+            android:layout_marginEnd="@dimen/mp_15"
+            android:layout_marginStart="@dimen/mp_15"
+            android:layout_marginTop="@dimen/mp_10"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/iv_head_pic"
+                android:layout_width="@dimen/mp_50"
+                android:layout_height="@dimen/mp_50"
+                android:layout_centerVertical="true"
+                android:src="@drawable/head_pic" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/mp_10"
+                android:layout_marginTop="@dimen/mp_5"
+                android:layout_toEndOf="@id/iv_head_pic"
+                android:text="韩三少的剑"
+                android:textColor="@color/item_text_color_dark"
+                android:textSize="@dimen/f_18" />
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_name"
+                android:layout_marginStart="@dimen/mp_10"
+                android:layout_marginTop="@dimen/mp_5"
+                android:layout_toEndOf="@id/iv_head_pic"
+                android:text="2017-05-24 创作"
+                android:textColor="@color/item_text_color"
+                android:textSize="@dimen/f_14" />
+
+            <Button
+                android:id="@+id/tv_focus"
+                android:layout_width="@dimen/mp_65"
+                android:layout_height="@dimen/mp_30"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_btn_login"
+                android:text="+关注"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/f_14" />
+        </RelativeLayout>
     </LinearLayout>
 </FrameLayout>

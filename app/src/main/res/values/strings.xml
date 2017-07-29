@@ -75,7 +75,7 @@
     <string name="birthday">生日：</string>
     <string name="address">地址：</string>
     <string name="submit">提交</string>
-    <string name="input_phone">请输入联系电话（选填，便于我们联系你）</string>
+    <string name="input_phone">请输入联系方式（选填）</string>
     <string name="input_advice">请输入遇到的问题或建议</string>
 
     <string name="permission_title_rationale">Permission needed</string>
@@ -139,4 +139,11 @@
     <string name="safe_setting">安全设置</string>
     <string name="phone_num">手机号</string>
     <string name="update_password">修改密码</string>
+    <string name="zero">0</string>
+    <string name="continue_write">续写</string>
+    <string name="rewrite">重写</string>
+    <string name="like_value">欣赏值</string>
+    <string name="like">赞</string>
+    <string name="comment">评论</string>
+    <string name="add_a_sign">给自己添加一条格言吧</string>
 </resources>

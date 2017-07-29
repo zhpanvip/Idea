@@ -5,16 +5,19 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+
 import com.cypoem.idea.R;
+import com.cypoem.idea.view.MaxByteLengthEditText;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class EditActivity extends BaseActivity {
 
     @BindView(R.id.edit)
-    EditText mEditText;
+    MaxByteLengthEditText mEditText;
     private int type;
-    private  String what;
+    private String what;
 
     @Override
     protected int getLayoutId() {
@@ -29,12 +32,28 @@ public class EditActivity extends BaseActivity {
 
     private void initData() {
         Intent intent = getIntent();
-         what=intent.getStringExtra("what");
-        type = intent.getIntExtra("type",0);
-        getToolbarTitle().setText("修改"+what);
-        mEditText.setHint("请输入"+what);
+        what = intent.getStringExtra("what");
+        type = intent.getIntExtra("type", 0);
+        getToolbarTitle().setText("修改" + what);
+
+        mEditText.setHint("请输入" + what);
         getSubTitle().setText("确定");
         getSubTitle().setVisibility(View.VISIBLE);
+        setEditText(type);
+    }
+
+    private void setEditText(int type) {
+        switch (type){
+            case EditInfoActivity.SIGN:
+                mEditText.setMaxByteLength(60);
+                break;
+            case EditInfoActivity.PEN_NAME:
+                mEditText.setMaxByteLength(16);
+                break;
+            case EditInfoActivity.INTRODUCE:
+                mEditText.setMaxByteLength(400);
+                break;
+        }
     }
 
     @OnClick({R.id.toolbar_subtitle})
@@ -48,13 +67,13 @@ public class EditActivity extends BaseActivity {
 
     private void saveData() {
         String content = mEditText.getText().toString().trim();
-        if(TextUtils.isEmpty(content)){
-            showToast("请输入"+what);
+        if (TextUtils.isEmpty(content)) {
+            showToast("请输入" + what);
             return;
         }
-        Intent intent=new Intent();
-        intent.putExtra("result",mEditText.getText().toString());
-        setResult(type,intent);
+        Intent intent = new Intent();
+        intent.putExtra("result", mEditText.getText().toString());
+        setResult(type, intent);
         finish();
     }
 }

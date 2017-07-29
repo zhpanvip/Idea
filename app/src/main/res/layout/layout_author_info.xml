@@ -5,6 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mp_15"
             android:layout_toEndOf="@id/tv_pen_name_text"
-            android:text="韩小贱"
+            android:text="笔名"
             android:textColor="@color/item_text_color_dark"
             android:textSize="@dimen/f_15" />
 
@@ -63,7 +64,7 @@
             android:layout_below="@id/tv_pen_name_text"
             android:layout_marginTop="@dimen/mp_10"
             android:layout_toEndOf="@id/tv_pen_name_text"
-            android:text="你爸是我爸，你妈是我妈。"
+            android:text="@string/add_a_sign"
             android:textColor="@color/item_text_color_dark"
             android:textSize="@dimen/f_14" />
 
@@ -82,12 +83,10 @@
             android:id="@+id/tv_birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_sign"
-            android:layout_marginTop="@dimen/mp_7"
-            android:layout_toEndOf="@id/tv_pen_name_text"
-            android:text="1995/05/14"
             android:textColor="@color/item_text_color_dark"
-            android:textSize="@dimen/f_16" />
+            android:textSize="@dimen/f_16"
+            android:layout_alignBottom="@+id/tv_birthday_text"
+            android:layout_toEndOf="@+id/tv_birthday_text" />
 
         <TextView
             android:id="@+id/tv_address_text"
@@ -107,7 +106,6 @@
             android:layout_below="@id/tv_birthday"
             android:layout_marginTop="@dimen/mp_10"
             android:layout_toEndOf="@id/tv_pen_name_text"
-            android:text="联合国"
             android:textColor="@color/item_text_color_dark"
             android:textSize="@dimen/f_16" />
 
@@ -117,20 +115,17 @@
             android:layout_height="@dimen/mp_30"
             android:layout_alignParentEnd="true"
             android:src="@drawable/edit_info" />
-        <TextView
+
+        <Button
             android:id="@+id/tv_follow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/mp_60"
+            android:layout_height="@dimen/mp_30"
             android:layout_alignParentEnd="true"
-            android:textSize="@dimen/f_16"
-            android:paddingStart="@dimen/mp_12"
-            android:paddingEnd="@dimen/mp_12"
-            android:textColor="@color/text_theme"
-            android:paddingTop="@dimen/mp_5"
-            android:paddingBottom="@dimen/mp_5"
-            android:visibility="gone"
             android:background="@drawable/bg_follow"
-            android:text="@string/focus"/>
+            android:text="@string/focus"
+            android:textColor="@color/text_theme"
+            android:textSize="@dimen/f_16"
+            android:visibility="gone"/>
     </RelativeLayout>
 
     <TextView

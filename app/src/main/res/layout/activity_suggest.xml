@@ -13,25 +13,26 @@
         android:layout_height="@dimen/mp_150"
         android:background="@color/edit_background"
         android:gravity="top"
-        android:textColorHint="@color/text_hint"
-        android:paddingStart="@dimen/mp_15"
-        android:paddingEnd="@dimen/mp_15"
         android:hint="@string/input_advice"
         android:maxLength="200"
-        android:paddingTop="@dimen/mp_15" />
+        android:paddingEnd="@dimen/mp_15"
+        android:paddingStart="@dimen/mp_15"
+        android:paddingTop="@dimen/mp_15"
+        android:textColorHint="@color/text_hint" />
 
     <EditText
         android:id="@+id/et_phone"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
-        android:hint="@string/input_phone"
+        android:layout_marginTop="@dimen/mp_20"
         android:background="@color/edit_background"
+        android:hint="@string/input_phone"
+        android:inputType="phone"
+        android:maxLength="11"
+        android:paddingEnd="@dimen/mp_15"
         android:paddingStart="@dimen/mp_15"
         android:textColorHint="@color/text_hint"
-        android:paddingEnd="@dimen/mp_15"
-        android:layout_marginTop="@dimen/mp_20"
-        android:textSize="@dimen/f_16"
-        android:inputType="phone" />
+        android:textSize="@dimen/f_16" />
 
     <Button
         android:id="@+id/btn_submit"

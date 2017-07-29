@@ -120,17 +120,14 @@
                 android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_14" />
 
-            <TextView
+            <Button
                 android:id="@+id/tv_focus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/mp_65"
+                android:layout_height="@dimen/mp_30"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:background="@drawable/bg_btn_login"
-                android:paddingBottom="@dimen/mp_5"
-                android:paddingEnd="@dimen/mp_10"
-                android:paddingStart="@dimen/mp_10"
-                android:paddingTop="@dimen/mp_5"
+                android:gravity="center"
                 android:text="+关注"
                 android:textColor="@color/white"
                 android:textSize="@dimen/f_14" />

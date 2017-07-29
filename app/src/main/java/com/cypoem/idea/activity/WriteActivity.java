@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -88,7 +87,7 @@ public class WriteActivity extends BaseActivity {
         Map<String, String> adviceMap = new HashMap<>();
         adviceMap.put("content", content);
         adviceMap.put("parent_id", parent_id);
-        adviceMap.put("user_id", UserInfoTools.getUser(this).getUid());
+        adviceMap.put("user_id", UserInfoTools.getUser(this).getUserId());
         adviceMap.put("user_type", "1");
         adviceMap.put("section_id",section_id);
         adviceMap.put("section_name",title);

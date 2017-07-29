@@ -25,7 +25,7 @@ public class BaseApp extends Application {
         app = this;
         SPUtils.init(this);
         Utils.init(this);
-        CrashUtils.getInstance().init();
+      //  CrashUtils.getInstance().init();
 //        LogUtils2.getBuilder().setTag("MyTag").setLog2FileSwitch(true).create();
 
     }

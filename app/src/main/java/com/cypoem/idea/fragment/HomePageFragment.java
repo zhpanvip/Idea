@@ -48,7 +48,7 @@ public class HomePageFragment extends BaseFragment {
     private HomeAdapter mAdapter;
     private int page = 1;
     private final int ROWS = 10;
-   private MZBannerView bannerView;
+    private MZBannerView bannerView;
     private int type;
 
     public static HomePageFragment getFragment(int type) {
@@ -69,9 +69,9 @@ public class HomePageFragment extends BaseFragment {
         initData();
         initPtr(true);
         // getData(true, page);
-        if (!(type == FindFragment.HOTEST || type == FindFragment.NEWEST));
+        if (!(type == FindFragment.HOTEST || type == FindFragment.NEWEST)) ;
 
-          //  bannerView.setPtrFrame(mPtrFrame);
+        //  bannerView.setPtrFrame(mPtrFrame);
     }
 
     private void initData() {
@@ -97,7 +97,10 @@ public class HomePageFragment extends BaseFragment {
             if (type == Constants.HOME) {  //  Home有header 因此要-1
                 position = position - 1;
             }
-            StartReadActivity.start(getContext(), mAdapter.getList().get(position).getUid());
+            HomePageBean homePageBean = mAdapter.getList().get(position);
+            String writeId = String.valueOf(homePageBean.getWrite_id());
+            String authorId = String.valueOf(homePageBean.getUser().getUser_id());
+            StartReadActivity.start(getContext(),writeId,authorId);
         });
         initViewPager();
     }
@@ -174,10 +177,11 @@ public class HomePageFragment extends BaseFragment {
 
     public static class BannerViewHolder implements MZViewHolder<String> {
         private ImageView mImageView;
+
         @Override
         public View createView(Context context) {
             // 返回页面布局
-            View view = LayoutInflater.from(context).inflate(R.layout.banner_item,null);
+            View view = LayoutInflater.from(context).inflate(R.layout.banner_item, null);
             mImageView = (ImageView) view.findViewById(R.id.banner_image);
             return view;
         }
@@ -185,7 +189,7 @@ public class HomePageFragment extends BaseFragment {
         @Override
         public void onBind(Context context, int position, String data) {
             // 数据绑定
-            ImageLoaderUtil.loadImg(mImageView,data);
+            ImageLoaderUtil.loadImg(mImageView, data);
         }
     }
 }

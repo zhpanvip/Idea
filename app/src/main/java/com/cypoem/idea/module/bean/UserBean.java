@@ -44,7 +44,25 @@ public class UserBean {
     private int enjoy_count;
     private int keep_count;
     private String return_code;
+    private int watch_status;
     private String msg;
+    private boolean follow;
+
+    public int getWatch_status() {
+        return watch_status;
+    }
+
+    public void setWatch_status(int watch_status) {
+        this.watch_status = watch_status;
+    }
+
+    public boolean isFollow() {
+        return follow;
+    }
+
+    public void setFollow(boolean follow) {
+        this.follow = follow;
+    }
 
     public String getReturn_code() {
         return return_code;
@@ -62,11 +80,11 @@ public class UserBean {
         this.msg = msg;
     }
 
-    public String getUid() {
+    public String getUserId() {
         return user_id;
     }
 
-    public void setUid(String user_id) {
+    public void setUserId(String user_id) {
         this.user_id = user_id;
     }
 

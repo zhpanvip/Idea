@@ -60,11 +60,17 @@ public class ArticleBean {
     private UserBean user;
     private int reCount;
     private int upCount;
-    private String watchStatus;
+    private int watch_status;
     private String keepStatus;
     private String likeStatus;
 
+    public int getWatch_status() {
+        return watch_status;
+    }
 
+    public void setWatch_status(int watch_status) {
+        this.watch_status = watch_status;
+    }
 
     public String getUid() {
         return uid;
@@ -210,14 +216,6 @@ public class ArticleBean {
         this.upCount = upCount;
     }
 
-    public String getWatchStatus() {
-        return watchStatus;
-    }
-
-    public void setWatchStatus(String watchStatus) {
-        this.watchStatus = watchStatus;
-    }
-
     public String getKeepStatus() {
         return keepStatus;
     }
@@ -246,7 +244,7 @@ public class ArticleBean {
          * keep_count : 0
          */
 
-        private String uid;
+        private String user_id;
         private String pen_name;
         private String reg_date;
         private String introduction;
@@ -273,12 +271,12 @@ public class ArticleBean {
             this.icon = icon;
         }
 
-        public String getUid() {
-            return uid;
+        public String getUserId() {
+            return user_id;
         }
 
-        public void setUid(String uid) {
-            this.uid = uid;
+        public void setUid(String user_id) {
+            this.user_id = user_id;
         }
 
         public String getPen_name() {

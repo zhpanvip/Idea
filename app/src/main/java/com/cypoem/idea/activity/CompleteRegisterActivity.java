@@ -261,14 +261,14 @@ public class CompleteRegisterActivity extends BaseActivity {
                 .addFormDataPart("password", password)
                 .addFormDataPart("uploadFile", file.getName(), imageBody);
         List<MultipartBody.Part> parts = builder.build().parts();
-        /*RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        /*//  图片参数
+        RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
         MultipartBody.Part body = MultipartBody.Part.createFormData("uploadFile", file.getName(), requestFile);
-        RequestBody phoneBody =
-                RequestBody.create(
-                        MediaType.parse("multipart/form-data"), phone);
-        RequestBody pswBody =
-                RequestBody.create(
-                        MediaType.parse("multipart/form-data"), password);*/
+        //  手机号参数
+        RequestBody phoneBody = RequestBody.create(MediaType.parse("multipart/form-data"), phone);
+        //  密码参数
+        RequestBody pswBody = RequestBody.create(MediaType.parse("multipart/form-data"), password);*/
+
         IdeaApi.getApiService()
                 .register(parts)
                 .subscribeOn(Schedulers.io())

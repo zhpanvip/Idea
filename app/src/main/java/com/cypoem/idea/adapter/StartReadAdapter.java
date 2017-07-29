@@ -65,7 +65,7 @@ public class StartReadAdapter extends RecyclerView.Adapter<StartReadAdapter.Simp
         holder.mRecyclerView.setHasFixedSize(true);
 
         holder.mRecyclerView.addOnPageChangedListener((int i, int i1) ->
-                ((StartReadActivity) mContext).onHorizontalItemSelected(i1)
+                ((StartReadActivity) mContext).onHorizontalItemSelected(position,i1)
         );
     }
 

@@ -8,15 +8,12 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,13 +25,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airong.core.utils.ImageLoaderUtil;
-import com.airong.core.utils.ImageUtils;
 import com.airong.core.utils.LogUtils;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.JsonBean;
-import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
@@ -58,7 +53,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
@@ -71,17 +65,17 @@ import static com.cypoem.idea.constants.Constants.TAG;
 
 public class EditInfoActivity extends BaseActivity {
     //  个人简介
-    private static final int INTRODUCE = 100;
+    protected static final int INTRODUCE = 100;
     //  格言
-    private static final int SIGN = 101;
+    protected static final int SIGN = 101;
     //  笔名
-    private static final int PEN_NAME = 102;
+    protected static final int PEN_NAME = 102;
     // 头像
-    private static final int HEAD_PIC=103;
+    private static final int HEAD_PIC = 103;
     //  性别
-    private static final int SEX=104;
+    private static final int SEX = 104;
     //  生日
-    private static final int BIRTHDAY=105;
+    private static final int BIRTHDAY = 105;
     //  地址
     private static final int ADDRESS = 106;
 
@@ -174,18 +168,18 @@ public class EditInfoActivity extends BaseActivity {
         tvDate.setText(birthday);
         tvAddress.setText(address);
         tvIntroduce.setText(introduction);
-        tvUserId.setText(user.getUid());
-        ImageLoaderUtil.loadCircleImg(ivHeadPic, IdeaApiService.HOST+user.getIcon(),R.drawable.head_pic);
+        tvUserId.setText(user.getUserId());
+        ImageLoaderUtil.loadCircleImg(ivHeadPic, IdeaApiService.HOST + user.getIcon(), R.drawable.head_pic);
     }
 
-    private void refreshUserInfo(){
-        UserInfoTools.setPenName(this,penName);
-        UserInfoTools.setSign(this,sign);
-        UserInfoTools.setSex(this,sex);
-        UserInfoTools.setBirthday(this,birthday);
-        UserInfoTools.setAddress(this,address);
-        UserInfoTools.setAudthorBrief(this,introduction);
-        UserInfoTools.setHeadPic(this,picPath);
+    private void refreshUserInfo() {
+        UserInfoTools.setPenName(this, penName);
+        UserInfoTools.setSign(this, sign);
+        UserInfoTools.setSex(this, sex);
+        UserInfoTools.setBirthday(this, birthday);
+        UserInfoTools.setAddress(this, address);
+        UserInfoTools.setAudthorBrief(this, introduction);
+        UserInfoTools.setHeadPic(this, picPath);
         mSexView.setMalePercent(Double.parseDouble(sex));
         setUserInfo();
     }
@@ -201,15 +195,15 @@ public class EditInfoActivity extends BaseActivity {
         switch (resultCode) {
             case INTRODUCE:
                 introduction = data.getStringExtra("result");
-                postData(INTRODUCE,introduction);
+                postData(INTRODUCE, introduction);
                 break;
             case SIGN:
                 sign = data.getStringExtra("result");
-                postData(SIGN,sign);
+                postData(SIGN, sign);
                 break;
             case PEN_NAME:
                 penName = data.getStringExtra("result");
-                postData(PEN_NAME,penName);
+                postData(PEN_NAME, penName);
                 break;
             case UCrop.RESULT_ERROR:
                 handleCropError(data);
@@ -257,7 +251,7 @@ public class EditInfoActivity extends BaseActivity {
             LogUtils.e(resultUri.getPath());
             picPath = resultUri.getPath();
             int maxBitmapSize = getMaxBitmapSize();
-            postData(HEAD_PIC,"");
+            postData(HEAD_PIC, "");
             BitmapLoadUtils.decodeBitmapInBackground(this, resultUri, null, maxBitmapSize, maxBitmapSize, new BitmapLoadCallback() {
                 @Override
                 public void onBitmapLoaded(@NonNull Bitmap bitmap, @NonNull ExifInfo exifInfo, @NonNull String s, @Nullable String s1) {
@@ -340,8 +334,8 @@ public class EditInfoActivity extends BaseActivity {
     DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            birthday=year + "-" + (month + 1) + "-" + dayOfMonth;
-            postData(BIRTHDAY,birthday);
+            birthday = year + "-" + (month + 1) + "-" + dayOfMonth;
+            postData(BIRTHDAY, birthday);
         }
     };
 
@@ -355,9 +349,9 @@ public class EditInfoActivity extends BaseActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sex=(percent/100.0)+"";
-                postData(SEX,sex);
-               // mSexView.setMalePercent(1 - percent / 100.0);
+                sex = (percent / 100.0) + "";
+                postData(SEX, sex);
+                // mSexView.setMalePercent(1 - percent / 100.0);
                 dismissDialog();
             }
         });
@@ -504,22 +498,19 @@ public class EditInfoActivity extends BaseActivity {
 
     private void ShowPickerView() {// 弹出选择器
         initJsonData();
-        OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
-            @Override
-            public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                //返回的分别是三个级别的选中位置
-                String province = options1Items.get(options1).getPickerViewText();
-                String selectedResult;
-                if ("北京市".equals(province) || "天津市".equals(province) || "上海市".equals(province)
-                        || "香港".equals(province) || "澳门".equals(province) || "深圳市".equals(province)) {
-                    selectedResult = options1Items.get(options1).getPickerViewText();
-                } else {
-                    selectedResult = options1Items.get(options1).getPickerViewText() + " " +
-                            options2Items.get(options1).get(options2);
-                }
-                address=selectedResult;
-                postData(ADDRESS,selectedResult);
+        OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, (int options1, int options2, int options3, View v) -> {
+            //返回的分别是三个级别的选中位置
+            String province = options1Items.get(options1).getPickerViewText();
+            String selectedResult;
+            if ("北京市".equals(province) || "天津市".equals(province) || "上海市".equals(province)
+                    || "香港".equals(province) || "澳门".equals(province) || "深圳市".equals(province)) {
+                selectedResult = options1Items.get(options1).getPickerViewText();
+            } else {
+                selectedResult = options1Items.get(options1).getPickerViewText() + " " +
+                        options2Items.get(options1).get(options2);
             }
+            address = selectedResult;
+            postData(ADDRESS, selectedResult);
         }).setTitleText("城市选择")
                 .setDividerColor(Color.GRAY)
                 .setTextColorCenter(Color.GRAY) //设置选中项文字颜色
@@ -530,7 +521,7 @@ public class EditInfoActivity extends BaseActivity {
         pvOptions.show();
     }
 
-    private void postData(int requestCode,String result) {
+    private void postData(int requestCode, String result) {
         /*Drawable drawable = ivHeadPic.getDrawable();
         Bitmap bitmap = ImageUtils.drawable2Bitmap(drawable);*/
         File file = new File(picPath);
@@ -547,7 +538,7 @@ public class EditInfoActivity extends BaseActivity {
 
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("uid",UserInfoTools.getUserId(this))
+                .addFormDataPart("user_id", UserInfoTools.getUserId(this))
                 .addFormDataPart("dictum", sign)
                 .addFormDataPart("pen_name", penName)
                 .addFormDataPart("sex", sex)
@@ -571,7 +562,7 @@ public class EditInfoActivity extends BaseActivity {
                 });
     }
 
-    public static class UpdateInfoSuccess{
+    public static class UpdateInfoSuccess {
 
     }
 

@@ -22,7 +22,7 @@ public class FansBean {
      * keep_count : 0
      */
 
-    private String uid;
+    private String user_id;
     private String pen_name;
     private String sex;
     private String icon;
@@ -36,12 +36,12 @@ public class FansBean {
     private int enjoy_count;
     private int keep_count;
 
-    public String getUid() {
-        return uid;
+    public String getUserId() {
+        return user_id;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 
     public String getPen_name() {

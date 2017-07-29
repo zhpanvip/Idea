@@ -3,26 +3,18 @@ package com.cypoem.idea.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CollectAdapter;
-import com.cypoem.idea.adapter.OpusAdapter;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
-import com.cypoem.idea.module.bean.ArticleBean;
 import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
-import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,7 +45,7 @@ public class OpusActivity extends BaseActivity {
 
     private void setListener() {
         mListView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id)-> {
-            StartReadActivity.start(OpusActivity.this,mAdapter.getList().get(position).getUid());
+            StartReadActivity.start(OpusActivity.this,"","");
         });
     }
 
@@ -98,7 +90,7 @@ public class OpusActivity extends BaseActivity {
 
     private void getData(boolean isRefresh, int page) {
         IdeaApi.getApiService()
-                .getMyOpus(UserInfoTools.getUser(this).getUid(),page, Constants.NUM,type)
+                .getMyOpus(UserInfoTools.getUser(this).getUserId(),page, Constants.NUM,type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this,true) {

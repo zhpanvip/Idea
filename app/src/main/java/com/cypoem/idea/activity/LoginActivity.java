@@ -208,7 +208,7 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
     private void loginSuccess(UserBean result) {
         UserInfoTools.setIsLogin(this,true);
         UserInfoTools.setUser(this,result);
-        UserInfoTools.setUid(this,result.getUid());
+        UserInfoTools.setUid(this,result.getUserId());
         finish();
     }
 

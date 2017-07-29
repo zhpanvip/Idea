@@ -26,6 +26,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Query;
+import retrofit2.http.QueryMap;
 
 /**
  * Created by zhpan on 2017/4/1.
@@ -185,13 +186,11 @@ public interface IdeaApiService {
     /**
      * 获取作品章节内容
      *
-     * @param page   显示第几页
-     * @param rows   每页显示几条数据
-     * @param userId 登陆用户id
+     * @param params   参数集合
      * @return
      */
-    @GET("section/view.do")
-    Observable<BasicResponse<List<ArticleBean>>> getArticle(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("write_id") String writeId, @Query("sectionid") String sectionId);
+    @GET("section/viewUpSection.do")
+    Observable<BasicResponse<List<ArticleBean>>> getArticle(@QueryMap Map<String, String> params);
 
     /**
      * 获取作品章节内容
@@ -231,7 +230,7 @@ public interface IdeaApiService {
      *  @param  focusId   关注用户的id
      * @return
      */
-    @POST("watch/add.do")
+    @POST("watch/delete.do")
     Observable<BasicResponse<String>> cancelFocus(@Query("user_id") String userId,@Query("watch_user_id") String focusId);
 
     @POST("user/ceshi.do")

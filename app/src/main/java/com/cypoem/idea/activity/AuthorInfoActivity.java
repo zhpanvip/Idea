@@ -9,7 +9,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.airong.core.utils.ImageLoaderUtil;
+import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CommonFragmentAdapter;
 import com.cypoem.idea.constants.Constants;
@@ -27,6 +29,7 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -76,7 +79,10 @@ public class AuthorInfoActivity extends BaseActivity {
     @BindView(R.id.sl_view)
     ScrollableLayout mScrollView;
     List<AuthorFragment> mList;
-    private String userId="";
+    private String userId = "";
+    private boolean isFollow;
+    private UserBean userBean;
+
 
     @Override
     protected int getLayoutId() {
@@ -98,24 +104,23 @@ public class AuthorInfoActivity extends BaseActivity {
     }
 
     @Subscribe
-    public void updateInfoSuccess(EditInfoActivity.UpdateInfoSuccess success){
+    public void updateInfoSuccess(EditInfoActivity.UpdateInfoSuccess success) {
         UserBean user = UserInfoTools.getUser(this);
         setUserData(user);
     }
 
     private void setData() {
         UserBean user = UserInfoTools.getUser(this);
-        if(null!=user&&userId.equals(UserInfoTools.getUserId(this))){
+        if (null != user && userId.equals(UserInfoTools.getUserId(this))) {
             setUserData(user);
-        }else {
+        } else {
             mIvEdit.setVisibility(View.GONE);
-            mTvFollow.setVisibility(View.VISIBLE);
             getData(false);
         }
     }
 
     private void setUserData(UserBean user) {
-        ImageLoaderUtil.loadImg(mIvAuthor,user.getIcon(),R.drawable.head_pic);
+        ImageLoaderUtil.loadImg(mIvAuthor, user.getIcon(), R.drawable.head_pic);
         mTvPenName.setText(user.getPen_name());
         String sex = user.getSex();
         mSexView.setMalePercent(Double.parseDouble(sex));
@@ -123,10 +128,10 @@ public class AuthorInfoActivity extends BaseActivity {
         mTvBirthday.setText(user.getBirthday());
         mTvAddress.setText(user.getAddress());
         mTvIntroduce.setText(user.getIntroduction());
-        mTvFans.setText(user.getWatchMeCount()+"");
-        mTvFocus.setText(user.getMyWatchCount()+"");
-        mTvCollect.setText(user.getKeep_count()+"");
-        mTvLike.setText(user.getEnjoy_count()+"");
+        mTvFans.setText(user.getWatchMeCount() + "");
+        mTvFocus.setText(user.getMyWatchCount() + "");
+        mTvCollect.setText(user.getKeep_count() + "");
+        mTvLike.setText(user.getEnjoy_count() + "");
 
     }
 
@@ -156,23 +161,30 @@ public class AuthorInfoActivity extends BaseActivity {
                 .getUserInfo(userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this,showLoading) {
+                .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, showLoading) {
                     @Override
                     public void onSuccess(BasicResponse<UserBean> response) {
-                        setUserData(response.getResult());
+                        userBean = response.getResult();
+                        mTvFollow.setVisibility(View.VISIBLE);
+                        if (userBean.getWatch_status()==1) {
+                            mTvFollow.setText("已关注");
+                        } else {
+                            mTvFollow.setText("关注");
+                        }
+                        setUserData(userBean);
                     }
                 });
     }
 
     private void initData() {
         Intent intent = getIntent();
-        userId=intent.getStringExtra("userId");
+        userId = intent.getStringExtra("userId");
         mList = new ArrayList<>();
         /*Bundle bundle = new Bundle();
         bundle.putString("userId",userId);*/
-        AuthorFragment fragmentStart = AuthorFragment.getFragment(Constants.MY_START_OPUS,userId);
-        AuthorFragment fragmentJoin = AuthorFragment.getFragment(Constants.MY_JOIN_OPUS,userId);
-        AuthorFragment fragmentCreate = AuthorFragment.getFragment(Constants.MY_OWN_OPUS,userId);
+        AuthorFragment fragmentStart = AuthorFragment.getFragment(Constants.MY_START_OPUS, userId);
+        AuthorFragment fragmentJoin = AuthorFragment.getFragment(Constants.MY_JOIN_OPUS, userId);
+        AuthorFragment fragmentCreate = AuthorFragment.getFragment(Constants.MY_OWN_OPUS, userId);
         mList.add(fragmentStart);
         mList.add(fragmentJoin);
         mList.add(fragmentCreate);
@@ -182,14 +194,14 @@ public class AuthorInfoActivity extends BaseActivity {
         mScrollView.getHelper().setCurrentScrollableContainer(mList.get(0));
     }
 
-    public static void start(Context context,String userId) {
+    public static void start(Context context, String userId) {
         Intent intent = new Intent(context, AuthorInfoActivity.class);
-        intent.putExtra("userId",userId);
+        intent.putExtra("userId", userId);
         context.startActivity(intent);
     }
 
 
-    @OnClick({R.id.ll_collect, R.id.ll_like, R.id.ll_fans, R.id.ll_focus, R.id.iv_edit})
+    @OnClick({R.id.ll_collect, R.id.ll_like, R.id.ll_fans, R.id.ll_focus, R.id.iv_edit,R.id.tv_follow})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_collect:
@@ -199,10 +211,10 @@ public class AuthorInfoActivity extends BaseActivity {
                 PraiseActivity.start(this);
                 break;
             case R.id.ll_fans:
-                FansActivity.start(this, Constants.FOLLOWS);
+                FansActivity.start(this, Constants.FOLLOWS,userId);
                 break;
             case R.id.ll_focus:
-                FansActivity.start(this,Constants.FOCUS);
+                FansActivity.start(this, Constants.FOCUS,userId);
                 break;
             case R.id.iv_edit:
                 EditInfoActivity.start(this);
@@ -214,8 +226,37 @@ public class AuthorInfoActivity extends BaseActivity {
     }
 
 
-
     private void follow() {
-
+        if (userBean.getWatch_status()==1) {
+            cancelFocus(userBean.getUserId());
+        } else {
+            addFocus(userBean.getUserId());
+        }
+    }
+    //  关注
+    private void addFocus(String focusId) {
+        IdeaApi.getApiService()
+                .addFocus(UserInfoTools.getUserId(this), focusId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse<String> response) {
+                        ToastUtils.show(response.getMsg());
+                    }
+                });
+    }
+    //  取消关注
+    private void cancelFocus(String focusId) {
+        IdeaApi.getApiService()
+                .cancelFocus(UserInfoTools.getUserId(this), focusId)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse<String> response) {
+                        ToastUtils.show(response.getMsg());
+                    }
+                });
     }
 }

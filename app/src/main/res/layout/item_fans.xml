@@ -23,7 +23,7 @@
         android:layout_marginStart="@dimen/mp_10"
         android:textSize="@dimen/f_16"/>
     <com.cypoem.idea.view.SexView
-        android:id="@+id/iv_male"
+        android:id="@+id/iv_sex"
         android:layout_width="@dimen/mp_15"
         android:layout_height="@dimen/mp_15"
         android:layout_toEndOf="@id/tv_name"

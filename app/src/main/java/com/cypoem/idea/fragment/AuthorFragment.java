@@ -86,7 +86,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
                 .getMyOpus(userId, page, ROWS, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this,false) {
+                .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this, false) {
                     @Override
                     public void onSuccess(BasicResponse<List<OpusBean>> response) {
                         List<OpusBean> result = response.getResult();
@@ -123,8 +123,11 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     }
 
     private void setListener() {
-        mListView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) ->
-                StartReadActivity.start(getContext(), mAdapter.getList().get(position).getUid())
+        mListView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
+                    OpusBean opusBean = mAdapter.getList().get(position);
+                    String uid = opusBean.getUid();
+                    StartReadActivity.start(getContext(),"", "");
+                }
         );
     }
 
