@@ -1,0 +1,80 @@
+package com.cypoem.idea.adapter;
+
+import android.content.Context;
+import android.support.annotation.LayoutRes;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.airong.core.recycler.BaseAdapter;
+import com.airong.core.recycler.BaseHolder;
+import com.airong.core.utils.ImageLoaderUtil;
+import com.airong.core.utils.ToastUtils;
+import com.cypoem.idea.R;
+import com.cypoem.idea.module.bean.CommentBean;
+import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.net.IdeaApiService;
+
+import java.util.List;
+
+/**
+ * Created by zhpan on 2017/7/30.
+ */
+
+public class CommentAdapter extends BaseAdapter<CommentBean, CommentAdapter.CommentHolder> {
+
+
+    public CommentAdapter(Context context) {
+        super(context);
+    }
+
+    public CommentAdapter(Context context, List<CommentBean> list) {
+        super(context, list);
+    }
+
+    @Override
+    public CommentHolder createCustomViewHolder(ViewGroup parent, int viewType) {
+        return new CommentHolder(parent, R.layout.item_comment);
+    }
+
+    @Override
+    public void bindCustomViewHolder(CommentHolder holder, int position) {
+        CommentBean item = getItem(position);
+        holder.tvContent.setText(item.getContent());
+        holder.tvName.setText(item.getUser().getPen_name());
+        holder.tvTime.setText(item.getTime());
+        holder.tvCount.setText(String.valueOf(item.getLike_count()));
+        ImageLoaderUtil.loadCircleImg(holder.ivHead, IdeaApiService.HOST+item.getUser().getIcon(),R.drawable.head_pic);
+        holder.ivLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.show("点赞");
+            }
+        });
+    }
+
+    @Override
+    public int getCustomViewType(int position) {
+        return 0;
+    }
+
+    public static class CommentHolder extends BaseHolder {
+        private TextView tvName;
+        private TextView tvTime;
+        private ImageView ivHead;
+        private ImageView ivLike;
+        private TextView tvCount;
+        private TextView tvContent;
+
+        public CommentHolder(ViewGroup parent, @LayoutRes int resId) {
+            super(parent, resId);
+            tvName = getView(R.id.tv_name);
+            tvTime = getView(R.id.tv_time);
+            ivHead = getView(R.id.iv_head_pic);
+            ivLike = getView(R.id.iv_like);
+            tvCount = getView(R.id.tv_count);
+            tvContent = getView(R.id.tv_content);
+        }
+    }
+}

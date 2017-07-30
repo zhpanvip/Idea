@@ -35,7 +35,10 @@ import com.cypoem.idea.activity.FansActivity;
 import com.cypoem.idea.activity.OpusActivity;
 import com.cypoem.idea.activity.PraiseActivity;
 import com.cypoem.idea.activity.WalletActivity;
+import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.net.DefaultObserver;
+import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.net.IdeaApiService;
 import com.cypoem.idea.utils.UserInfoTools;
 
@@ -45,6 +48,8 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by zhpan on 2017/4/21.
@@ -90,6 +95,7 @@ public class MeFragment extends BaseFragment {
     TextView mTvTitle;
     @BindView(R.id.iv_right)
     ImageView mIvRight;
+    private UserBean userBean;
 
     public static MeFragment getFragment(Bundle bundle) {
         MeFragment meFragment = new MeFragment();
@@ -101,7 +107,6 @@ public class MeFragment extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_me;
     }
-
 
 
     @Override
@@ -125,22 +130,23 @@ public class MeFragment extends BaseFragment {
 
     private void initData() {
         setTitleBar();
-        setUserInfo();
         EventBus.getDefault().register(this);
+        userBean = UserInfoTools.getUser(getContext());
+        setUserInfo();
+        getData();
     }
 
     private void setUserInfo() {
-        UserBean user = UserInfoTools.getUser(getContext());
-        ImageLoaderUtil.loadCircleImg(headImg, IdeaApiService.HOST+user.getIcon(), R.drawable.head_pic);
-        tvFocus.setText(user.getMyWatchCount() + "");
-        tvFans.setText(user.getWatchMeCount() + "");
-        tvCollect.setText(user.getKeep_count() + "");
-        tvLike.setText(user.getEnjoy_count() + "");
-        tvName.setText(user.getPen_name());
-        String dictum = user.getDictum();
-        if(TextUtils.isEmpty(dictum)){
+        ImageLoaderUtil.loadCircleImg(headImg, IdeaApiService.HOST + userBean.getIcon(), R.drawable.head_pic);
+        tvFocus.setText(String.valueOf(userBean.getMyWatchCount()));
+        tvFans.setText(String.valueOf(userBean.getWatchMeCount()));
+        tvCollect.setText(String.valueOf(userBean.getKeep_count()));
+        tvLike.setText(String.valueOf(userBean.getEnjoy_count()));
+        tvName.setText(userBean.getPen_name());
+        String dictum = userBean.getDictum();
+        if (TextUtils.isEmpty(dictum)) {
             tvSign.setVisibility(View.GONE);
-        }else {
+        } else {
             tvSign.setText(dictum);
         }
     }
@@ -159,23 +165,23 @@ public class MeFragment extends BaseFragment {
     }
 
     @Subscribe
-    public void updateInfoSuccess(EditInfoActivity.UpdateInfoSuccess success){
+    public void updateInfoSuccess(EditInfoActivity.UpdateInfoSuccess success) {
         setUserInfo();
     }
 
 
     @OnClick({R.id.ll_focus, R.id.ll_fans, R.id.ll_collect, R.id.rl_wallet, R.id.ll_like
-            , R.id.rl_join, R.id.rl_create, R.id.rl_publish, R.id.rl_draft, R.id.head_img,R.id.iv_right})
+            , R.id.rl_join, R.id.rl_create, R.id.rl_publish, R.id.rl_draft, R.id.head_img, R.id.iv_right})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ll_focus:
-                FansActivity.start(getContext(),Constants.FOCUS,UserInfoTools.getUserId(getContext()));
+                FansActivity.start(getContext(), Constants.FOCUS, UserInfoTools.getUserId(getContext()));
                 break;
             case R.id.ll_collect:
                 CollectActivity.start(getContext());
                 break;
             case R.id.ll_fans:
-                FansActivity.start(getContext(),Constants.FOLLOWS,UserInfoTools.getUserId(getContext()));
+                FansActivity.start(getContext(), Constants.FOLLOWS, UserInfoTools.getUserId(getContext()));
                 break;
             case R.id.ll_like:
                 PraiseActivity.start(getContext());
@@ -187,13 +193,13 @@ public class MeFragment extends BaseFragment {
                 OpusActivity.start(getContext(), Constants.MY_START_OPUS);
                 break;
             case R.id.rl_create:
-                OpusActivity.start(getContext(),Constants.MY_OWN_OPUS);
+                OpusActivity.start(getContext(), Constants.MY_OWN_OPUS);
                 break;
             case R.id.rl_join:
-                OpusActivity.start(getContext(),Constants.MY_JOIN_OPUS);
+                OpusActivity.start(getContext(), Constants.MY_JOIN_OPUS);
                 break;
             case R.id.rl_draft:
-                OpusActivity.start(getContext(),Constants.MY_DRAFT);
+                OpusActivity.start(getContext(), Constants.MY_DRAFT);
                 break;
             case R.id.head_img:
                 AuthorInfoActivity.start(getContext(), UserInfoTools.getUserId(getContext()));
@@ -202,5 +208,21 @@ public class MeFragment extends BaseFragment {
                 SettingActivity.start(getContext());
                 break;
         }
+    }
+
+
+    private void getData() {
+        IdeaApi.getApiService()
+                .getUserInfo(UserInfoTools.getUserId(getContext()))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, false) {
+                    @Override
+                    public void onSuccess(BasicResponse<UserBean> response) {
+                        userBean = response.getResult();
+                        UserInfoTools.setUser(getContext(),userBean);
+                        setUserInfo();
+                    }
+                });
     }
 }

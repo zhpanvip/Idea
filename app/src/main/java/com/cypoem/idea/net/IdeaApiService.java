@@ -2,13 +2,13 @@ package com.cypoem.idea.net;
 
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleBean;
+import com.cypoem.idea.module.bean.CommentBean;
 import com.cypoem.idea.module.bean.EverydayReBackBean;
 import com.cypoem.idea.module.bean.FansBean;
 import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.module.bean.UserBean;
-import com.cypoem.idea.module.post_bean.EverydaySayPost;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
 
 import java.util.List;
@@ -16,8 +16,6 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -155,13 +153,14 @@ public interface IdeaApiService {
      * @return
      */
     @GET("write/myWrites.do")
-    Observable<BasicResponse<List<OpusBean>>> getMyOpus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows,@Query("type") int type);
+    Observable<BasicResponse<List<OpusBean>>> getMyOpus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
 
     @GET("section/viewKeepWrite.do")
     Observable<BasicResponse<List<OpusBean>>> getCollect(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
 
     /**
      * 查询我关注我的
+     *
      * @param page   显示第几页
      * @param rows   每页显示几条数据
      * @param userId 登陆用户id
@@ -171,9 +170,9 @@ public interface IdeaApiService {
     Observable<BasicResponse<List<FansBean>>> getMyFocus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
 
 
-
     /**
      * 查询我的粉丝
+     *
      * @param page   显示第几页
      * @param rows   每页显示几条数据
      * @param userId 登陆用户id
@@ -186,7 +185,7 @@ public interface IdeaApiService {
     /**
      * 获取作品章节内容
      *
-     * @param params   参数集合
+     * @param params 参数集合
      * @return
      */
     @GET("section/viewUpSection.do")
@@ -216,23 +215,71 @@ public interface IdeaApiService {
     /**
      * 添加关注
      *
-     * @param userId 用户id
-     *  @param  focusId   关注用户的id
+     * @param userId  用户id
+     * @param focusId 关注用户的id
      * @return
      */
     @POST("watch/add.do")
-    Observable<BasicResponse<String>> addFocus(@Query("user_id") String userId,@Query("watch_user_id") String focusId);
+    Observable<BasicResponse<String>> addFocus(@Query("user_id") String userId, @Query("watch_user_id") String focusId);
 
     /**
      * 取消关注
      *
-     * @param userId 用户id
-     *  @param  focusId   关注用户的id
+     * @param userId  用户id
+     * @param focusId 关注用户的id
      * @return
      */
     @POST("watch/delete.do")
-    Observable<BasicResponse<String>> cancelFocus(@Query("user_id") String userId,@Query("watch_user_id") String focusId);
+    Observable<BasicResponse<String>> cancelFocus(@Query("user_id") String userId, @Query("watch_user_id") String focusId);
+
+    /**
+     * 获取章节评论
+     * @param params
+     * @return
+     */
+    @GET("comment/viewComment.do")
+    Observable<BasicResponse<List<CommentBean>>> getComment(@QueryMap Map<String, String> params);
+
+    /**
+     * 评论章节
+     * @param userId 用户id
+     * @param sectionId 章节id
+     * @param content 评论内容
+     * @return
+     */
+    @POST("comment/add.do")
+    Observable<BasicResponse<String>> comment(@Query("user_id") String userId, @Query("section_id") String sectionId,@Query("content") String content);
+
+    /**
+     * 为章节点赞
+     * @param userId 用户id
+     * @param comment_id 要点赞的评论的uid
+     * @return
+     */
+    @POST("commentLike/updateLike.do")
+    Observable<BasicResponse<String>> praise(@Query("user_id") String userId, @Query("comment_id") String comment_id);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @POST("user/ceshi.do")
     Observable<BasicResponse> test();
+
+
+
 }

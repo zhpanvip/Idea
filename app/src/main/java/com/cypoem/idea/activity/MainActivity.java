@@ -4,33 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-
 import com.cypoem.idea.adapter.AdapterFragmentPager;
-import com.cypoem.idea.event.HideView;
 import com.cypoem.idea.event.LogoutEvent;
 import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.R;
 import com.cypoem.idea.fragment.AddFragment;
-import com.cypoem.idea.fragment.FindFragment;
-import com.cypoem.idea.fragment.HomePageFragment;
-import com.cypoem.idea.fragment.MeFragment;
-import com.cypoem.idea.fragment.MessageFragment;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.MViewPaper;
-
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -57,7 +45,6 @@ public class MainActivity extends BaseActivity {
     private long exitTime = 0;
     //  上一次RadioGroup选中的Id
     private int preCheckedId;
-    private AdapterFragmentPager mAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -81,12 +68,11 @@ public class MainActivity extends BaseActivity {
     private void reStartActivity() {
         Intent intent = getIntent();
         boolean nightMode = intent.getBooleanExtra("nightMode", false);
-        if(nightMode&&UserInfoTools.getIsLogin(this)){
+        if (nightMode && UserInfoTools.getIsLogin(this)) {
             //  自动切换到“我的”页面
             mRbMe.performClick();
         }
     }
-
 
     @Override
     public void onDestroy() {
@@ -94,30 +80,10 @@ public class MainActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
     }
 
-    /**
-     * 接收到夜间模式改变的事件后结束当前Activity
-     * @param event
-     */
-    @Subscribe
-    public void setNightMode(NightModeEvent event) {
-        finish();
-    }
-
-    @Subscribe
-    public void logout(LogoutEvent event){
-        mRbHome.setChecked(true);
-    }
-
-    @Subscribe
-    public void joinOpus(AddFragment.JoinOpus joinOpus){
-        mIvBackground.setVisibility(View.VISIBLE);
-    }
     private void initData() {
-
         getToolbar().setVisibility(View.GONE);
-        mAdapter = new AdapterFragmentPager(getSupportFragmentManager());
+        AdapterFragmentPager mAdapter = new AdapterFragmentPager(getSupportFragmentManager());
         mViewPager.setAdapter(mAdapter);
-        mViewPager.setOffscreenPageLimit(1);
     }
 
     private boolean isLogin() {
@@ -179,11 +145,6 @@ public class MainActivity extends BaseActivity {
         LoginActivity.start(this);
     }
 
-    @Override
-    protected boolean isShowBacking() {
-        return false;
-    }
-
     public static void start(Context context) {
         context.startActivity(new Intent(context, MainActivity.class));
     }
@@ -191,7 +152,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if(mIvBackground.getVisibility()==View.VISIBLE){
+            if (mIvBackground.getVisibility() == View.VISIBLE) {
                 mIvBackground.setVisibility(View.GONE);
                 return true;
             }
@@ -199,7 +160,7 @@ public class MainActivity extends BaseActivity {
                 showToast("再按一次退出程序");
                 exitTime = System.currentTimeMillis();
             } else {
-                finish();
+               // finish();
                 System.exit(0);
             }
             return true;
@@ -208,11 +169,38 @@ public class MainActivity extends BaseActivity {
     }
 
     @OnClick({R.id.iv_add})
-    public void onClick(View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.iv_add:
                 mIvBackground.setVisibility(View.GONE);
                 break;
         }
+    }
+
+    /**
+     * 接收到夜间模式改变的事件后结束当前Activity
+     * @param event
+     */
+    @Subscribe
+    public void setNightMode(NightModeEvent event) {
+        finish();
+    }
+
+    /**
+     * 接受退出事件
+     * @param event
+     */
+    @Subscribe
+    public void logout(LogoutEvent event) {
+        mRbHome.setChecked(true);
+    }
+
+    /**
+     * 接受点击参与已有作品的事件
+     * @param joinOpus
+     */
+    @Subscribe
+    public void joinOpus(AddFragment.JoinOpus joinOpus) {
+        mIvBackground.setVisibility(View.VISIBLE);
     }
 }

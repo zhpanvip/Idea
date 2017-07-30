@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/mp_10"
+    android:paddingStart="@dimen/mp_15"
+    android:paddingEnd="@dimen/mp_15"
+    android:paddingTop="@dimen/mp_10">
+
+    <ImageView
+        android:id="@+id/iv_head_pic"
+        android:layout_width="@dimen/mp_60"
+        android:layout_height="@dimen/mp_60"
+        android:background="@drawable/head_pic" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/iv_head_pic"
+        android:layout_marginStart="@dimen/mp_7"
+        android:layout_marginTop="@dimen/mp_10"
+        android:layout_toEndOf="@id/iv_head_pic"
+
+        android:text="Name"
+        android:textColor="@color/item_text_color"
+        android:textSize="@dimen/f_16" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_marginStart="@dimen/mp_7"
+        android:layout_marginTop="@dimen/mp_5"
+        android:layout_toEndOf="@id/iv_head_pic"
+        android:text="Time"
+        android:textColor="@color/item_text_color"
+        android:textSize="@dimen/f_16" />
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/tv_time"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@id/iv_head_pic"
+        android:layout_marginTop="@dimen/mp_10"
+        android:gravity="center_vertical"
+        android:text="@string/zero"
+        android:textSize="@dimen/f_17" />
+
+    <ImageView
+        android:id="@+id/iv_like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toStartOf="@id/tv_count"
+        android:padding="@dimen/mp_10"
+        android:src="@drawable/like1" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_name"
+        android:layout_below="@id/iv_head_pic"
+        android:textSize="@dimen/f_16"
+        android:text="Content"
+        android:textColor="@color/item_text_color_dark" />
+
+</RelativeLayout>
+

@@ -1,10 +1,14 @@
 package com.cypoem.idea.adapter;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.view.View;
 import android.view.ViewGroup;
-
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import com.airong.core.recycler.BaseAdapter;
+import com.airong.core.recycler.BaseHolder;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.bean.HomePageBean;
@@ -15,7 +19,7 @@ import com.cypoem.idea.net.IdeaApiService;
  *
  */
 
-public class HomeAdapter extends BaseAdapter<HomePageBean,HomeViewHolder> {
+public class HomeAdapter extends BaseAdapter<HomePageBean,HomeAdapter.HomeViewHolder> {
     private OnItemClickListener clickListener;
 
     public HomeAdapter setOnItemClickListener(OnItemClickListener clickListener){
@@ -45,7 +49,6 @@ public class HomeAdapter extends BaseAdapter<HomePageBean,HomeViewHolder> {
                     clickListener.onItemClick(position);
             }
         });
-
     }
 
     @Override
@@ -55,5 +58,23 @@ public class HomeAdapter extends BaseAdapter<HomePageBean,HomeViewHolder> {
 
     public interface OnItemClickListener{
         void onItemClick(int position);
+    }
+
+    class HomeViewHolder extends BaseHolder {
+        private RelativeLayout mRelativeLayout;
+        private ImageView imageView;
+        private TextView mTvTitle;
+        private TextView mTvDescribe;
+        private TextView mTvTime;
+        private TextView mTvDetails;
+        private HomeViewHolder(ViewGroup parent, @LayoutRes int resId) {
+            super(parent, resId);
+            imageView=getView(R.id.iv_background);
+            mTvTitle=getView(R.id.tv_title);
+            mTvTime=getView(R.id.tv_time);
+            mTvDescribe=getView(R.id.tv_describe);
+            mTvDetails=getView(R.id.tv_details);
+            mRelativeLayout=getView(R.id.rl_item_main);
+        }
     }
 }

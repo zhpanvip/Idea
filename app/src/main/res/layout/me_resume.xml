@@ -36,7 +36,7 @@
             android:ellipsize="end"
             android:maxLength="24"
             android:maxLines="1"
-            android:text="韩三少"
+            android:text="笔名"
             android:textColor="@color/text_light"
             android:textSize="16sp" />
     </LinearLayout>
@@ -65,7 +65,7 @@
             android:ellipsize="end"
             android:maxLength="70"
             android:maxLines="2"
-            android:text="一直被模仿，从未被超越"
+            android:text="给自己一条格言吧"
             android:textColor="@color/text_light"
             android:textSize="14sp" />
 
@@ -90,7 +90,7 @@
                 android:id="@+id/tv_focus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/_12k"
+                android:text="@string/zero"
                 android:textColor="@color/text_light" />
 
             <TextView
@@ -119,7 +119,7 @@
                 android:id="@+id/tv_fans"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/_12k"
+                android:text="@string/zero"
                 android:textColor="@color/text_light" />
 
             <TextView
@@ -150,7 +150,7 @@
                 android:id="@+id/tv_collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/_12k"
+                android:text="@string/zero"
                 android:textColor="@color/text_light" />
 
             <TextView
@@ -181,7 +181,7 @@
                 android:id="@+id/tv_like"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/_12k"
+                android:text="@string/zero"
                 android:textColor="@color/text_light" />
 
             <TextView

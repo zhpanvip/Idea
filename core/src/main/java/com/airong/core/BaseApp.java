@@ -3,6 +3,7 @@ package com.airong.core;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+
 import com.airong.core.utils.SPUtils;
 import com.airong.core.utils.Utils;
 import com.airong.core.utils.CrashUtils;
@@ -25,7 +26,7 @@ public class BaseApp extends Application {
         app = this;
         SPUtils.init(this);
         Utils.init(this);
-      //  CrashUtils.getInstance().init();
+        CrashUtils.getInstance().init();
 //        LogUtils2.getBuilder().setTag("MyTag").setLog2FileSwitch(true).create();
 
     }
