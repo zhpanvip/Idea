@@ -19,8 +19,6 @@ import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
-import com.cypoem.idea.utils.UserInfoTools;
-import com.cypoem.idea.view.CircleViewPager;
 import com.zhouwei.mzbanner.MZBannerView;
 import com.zhouwei.mzbanner.holder.MZHolderCreator;
 import com.zhouwei.mzbanner.holder.MZViewHolder;
@@ -36,7 +34,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by zhpan on 2017/4/21.
  */
-public class HomePageFragment extends BaseFragment {
+public class FindInFragment extends BaseFragment {
     @BindView(R.id.rv_home)
     RecyclerView mRecyclerView;
     @BindView(R.id.toolbar_subtitle)
@@ -48,11 +46,13 @@ public class HomePageFragment extends BaseFragment {
     private HomeAdapter mAdapter;
     private int page = 1;
     private final int ROWS = 10;
-    private MZBannerView bannerView;
     private int type;
 
-    public static HomePageFragment getFragment() {
-        HomePageFragment fragment = new HomePageFragment();
+    public static FindInFragment getFragment(int type) {
+        FindInFragment fragment = new FindInFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", type);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -65,13 +65,15 @@ public class HomePageFragment extends BaseFragment {
     protected void init(Bundle savedInstanceState) {
         initData();
         initPtr(true);
-        // getData(true, page);
-        if (!(type == FindFragment.HOTEST || type == FindFragment.NEWEST)) ;
-
-        //  bannerView.setPtrFrame(mPtrFrame);
     }
 
     private void initData() {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            type = bundle.getInt("type");
+        }
+        rootView.findViewById(R.id.toolbar).setVisibility(View.GONE);
+
         toolbarSubtitle.setVisibility(View.GONE);
         toolbarTitle.setText("首页");
         setRecycler();
@@ -84,34 +86,12 @@ public class HomePageFragment extends BaseFragment {
         mAdapter.fillList(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((position) -> {
-            HomePageBean homePageBean = mAdapter.getList().get(position - 1);
+            HomePageBean homePageBean = mAdapter.getList().get(position);
             String writeId = String.valueOf(homePageBean.getWrite_id());
             String authorId = String.valueOf(homePageBean.getUser().getUser_id());
             StartReadActivity.start(getContext(), writeId, authorId);
         });
-        initViewPager();
     }
-
-    private void initViewPager() {
-        View headerView = View.inflate(getContext(), R.layout.header_home, null);
-        bannerView = (MZBannerView) headerView.findViewById(R.id.banner);
-        bannerView.setDuration(5000);
-        List<String> mUrlList = new ArrayList<>();
-        mUrlList.add("http://d.5857.com/gqyhx_131102/004.jpg");
-        mUrlList.add("http://img2.imgtn.bdimg.com/it/u=1563338466,3557560859&fm=214&gp=0.jpg");
-        mUrlList.add("http://attachments.gfan.com/forum/201501/31/2123227t3eheezfvte0e0u.jpg");
-        mUrlList.add("http://img2.imgtn.bdimg.com/it/u=872760111,3711017955&fm=214&gp=0.jpg");
-        mUrlList.add("http://img2.niutuku.com/desk/1208/1922/ntk-1922-39448.jpg");
-        // 设置数据
-        bannerView.setPages(mUrlList, new MZHolderCreator<BannerViewHolder>() {
-            @Override
-            public BannerViewHolder createViewHolder() {
-                return new BannerViewHolder();
-            }
-        });
-        mAdapter.addHeaderView(headerView);
-    }
-
 
     @Override
     public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
@@ -133,7 +113,7 @@ public class HomePageFragment extends BaseFragment {
     private void getData(boolean isRefresh, int page) {
         //  Retrofit请求数据
         IdeaApi.getApiService()
-                .getHomePageData(page, ROWS)
+                .getDiscoverData(page, ROWS,type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<HomePageBean>>>(this, false) {
@@ -158,22 +138,4 @@ public class HomePageFragment extends BaseFragment {
         mAdapter.notifyDataSetChanged();
     }
 
-
-    public static class BannerViewHolder implements MZViewHolder<String> {
-        private ImageView mImageView;
-
-        @Override
-        public View createView(Context context) {
-            // 返回页面布局
-            View view = LayoutInflater.from(context).inflate(R.layout.banner_item, null);
-            mImageView = (ImageView) view.findViewById(R.id.banner_image);
-            return view;
-        }
-
-        @Override
-        public void onBind(Context context, int position, String data) {
-            // 数据绑定
-            ImageLoaderUtil.loadImg(mImageView, data);
-        }
-    }
 }

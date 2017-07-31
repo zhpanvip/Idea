@@ -89,7 +89,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.GetIdentifyCodeActivity" />
         <activity android:name=".activity.CompleteRegisterActivity" />
         <activity android:name=".activity.CollectActivity" />
         <activity android:name=".activity.ArticleWebViewActivity" />
@@ -119,7 +119,8 @@
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.EditInfoActivity" />
         <activity android:name=".activity.EditActivity" />
-        <activity android:name=".activity.WriteActivity"></activity>
+        <activity android:name=".activity.WriteActivity" />
+        <activity android:name=".activity.UpdatePswActivity"></activity>
     </application>
 
 </manifest>

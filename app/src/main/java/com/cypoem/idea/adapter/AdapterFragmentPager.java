@@ -54,7 +54,7 @@ public class AdapterFragmentPager extends FragmentPagerAdapter {
 
     public AdapterFragmentPager(FragmentManager fm) {
         super(fm);
-        fragmentList.put(PAGE_HOME, HomePageFragment.getFragment(0));
+        fragmentList.put(PAGE_HOME, HomePageFragment.getFragment());
         fragmentList.put(PAGE_FIND, new FindFragment());
         fragmentList.put(PAGE_PUBLISH, new AddFragment());
         fragmentList.put(PAGE_MESSAGE, new MessageFragment());

@@ -54,12 +54,21 @@ public interface IdeaApiService {
     /**
      * 完善用户信息
      *
-     * @param userInfo 用户信息
+     * @param mapUserInfo 用户信息
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/update.do")
+    Observable<BasicResponse> updateUserInfo(@FieldMap Map<String, String> mapUserInfo);
+
+    /**
+     * 上传头像/作者照片接口
+     * @param userInfo
      * @return
      */
     @Multipart
     @POST("user/update.do")
-    Observable<BasicResponse> updateUserInfo(@Part List<MultipartBody.Part> userInfo);
+    Observable<BasicResponse> updateHeadPic(@Part List<MultipartBody.Part> userInfo);
 
     /**
      * 登陆
@@ -120,6 +129,18 @@ public interface IdeaApiService {
     @Headers("Cache-Control: public, max-age=600")
     @GET("write/first_page.do")
     Observable<BasicResponse<List<HomePageBean>>> getHomePageData(@Query("page") int page, @Query("rows") int number);
+
+    /**
+     * 发现页面数据
+     *
+     * @param page
+     * @param number
+     * @param type 0最新 1最热
+     * @return
+     */
+    @Headers("Cache-Control: public, max-age=600")
+    @GET("write/discover.do")
+    Observable<BasicResponse<List<HomePageBean>>> getDiscoverData(@Query("page") int page, @Query("rows") int number,@Query("type") int type);
 
     /**
      * 发布作品
@@ -260,16 +281,16 @@ public interface IdeaApiService {
     Observable<BasicResponse<String>> praise(@Query("user_id") String userId, @Query("comment_id") String comment_id);
 
 
+    @POST("user/updatePwd.do")
+    Observable<BasicResponse<String>> updatePsw(@Query("phone") String phone,@Query("password") String password);
 
-
-
-
-
-
-
-
-
-
+    /**
+     * 验证该手机号是否注册
+     * @param phone 验证的手机号
+     * @return
+     */
+    @GET("user/getUser.do")
+    Observable<BasicResponse> isRegisted(@Query("phone") String phone);
 
 
 

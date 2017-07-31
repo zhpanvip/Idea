@@ -48,7 +48,7 @@ public class MainApplication extends BaseApp {
         //ShareSDK.initSDK(this);
         // MobSDK.init(this,APPKEY,APPSECRET);
         setNightMode();
-        installLeak();
+       // installLeak();
     }
 
     private void installLeak() {

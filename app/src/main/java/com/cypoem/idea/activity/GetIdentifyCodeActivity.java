@@ -15,6 +15,10 @@ import android.widget.TextView;
 import com.airong.core.utils.LogUtils;
 import com.airong.core.utils.RegexUtils;
 import com.cypoem.idea.R;
+import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.net.DefaultObserver;
+import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.utils.UserInfoTools;
 import com.google.gson.Gson;
 import com.mob.MobSDK;
 
@@ -27,9 +31,12 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
-public class RegisterActivity extends BaseActivity {
-
+public class GetIdentifyCodeActivity extends BaseActivity {
+    protected static final int FORGET_PSW = 1;
+    protected static final int REGISTER = 0;
 
     @BindView(R.id.et_username)
     EditText etUsername;
@@ -52,6 +59,7 @@ public class RegisterActivity extends BaseActivity {
     private static final String APPSECRET = "e989c7f12c5b645b5235325ed8f35593";
 
     private WeakHandler handle = new WeakHandler(new WeakReference<>(this));
+    private static int type;
 
     //  验证码倒计时
     private void countDown() {
@@ -80,6 +88,8 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        type = intent.getIntExtra("type", 0);
         initData();
     }
 
@@ -121,8 +131,9 @@ public class RegisterActivity extends BaseActivity {
         SMSSDK.registerEventHandler(eventHandler); //注册短信回调
     }
 
-    public static void start(Context context) {
-        Intent intent = new Intent(context, RegisterActivity.class);
+    public static void start(Context context, int type) {
+        Intent intent = new Intent(context, GetIdentifyCodeActivity.class);
+        intent.putExtra("type", type);
         context.startActivity(intent);
     }
 
@@ -165,51 +176,74 @@ public class RegisterActivity extends BaseActivity {
         SMSSDK.submitVerificationCode("86", phone, code);
     }
 
+    //  验证手机号是否注册
+    private void confirmIsRegistered() {
+        IdeaApi.getApiService()
+                .isRegisted(phone)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                        SMSSDK.getVerificationCode("86", phone, null);
+                    }
+                });
+    }
+
     //  获取获取验证码
     public void getVerificationCode() {
-        showProgress(this);
         phone = etUsername.getText().toString().trim();
         if (TextUtils.isEmpty(phone)) {
             showToast("手机号不能为空");
             return;
         }
+
         if (RegexUtils.isMobileExact(phone)) {
-            SMSSDK.getVerificationCode("86", phone, null);
+            confirmIsRegistered();
+
+            //SMSSDK.getVerificationCode("86", phone, null);
         } else {
             showToast("请输入正确的手机号");
         }
+
+
     }
 
     //  避免内存泄漏
     private static class WeakHandler extends Handler {
-        private WeakReference<RegisterActivity> activity;
+        private WeakReference<GetIdentifyCodeActivity> activity;
 
-        WeakHandler(WeakReference<RegisterActivity> activity) {
+        WeakHandler(WeakReference<GetIdentifyCodeActivity> activity) {
             this.activity = activity;
         }
 
         @Override
         public void handleMessage(Message msg) {
-            RegisterActivity registerActivity = activity.get();
+            GetIdentifyCodeActivity activity = this.activity.get();
             super.handleMessage(msg);
             switch (msg.what) {
                 case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:// 验证码提交成功
-                    registerActivity.dismissProgress();
-                    SetPasswordActivity.start(registerActivity,registerActivity.phone);
-                    registerActivity.finish();
+                    activity.dismissProgress();
+                    if (type == FORGET_PSW) {
+                        UpdatePswActivity.start(activity, UpdatePswActivity.FORGET_PSW);
+                    } else if (type == REGISTER) {
+                        SetPasswordActivity.start(activity, activity.phone);
+                        activity.finish();
+                    }
+
 
                     break;
                 case SMSSDK.EVENT_GET_VERIFICATION_CODE:// 验证码获取成功
-                    registerActivity.showToast(R.string.send_vertify_code_success);
-                    registerActivity.countDown();
-                    registerActivity.dismissProgress();
+                    activity.showToast(R.string.send_vertify_code_success);
+                    activity.countDown();
+                    activity.dismissProgress();
                     break;
                 case FAIL:
                     String message = ((Throwable) msg.obj).getMessage();
                     Gson gson = new Gson();
                     MobResultBean mobResultBean = gson.fromJson(message, MobResultBean.class);
-                    registerActivity.showToast(mobResultBean.getDetail());
-                    registerActivity.dismissProgress();
+                    activity.showToast(mobResultBean.getDetail());
+                    activity.dismissProgress();
                     break;
             }
         }
@@ -217,7 +251,7 @@ public class RegisterActivity extends BaseActivity {
 
 
     @Subscribe
-    public void registerSuccess(CompleteRegisterActivity.RegisterSuccess registerSuccess){
+    public void registerSuccess(CompleteRegisterActivity.RegisterSuccess registerSuccess) {
         LogUtils.e(registerSuccess.msg);
         finish();
     }

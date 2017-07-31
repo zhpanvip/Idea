@@ -25,4 +25,7 @@ public interface Constants {
     int FOCUS=1;    //  关注
 
     int HOME = 0;   //  主页
+
+    //  上传头像
+    String HEAD_PIC="1";
 }

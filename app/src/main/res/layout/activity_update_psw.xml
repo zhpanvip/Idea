@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingEnd="@dimen/mp_15"
+    android:paddingStart="@dimen/mp_15"
+    tools:context="com.cypoem.idea.activity.UpdatePswActivity">
+
+    <EditText
+        android:id="@+id/et_old_password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_45"
+        android:layout_marginTop="@dimen/mp_50"
+        android:background="@drawable/bg_edit_text"
+        android:hint="@string/input_old_psw"
+        android:inputType="textPassword"
+        android:paddingEnd="@dimen/mp_15"
+        android:paddingStart="@dimen/mp_15"
+        android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+
+    <EditText
+        android:id="@+id/et_password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_45"
+        android:layout_marginTop="@dimen/mp_20"
+        android:background="@drawable/bg_edit_text"
+        android:hint="@string/input_new_psw"
+        android:inputType="textPassword"
+        android:paddingEnd="@dimen/mp_15"
+        android:paddingStart="@dimen/mp_15"
+        android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+
+    <EditText
+        android:id="@+id/et_confirm_password"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_45"
+        android:layout_marginTop="@dimen/mp_20"
+        android:background="@drawable/bg_edit_text"
+        android:hint="@string/confirm_password"
+        android:inputType="textPassword"
+        android:paddingEnd="@dimen/mp_15"
+        android:paddingStart="@dimen/mp_15"
+        android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_50"
+        android:layout_marginTop="@dimen/mp_50"
+        android:background="@drawable/bg_btn_login"
+        android:text="@string/confirm"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f_18" />
+
+</LinearLayout>

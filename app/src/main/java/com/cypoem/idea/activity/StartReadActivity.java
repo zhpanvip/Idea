@@ -82,7 +82,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
 
     private StartReadAdapter mAdapter;
     private int page = 1;
-    private int commentPage=1;
+    private int commentPage = 1;
     private String authorId;
     private String writeId;
     private PopupWindow popupWindow;
@@ -202,7 +202,8 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void comment() {
-        getComment(1,false);
+        int commentPage = 1;
+        getComment(commentPage, false);
         popupWindow.showAtLocation(mRlRead, Gravity.CENTER, 0, 0);
     }
 
@@ -218,7 +219,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
 
     private void initPopView(View popView) {
         Button tvComment = (Button) popView.findViewById(R.id.btn_comment);
-        mEtComment= (EditText) popView.findViewById(R.id.et_comment);
+        mEtComment = (EditText) popView.findViewById(R.id.et_comment);
         mIvDismiss = (ImageView) popView.findViewById(R.id.iv_dismiss);
         LinearLayout linearLayout = (LinearLayout) popView.findViewById(R.id.ll_pop_window);
         linearLayout.setOnClickListener(this);
@@ -246,7 +247,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         mPtrFrame.setPtrHandler(new PtrDefaultHandler2() {
             @Override
             public void onLoadMoreBegin(PtrFrameLayout frame) {
-                getComment(++commentPage,true);
+                getComment(++commentPage, true);
             }
 
             @Override
@@ -268,10 +269,11 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
 
     /**
      * 获取评论
-     * @param page  页码
+     *
+     * @param page       页码
      * @param isLoadMore 是否是上拉加载数据
      */
-    private void getComment(int page,boolean isLoadMore) {
+    private void getComment(int page, boolean isLoadMore) {
         Map<String, String> map = new HashMap<>();
         map.put("section_id", section_id);
         map.put("user_id", UserInfoTools.getUserId(this));
@@ -285,12 +287,12 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                     @Override
                     public void onSuccess(BasicResponse<List<CommentBean>> response) {
                         List<CommentBean> list = mCommentAdapter.getList();
-                        if(response.getResult().size()<5){
+                        if (response.getResult().size() < 5) {
                             mPtrFrame.setMode(PtrFrameLayout.Mode.NONE);
-                        }else {
+                        } else {
                             mPtrFrame.setMode(PtrFrameLayout.Mode.LOAD_MORE);
                         }
-                        if(!isLoadMore){
+                        if (!isLoadMore) {
                             list.clear();
                         }
                         list.addAll(response.getResult());
@@ -304,12 +306,14 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.iv_dismiss:
                 popupWindow.dismiss();
+                commentPage = 1;
                 break;
             case R.id.btn_comment:
                 postComment();
                 break;
         }
     }
+
 
     @Override
     public void dismissProgress() {
@@ -319,23 +323,22 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
 
     private void postComment() {
         String content = mEtComment.getText().toString().trim();
-        if(TextUtils.isEmpty(content)){
+        if (TextUtils.isEmpty(content)) {
             showToast("请输入评论内容");
             return;
         }
         IdeaApi.getApiService()
-                .comment(UserInfoTools.getUserId(this),section_id,content)
+                .comment(UserInfoTools.getUserId(this), section_id, content)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse<String> response) {
-                        commentPage=1;
+                        commentPage = 1;
                         showToast("评论成功");
                         mEtComment.setText("");
-                        getComment(1,false);
+                        getComment(1, false);
                     }
                 });
-
     }
 }

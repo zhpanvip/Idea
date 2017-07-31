@@ -28,6 +28,7 @@ import com.airong.core.utils.ImageLoaderUtil;
 import com.airong.core.utils.LogUtils;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.cypoem.idea.R;
+import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.JsonBean;
 import com.cypoem.idea.module.bean.UserBean;
@@ -49,7 +50,9 @@ import org.json.JSONArray;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -195,15 +198,15 @@ public class EditInfoActivity extends BaseActivity {
         switch (resultCode) {
             case INTRODUCE:
                 introduction = data.getStringExtra("result");
-                postData(INTRODUCE, introduction);
+                updateUserInfo();
                 break;
             case SIGN:
                 sign = data.getStringExtra("result");
-                postData(SIGN, sign);
+                updateUserInfo();
                 break;
             case PEN_NAME:
                 penName = data.getStringExtra("result");
-                postData(PEN_NAME, penName);
+                updateUserInfo();
                 break;
             case UCrop.RESULT_ERROR:
                 handleCropError(data);
@@ -250,20 +253,8 @@ public class EditInfoActivity extends BaseActivity {
         if (resultUri != null) {
             LogUtils.e(resultUri.getPath());
             picPath = resultUri.getPath();
-            int maxBitmapSize = getMaxBitmapSize();
-            postData(HEAD_PIC, "");
-            BitmapLoadUtils.decodeBitmapInBackground(this, resultUri, null, maxBitmapSize, maxBitmapSize, new BitmapLoadCallback() {
-                @Override
-                public void onBitmapLoaded(@NonNull Bitmap bitmap, @NonNull ExifInfo exifInfo, @NonNull String s, @Nullable String s1) {
-                    //ivHeadPic.setImageBitmap(bitmap);
-
-                }
-
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    showToast("选择图片失败");
-                }
-            });
+            //  向服务器提交头像数据
+            postHeadPic(HEAD_PIC, "");
         } else {
             showToast(R.string.toast_cannot_retrieve_cropped_image);
         }
@@ -335,7 +326,7 @@ public class EditInfoActivity extends BaseActivity {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
             birthday = year + "-" + (month + 1) + "-" + dayOfMonth;
-            postData(BIRTHDAY, birthday);
+            updateUserInfo();
         }
     };
 
@@ -350,7 +341,7 @@ public class EditInfoActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 sex = (percent / 100.0) + "";
-                postData(SEX, sex);
+                updateUserInfo();
                 // mSexView.setMalePercent(1 - percent / 100.0);
                 dismissDialog();
             }
@@ -510,7 +501,7 @@ public class EditInfoActivity extends BaseActivity {
                         options2Items.get(options1).get(options2);
             }
             address = selectedResult;
-            postData(ADDRESS, selectedResult);
+            updateUserInfo();
         }).setTitleText("城市选择")
                 .setDividerColor(Color.GRAY)
                 .setTextColorCenter(Color.GRAY) //设置选中项文字颜色
@@ -521,35 +512,44 @@ public class EditInfoActivity extends BaseActivity {
         pvOptions.show();
     }
 
-    private void postData(int requestCode, String result) {
-        /*Drawable drawable = ivHeadPic.getDrawable();
-        Bitmap bitmap = ImageUtils.drawable2Bitmap(drawable);*/
+    private void postHeadPic(int requestCode, String result) {
+
         File file = new File(picPath);
         RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-
-        /*RequestBody imageBody;
-        if (TextUtils.isEmpty(picPath)) {
-            byte[] bytes = ImageUtils.bitmap2Bytes(bitmap, Bitmap.CompressFormat.PNG);
-            imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), bytes);
-        } else {
-            File file = new File(picPath);
-            imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        }*/
 
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("user_id", UserInfoTools.getUserId(this))
-                .addFormDataPart("dictum", sign)
-                .addFormDataPart("pen_name", penName)
-                .addFormDataPart("sex", sex)
-                .addFormDataPart("birthday", birthday)
-                .addFormDataPart("address", address)
-                .addFormDataPart("introduction", introduction)
-                .addFormDataPart("type", "0")
+                .addFormDataPart("type", Constants.HEAD_PIC)
                 .addFormDataPart("uploadFile", "head_pic", imageBody);
         List<MultipartBody.Part> parts = builder.build().parts();
         IdeaApi.getApiService()
-                .updateUserInfo(parts)
+                .updateHeadPic(parts)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                        EventBus.getDefault().post(new UpdateInfoSuccess());
+                        showToast(response.getMsg());
+                        String url = response.getResult().toString();
+                        UserInfoTools.setHeadPic(EditInfoActivity.this, url);
+                        ImageLoaderUtil.loadCircleImg(ivHeadPic, IdeaApiService.HOST + url, R.drawable.head_pic);
+                    }
+                });
+    }
+
+    private void updateUserInfo() {
+        Map<String, String> map = new HashMap<>();
+        map.put("user_id", UserInfoTools.getUserId(this));
+        map.put("dictum", sign);
+        map.put("pen_name", penName);
+        map.put("sex", sex);
+        map.put("birthday", birthday);
+        map.put("address", address);
+        map.put("introduction", introduction);
+        IdeaApi.getApiService()
+                .updateUserInfo(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse>(this, false) {
@@ -560,6 +560,8 @@ public class EditInfoActivity extends BaseActivity {
                         refreshUserInfo();
                     }
                 });
+
+
     }
 
     public static class UpdateInfoSuccess {

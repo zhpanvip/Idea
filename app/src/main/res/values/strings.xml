@@ -145,4 +145,6 @@
     <string name="like">赞</string>
     <string name="comment">评论</string>
     <string name="add_a_sign">给自己添加一条格言吧</string>
+    <string name="input_old_psw">请输入原密码</string>
+    <string name="input_new_psw">请输入新密码</string>
 </resources>

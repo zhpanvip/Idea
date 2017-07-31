@@ -37,7 +37,7 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
     private static final int MSG_USERID_FOUND = 1;
     private static final int MSG_LOGIN = 2;
     private static final int MSG_AUTH_CANCEL = 3;
-    private static final int MSG_AUTH_ERROR= 4;
+    private static final int MSG_AUTH_ERROR = 4;
     private static final int MSG_AUTH_COMPLETE = 5;
 
     @BindView(R.id.et_username)
@@ -58,6 +58,7 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
     TextView tvNewUser;
     @BindView(R.id.tv_login_error)
     TextView tvLoginError;
+    private String phone;
 
     @Override
     protected int getLayoutId() {
@@ -85,28 +86,29 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
                 login();
                 break;
             case R.id.tv_forget_psw:
+                GetIdentifyCodeActivity.start(this,GetIdentifyCodeActivity.FORGET_PSW);
                 break;
             case R.id.iv_qq:
-               // authorize(new QQ(this));
+                // authorize(new QQ(this));
                 break;
             case R.id.iv_weChat:
-               // authorize(new Wechat(this));
+                // authorize(new Wechat(this));
                 showToast("wechat");
                 break;
             case R.id.iv_weiBo:
-               // authorize(new SinaWeibo(this));
+                // authorize(new SinaWeibo(this));
                 break;
             case R.id.tv_new_user:
-                RegisterActivity.start(this);
-               // CompleteRegisterActivity.start(this,"15515269670","123123");
-               // SetPasswordActivity.start(this,"17602150874");
+                GetIdentifyCodeActivity.start(this,GetIdentifyCodeActivity.REGISTER);
+                // CompleteRegisterActivity.start(this,"15515269670","123123");
+                // SetPasswordActivity.start(this,"17602150874");
                 break;
             case R.id.tv_login_error:
+
                 break;
 
         }
     }
-
 
    /* private void authorize(Platform plat) {
         if(plat.isValid()) {
@@ -177,19 +179,19 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
 
     private void login() {
         String password = etPassword.getText().toString().trim();
-        String phone = etUsername.getText().toString().trim();
-        if(TextUtils.isEmpty(password)){
+        phone = etUsername.getText().toString().trim();
+        if (TextUtils.isEmpty(password)) {
             showToast("请输入手机号");
             return;
         }
-        if(TextUtils.isEmpty(phone)){
+        if (TextUtils.isEmpty(phone)) {
             showToast("请输入密码");
             return;
         }
-        postData(phone,password);
+        postData(phone, password);
     }
 
-    private void postData(String phone,String password) {
+    private void postData(String phone, String password) {
         Map<String, Object> params = new HashMap<>();
         params.put("phone", phone);
         params.put("password", password);
@@ -197,7 +199,7 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
                 .login(params)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this,true) {
+                .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse<UserBean> response) {
                         loginSuccess(response.getResult());
@@ -206,17 +208,13 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
     }
 
     private void loginSuccess(UserBean result) {
-        UserInfoTools.setIsLogin(this,true);
-        UserInfoTools.setUser(this,result);
-        UserInfoTools.setUid(this,result.getUserId());
+        UserInfoTools.setIsLogin(this, true);
+        UserInfoTools.setUser(this, result);
         finish();
     }
 
-
-
-
     public boolean handleMessage(Message msg) {
-        switch(msg.what) {
+        switch (msg.what) {
             case MSG_USERID_FOUND: {
                 showToast(R.string.userid_found);
             }
@@ -254,7 +252,7 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
     }
 
     public void onDestroy() {
-       // ShareSDK.stopSDK(this);
+        // ShareSDK.stopSDK(this);
         super.onDestroy();
     }
 

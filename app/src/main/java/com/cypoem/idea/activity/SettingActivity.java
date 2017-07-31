@@ -110,7 +110,7 @@ public class SettingActivity extends BaseActivity {
                 logout();
                 break;
             case R.id.rl_update_password:
-
+                UpdatePswActivity.start(this,UpdatePswActivity.UPDATE_PSW);
                 break;
             case R.id.rl_phone:
 

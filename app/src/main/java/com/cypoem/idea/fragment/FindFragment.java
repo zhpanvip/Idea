@@ -39,9 +39,9 @@ public class FindFragment extends BaseFragment {
     ViewPager mViewPager;
     @BindView(R.id.iv_right)
     ImageView mIvRight;
-    private List<HomePageFragment> mList;
-    public final static int NEWEST = 1;
-    public final static int HOTEST = 2;
+    private List<FindInFragment> mList;
+    public final static int NEWEST = 0;
+    public final static int HOTEST = 1;
 
     @Override
     protected int getLayoutId() {
@@ -95,8 +95,8 @@ public class FindFragment extends BaseFragment {
 
     private void setViewPager() {
          mList = new ArrayList<>();
-        HomePageFragment newFragment = HomePageFragment.getFragment(NEWEST);
-        HomePageFragment hotFragment = HomePageFragment.getFragment(HOTEST);
+        FindInFragment newFragment = FindInFragment.getFragment(NEWEST);
+        FindInFragment hotFragment = FindInFragment.getFragment(HOTEST);
         mList.add(newFragment);
         mList.add(hotFragment);
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

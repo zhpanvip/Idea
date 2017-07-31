@@ -71,6 +71,28 @@ public class UserInfoTools {
         return imei;
     }
 
+    public static  void setPhone(Context context,String phone){
+        UserBean user = sUserInfoBean.getUser();
+        user.setPhone(phone);
+        sUserInfoBean.setUser(user);
+        setUserInfoBean(context, sUserInfoBean);
+    }
+
+    /**
+     * 获取用户手机号
+     * @param context
+     * @return 用户手机号
+     */
+    public static String getPhone(Context context){
+        String phone;
+        if(sUserInfoBean !=null){
+            phone= sUserInfoBean.getUser().getPhone();
+        }else {
+            phone=getUserInfoBean(context).getUser().getPhone();
+        }
+        return phone;
+    }
+
     public static void setBrand(Context context, String brand) {
         sUserInfoBean.setBrand(brand);
         setUserInfoBean(context, sUserInfoBean);
@@ -154,16 +176,6 @@ public class UserInfoTools {
     }
 
     /**
-     * 设置用户id
-     * @param context
-     * @param uid
-     */
-    public static void setUid(Context context,String uid){
-        sUserInfoBean.setUserId(uid);
-        setUserInfoBean(context,sUserInfoBean);
-    }
-
-    /**
      * 获取用户id
      * @param context
      * @return
@@ -171,9 +183,9 @@ public class UserInfoTools {
     public static String getUserId(Context context){
         String userId;
         if(sUserInfoBean!=null){
-            userId=sUserInfoBean.getUserId();
+            userId=sUserInfoBean.getUser().getUserId();
         }else {
-            userId=getUserInfoBean(context).getUserId();
+            userId=getUserInfoBean(context).getUser().getUserId();
         }
         if(null==userId){
             userId="";
