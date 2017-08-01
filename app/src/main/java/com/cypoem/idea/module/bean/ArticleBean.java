@@ -62,7 +62,7 @@ public class ArticleBean {
     private int upCount;
     private int watch_status;
     private String keepStatus;
-    private String likeStatus;
+    private String like_status;
 
     public int getWatch_status() {
         return watch_status;
@@ -225,11 +225,11 @@ public class ArticleBean {
     }
 
     public String getLikeStatus() {
-        return likeStatus;
+        return like_status;
     }
 
-    public void setLikeStatus(String likeStatus) {
-        this.likeStatus = likeStatus;
+    public void setLikeStatus(String like_status) {
+        this.like_status = like_status;
     }
 
     public static class UserBean {

@@ -194,6 +194,7 @@ public interface IdeaApiService {
      * 章节点赞
      * @return
      */
+    @FormUrlEncoded
     @POST("section/updateLikeCount.do")
     Observable<BasicResponse> lightChapter(@FieldMap Map<String, String> map);
 
