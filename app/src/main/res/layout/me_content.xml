@@ -133,6 +133,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
         android:background="@color/item_color"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <TextView

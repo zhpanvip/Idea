@@ -58,7 +58,7 @@ public interface IdeaApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("user/update.do")
+    @POST("user/updateText.do")
     Observable<BasicResponse> updateUserInfo(@FieldMap Map<String, String> mapUserInfo);
 
     /**
@@ -67,7 +67,7 @@ public interface IdeaApiService {
      * @return
      */
     @Multipart
-    @POST("user/update.do")
+    @POST("user/updatePic.do")
     Observable<BasicResponse> updateHeadPic(@Part List<MultipartBody.Part> userInfo);
 
     /**
@@ -93,11 +93,12 @@ public interface IdeaApiService {
     /**
      * 根据用户id获取用户信息
      *
-     * @param user_id
+     * @param user_id   查看的用户id
+     * @param login_user_id    当前登录的用户id
      * @return
      */
     @GET("user/viewUser.do")
-    Observable<BasicResponse<UserBean>> getUserInfo(@Query("user_id") String user_id);
+    Observable<BasicResponse<UserBean>> getUserInfo(@Query("user_id") String user_id,@Query("login_user_id") String login_user_id);
 
     /**
      * 每日一句
@@ -165,6 +166,9 @@ public interface IdeaApiService {
     @GET("write/first_page.do")
     Observable<ChaptersWrapper> getChapters(@Query("write_id") String write_id, @Query("sectionid") String sectionid, @Query("page") String page, @Query("rows") String rows, @Query("user_id") String user_id);
 
+
+
+
     /**
      * 查询我参与的/我发起的/我原创的作品
      *
@@ -176,8 +180,22 @@ public interface IdeaApiService {
     @GET("write/myWrites.do")
     Observable<BasicResponse<List<OpusBean>>> getMyOpus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
 
+    /**
+     * 查看收藏接口
+     * @param userId
+     * @param page
+     * @param rows
+     * @return
+     */
     @GET("section/viewKeepWrite.do")
     Observable<BasicResponse<List<OpusBean>>> getCollect(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
+
+    /**
+     * 章节点赞
+     * @return
+     */
+    @POST("section/updateLikeCount.do")
+    Observable<BasicResponse> lightChapter(@FieldMap Map<String, String> map);
 
     /**
      * 查询我关注我的
@@ -290,7 +308,7 @@ public interface IdeaApiService {
      * @return
      */
     @GET("user/getUser.do")
-    Observable<BasicResponse> isRegisted(@Query("phone") String phone);
+    Observable<BasicResponse> isRegistered(@Query("phone") String phone);
 
 
 

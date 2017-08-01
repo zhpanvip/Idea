@@ -212,8 +212,9 @@ public class MeFragment extends BaseFragment {
 
 
     private void getData() {
+        String userId = UserInfoTools.getUserId(getContext());
         IdeaApi.getApiService()
-                .getUserInfo(UserInfoTools.getUserId(getContext()))
+                .getUserInfo(userId,userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, false) {

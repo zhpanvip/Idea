@@ -15,10 +15,10 @@ import android.widget.TextView;
 import com.airong.core.utils.LogUtils;
 import com.airong.core.utils.RegexUtils;
 import com.cypoem.idea.R;
+import com.cypoem.idea.event.UpdatePswEvent;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
-import com.cypoem.idea.utils.UserInfoTools;
 import com.google.gson.Gson;
 import com.mob.MobSDK;
 
@@ -160,16 +160,16 @@ public class GetIdentifyCodeActivity extends BaseActivity {
     private void verificationCode() {
         phone = etUsername.getText().toString().trim();
         if (TextUtils.isEmpty(phone)) {
-            showToast("手机号不能为空");
+            showToast(R.string.phone_can_not_null);
             return;
         }
         if (!RegexUtils.isMobileExact(phone)) {
-            showToast("请输入正确的手机号");
+            showToast(R.string.input_correct_phone_num);
             return;
         }
         String code = mEtIdentifyCode.getText().toString().trim();
         if (TextUtils.isEmpty(code)) {
-            showToast("请输入验证码");
+            showToast(R.string.input_identify_code);
             return;
         }
         showProgress(this);
@@ -179,13 +179,19 @@ public class GetIdentifyCodeActivity extends BaseActivity {
     //  验证手机号是否注册
     private void confirmIsRegistered() {
         IdeaApi.getApiService()
-                .isRegisted(phone)
+                .isRegistered(phone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse response) {
-                        SMSSDK.getVerificationCode("86", phone, null);
+                        boolean isRegistered = (boolean) response.getResult();
+                        if (type == REGISTER && isRegistered) {
+                            showToast(R.string.had_registered);
+                        } else {
+                            //  发送验证码
+                            SMSSDK.getVerificationCode("86", phone, null);
+                        }
                     }
                 });
     }
@@ -194,16 +200,14 @@ public class GetIdentifyCodeActivity extends BaseActivity {
     public void getVerificationCode() {
         phone = etUsername.getText().toString().trim();
         if (TextUtils.isEmpty(phone)) {
-            showToast("手机号不能为空");
+            showToast(R.string.phone_can_not_null);
             return;
         }
 
         if (RegexUtils.isMobileExact(phone)) {
             confirmIsRegistered();
-
-            //SMSSDK.getVerificationCode("86", phone, null);
         } else {
-            showToast("请输入正确的手机号");
+            showToast(R.string.input_correct_phone_num);
         }
 
 
@@ -250,9 +254,24 @@ public class GetIdentifyCodeActivity extends BaseActivity {
     }
 
 
+    /**
+     * 接收注册成功事件
+     *
+     * @param registerSuccess
+     */
     @Subscribe
     public void registerSuccess(CompleteRegisterActivity.RegisterSuccess registerSuccess) {
         LogUtils.e(registerSuccess.msg);
+        finish();
+    }
+
+    /**
+     * 接收修改密码成功事件
+     *
+     * @param event
+     */
+    @Subscribe
+    public void updatePswSuccess(UpdatePswEvent event) {
         finish();
     }
 

@@ -147,4 +147,8 @@
     <string name="add_a_sign">给自己添加一条格言吧</string>
     <string name="input_old_psw">请输入原密码</string>
     <string name="input_new_psw">请输入新密码</string>
+    <string name="had_registered">您的手机号已经注册过了哦</string>
+    <string name="phone_can_not_null">手机号不能为空</string>
+    <string name="input_correct_phone_num">请输入正确的手机号</string>
+    <string name="input_identify_code">请输入验证码</string>
 </resources>

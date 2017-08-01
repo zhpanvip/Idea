@@ -90,6 +90,8 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     private ImageView mIvDismiss;
     private CommentAdapter mCommentAdapter;
     private String section_id;
+    private String write_id;
+    private String likeStatus;
 
     @Override
     protected int getLayoutId() {
@@ -138,6 +140,8 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         List<ArticleBean> articleBeen = mAdapter.getList().get(position);
         ArticleBean articleBean = articleBeen.get(id);
         section_id = articleBean.getSection_id();
+        likeStatus=articleBean.getLikeStatus();
+        write_id=articleBean.getWrite_id();
         tvComment.setText(String.valueOf(articleBean.getComment_count()));
         tvContinue.setText(String.valueOf(articleBean.getRead_count()));
         tvLike.setText(String.valueOf(articleBean.getLike_count()));
@@ -190,6 +194,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                 comment();
                 break;
             case R.id.ll_like:
+                lightChapter();
                 break;
             case R.id.ll_value:
                 break;
@@ -199,6 +204,32 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                 break;
 
         }
+    }
+
+    /**
+     * 章节点赞
+     */
+    private void lightChapter() {
+        Map<String,String> map=new HashMap<>();
+        map.put("section_id",section_id);
+        map.put("write_id",write_id);
+        map.put("user_id",UserInfoTools.getUserId(this));
+        String status="0";
+        if(likeStatus.equals("0")){
+            status="1";
+        }
+        map.put("status",status);
+        IdeaApi.getApiService()
+                .lightChapter(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                        commentPage = 1;
+                        showToast("点赞成功");
+                    }
+                });
     }
 
     private void comment() {

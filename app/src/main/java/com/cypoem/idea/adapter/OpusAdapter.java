@@ -14,6 +14,7 @@ import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.ArticleWebViewActivity;
 import com.cypoem.idea.activity.AuthorInfoActivity;
+import com.cypoem.idea.activity.LoginActivity;
 import com.cypoem.idea.activity.StartReadActivity;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleBean;
@@ -83,53 +84,59 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
         holder.mTvTime.setText(articleBean.getCreate_time());
         holder.mTvContent.setText(articleBean.getContent());
         int watch_status = articleBean.getWatch_status();
-        if(watch_status==1){
-            isFocus=true;
+        if (watch_status == 1) {
+            isFocus = true;
             holder.mTvFocus.setText("已关注");
-        }else {
-            isFocus=false;
+        } else {
+            isFocus = false;
             holder.mTvFocus.setText("关注");
         }
-        ImageLoaderUtil.loadCircleImg(holder.mIvHeader, IdeaApiService.HOST+user.getIcon(), R.drawable.head_pic);
+        ImageLoaderUtil.loadCircleImg(holder.mIvHeader, IdeaApiService.HOST + user.getIcon(), R.drawable.head_pic);
+        //  点击关注按钮
         holder.mTvFocus.setOnClickListener((View v) -> {
-            if(isFocus){
-                cancelFocus(user.getUserId(),holder.mTvFocus);
-            }else {
-                addFocus(user.getUserId(),holder.mTvFocus);
+            if (UserInfoTools.getIsLogin(mContext)) {
+                if (isFocus) {
+                    cancelFocus(user.getUserId(), holder.mTvFocus);
+                } else {
+                    addFocus(user.getUserId(), holder.mTvFocus);
+                }
+            } else {
+                LoginActivity.start(mContext);
             }
+
 
         });
 
         holder.mRlAuthor.setOnClickListener((View v) -> {
-            AuthorInfoActivity.start(mContext,user.getUserId());
+            AuthorInfoActivity.start(mContext, user.getUserId());
         });
     }
 
-    private void addFocus(String focusId,TextView tvFocus){
+    private void addFocus(String focusId, TextView tvFocus) {
         IdeaApi.getApiService()
-                .addFocus(UserInfoTools.getUserId(mContext),focusId)
+                .addFocus(UserInfoTools.getUserId(mContext), focusId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<String>>(((StartReadActivity)mContext),true) {
+                .subscribe(new DefaultObserver<BasicResponse<String>>(((StartReadActivity) mContext), true) {
                     @Override
                     public void onSuccess(BasicResponse<String> response) {
                         ToastUtils.show(response.getMsg());
-                        isFocus=true;
+                        isFocus = true;
                         tvFocus.setText("已关注");
                     }
                 });
     }
 
-    private void cancelFocus(String focusId,TextView tvFocus){
+    private void cancelFocus(String focusId, TextView tvFocus) {
         IdeaApi.getApiService()
-                .cancelFocus(UserInfoTools.getUserId(mContext),focusId)
+                .cancelFocus(UserInfoTools.getUserId(mContext), focusId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<String>>((StartReadActivity)mContext,true) {
+                .subscribe(new DefaultObserver<BasicResponse<String>>((StartReadActivity) mContext, true) {
                     @Override
                     public void onSuccess(BasicResponse<String> response) {
                         ToastUtils.show(response.getMsg());
-                        isFocus=false;
+                        isFocus = false;
                         tvFocus.setText("+关注");
                     }
                 });
@@ -143,7 +150,7 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
 
 
     // 可复用的VH
-   static class StartReadViewHolder extends RecyclerView.ViewHolder {
+    static class StartReadViewHolder extends RecyclerView.ViewHolder {
         private RelativeLayout mRlAuthor;
         private TextView mTvAll;
         private TextView mTvFocus;
@@ -161,11 +168,11 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
             mRlAuthor = (RelativeLayout) itemView.findViewById(R.id.rl_author);
             mTvFocus = (TextView) itemView.findViewById(R.id.tv_focus);
             mIvHeader = (ImageView) itemView.findViewById(R.id.iv_head_pic);
-            mTvTitle= (TextView) itemView.findViewById(R.id.tv_title);
+            mTvTitle = (TextView) itemView.findViewById(R.id.tv_title);
             mTvAuther = (TextView) itemView.findViewById(R.id.tv_author);
-            mTvContent= (TextView) itemView.findViewById(R.id.tv_article);
-            mTvTime= (TextView) itemView.findViewById(R.id.tv_time);
-            mTvName= (TextView) itemView.findViewById(R.id.tv_name);
+            mTvContent = (TextView) itemView.findViewById(R.id.tv_article);
+            mTvTime = (TextView) itemView.findViewById(R.id.tv_time);
+            mTvName = (TextView) itemView.findViewById(R.id.tv_name);
         }
     }
 }

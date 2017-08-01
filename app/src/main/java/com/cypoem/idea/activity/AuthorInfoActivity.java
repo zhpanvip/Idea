@@ -128,10 +128,10 @@ public class AuthorInfoActivity extends BaseActivity {
         mTvBirthday.setText(user.getBirthday());
         mTvAddress.setText(user.getAddress());
         mTvIntroduce.setText(user.getIntroduction());
-        mTvFans.setText(user.getWatchMeCount() + "");
-        mTvFocus.setText(user.getMyWatchCount() + "");
-        mTvCollect.setText(user.getKeep_count() + "");
-        mTvLike.setText(user.getEnjoy_count() + "");
+        mTvFans.setText(String.valueOf(user.getWatchMeCount()));
+        mTvFocus.setText(String.valueOf(user.getMyWatchCount()));
+        mTvCollect.setText(String.valueOf(user.getKeep_count()));
+        mTvLike.setText(String.valueOf(user.getEnjoy_count()));
 
     }
 
@@ -158,7 +158,7 @@ public class AuthorInfoActivity extends BaseActivity {
 
     private void getData(boolean showLoading) {
         IdeaApi.getApiService()
-                .getUserInfo(userId)
+                .getUserInfo(userId, UserInfoTools.getUserId(this))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, showLoading) {
@@ -166,10 +166,11 @@ public class AuthorInfoActivity extends BaseActivity {
                     public void onSuccess(BasicResponse<UserBean> response) {
                         userBean = response.getResult();
                         mTvFollow.setVisibility(View.VISIBLE);
-                        if (userBean.getWatch_status()==1) {
-                            mTvFollow.setText("已关注");
-                        } else {
+                        if (userBean.getWatch_status() == 0) {
                             mTvFollow.setText("关注");
+                        } else {
+                            mTvFollow.setText("已关注");
+
                         }
                         setUserData(userBean);
                     }
@@ -201,7 +202,7 @@ public class AuthorInfoActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.ll_collect, R.id.ll_like, R.id.ll_fans, R.id.ll_focus, R.id.iv_edit,R.id.tv_follow})
+    @OnClick({R.id.ll_collect, R.id.ll_like, R.id.ll_fans, R.id.ll_focus, R.id.iv_edit, R.id.tv_follow})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_collect:
@@ -211,10 +212,10 @@ public class AuthorInfoActivity extends BaseActivity {
                 PraiseActivity.start(this);
                 break;
             case R.id.ll_fans:
-                FansActivity.start(this, Constants.FOLLOWS,userId);
+                FansActivity.start(this, Constants.FOLLOWS, userId);
                 break;
             case R.id.ll_focus:
-                FansActivity.start(this, Constants.FOCUS,userId);
+                FansActivity.start(this, Constants.FOCUS, userId);
                 break;
             case R.id.iv_edit:
                 EditInfoActivity.start(this);
@@ -227,12 +228,13 @@ public class AuthorInfoActivity extends BaseActivity {
 
 
     private void follow() {
-        if (userBean.getWatch_status()==1) {
+        if (userBean.getWatch_status() == 1) {
             cancelFocus(userBean.getUserId());
         } else {
             addFocus(userBean.getUserId());
         }
     }
+
     //  关注
     private void addFocus(String focusId) {
         IdeaApi.getApiService()
@@ -243,9 +245,11 @@ public class AuthorInfoActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BasicResponse<String> response) {
                         ToastUtils.show(response.getMsg());
+                        mTvFollow.setText("已关注");
                     }
                 });
     }
+
     //  取消关注
     private void cancelFocus(String focusId) {
         IdeaApi.getApiService()
@@ -256,6 +260,7 @@ public class AuthorInfoActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BasicResponse<String> response) {
                         ToastUtils.show(response.getMsg());
+                        mTvFollow.setText(R.string.focus);
                     }
                 });
     }

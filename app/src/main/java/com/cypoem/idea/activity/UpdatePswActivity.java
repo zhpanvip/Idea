@@ -9,10 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.cypoem.idea.R;
+import com.cypoem.idea.event.UpdatePswEvent;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,7 +86,9 @@ public class UpdatePswActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse<String> response) {
-                        showToast("修改成功");
+                        showToast("密码修改成功");
+                        EventBus.getDefault().post(new UpdatePswEvent());
+                        finish();
                     }
                 });
     }

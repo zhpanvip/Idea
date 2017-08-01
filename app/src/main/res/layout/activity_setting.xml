@@ -67,6 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/mp_50"
             android:background="@color/item_color"
+            android:visibility="gone"
             android:paddingEnd="@dimen/mp_10"
             android:paddingStart="20dp">
 
@@ -387,7 +388,7 @@
             android:id="@+id/btn_exit"
             android:layout_width="match_parent"
             android:layout_height="@dimen/mp_45"
-            android:layout_marginTop="@dimen/mp_15"
+            android:layout_marginTop="@dimen/mp_35"
             android:background="@color/text_theme"
             android:text="退出登录"
             android:textColor="@color/white" />
