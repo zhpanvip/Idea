@@ -26,6 +26,7 @@ import com.airong.core.utils.ImageUtils;
 import com.airong.core.utils.LogUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.constants.Constants;
+import com.cypoem.idea.event.PublishEverydaySuccess;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.net.DefaultObserver;
@@ -36,6 +37,9 @@ import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.callback.BitmapLoadCallback;
 import com.yalantis.ucrop.model.ExifInfo;
 import com.yalantis.ucrop.util.BitmapLoadUtils;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.File;
 import java.util.List;
@@ -85,6 +89,18 @@ public class CreateEveryDayActivity extends BaseActivity {
         getSubTitle().setOnClickListener((View v) -> {
             EverydayLookBackActivity.start(CreateEveryDayActivity.this);
         });
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe
+    public void publishSuccess(PublishEverydaySuccess event){
+        finish();
     }
 
     public static void start(Context context) {

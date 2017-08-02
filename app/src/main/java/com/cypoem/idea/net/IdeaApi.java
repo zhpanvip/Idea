@@ -53,16 +53,14 @@ public class IdeaApi {
                 .connectTimeout(IdeaApiService.DEFAULT_TIMEOUT, TimeUnit.MILLISECONDS)
                 .addNetworkInterceptor(new HttpCacheInterceptor())
                 .cache(cache)
+                .addInterceptor(loggingInterceptor)
                 .addInterceptor((chain) -> {     //  统一配置配置请求头
                     Request request = chain.request().newBuilder()
                             .addHeader("user_id", UserInfoTools.getUserId(Utils.getContext()))
-                            .addHeader("psw_just_test", "4567")
+                            .addHeader("password", UserInfoTools.getPassword(Utils.getContext()))
                             .build();
                     return chain.proceed(request);
-                })
-                .addInterceptor(loggingInterceptor)
-                .build();
-
+                }).build();
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create();
 

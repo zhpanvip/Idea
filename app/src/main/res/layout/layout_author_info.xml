@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:orientation="vertical">
 
@@ -13,8 +12,8 @@
 
         <ImageView
             android:id="@+id/iv_author"
-            android:layout_width="@dimen/mp_120"
-            android:layout_height="@dimen/mp_180"
+            android:layout_width="@dimen/mp_110"
+            android:layout_height="@dimen/mp_150"
             android:layout_marginEnd="@dimen/mp_15"
             android:scaleType="fitXY"
             android:src="@drawable/head_pic" />
@@ -27,17 +26,17 @@
             android:layout_toEndOf="@id/iv_author"
             android:text="@string/pen_name"
             android:textColor="@color/item_text_color_dark"
-            android:textSize="@dimen/f_18" />
+            android:textSize="@dimen/f_16" />
 
         <TextView
             android:id="@+id/tv_pen_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/mp_15"
+            android:layout_marginTop="@dimen/mp_12"
             android:layout_toEndOf="@id/tv_pen_name_text"
             android:text="笔名"
             android:textColor="@color/item_text_color_dark"
-            android:textSize="@dimen/f_15" />
+            android:textSize="@dimen/f_14" />
 
         <com.cypoem.idea.view.SexView
             android:id="@+id/sex_view"
@@ -55,7 +54,7 @@
             android:layout_toEndOf="@id/iv_author"
             android:text="@string/motto"
             android:textColor="@color/item_text_color_dark"
-            android:textSize="@dimen/f_18" />
+            android:textSize="@dimen/f_16" />
 
         <TextView
             android:id="@+id/tv_sign"
@@ -77,27 +76,26 @@
             android:layout_toEndOf="@id/iv_author"
             android:text="@string/birthday"
             android:textColor="@color/item_text_color_dark"
-            android:textSize="@dimen/f_18" />
+            android:textSize="@dimen/f_16" />
 
         <TextView
             android:id="@+id/tv_birthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/item_text_color_dark"
-            android:textSize="@dimen/f_16"
             android:layout_alignBottom="@+id/tv_birthday_text"
-            android:layout_toEndOf="@+id/tv_birthday_text" />
+            android:layout_toEndOf="@+id/tv_birthday_text"
+            android:textColor="@color/item_text_color_dark"
+            android:textSize="@dimen/f_14" />
 
         <TextView
             android:id="@+id/tv_address_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_birthday"
-            android:layout_marginTop="@dimen/mp_8"
-            android:layout_toEndOf="@id/iv_author"
+            android:layout_alignTop="@+id/tv_address"
+            android:layout_toEndOf="@+id/iv_author"
             android:text="@string/address"
             android:textColor="@color/item_text_color_dark"
-            android:textSize="@dimen/f_18" />
+            android:textSize="@dimen/f_14" />
 
         <TextView
             android:id="@+id/tv_address"
@@ -107,7 +105,7 @@
             android:layout_marginTop="@dimen/mp_10"
             android:layout_toEndOf="@id/tv_pen_name_text"
             android:textColor="@color/item_text_color_dark"
-            android:textSize="@dimen/f_16" />
+            android:textSize="@dimen/f_14" />
 
         <ImageView
             android:id="@+id/iv_edit"
@@ -125,7 +123,7 @@
             android:text="@string/focus"
             android:textColor="@color/text_theme"
             android:textSize="@dimen/f_16"
-            android:visibility="gone"/>
+            android:visibility="gone" />
     </RelativeLayout>
 
     <TextView
@@ -135,7 +133,7 @@
         android:layout_marginStart="@dimen/mp_15"
         android:text="@string/author_resume"
         android:textColor="@color/item_text_color_dark"
-        android:textSize="@dimen/f_18" />
+        android:textSize="@dimen/f_16" />
 
     <TextView
         android:id="@+id/tv_introduce"
@@ -145,7 +143,7 @@
         android:layout_marginEnd="@dimen/mp_15"
         android:layout_marginStart="@dimen/mp_15"
         android:textColor="@color/item_text_color"
-        android:textSize="@dimen/f_16" />
+        android:textSize="@dimen/f_13" />
 
     <include layout="@layout/base_line" />
 
@@ -153,8 +151,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_45"
         android:orientation="horizontal">
-
-
 
         <LinearLayout
             android:id="@+id/ll_focus"
@@ -165,6 +161,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -201,8 +198,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textColor="@color/item_text_color_dark"
                 android:text="@string/fans"
+                android:textColor="@color/item_text_color_dark"
                 android:textSize="@dimen/f_16" />
 
             <TextView
@@ -263,8 +260,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textColor="@color/item_text_color_dark"
                 android:text="@string/value"
+                android:textColor="@color/item_text_color_dark"
                 android:textSize="@dimen/f_16" />
 
             <TextView

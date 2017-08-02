@@ -6,6 +6,8 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.DimenRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
@@ -16,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -61,7 +64,6 @@ public abstract class BaseActivity extends BaseRxActivity {
     protected abstract int getLayoutId();
 
     protected abstract void init(Bundle savedInstanceState);
-
 
 
     @Override
@@ -191,7 +193,7 @@ public abstract class BaseActivity extends BaseRxActivity {
             setSupportActionBar(getToolbar());
         }
     }
-    
+
     /**
      * this Activity of tool bar.
      * 获取头部.
@@ -210,6 +212,16 @@ public abstract class BaseActivity extends BaseRxActivity {
         getToolbar().setNavigationIcon(R.drawable.ic_back);
         //  返回按钮点击事件
         getToolbar().setNavigationOnClickListener((v) -> onBackPress());
+    }
+
+
+    protected ImageView getRightIv() {
+        return (ImageView) findViewById(R.id.iv_right);
+    }
+
+    protected void setRightIvRes(@DrawableRes int res) {
+        getRightIv().setBackgroundResource(res);
+        getRightIv().setVisibility(View.VISIBLE);
     }
 
     protected void onBackPress() {

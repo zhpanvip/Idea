@@ -35,7 +35,7 @@ public class UserBean {
     private String birthday;
     private String reg_date;
     private String user_status;
-    private String password;
+    private String password="";
     private String cover_photo;
     private String introduction;
     private String dictum;

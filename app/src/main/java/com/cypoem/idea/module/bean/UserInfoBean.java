@@ -13,7 +13,7 @@ public class UserInfoBean {
     /**
      * 用户ID
      */
-    private String userId;
+    private String userId="";
 
     /**
      * 网络请求会话ID
@@ -46,7 +46,7 @@ public class UserInfoBean {
     private String imei = "";
 
 
-    public String password;
+    public String password="";
 
 
     /**

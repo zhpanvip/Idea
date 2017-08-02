@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cypoem.idea.R;
+import com.cypoem.idea.event.PublishEverydaySuccess;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
@@ -28,6 +29,8 @@ import java.util.Date;
 import java.util.List;
 
 import android.net.Uri;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -146,10 +149,9 @@ public class PreviewActivity extends BaseActivity {
                     public void onSuccess(BasicResponse response) {
                         showToast(response.getMsg());
                         MainActivity.start(PreviewActivity.this);
+                        EventBus.getDefault().post(new PublishEverydaySuccess());
                         finish();
                     }
                 });
     }
-
-
 }

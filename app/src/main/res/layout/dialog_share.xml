@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:alpha="50"
+    android:layout_marginEnd="@dimen/mp_15"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="@dimen/mp_130"
+        android:src="@drawable/ic_popup_pointer" />
+
+    <LinearLayout
+        android:layout_width="170dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pop_win"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_collect"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="@dimen/mp_20"
+                android:layout_marginStart="@dimen/mp_20"
+                android:src="@drawable/pop_collect" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="收藏"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <include layout="@layout/base_line" />
+
+        <LinearLayout
+            android:id="@+id/ll_report"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="@dimen/mp_20"
+                android:layout_marginStart="@dimen/mp_20"
+                android:src="@drawable/pop_report" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="举报"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <include layout="@layout/base_line" />
+
+        <LinearLayout
+            android:id="@+id/ll_share"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="@dimen/mp_20"
+                android:layout_marginStart="@dimen/mp_20"
+                android:src="@drawable/pop_share" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="分享"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <include layout="@layout/base_line" />
+
+        <LinearLayout
+            android:id="@+id/ll_advice"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="@dimen/mp_20"
+                android:layout_marginStart="@dimen/mp_20"
+                android:src="@drawable/pop_advice" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:text="意见反馈"
+                android:textColor="@android:color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

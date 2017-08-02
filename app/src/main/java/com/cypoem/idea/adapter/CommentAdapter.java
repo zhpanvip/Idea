@@ -10,10 +10,8 @@ import android.widget.TextView;
 import com.airong.core.recycler.BaseAdapter;
 import com.airong.core.recycler.BaseHolder;
 import com.airong.core.utils.ImageLoaderUtil;
-import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.bean.CommentBean;
-import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.net.IdeaApiService;
 
 import java.util.List;
@@ -22,7 +20,7 @@ import java.util.List;
  * Created by zhpan on 2017/7/30.
  */
 
-public class CommentAdapter extends BaseAdapter<CommentBean, CommentAdapter.CommentHolder> {
+public abstract class CommentAdapter extends BaseAdapter<CommentBean, CommentAdapter.CommentHolder> {
 
 
     public CommentAdapter(Context context) {
@@ -45,14 +43,13 @@ public class CommentAdapter extends BaseAdapter<CommentBean, CommentAdapter.Comm
         holder.tvName.setText(item.getUser().getPen_name());
         holder.tvTime.setText(item.getTime());
         holder.tvCount.setText(String.valueOf(item.getLike_count()));
-        ImageLoaderUtil.loadCircleImg(holder.ivHead, IdeaApiService.HOST+item.getUser().getIcon(),R.drawable.head_pic);
-        holder.ivLike.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ToastUtils.show("点赞");
-            }
-        });
+        ImageLoaderUtil.loadCircleImg(holder.ivHead, IdeaApiService.HOST + item.getUser().getIcon(), R.drawable.head_pic);
+        holder.ivLike.setOnClickListener((View v)->
+                lightComment(item,holder.ivLike));
     }
+
+     public abstract void lightComment(CommentBean commentBean,ImageView imageView);
+
 
     @Override
     public int getCustomViewType(int position) {

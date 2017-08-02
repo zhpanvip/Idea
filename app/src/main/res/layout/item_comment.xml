@@ -3,14 +3,14 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingBottom="@dimen/mp_10"
-    android:paddingStart="@dimen/mp_15"
     android:paddingEnd="@dimen/mp_15"
+    android:paddingStart="@dimen/mp_15"
     android:paddingTop="@dimen/mp_10">
 
     <ImageView
         android:id="@+id/iv_head_pic"
-        android:layout_width="@dimen/mp_60"
-        android:layout_height="@dimen/mp_60"
+        android:layout_width="@dimen/mp_50"
+        android:layout_height="@dimen/mp_50"
         android:background="@drawable/head_pic" />
 
     <TextView
@@ -19,7 +19,6 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@id/iv_head_pic"
         android:layout_marginStart="@dimen/mp_7"
-        android:layout_marginTop="@dimen/mp_10"
         android:layout_toEndOf="@id/iv_head_pic"
 
         android:text="Name"
@@ -54,8 +53,9 @@
         android:id="@+id/iv_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toStartOf="@id/tv_count"
-        android:padding="@dimen/mp_10"
+        android:layout_marginTop="@dimen/mp_10"
+        android:layout_toStartOf="@+id/tv_count"
+        android:padding="@dimen/mp_5"
         android:src="@drawable/like1" />
 
     <TextView
@@ -64,9 +64,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@id/tv_name"
         android:layout_below="@id/iv_head_pic"
-        android:textSize="@dimen/f_16"
         android:text="Content"
-        android:textColor="@color/item_text_color_dark" />
+        android:textColor="@color/item_text_color_dark"
+        android:textSize="@dimen/f_16" />
 
 </RelativeLayout>
 

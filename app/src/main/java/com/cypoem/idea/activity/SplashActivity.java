@@ -48,20 +48,6 @@ public class SplashActivity extends BaseActivity {
         setCountDown();
     }
 
-    private void getData() {
-        IdeaApi.getApiService()
-                .test()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse>(this, true) {
-                    @Override
-                    public void onSuccess(BasicResponse response) {
-                        showToast(response.getMsg());
-                        MainActivity.start(SplashActivity.this);
-                    }
-                });
-    }
-
     private void setCountDown() {
         CountDownTimer countDownTimer = new CountDownTimer(ANIMATION_DURATION, SECOND) {
             @Override

@@ -63,6 +63,7 @@ public interface IdeaApiService {
 
     /**
      * 上传头像/作者照片接口
+     *
      * @param userInfo
      * @return
      */
@@ -93,12 +94,12 @@ public interface IdeaApiService {
     /**
      * 根据用户id获取用户信息
      *
-     * @param user_id   查看的用户id
-     * @param login_user_id    当前登录的用户id
+     * @param user_id       查看的用户id
+     * @param login_user_id 当前登录的用户id
      * @return
      */
     @GET("user/viewUser.do")
-    Observable<BasicResponse<UserBean>> getUserInfo(@Query("user_id") String user_id,@Query("login_user_id") String login_user_id);
+    Observable<BasicResponse<UserBean>> getUserInfo(@Query("user_id") String user_id, @Query("login_user_id") String login_user_id);
 
     /**
      * 每日一句
@@ -136,12 +137,12 @@ public interface IdeaApiService {
      *
      * @param page
      * @param number
-     * @param type 0最新 1最热
+     * @param type   0最新 1最热
      * @return
      */
     @Headers("Cache-Control: public, max-age=600")
     @GET("write/discover.do")
-    Observable<BasicResponse<List<HomePageBean>>> getDiscoverData(@Query("page") int page, @Query("rows") int number,@Query("type") int type);
+    Observable<BasicResponse<List<HomePageBean>>> getDiscoverData(@Query("page") int page, @Query("rows") int number, @Query("type") int type);
 
     /**
      * 发布作品
@@ -167,8 +168,6 @@ public interface IdeaApiService {
     Observable<ChaptersWrapper> getChapters(@Query("write_id") String write_id, @Query("sectionid") String sectionid, @Query("page") String page, @Query("rows") String rows, @Query("user_id") String user_id);
 
 
-
-
     /**
      * 查询我参与的/我发起的/我原创的作品
      *
@@ -182,6 +181,7 @@ public interface IdeaApiService {
 
     /**
      * 查看收藏接口
+     *
      * @param userId
      * @param page
      * @param rows
@@ -192,6 +192,7 @@ public interface IdeaApiService {
 
     /**
      * 章节点赞
+     *
      * @return
      */
     @FormUrlEncoded
@@ -274,6 +275,7 @@ public interface IdeaApiService {
 
     /**
      * 获取章节评论
+     *
      * @param params
      * @return
      */
@@ -282,44 +284,43 @@ public interface IdeaApiService {
 
     /**
      * 评论章节
-     * @param userId 用户id
+     *
+     * @param userId    用户id
      * @param sectionId 章节id
-     * @param content 评论内容
+     * @param content   评论内容
      * @return
      */
     @POST("comment/add.do")
-    Observable<BasicResponse<String>> comment(@Query("user_id") String userId, @Query("section_id") String sectionId,@Query("content") String content);
+    Observable<BasicResponse<String>> comment(@Query("user_id") String userId, @Query("section_id") String sectionId, @Query("content") String content);
+
 
     /**
-     * 为章节点赞
-     * @param userId 用户id
+     * 为评论点赞
+     *
+     * @param userId     用户id
      * @param comment_id 要点赞的评论的uid
+     * @param status     点赞/取消点赞
      * @return
      */
     @POST("commentLike/updateLike.do")
-    Observable<BasicResponse<String>> praise(@Query("user_id") String userId, @Query("comment_id") String comment_id);
+    Observable<BasicResponse<String>> lightComment(@Query("user_id") String userId, @Query("comment_id") String comment_id, @Query("status") String status);
 
-
+    /**
+     * 忘记密码 通过手机验证修改密码
+     *
+     * @param phone    手机号
+     * @param password 密码
+     * @return 修改结果
+     */
     @POST("user/updatePwd.do")
-    Observable<BasicResponse<String>> updatePsw(@Query("phone") String phone,@Query("password") String password);
+    Observable<BasicResponse<String>> updatePsw(@Query("phone") String phone, @Query("password") String password);
 
     /**
      * 验证该手机号是否注册
+     *
      * @param phone 验证的手机号
      * @return
      */
     @GET("user/getUser.do")
     Observable<BasicResponse> isRegistered(@Query("phone") String phone);
-
-
-
-
-
-
-
-    @POST("user/ceshi.do")
-    Observable<BasicResponse> test();
-
-
-
 }

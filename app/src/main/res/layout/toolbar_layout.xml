@@ -60,6 +60,7 @@
         android:layout_height="match_parent"
         android:layout_marginEnd="15dp"
         android:layout_gravity="end"
+        android:background="@drawable/ic_more"
         android:visibility="gone"/>
 
     <TextView
@@ -75,5 +76,7 @@
         android:scrollHorizontally="true"
         android:textColor="@color/text_light"
         android:layout_gravity="center" />
+
+
 
 </android.support.v7.widget.Toolbar>
