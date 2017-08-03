@@ -10,6 +10,7 @@ import java.util.Map;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
 import com.cypoem.idea.module.bean.UserInfoBean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -20,7 +21,6 @@ public class SharedPreferencesHelper {
      * 保存在手机里面的文件名
      */
     public static final String FILE_NAME = "share_data";
-
 
 
     /**
@@ -81,7 +81,7 @@ public class SharedPreferencesHelper {
     }
 
     public static <T> void saveObject(Context context, T bean) {
-        if(context != null && bean != null) {
+        if (context != null && bean != null) {
             String packaggeName = context.getPackageName();
             SharedPreferences share = context.getSharedPreferences(packaggeName, 0);
             GsonBuilder gsonb = new GsonBuilder();
@@ -92,12 +92,11 @@ public class SharedPreferencesHelper {
             editor.putString(className, json);
             editor.apply();
         }
-
     }
 
     public static <T> T getObject(Context context, Class<T> classOfT) {
         T user = null;
-        if(context != null && classOfT != null) {
+        if (context != null && classOfT != null) {
             String json = getObjectJson(context, classOfT);
             user = JsonHelper.parserJson2Object(json, classOfT);
         }
@@ -107,7 +106,7 @@ public class SharedPreferencesHelper {
 
     public static <T> String getObjectJson(Context context, Class<T> classOfT) {
         String json = "";
-        if(context != null && classOfT != null) {
+        if (context != null && classOfT != null) {
             String packageName = context.getPackageName();
             SharedPreferences share = context.getSharedPreferences(packageName, 0);
             String name = classOfT.getSimpleName();
@@ -174,7 +173,6 @@ public class SharedPreferencesHelper {
                 Context.MODE_PRIVATE);
         return sp.getAll();
     }
-
 
 
     /**

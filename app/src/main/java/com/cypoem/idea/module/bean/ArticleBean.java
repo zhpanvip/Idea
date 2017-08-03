@@ -61,7 +61,7 @@ public class ArticleBean {
     private int reCount;
     private int upCount;
     private int watch_status;
-    private String keepStatus;
+    private String keep_status;
     private String like_status;
 
     public int getWatch_status() {
@@ -217,11 +217,11 @@ public class ArticleBean {
     }
 
     public String getKeepStatus() {
-        return keepStatus;
+        return keep_status;
     }
 
-    public void setKeepStatus(String keepStatus) {
-        this.keepStatus = keepStatus;
+    public void setKeepStatus(String keep_status) {
+        this.keep_status = keep_status;
     }
 
     public String getLikeStatus() {

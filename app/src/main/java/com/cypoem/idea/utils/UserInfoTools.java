@@ -16,6 +16,7 @@ public class UserInfoTools {
         sUserInfoBean = getUserInfoBean(context);
         if (sUserInfoBean == null) {
             sUserInfoBean = new UserInfoBean();
+
             //userInfoBean.isHelpered = false;
             sUserInfoBean.setTokenId("");
         }
@@ -101,7 +102,7 @@ public class UserInfoTools {
     /**
      * 保存密码
      *
-     * @param context context
+     * @param context  context
      * @param password 密码
      */
     public static void setPassword(Context context, String password) {

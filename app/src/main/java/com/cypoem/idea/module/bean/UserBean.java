@@ -26,7 +26,7 @@ public class UserBean {
          * keep_count : 3
          */
 
-    private String user_id;
+    private String user_id="";
     private String pen_name;
     private String sex;
     private String icon;

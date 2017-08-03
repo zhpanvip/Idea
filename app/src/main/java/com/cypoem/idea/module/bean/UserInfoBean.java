@@ -48,13 +48,20 @@ public class UserInfoBean {
 
     public String password="";
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     /**
      * 是否开启夜间模式
      */
     private boolean isNightMode;
 
-    private UserBean user;
+    private UserBean user=new UserBean();
 
     public UserBean getUser() {
         return user;

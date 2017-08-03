@@ -19,7 +19,6 @@ import java.io.InputStreamReader;
 import java.util.HashSet;
 import java.util.Set;
 
-
 /**
  * Created by zhpan on 2017/4/16.
  */
@@ -45,10 +44,8 @@ public class MainApplication extends BaseApp {
         instance = this;
         UserInfoTools.init(this);
         //  初始化mob
-        //ShareSDK.initSDK(this);
-        // MobSDK.init(this,APPKEY,APPSECRET);
+        MobSDK.init(this, APPKEY, APPSECRET);
         setNightMode();
-       // installLeak();
     }
 
     private void installLeak() {

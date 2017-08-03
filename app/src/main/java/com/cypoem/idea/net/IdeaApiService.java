@@ -323,4 +323,14 @@ public interface IdeaApiService {
      */
     @GET("user/getUser.do")
     Observable<BasicResponse> isRegistered(@Query("phone") String phone);
+
+    /**
+     * 添加收藏
+     * @param chapterMap
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("keep/modify.do")
+    Observable<BasicResponse> addCollect(@FieldMap Map<String, String> chapterMap);
+
 }
