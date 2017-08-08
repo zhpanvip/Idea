@@ -1,17 +1,14 @@
 package com.cypoem.idea.activity;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
-import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +24,6 @@ import com.airong.core.dialog.CustomDialog;
 import com.airong.core.view.PtrClassicListFooter;
 import com.airong.core.view.PtrClassicListHeader;
 import com.cypoem.idea.R;
-import com.cypoem.idea.app.SystemBarTintManager;
-import com.cypoem.idea.utils.UserInfoTools;
 
 import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -409,16 +404,6 @@ public abstract class BaseActivity extends BaseRxActivity {
             statusBar.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             statusBar.setStatusBarColor(Color.parseColor(color));
         }
-    }
-
-    public void initSystemBar(Activity activity, int color) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            setTranslucentStatus(activity, true);
-        }
-        SystemBarTintManager tintManager = new SystemBarTintManager(activity);
-        tintManager.setStatusBarTintEnabled(true);
-        // 使用颜色资源
-        tintManager.setStatusBarTintResource(color);
     }
 
 

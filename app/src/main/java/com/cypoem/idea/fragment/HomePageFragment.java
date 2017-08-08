@@ -86,7 +86,7 @@ public class HomePageFragment extends BaseFragment {
         mAdapter.setOnItemClickListener((position) -> {
             HomePageBean homePageBean = mAdapter.getList().get(position - 1);
             String writeId = String.valueOf(homePageBean.getWrite_id());
-            String authorId = String.valueOf(homePageBean.getUser().getUser_id());
+            String authorId = homePageBean.getUser().getUser_id();
             StartReadActivity.start(getContext(), writeId, authorId);
         });
         initViewPager();

@@ -492,6 +492,4 @@ public class UserInfoTools {
         }
         return isNightMode;
     }
-
-
 }

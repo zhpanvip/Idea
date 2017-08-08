@@ -88,7 +88,7 @@ public class FindInFragment extends BaseFragment {
         mAdapter.setOnItemClickListener((position) -> {
             HomePageBean homePageBean = mAdapter.getList().get(position);
             String writeId = String.valueOf(homePageBean.getWrite_id());
-            String authorId = String.valueOf(homePageBean.getUser().getUser_id());
+            String authorId = homePageBean.getUser().getUser_id();
             StartReadActivity.start(getContext(), writeId, authorId);
         });
     }

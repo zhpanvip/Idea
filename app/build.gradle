@@ -2,6 +2,15 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.jakewharton.butterknife'
 android {
+   /* signingConfigs {
+        release {
+            keyAlias 'cypoem'
+            keyPassword 'cypoem123'
+            storeFile file('D:/Android/Work/Idea/cypoem.jks')
+            storePassword 'cypoem123'
+            v2SigningEnabled false
+        }
+    }*/
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
@@ -12,7 +21,6 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -23,7 +31,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
 }
 
 repositories {

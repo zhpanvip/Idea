@@ -54,9 +54,9 @@ public class GetIdentifyCodeActivity extends BaseActivity {
     private static final int FAIL = 10;   //  验证码获取/提交异常
 
     // 填写从短信SDK应用后台注册得到的APPKEY
-    private static final String APPKEY = "1e41285782564";
+    private static final String APPKEY = "1d348fde5cbd8";
     // 填写从短信SDK应用后台注册得到的APPSECRET
-    private static final String APPSECRET = "e989c7f12c5b645b5235325ed8f35593";
+    private static final String APPSECRET = "48ae381a929cb0f90bf196a54cccb1f2";
 
     private WeakHandler handle = new WeakHandler(new WeakReference<>(this));
     private static int type;

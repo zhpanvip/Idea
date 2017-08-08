@@ -302,7 +302,7 @@ public interface IdeaApiService {
      * @param status     点赞/取消点赞
      * @return
      */
-    @POST("commentLike/updateLike.do")
+    @POST("comment/updateLike.do")
     Observable<BasicResponse<String>> lightComment(@Query("user_id") String userId, @Query("comment_id") String comment_id, @Query("status") String status);
 
     /**
@@ -330,7 +330,7 @@ public interface IdeaApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("keep/modify.do")
+    @POST("section/moyify.do")
     Observable<BasicResponse> addCollect(@FieldMap Map<String, String> chapterMap);
 
 }
