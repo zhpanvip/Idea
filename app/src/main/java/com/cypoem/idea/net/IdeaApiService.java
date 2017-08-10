@@ -330,7 +330,7 @@ public interface IdeaApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("section/moyify.do")
+    @POST("section/motify.do")
     Observable<BasicResponse> addCollect(@FieldMap Map<String, String> chapterMap);
 
 }

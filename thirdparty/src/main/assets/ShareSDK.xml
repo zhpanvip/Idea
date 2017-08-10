@@ -101,14 +101,14 @@
 		userName="gh_afb25ac019c9"
 		path="pages/index/index.html?id=1"
         BypassApproval="true"
-        Enable="true" />
+        Enable="false" />
     
     <WechatMoments
         Id="5"
         SortId="5"
         AppId="wxc585d31bcefaba3e"
         AppSecret="80c4eec0d2fccb0609c28606b8a35423"
-        BypassApproval="true"
+        BypassApproval="false"
         Enable="true" />
         
 	<WechatFavorite
@@ -116,7 +116,7 @@
         SortId="6"
         AppId="wxc585d31bcefaba3e"
         AppSecret="80c4eec0d2fccb0609c28606b8a35423"
-		BypassApproval="true"
+		BypassApproval="false"
         Enable="true" />
     
 	<!-- ShareByAppClient标识是否使用微博客户端分享，默认是false -->

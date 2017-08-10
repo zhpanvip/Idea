@@ -67,10 +67,15 @@
             app:ptr_ratio_of_header_height_to_refresh="1.2"
             app:ptr_resistance="2.0">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_comment"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent">
+                <include layout="@layout/layout_default"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
 
         </in.srain.cube.views.ptr.PtrClassicFrameLayout>
     </RelativeLayout>

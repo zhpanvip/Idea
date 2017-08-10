@@ -8,112 +8,6 @@
     android:background="@color/background"
     tools:context="com.cypoem.idea.activity.OpusActivity">
 
-
-    <!--<LinearLayout
-        android:id="@+id/ll_tab"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_50"
-        android:layout_alignParentBottom="true"
-        android:background="@color/tab_color"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/mp_5">
-
-        <LinearLayout
-            android:layout_width="@dimen/mp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/mp_25"
-                android:layout_height="@dimen/mp_25"
-                android:src="@drawable/comment" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_12k"
-                android:textColor="@color/item_text_color" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="@dimen/mp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/mp_25"
-                android:layout_height="@dimen/mp_25"
-                android:src="@drawable/praise" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_12k"
-                android:textColor="@color/item_text_color" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="@dimen/mp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/mp_25"
-                android:layout_height="@dimen/mp_25"
-                android:src="@drawable/like" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_12k"
-                android:textColor="@color/item_text_color" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="@dimen/mp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/mp_25"
-                android:layout_height="@dimen/mp_25"
-                android:src="@drawable/override" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_12k"
-                android:textColor="@color/item_text_color" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="@dimen/mp_0"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="@dimen/mp_25"
-                android:layout_height="@dimen/mp_25"
-                android:src="@drawable/write" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/_12k"
-                android:textColor="@color/item_text_color" />
-        </LinearLayout>
-    </LinearLayout>-->
-
     <in.srain.cube.views.ptr.PtrClassicFrameLayout
         android:id="@+id/list_view_frame"
         android:layout_width="match_parent"
@@ -125,11 +19,19 @@
         app:ptr_ratio_of_header_height_to_refresh="1.2"
         app:ptr_resistance="1.7">
 
-        <ListView
-            android:id="@+id/lv_opus"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@null"/>
+            android:layout_height="match_parent">
+            <include layout="@layout/layout_default" />
+
+            <ListView
+                android:id="@+id/lv_opus"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@null" />
+
+        </FrameLayout>
+
     </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
 </RelativeLayout>

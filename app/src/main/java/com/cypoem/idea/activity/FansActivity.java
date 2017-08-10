@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.FansAdapter;
@@ -27,6 +28,8 @@ import io.reactivex.schedulers.Schedulers;
 public class FansActivity extends BaseActivity {
     @BindView(R.id.lv_fans)
     ListView lvFans;
+    @BindView(R.id.tv_no_data)
+    TextView mTvNoData;
     private FansAdapter mAdapter;
     private int page = 1;
     private int type;
@@ -74,14 +77,14 @@ public class FansActivity extends BaseActivity {
 
     @Override
     public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(false, ++page)), 100);
+        frame.postDelayed((() -> getData(false, page)), 100);
     }
 
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
         page = 1;
         mAdapter.getList().clear();
-        frame.postDelayed((() -> getData(false, page)), 100);
+        frame.postDelayed((() -> getData(true, page)), 100);
     }
 
     @Override
@@ -90,41 +93,48 @@ public class FansActivity extends BaseActivity {
         mPtrFrame.refreshComplete();
     }
 
-    private void getData(boolean showLoading, int page) {
+    private void getData(boolean isRefresh, int currentPage) {
         if (type == Constants.FOCUS) {
             IdeaApi.getApiService()
-                    .getMyFocus(userId, page, Constants.NUM)
+                    .getMyFocus(userId, currentPage, Constants.NUM)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new DefaultObserver<BasicResponse<List<FansBean>>>(this, showLoading) {
+                    .subscribe(new DefaultObserver<BasicResponse<List<FansBean>>>(this, true) {
                         @Override
                         public void onSuccess(BasicResponse<List<FansBean>> response) {
-                            if (response.getResult().size() < Constants.NUM) {
-                                mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
-                            } else {
-                                mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
-                            }
-                            mAdapter.getList().addAll(response.getResult());
-                            mAdapter.notifyDataSetChanged();
+                            getDataSuccess(response,isRefresh);
                         }
                     });
         } else if (type == Constants.FOLLOWS) {
             IdeaApi.getApiService()
-                    .getMyFollows(userId, page, Constants.NUM)
+                    .getMyFollows(userId, currentPage, Constants.NUM)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new DefaultObserver<BasicResponse<List<FansBean>>>(this, showLoading) {
+                    .subscribe(new DefaultObserver<BasicResponse<List<FansBean>>>(this, true) {
                         @Override
                         public void onSuccess(BasicResponse<List<FansBean>> response) {
-                            if (response.getResult().size() < Constants.NUM) {
-                                mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
-                            } else {
-                                mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
-                            }
-                            mAdapter.getList().addAll(response.getResult());
-                            mAdapter.notifyDataSetChanged();
+                            getDataSuccess(response,isRefresh);
                         }
                     });
         }
+    }
+
+    private void getDataSuccess(BasicResponse<List<FansBean>> response,boolean isRefresh) {
+        if (response.getResult().size() < Constants.NUM) {
+            mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
+        } else {
+            mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
+        }
+        page++;
+        mAdapter.getList().addAll(response.getResult());
+        mAdapter.notifyDataSetChanged();
+        if(response.getResult().size()==0&&isRefresh){
+            lvFans.setVisibility(View.GONE);
+            if(type==Constants.FOLLOWS)
+            mTvNoData.setText("您还没有粉丝哦！");
+            else if(type==Constants.FOCUS)
+                mTvNoData.setText("您还没有关注任何用户");
+        }
+
     }
 }

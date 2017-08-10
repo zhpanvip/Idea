@@ -99,6 +99,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     private LinearLayout mRlReport;
     private LinearLayout mRlAdvice;
     private String keepStatus;
+    private TextView mTvNoData;
 
     @Override
     protected int getLayoutId() {
@@ -208,7 +209,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         map.put("parent_id", "0");
         map.put("user_id", UserInfoTools.getUserId(this));
         map.put("page", page + "");
-        map.put("rows", "10");
+        map.put("rows", "5");
         map.put("write_id", writeId);
         map.put("write_author_id", authorId);
         IdeaApi.getApiService()
@@ -292,6 +293,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         Button tvComment = (Button) popView.findViewById(R.id.btn_comment);
         mEtComment = (EditText) popView.findViewById(R.id.et_comment);
         mIvDismiss = (ImageView) popView.findViewById(R.id.iv_dismiss);
+        mTvNoData=(TextView)popView.findViewById(R.id.tv_no_data);
         LinearLayout linearLayout = (LinearLayout) popView.findViewById(R.id.ll_pop_window);
         linearLayout.setOnClickListener(this);
         tvComment.setOnClickListener(this);
@@ -347,7 +349,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         mPtrFrame.setPtrHandler(new PtrDefaultHandler2() {
             @Override
             public void onLoadMoreBegin(PtrFrameLayout frame) {
-                getComment(++commentPage, true);
+                getComment(commentPage, true);
             }
 
             @Override
@@ -397,6 +399,14 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                         }
                         list.addAll(response.getResult());
                         mCommentAdapter.notifyDataSetChanged();
+                        commentPage++;
+                        if(list.size()==0){
+                            mRecyclerView.setVisibility(View.GONE);
+                            mTvNoData.setText("暂无评论");
+                        }else {
+                            mRecyclerView.setVisibility(View.VISIBLE);
+                            mTvNoData.setVisibility(View.GONE);
+                        }
                     }
                 });
     }
@@ -458,7 +468,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                     @Override
                     public void onSuccess(BasicResponse response) {
                         commentPage = 1;
-                        showToast("评论成功");
+                        showToast("收藏成功");
                         mEtComment.setText("");
                         getComment(1, false);
                     }

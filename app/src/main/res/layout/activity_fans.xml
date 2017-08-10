@@ -1,29 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:orientation="vertical"
     tools:context="com.cypoem.idea.activity.FansActivity">
-    <include layout="@layout/base_line"/>
 
-        <in.srain.cube.views.ptr.PtrClassicFrameLayout
-            android:id="@+id/list_view_frame"
+    <include layout="@layout/base_line" />
+
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/list_view_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:ptr_duration_to_close_either="500"
+        app:ptr_keep_header_when_refresh="true"
+        app:ptr_pull_to_fresh="false"
+        app:ptr_ratio_of_header_height_to_refresh="1.2"
+        app:ptr_resistance="1.7">
+
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:ptr_duration_to_close_either="500"
-            app:ptr_keep_header_when_refresh="true"
-            app:ptr_pull_to_fresh="false"
-            app:ptr_ratio_of_header_height_to_refresh="1.2"
-            app:ptr_resistance="1.7">
+            android:layout_height="match_parent">
+            <include layout="@layout/layout_default" />
 
             <ListView
                 android:id="@+id/lv_fans"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent" />
 
-        </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+        </FrameLayout>
+
+
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
 </LinearLayout>

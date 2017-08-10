@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CollectAdapter;
@@ -26,6 +27,8 @@ import io.reactivex.schedulers.Schedulers;
 public class CollectActivity extends BaseActivity {
     @BindView(R.id.lv_collect)
     ListView mListView;
+    @BindView(R.id.tv_no_data)
+    TextView mTvNoData;
     private CollectAdapter mAdapter;
     private int page=1;
 
@@ -98,6 +101,10 @@ public class CollectActivity extends BaseActivity {
                         }
                         mAdapter.getList().addAll(response.getResult());
                         mAdapter.notifyDataSetChanged();
+                        if(response.getResult().size()==0){
+                            mListView.setVisibility(View.GONE);
+                            mTvNoData.setText("您还没有收藏的章节呢");
+                        }
                     }
                 });
     }

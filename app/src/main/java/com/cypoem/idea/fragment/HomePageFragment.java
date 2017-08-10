@@ -115,7 +115,7 @@ public class HomePageFragment extends BaseFragment {
 
     @Override
     public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
-        frame.postDelayed((() -> getData(false, ++page)), 100);
+        frame.postDelayed((() -> getData(false, page)), 100);
     }
 
     @Override
@@ -130,10 +130,10 @@ public class HomePageFragment extends BaseFragment {
         mPtrFrame.refreshComplete();
     }
 
-    private void getData(boolean isRefresh, int page) {
+    private void getData(boolean isRefresh, int currentPage) {
         //  Retrofit请求数据
         IdeaApi.getApiService()
-                .getHomePageData(page, ROWS)
+                .getHomePageData(currentPage, ROWS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<HomePageBean>>>(this, false) {
@@ -142,6 +142,7 @@ public class HomePageFragment extends BaseFragment {
                         if (isRefresh) {
                             mAdapter.getList().clear();
                         }
+                        page++;
                         updateList(response.getResult());
                     }
                 });

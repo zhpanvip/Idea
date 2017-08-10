@@ -6,18 +6,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.cypoem.idea.R;
-import com.cypoem.idea.activity.CollectActivity;
 import com.cypoem.idea.activity.StartReadActivity;
 import com.cypoem.idea.adapter.CollectAdapter;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
-import com.cypoem.idea.module.bean.CollectBean;
 import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
-import com.cypoem.idea.net.IdeaApiService;
-import com.cypoem.idea.utils.UserInfoTools;
-import com.cypoem.idea.view.ListViewForScrollView;
 import com.cypoem.idea.view.ScrollableHelper;
 
 import java.util.ArrayList;
@@ -81,9 +76,9 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
         getData(page);
     }
 
-    private void getData(int page) {
+    private void getData(int currentPage) {
         IdeaApi.getApiService()
-                .getMyOpus(userId, page, ROWS, type)
+                .getMyOpus(userId, currentPage, ROWS, type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this, false) {
@@ -97,6 +92,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
                         }
                         mAdapter.getList().addAll(response.getResult());
                         mAdapter.notifyDataSetChanged();
+                        page++;
                     }
                 });
     }
@@ -105,7 +101,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     @Override
     protected void onPtrLoadMoreBegin(PtrFrameLayout frame) {
         super.onPtrLoadMoreBegin(frame);
-        getData(++page);
+        getData(page);
     }
 
     @Override
@@ -126,7 +122,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
         mListView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
                     OpusBean opusBean = mAdapter.getList().get(position);
                     String uid = opusBean.getUid();
-                    StartReadActivity.start(getContext(),"", "");
+                    StartReadActivity.start(getContext(), "", "");
                 }
         );
     }
