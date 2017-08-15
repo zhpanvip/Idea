@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.StartReadActivity;
@@ -31,6 +32,8 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     private static final int ROWS = 10;
     @BindView(R.id.lv_author)
     ListView mListView;
+    @BindView(R.id.tv_no_data)
+    TextView mTvNoData;
     private CollectAdapter mAdapter;
 
     private int page = 1;
@@ -89,6 +92,10 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
                             mPtrFrame.setMode(PtrFrameLayout.Mode.NONE);
                         } else {
                             mPtrFrame.setMode(PtrFrameLayout.Mode.LOAD_MORE);
+                        }
+                        if(result.size()==0){
+                            mListView.setVisibility(View.GONE);
+                            mTvNoData.setText("暂无数据");
                         }
                         mAdapter.getList().addAll(response.getResult());
                         mAdapter.notifyDataSetChanged();

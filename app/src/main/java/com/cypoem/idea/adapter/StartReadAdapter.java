@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.airong.core.utils.LogUtils;
+import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.StartReadActivity;
 import com.cypoem.idea.module.bean.ArticleBean;
@@ -25,6 +27,7 @@ public class StartReadAdapter extends RecyclerView.Adapter<StartReadAdapter.Simp
 
     private final Context mContext;
     private List<List<ArticleBean>> mItems;
+    private RecyclerViewPager mViewPager;
 
     public List<List<ArticleBean>> getList() {
         return mItems;
@@ -60,14 +63,24 @@ public class StartReadAdapter extends RecyclerView.Adapter<StartReadAdapter.Simp
         // 设置显示布局的方向，默认方向是垂直
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         // 设置布局管理器
+        mViewPager = holder.mRecyclerView;
         holder.mRecyclerView.setLayoutManager(linearLayoutManager);
         holder.mRecyclerView.setAdapter(adapter);
         holder.mRecyclerView.setHasFixedSize(true);
 
-        holder.mRecyclerView.addOnPageChangedListener((int i, int i1) ->
-                ((StartReadActivity) mContext).onHorizontalItemSelected(position,i1)
+        holder.mRecyclerView.clearOnPageChangedListeners();
+        holder.mRecyclerView.addOnPageChangedListener((int i, int i1) -> {
+                    LogUtils.e(position + "---------------" + i);
+                    ((StartReadActivity) mContext).onHorizontalItemSelected(position, i1);
+
+                }
         );
     }
+
+    public void scrollTo(int position) {
+        mViewPager.scrollToPosition(position);
+    }
+
 
     @Override
     public int getItemCount() {
@@ -75,9 +88,9 @@ public class StartReadAdapter extends RecyclerView.Adapter<StartReadAdapter.Simp
     }
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
-        public RecyclerViewPager mRecyclerView;
+        private RecyclerViewPager mRecyclerView;
 
-        public SimpleViewHolder(View view) {
+        private SimpleViewHolder(View view) {
             super(view);
             mRecyclerView = (RecyclerViewPager) view.findViewById(R.id.rv_read);
         }

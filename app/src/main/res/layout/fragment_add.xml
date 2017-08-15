@@ -8,53 +8,54 @@
     <include layout="@layout/toolbar_layout"/>
 
     <TextView
+        android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:gravity="center_horizontal"
-        android:text="创作说明"
+        android:text="@string/writing_explain"
         android:textColor="@color/gray_a5"
-        android:textSize="18sp"/>
+        android:textSize="@dimen/f_18" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="@dimen/mp_15"
         android:gravity="center_horizontal"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
+        android:paddingLeft="@dimen/mp_25"
+        android:paddingRight="@dimen/mp_25"
         android:text="@string/add_instruction1"
         android:textColor="@color/gray_a5"
-        android:textSize="16sp"/>
+        android:textSize="@dimen/f_16"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:paddingLeft="25dp"
-        android:paddingRight="25dp"
+        android:paddingLeft="@dimen/mp_25"
+        android:paddingRight="@dimen/mp_25"
         android:text="@string/add_instruction2"
         android:textColor="@color/gray_a5"
-        android:textSize="16sp"/>
+        android:textSize="@dimen/f_16"/>
 
     <TextView
         android:id="@+id/tv_publish"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="50dp"
+        android:layout_height="@dimen/mp_55"
+        android:layout_marginTop="@dimen/mp_50"
         android:background="@color/text_theme"
         android:gravity="center"
         android:text="发布一个新的作品"
         android:textColor="@color/white"
-        android:textSize="20sp"/>
+        android:textSize="@dimen/f_20" />
 
     <TextView
         android:id="@+id/tv_join"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/mp_55"
         android:background="@color/gray_dd"
         android:gravity="center"
         android:text="参与已有作品创作"
         android:textColor="@color/text_theme"
-        android:textSize="20sp"/>
+        android:textSize="@dimen/f_20"/>
 </LinearLayout>

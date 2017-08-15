@@ -100,6 +100,8 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     private LinearLayout mRlAdvice;
     private String keepStatus;
     private TextView mTvNoData;
+    private int prePosition = 0;
+    private int horiPosition = 0;
 
     @Override
     protected int getLayoutId() {
@@ -109,7 +111,6 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void init(Bundle savedInstanceState) {
         initToolbar();
-
         initData();
         initCommentPopWindows();
     }
@@ -163,19 +164,47 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         mViewPager.setHasFixedSize(true);
         mViewPager.setLongClickable(true);
 
-        mViewPager.addOnPageChangedListener((int i, int i1) -> {
-            showToast("vertical position=" + i1);
+        mViewPager.addOnPageChangedListener((int i, int position) -> {
             startAnim();
+            setArticleData(position, 0);
+            if (position > prePosition) {
+                List<List<ArticleBean>> chapterList = mAdapter.getList();
+                getNextChapter(chapterList.get(position).get(0).getSection_id(), false);
+                prePosition = position;
+            }
         });
 
-        getData(page);
+        getFirstChapter(page);
     }
 
+    /**
+     * @param position 当前选中的position（竖直）
+     * @param id       横向位置
+     */
     public void onHorizontalItemSelected(int position, int id) {
-        showToast("horizontal position=" + position);
+        horiPosition = id;
+        prePosition = position;
         startAnim();
         setArticleData(position, id);
+        List<List<ArticleBean>> list = mAdapter.getList();
+        List<ArticleBean> articleBeen = list.get(position);
+        ArticleBean articleBean = articleBeen.get(id);
+        String section_id = articleBean.getSection_id();
+        refreshAdapterList(position);
+        getNextChapter(section_id, true);
     }
+
+
+    private void refreshAdapterList(int position) {
+        List<List<ArticleBean>> list = mAdapter.getList();
+        List<List<ArticleBean>> newList = new ArrayList<>();
+        for (int i = 0; i < position + 1; i++) {
+            newList.add(list.get(i));
+        }
+        list.clear();
+        list.addAll(newList);
+    }
+
 
     private void setArticleData(int position, int id) {
         List<ArticleBean> articleBeen = mAdapter.getList().get(position);
@@ -204,7 +233,8 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         context.startActivity(intent);
     }
 
-    private void getData(int page) {
+    //  获取第一章节数据
+    private void getFirstChapter(int page) {
         Map<String, String> map = new HashMap<>();
         map.put("parent_id", "0");
         map.put("user_id", UserInfoTools.getUserId(this));
@@ -224,6 +254,32 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                         mAdapter.notifyDataSetChanged();
                         if (results.size() > 0) {
                             setArticleData(0, 0);
+                            getNextChapter(results.get(0).getSection_id(), false);
+                        }
+                    }
+                });
+    }
+
+    private void getNextChapter(String parent_id, boolean isRefresh) {
+        Map<String, String> map = new HashMap<>();
+        map.put("parent_id", parent_id);
+        map.put("user_id", UserInfoTools.getUserId(this));
+        map.put("page", page + "");
+        map.put("rows", "5");
+        map.put("write_id", writeId);
+        map.put("write_author_id", authorId);
+        IdeaApi.getApiService()
+                .getArticle(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<List<ArticleBean>>>(this, false) {
+                    @Override
+                    public void onSuccess(BasicResponse<List<ArticleBean>> response) {
+                        List<ArticleBean> results = response.getResult();
+                        if (results.size() > 0) {
+                            mAdapter.getList().add(results);
+                            // if (isRefresh)
+                            //    mAdapter.notifyDataSetChanged();
                         }
                     }
                 });
@@ -241,8 +297,10 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
             case R.id.ll_value:
                 break;
             case R.id.ll_rewrite:
+                mAdapter.scrollTo(1);
                 break;
             case R.id.ll_continue:
+                mViewPager.scrollToPosition(1);
                 break;
 
         }
@@ -293,7 +351,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         Button tvComment = (Button) popView.findViewById(R.id.btn_comment);
         mEtComment = (EditText) popView.findViewById(R.id.et_comment);
         mIvDismiss = (ImageView) popView.findViewById(R.id.iv_dismiss);
-        mTvNoData=(TextView)popView.findViewById(R.id.tv_no_data);
+        mTvNoData = (TextView) popView.findViewById(R.id.tv_no_data);
         LinearLayout linearLayout = (LinearLayout) popView.findViewById(R.id.ll_pop_window);
         linearLayout.setOnClickListener(this);
         tvComment.setOnClickListener(this);
@@ -400,10 +458,10 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                         list.addAll(response.getResult());
                         mCommentAdapter.notifyDataSetChanged();
                         commentPage++;
-                        if(list.size()==0){
+                        if (list.size() == 0) {
                             mRecyclerView.setVisibility(View.GONE);
                             mTvNoData.setText("暂无评论");
-                        }else {
+                        } else {
                             mRecyclerView.setVisibility(View.VISIBLE);
                             mTvNoData.setVisibility(View.GONE);
                         }
@@ -482,6 +540,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         mPtrFrame.refreshComplete();
     }
 
+    //  提交评论
     private void postComment() {
         String content = mEtComment.getText().toString().trim();
         if (TextUtils.isEmpty(content)) {
@@ -503,7 +562,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                 });
     }
 
-
+    //  分享
     private void showShare() {
         OnekeyShare oks = new OnekeyShare();
 

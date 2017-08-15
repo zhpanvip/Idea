@@ -5,7 +5,7 @@
 <!-- 连框颜色值 -->
 <item>
     <shape>
-        <solid android:color="@color/white"/>
+        <solid android:color="@color/theme_style"/>
         <corners
             android:topRightRadius="3dp"
             android:bottomRightRadius="3dp"/>

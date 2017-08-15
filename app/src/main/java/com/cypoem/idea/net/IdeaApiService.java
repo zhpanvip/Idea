@@ -2,6 +2,7 @@ package com.cypoem.idea.net;
 
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleBean;
+import com.cypoem.idea.module.bean.BannerBean;
 import com.cypoem.idea.module.bean.CommentBean;
 import com.cypoem.idea.module.bean.EverydayReBackBean;
 import com.cypoem.idea.module.bean.FansBean;
@@ -332,5 +333,8 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST("section/motify.do")
     Observable<BasicResponse> addCollect(@FieldMap Map<String, String> chapterMap);
+
+    @GET("banner/viewBanner.do")
+    Observable<BasicResponse<List<BannerBean>>> getBanner(@Query("page") String page,@Query("rows") String row );
 
 }

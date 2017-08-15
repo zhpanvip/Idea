@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#163355</color>
-    <color name="colorPrimaryDark">#0F274D</color>
-    <color name="colorAccent">#0F274D</color>
+    <color name="colorPrimary">#1C1C1C</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#1C1C1C</color>
+    <color name="themDark">#1C1C1C</color>
 
     <color name="gray_66">#666666</color>
     <color name="gray_99">#9DBADC</color>
@@ -12,25 +13,29 @@
     <color name="gray_ee">#EEEEEE</color>
     <color name="gray_f6">#F6F6F6</color>
     <color name="white">#FFFFFF</color>
-    <color name="gray_a5">#9DBADC</color>
+    <color name="gray_a5">#BBBBBB</color>
     <color name="gray_ea">#EAEAEA</color>
 
-    <color name="theme_style">#0F2B50</color>
-    <color name="background">#0F2B50</color>
-    <color name="text_theme">#476486</color>
-    <color name="text_light">#9DBADC</color>
+    <color name="theme_style">#1C1C1C</color>
+    <color name="background">#1B1B1B</color>
+    <color name="text_theme">#282828</color>
+    <color name="text_light">#FFFFFF</color>
     <color name="female_red">#D4237A</color>
     <color name="male_blue">#1296DB</color>
-    <color name="item_text_color_dark">#476486</color>
-    <color name="item_text_color">#9DBADC</color>
-    <color name="tab_color">#0F2B50</color>
-    <color name="theme_style_white">#0F2B50</color>
-    <color name="item_color">#163355</color>
-    <color name="tab_normal_text">#476486</color>
-    <color name="tab_selected_text">#9DBADC</color>
-    <color name="line_color">#476486</color>
-    <color name="item_title">#476486</color>
-    <color name="text_hint">#4E5B69</color>
-    <color name="edit_background">#091D38</color>
+    <color name="item_text_color_dark">#BBBBBB</color>
+    <color name="item_text_color">#9F9F9F</color>
+    <color name="tab_color">#292929</color>
+    <color name="item_color">#1B1B1B</color>
+    <color name="tab_normal_text">#BDBDBD</color>
+    <color name="tab_selected_text">#C2C528</color>
+    <color name="line_color">#BDBDBD</color>
+    <color name="item_title">#282828</color>
+    <color name="item_title_text">#FFFFFF</color>
+    <color name="text_hint">#6D6E6F</color>
+    <color name="edit_background">#3F3F3F</color>
     <color name="label_stroke">#FFFFFF</color>
+
+    <color name="toolbar_title">#FFFFFF</color>
+    <color name="toolbar_background">#282828</color>
+    <color name="item_theme">#BBBBBB</color>
 </resources>

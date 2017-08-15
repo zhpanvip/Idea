@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
+        <include layout="@layout/base_line"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="35dp"
@@ -20,7 +20,7 @@
             android:paddingEnd="@dimen/mp_10"
             android:paddingStart="20dp"
             android:text="@string/safe_setting"
-            android:textColor="@color/theme_style"
+            android:textColor="@color/item_title_text"
             android:textSize="16sp" />
 
         <RelativeLayout
@@ -108,7 +108,7 @@
             android:paddingEnd="@dimen/mp_10"
             android:paddingStart="20dp"
             android:text="@string/read_setting"
-            android:textColor="@color/theme_style"
+            android:textColor="@color/item_title_text"
             android:textSize="16sp" />
 
         <RelativeLayout
@@ -161,7 +161,7 @@
             android:paddingEnd="@dimen/mp_10"
             android:paddingStart="20dp"
             android:text="@string/system_setting"
-            android:textColor="@color/theme_style"
+            android:textColor="@color/item_title_text"
             android:textSize="16sp" />
 
         <RelativeLayout

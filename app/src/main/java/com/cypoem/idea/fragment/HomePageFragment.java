@@ -1,29 +1,21 @@
 package com.cypoem.idea.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.StartReadActivity;
 import com.cypoem.idea.adapter.HomeAdapter;
-import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.module.bean.BannerBean;
 import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
-import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.CircleViewPager;
-import com.zhouwei.mzbanner.MZBannerView;
-import com.zhouwei.mzbanner.holder.MZHolderCreator;
-import com.zhouwei.mzbanner.holder.MZViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +40,7 @@ public class HomePageFragment extends BaseFragment {
     private HomeAdapter mAdapter;
     private int page = 1;
     private final int ROWS = 10;
-    private MZBannerView bannerView;
-    private int type;
+    private CircleViewPager bannerView;
 
     public static HomePageFragment getFragment() {
         HomePageFragment fragment = new HomePageFragment();
@@ -66,9 +57,7 @@ public class HomePageFragment extends BaseFragment {
         initData();
         initPtr(true);
         // getData(true, page);
-        if (!(type == FindFragment.HOTEST || type == FindFragment.NEWEST)) ;
-
-        //  bannerView.setPtrFrame(mPtrFrame);
+        bannerView.setPtrFrame(mPtrFrame);
     }
 
     private void initData() {
@@ -94,8 +83,16 @@ public class HomePageFragment extends BaseFragment {
 
     private void initViewPager() {
         View headerView = View.inflate(getContext(), R.layout.header_home, null);
-        bannerView = (MZBannerView) headerView.findViewById(R.id.banner);
-        bannerView.setDuration(5000);
+        bannerView = (CircleViewPager) headerView.findViewById(R.id.cvp_header);
+        bannerView.setInterval(5000);
+        bannerView.setUrlList(new ArrayList<>());
+        bannerView.setOnPageClickListener((int position) -> {
+            showToast("Forward Url" + position);
+        });
+        mAdapter.addHeaderView(headerView);
+
+       // getBannerData();
+        /*bannerView.setDuration(5000);
         List<String> mUrlList = new ArrayList<>();
         mUrlList.add("http://d.5857.com/gqyhx_131102/004.jpg");
         mUrlList.add("http://img2.imgtn.bdimg.com/it/u=1563338466,3557560859&fm=214&gp=0.jpg");
@@ -108,8 +105,22 @@ public class HomePageFragment extends BaseFragment {
             public BannerViewHolder createViewHolder() {
                 return new BannerViewHolder();
             }
-        });
-        mAdapter.addHeaderView(headerView);
+        });*/
+    }
+
+    private void getBannerData() {
+        IdeaApi.getApiService()
+                .getBanner("1", "4")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<List<BannerBean>>>(this, false) {
+                    @Override
+                    public void onSuccess(BasicResponse<List<BannerBean>> response) {
+                        bannerView.getUrlList().clear();
+                        bannerView.getUrlList().addAll(response.getResult());
+                        bannerView.notifyDataChanged();
+                    }
+                });
     }
 
 
@@ -121,7 +132,10 @@ public class HomePageFragment extends BaseFragment {
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
         page = 1;
-        frame.postDelayed((() -> getData(true, page)), 100);
+        frame.postDelayed((() ->{
+            getData(true, page);
+            getBannerData();
+        }), 100);
     }
 
     @Override
@@ -160,7 +174,7 @@ public class HomePageFragment extends BaseFragment {
     }
 
 
-    public static class BannerViewHolder implements MZViewHolder<String> {
+    /*public static class BannerViewHolder implements MZViewHolder<String> {
         private ImageView mImageView;
 
         @Override
@@ -176,5 +190,5 @@ public class HomePageFragment extends BaseFragment {
             // 数据绑定
             ImageLoaderUtil.loadImg(mImageView, data);
         }
-    }
+    }*/
 }

@@ -19,10 +19,6 @@ import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
-import com.zhouwei.mzbanner.MZBannerView;
-import com.zhouwei.mzbanner.holder.MZHolderCreator;
-import com.zhouwei.mzbanner.holder.MZViewHolder;
-
 import java.util.ArrayList;
 import java.util.List;
 

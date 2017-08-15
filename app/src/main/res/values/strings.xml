@@ -151,4 +151,5 @@
     <string name="phone_can_not_null">手机号不能为空</string>
     <string name="input_correct_phone_num">请输入正确的手机号</string>
     <string name="input_identify_code">请输入验证码</string>
+    <string name="writing_explain">创作说明</string>
 </resources>

@@ -12,7 +12,6 @@
         android:id="@+id/list_view_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/ll_tab"
         app:ptr_duration_to_close_either="500"
         app:ptr_keep_header_when_refresh="true"
         app:ptr_pull_to_fresh="false"
@@ -22,6 +21,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <include layout="@layout/layout_default" />
 
             <ListView

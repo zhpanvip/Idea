@@ -1,5 +1,6 @@
 package com.cypoem.idea.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -95,6 +96,8 @@ public class MeFragment extends BaseFragment {
     TextView mTvTitle;
     @BindView(R.id.iv_right)
     ImageView mIvRight;
+    @BindView(R.id.toolbar)
+    Toolbar mToolbar;
     private UserBean userBean;
 
     public static MeFragment getFragment(Bundle bundle) {
@@ -130,6 +133,7 @@ public class MeFragment extends BaseFragment {
 
     private void initData() {
         setTitleBar();
+
         EventBus.getDefault().register(this);
         userBean = UserInfoTools.getUser(getContext());
         setUserInfo();
@@ -153,8 +157,10 @@ public class MeFragment extends BaseFragment {
 
     private void setTitleBar() {
         mTvTitle.setText("我的创意说");
+        mTvTitle.setTextColor(Color.WHITE);
         mIvRight.setBackgroundResource(R.drawable.ic_setting);
         mIvRight.setVisibility(View.VISIBLE);
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.theme_style));
     }
 
 

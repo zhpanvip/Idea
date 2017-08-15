@@ -258,6 +258,31 @@ public class UserInfoTools {
         return url;
     }
 
+    public static String getCover(Context context) {
+        String url;
+        if (sUserInfoBean != null) {
+            url = sUserInfoBean.getUser().getCover_photo();
+        } else {
+            url = getUserInfoBean(context).getUser().getCover_photo();
+        }
+        if (null == url) {
+            url = "";
+        }
+        return url;
+    }
+    /**
+     * 保存用户头像
+     *
+     * @param context
+     * @param url
+     */
+    public static void setCover(Context context, String url) {
+        sUserInfoBean.getUser().setCover_photo(url);
+        setUserInfoBean(context, sUserInfoBean);
+    }
+
+
+
     /**
      * 保存用户笔名
      *

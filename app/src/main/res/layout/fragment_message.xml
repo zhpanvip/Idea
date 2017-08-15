@@ -28,7 +28,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="@string/praise_notification"
-                    android:textColor="@color/text_theme"
+                    android:textColor="@color/item_theme"
                     android:textSize="16sp" />
 
                 <CheckBox
@@ -63,10 +63,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:text="@string/system_notification"
-                    android:textColor="@color/text_theme"
-                    android:textSize="16sp" />
+                    android:textColor="@color/item_theme"
+                    android:textSize="16sp"
+                    android:layout_alignBaseline="@+id/cb_system"
+                    android:layout_alignBottom="@+id/cb_system"
+                    android:layout_alignParentStart="true" />
 
                 <CheckBox
                     android:id="@+id/cb_system"
@@ -99,10 +101,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:text="@string/other_notification"
-                    android:textColor="@color/text_theme"
-                    android:textSize="16sp" />
+                    android:textColor="@color/item_theme"
+                    android:textSize="16sp"
+                    android:layout_alignBaseline="@+id/cb_other"
+                    android:layout_alignBottom="@+id/cb_other"
+                    android:layout_alignParentStart="true" />
 
                 <CheckBox
                     android:id="@+id/cb_other"

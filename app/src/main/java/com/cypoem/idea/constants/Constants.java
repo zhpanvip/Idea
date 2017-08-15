@@ -28,4 +28,5 @@ public interface Constants {
 
     //  上传头像
     String HEAD_PIC="1";
+    String HEAD_COVER="0";
 }

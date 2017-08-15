@@ -4,7 +4,7 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
+    android:background="@color/toolbar_background"
     android:fitsSystemWindows="true"
     android:minHeight="?attr/actionBarSize">
     <!--自定义toolbar的title 和subtitle -->
@@ -74,7 +74,7 @@
         android:textSize="@dimen/f_18"
         android:layout_marginStart="@dimen/mp_20"
         android:scrollHorizontally="true"
-        android:textColor="@color/text_light"
+        android:textColor="@color/toolbar_title"
         android:layout_gravity="center" />
 
 

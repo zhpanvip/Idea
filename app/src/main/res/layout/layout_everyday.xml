@@ -3,7 +3,7 @@
               android:id="@+id/ll_splash"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@drawable/splash1"
+              android:background="@drawable/splash"
               android:orientation="vertical">
 
     <FrameLayout
@@ -17,6 +17,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             android:background="@drawable/splash1"/>
 
         <TextView
@@ -40,6 +41,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_weight="1"
+        android:visibility="gone"
         android:orientation="vertical">
 
         <TextView

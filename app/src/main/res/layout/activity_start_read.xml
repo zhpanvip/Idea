@@ -10,9 +10,10 @@
         android:id="@+id/ll_tab"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/mp_5"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:orientation="vertical">
+        android:layout_alignParentStart="true">
 
         <include layout="@layout/base_line" />
 
@@ -31,11 +32,11 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <ImageView
                     android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/comment"
+                    android:src="@drawable/commented"
                     android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
@@ -56,10 +57,11 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/textView8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/like"
+                    android:src="@drawable/liked"
                     android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
@@ -80,10 +82,11 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/like_value"
+                    android:src="@drawable/gift"
                     android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
@@ -104,10 +107,11 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
+                <ImageView
+                    android:id="@+id/iv_rewrite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/rewrite"
+                    android:src="@drawable/rewrite"
                     android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 
@@ -128,11 +132,11 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView5"
+                <ImageView
+                    android:id="@+id/iv_continue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/continue_write"
+                    android:src="@drawable/continued"
                     android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_18" />
 

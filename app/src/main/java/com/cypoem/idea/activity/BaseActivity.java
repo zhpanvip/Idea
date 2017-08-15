@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -394,7 +395,7 @@ public abstract class BaseActivity extends BaseRxActivity {
      *
      * @param color 颜色
      */
-    public void setStatusBarColor(String color) {
+    public void setStatusBarColor(@ColorRes int color) {
         /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(this, true);
         }*/
@@ -402,7 +403,7 @@ public abstract class BaseActivity extends BaseRxActivity {
             Window statusBar = getWindow();
             statusBar.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             statusBar.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            statusBar.setStatusBarColor(Color.parseColor(color));
+            statusBar.setStatusBarColor(getResources().getColor(color));
         }
     }
 

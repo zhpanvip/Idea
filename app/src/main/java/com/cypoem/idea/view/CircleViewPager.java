@@ -16,6 +16,8 @@ import android.widget.LinearLayout;
 import com.airong.core.utils.DensityUtils;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
+import com.cypoem.idea.module.bean.BannerBean;
+import com.cypoem.idea.net.IdeaApiService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ public class CircleViewPager extends FrameLayout {
     //  圆点对应的ImageView的集合
     private List<ImageView> mIvDotList;
     //    图片连接集合
-    private List<String> mUrlList;
+    private List<BannerBean> mUrlList;
     //  选中时轮播圆点资源id
     private int mLightDotRes;
     //  未选中时轮播圆点资源id
@@ -124,24 +126,24 @@ public class CircleViewPager extends FrameLayout {
                 if (i == 0) {   //判断当i=0为该处的ImageView设置最后一张图片作为背景
                     imageView = new ImageView(getContext());
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    ImageLoaderUtil.loadImg(imageView, mUrlList.get(mUrlList.size() - 1));
+                    ImageLoaderUtil.loadImg(imageView, IdeaApiService.HOST+mUrlList.get(mUrlList.size() - 1).getBanner_pic());
                     mIvList.add(imageView);
                 } else if (i == mUrlList.size() + 1) {   //判断当i=images.length+1时为该处的ImageView设置第一张图片作为背景
                     imageView = new ImageView(getContext());
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    ImageLoaderUtil.loadImg(imageView, mUrlList.get(0));
+                    ImageLoaderUtil.loadImg(imageView, IdeaApiService.HOST+mUrlList.get(0).getBanner_pic());
                     mIvList.add(imageView);
                 } else {  //其他情况则为ImageView设置images[i-1]的图片作为背景
                     imageView = new ImageView(getContext());
                     imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-                    ImageLoaderUtil.loadImg(imageView, mUrlList.get(i - 1));
+                    ImageLoaderUtil.loadImg(imageView, IdeaApiService.HOST+mUrlList.get(i - 1).getBanner_pic());
                     mIvList.add(imageView);
                 }
             }
         } else if (mUrlList.size() == 1) {
             imageView = new ImageView(getContext());
             imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            ImageLoaderUtil.loadImg(imageView, mUrlList.get(0));
+            ImageLoaderUtil.loadImg(imageView, IdeaApiService.HOST+mUrlList.get(0).getBanner_pic());
             mIvList.add(imageView);
         }
     }
@@ -184,6 +186,8 @@ public class CircleViewPager extends FrameLayout {
 
     //  设置轮播小圆点
     private void setDotImage() {
+        mIvDotList.clear();
+        mLlDot.removeAllViews();
         //  设置LinearLayout的子控件的宽高，这里单位是像素。
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams((int) mDotWidth, (int) mDotWidth);
         params.rightMargin = (int) (mDotWidth / 1.5);
@@ -286,11 +290,18 @@ public class CircleViewPager extends FrameLayout {
         this.interval = interval;
     }
 
-    public List<String> getUrlList() {
+    public List<BannerBean> getUrlList() {
         return mUrlList;
     }
 
-    public void setUrlList(List<String> urlList) {
+    public void notifyDataChanged(){
+        invalidate();
+        initImage();
+        setDotImage();
+        setViewPager();
+    }
+
+    public void setUrlList(List<BannerBean> urlList) {
         mUrlList = urlList;
     }
 }
