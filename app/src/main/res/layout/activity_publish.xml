@@ -71,6 +71,7 @@
         <RelativeLayout
             android:id="@+id/rl_label"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="@dimen/mp_45">
 
             <TextView

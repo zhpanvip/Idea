@@ -16,10 +16,11 @@
         android:orientation="vertical">
 
 
+
         <RadioGroup
             android:id="@+id/rg_tab"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:background="@color/tab_color"
             android:orientation="horizontal">
@@ -91,12 +92,18 @@
                 android:textColor="@drawable/text_color_selector" />
         </RadioGroup>
 
+
+
         <com.cypoem.idea.view.MViewPaper
             android:id="@+id/vp_fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@id/rg_tab" />
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/line_color"
+            android:layout_below="@id/vp_fragment"/>
         <FrameLayout
             android:id="@+id/fl_fragment"
             android:layout_width="match_parent"

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_article"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:textColor="@color/item_text_color"
+    android:transitionName="sharedView">
+
+    <ScrollView
+        android:id="@+id/sv_article"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/item_text_color">
+
+        <TextView
+            android:id="@+id/tv_article"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background"
+            android:padding="@dimen/mp_10"
+            android:textSize="@dimen/f_16" />
+
+    </ScrollView>
+</LinearLayout>

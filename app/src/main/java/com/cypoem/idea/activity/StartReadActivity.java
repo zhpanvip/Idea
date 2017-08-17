@@ -165,7 +165,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         mViewPager.setLongClickable(true);
 
         mViewPager.addOnPageChangedListener((int i, int position) -> {
-            startAnim();
+          //  startAnim();
             setArticleData(position, 0);
             if (position > prePosition) {
                 List<List<ArticleBean>> chapterList = mAdapter.getList();
@@ -184,7 +184,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     public void onHorizontalItemSelected(int position, int id) {
         horiPosition = id;
         prePosition = position;
-        startAnim();
+       // startAnim();
         setArticleData(position, id);
         List<List<ArticleBean>> list = mAdapter.getList();
         List<ArticleBean> articleBeen = list.get(position);
@@ -213,11 +213,11 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         likeStatus = articleBean.getLikeStatus();
         write_id = articleBean.getWrite_id();
         keepStatus = articleBean.getKeepStatus();
-        tvComment.setText(String.valueOf(articleBean.getComment_count()));
-        tvContinue.setText(String.valueOf(articleBean.getRead_count()));
-        tvLike.setText(String.valueOf(articleBean.getLike_count()));
-        tvRewrite.setText(String.valueOf(articleBean.getEnjoy_count()));
-        tvValue.setText(String.valueOf(articleBean.getEnjoy_count()));
+        tvComment.setText("评论"+String.valueOf(articleBean.getComment_count()));
+        tvContinue.setText("续写"+String.valueOf(articleBean.getRead_count()));
+        tvLike.setText("赞"+String.valueOf(articleBean.getLike_count()));
+        tvRewrite.setText("重写"+String.valueOf(articleBean.getEnjoy_count()));
+        tvValue.setText("欣赏"+String.valueOf(articleBean.getEnjoy_count()));
     }
 
     public void startAnim() {
@@ -297,10 +297,10 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
             case R.id.ll_value:
                 break;
             case R.id.ll_rewrite:
-                mAdapter.scrollTo(1);
+                WriteActivity.start(this);
                 break;
             case R.id.ll_continue:
-                mViewPager.scrollToPosition(1);
+                WriteActivity.start(this);
                 break;
 
         }

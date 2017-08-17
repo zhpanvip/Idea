@@ -1,17 +1,22 @@
 package com.cypoem.idea.adapter;
 
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.airong.core.utils.ImageLoaderUtil;
 import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
+import com.cypoem.idea.activity.ArticleActivity;
 import com.cypoem.idea.activity.ArticleWebViewActivity;
 import com.cypoem.idea.activity.AuthorInfoActivity;
 import com.cypoem.idea.activity.LoginActivity;
@@ -72,9 +77,9 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
 
     @Override
     public void onBindViewHolder(StartReadViewHolder holder, int position) {
-        holder.mTvAll.setOnClickListener((View v) -> {
+        /*holder.mTvAll.setOnClickListener((View v) -> {
             ArticleWebViewActivity.start(mContext, "阅读", "http://www.baidu.com");
-        });
+        });*/
 
         ArticleBean articleBean = mList.get(position);
         ArticleBean.UserBean user = articleBean.getUser();
@@ -84,6 +89,13 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
         holder.mTvTime.setText(articleBean.getCreate_time());
         holder.mTvContent.setText(articleBean.getContent());
         int watch_status = articleBean.getWatch_status();
+        holder.mFrameLayout.setOnClickListener((View v)-> {
+            Intent intent = new Intent(mContext, ArticleActivity.class);
+            intent.putExtra("article", articleBean.getContent());
+            //context.startActivity(intent);
+            mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((StartReadActivity)mContext, holder.mLlText, "sharedView").toBundle());
+
+        });
         if (watch_status == 1) {
             isFocus = true;
             holder.mTvFocus.setText("已关注");
@@ -160,7 +172,8 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
         private TextView mTvContent;
         private TextView mTvAuther;
         private TextView mTvName;
-
+        private FrameLayout mFrameLayout;
+        private LinearLayout mLlText;
 
         StartReadViewHolder(View itemView) {
             super(itemView);
@@ -173,6 +186,8 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
             mTvContent = (TextView) itemView.findViewById(R.id.tv_article);
             mTvTime = (TextView) itemView.findViewById(R.id.tv_time);
             mTvName = (TextView) itemView.findViewById(R.id.tv_name);
+            mFrameLayout= (FrameLayout) itemView.findViewById(R.id.fl_read);
+            mLlText= (LinearLayout) itemView.findViewById(R.id.ll_text);
         }
     }
 }

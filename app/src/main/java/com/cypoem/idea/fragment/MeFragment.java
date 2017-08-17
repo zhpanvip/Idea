@@ -160,7 +160,7 @@ public class MeFragment extends BaseFragment {
         mTvTitle.setTextColor(Color.WHITE);
         mIvRight.setBackgroundResource(R.drawable.ic_setting);
         mIvRight.setVisibility(View.VISIBLE);
-        mToolbar.setBackgroundColor(getResources().getColor(R.color.theme_style));
+        mToolbar.setBackgroundColor(getResources().getColor(R.color.me_background));
     }
 
 

@@ -24,6 +24,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
@@ -154,6 +155,16 @@ public interface IdeaApiService {
     @Multipart
     @POST("write/add.do")
     Observable<BasicResponse> publishOpus(@Part List<MultipartBody.Part> partList);
+
+    /**
+     * 添加章节
+     * @param partList 添加章节参数集合
+     * @return
+     */
+    @Multipart
+    @POST("section/add.do")
+    Observable<BasicResponse> addChapter(@Part List<MultipartBody.Part> partList);
+
 
     /**
      * 查询当前书的所有章节

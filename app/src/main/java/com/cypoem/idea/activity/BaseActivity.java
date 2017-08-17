@@ -52,6 +52,7 @@ public abstract class BaseActivity extends BaseRxActivity {
         //setStatusBarColor(this,"#628B31");
         initContentView(R.layout.activity_base);
         //  注入子Activity布局
+        setStatusBarColor(R.color.colorPrimaryDark);
         setContentView(getLayoutId());
         initToolBar();
         init(savedInstanceState);
@@ -71,8 +72,6 @@ public abstract class BaseActivity extends BaseRxActivity {
     protected void initPtr(boolean isAutoRefresh) {
         mPtrFrame = (PtrClassicFrameLayout) findViewById(R.id.list_view_frame);
         if (mPtrFrame == null) return;
-
-        //mPtrFrame = (PtrFrameLayout) findViewById(R.id.store_house_ptr_frame);
         mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
         PtrClassicListHeader header = new PtrClassicListHeader(this);
         header.setLastUpdateTimeRelateObject(this);

@@ -154,5 +154,5 @@
             android:src="@drawable/array_right"/>
 
     </RelativeLayout>
-    <include layout="@layout/base_line"/>
+   <!-- <include layout="@layout/base_line"/>-->
 </LinearLayout>

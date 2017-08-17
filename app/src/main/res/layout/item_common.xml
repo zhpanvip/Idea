@@ -3,10 +3,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/rl_item_main"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:layout_marginTop="10dp">
+    android:layout_height="@dimen/mp_200"
+    android:layout_marginLeft="@dimen/mp_5"
+    android:layout_marginRight="@dimen/mp_5"
+    android:layout_marginTop="@dimen/mp_5">
 
     <ImageView
         android:id="@+id/iv_background"
@@ -19,11 +19,10 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="40dp"
-        android:text="一条狗的使命"
-        android:textColor="#fff"
-        android:textSize="18sp" />
+        android:layout_marginLeft="@dimen/mp_30"
+        android:layout_marginTop="@dimen/mp_40"
+        android:textColor="@color/white"
+        android:textSize="@dimen/f_18" />
 
     <TextView
         android:id="@+id/tv_describe"
@@ -31,7 +30,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:layout_toEndOf="@id/tv_title"
-        android:text="-我是不是你的他"
         android:visibility="gone"
         android:textColor="@color/white" />
 
@@ -40,11 +38,10 @@
         android:id="@+id/tv_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="11dp"
-        android:text="2017.05.12/韩小贱"
-        android:textColor="#fff"
-        android:textSize="10dp"
+        android:layout_marginLeft="@dimen/mp_40"
+        android:layout_marginTop="@dimen/mp_11"
+        android:textColor="@color/white"
+        android:textSize="@dimen/mp_10"
         android:layout_below="@+id/tv_title"
         android:layout_alignEnd="@+id/tv_describe" />
 
@@ -56,9 +53,8 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginLeft="10dp"
-        android:text="赞123/阅读245/作品12"
-        android:textColor="#fff" />
+        android:layout_marginLeft="@dimen/mp_10"
+        android:textColor="@color/white" />
 
     <include layout="@layout/layout_label"/>
 

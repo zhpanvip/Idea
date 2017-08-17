@@ -28,15 +28,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-
-
         <activity
             android:name="com.mob.tools.MobUIShell"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-
         -->
         <activity android:name=".activity.MainActivity" />
         <!-- <activity android:name=".activity.BaseActivity" /> -->
@@ -81,7 +77,8 @@
         <activity android:name=".activity.EditInfoActivity" />
         <activity android:name=".activity.EditActivity" />
         <activity android:name=".activity.WriteActivity" />
-        <activity android:name=".activity.UpdatePswActivity"></activity>
+        <activity android:name=".activity.UpdatePswActivity" />
+        <activity android:name=".activity.ArticleActivity"></activity>
     </application>
 
 </manifest>

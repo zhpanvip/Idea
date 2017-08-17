@@ -28,7 +28,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class WriteActivity extends BaseActivity {
 
-
     @BindView(R.id.btn_complete)
     Button btnComplete;
     @BindView(R.id.et_title)
@@ -88,11 +87,13 @@ public class WriteActivity extends BaseActivity {
         adviceMap.put("content", content);
         adviceMap.put("parent_id", parent_id);
         adviceMap.put("user_id", UserInfoTools.getUser(this).getUserId());
-        adviceMap.put("user_type", "1");
         adviceMap.put("section_id",section_id);
+        adviceMap.put("chapter_id", "1");
         adviceMap.put("section_name",title);
+        adviceMap.put("upStatus","0");
+        adviceMap.put("reStatus","0");
         IdeaApi.getApiService()
-                .postAdvice(adviceMap)
+                .addChapter(adviceMap)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {

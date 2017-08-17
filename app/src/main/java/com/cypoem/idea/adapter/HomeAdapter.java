@@ -42,7 +42,7 @@ public class HomeAdapter extends BaseAdapter<HomePageBean,HomeAdapter.HomeViewHo
         holder.mTvTitle.setText(item.getWrite_name());
         holder.mTvTime.setText(item.getDelivery_time().substring(0,10)+"/"+item.getUser().getPen_name());
         holder.mTvDetails.setText("赞"+item.getLike_count()+"/阅读"+item.getRead_count()+"/章节"+item.getSection_count());
-        ImageLoaderUtil.loadRoundImg(holder.imageView, IdeaApiService.HOST+item.getPic(),R.drawable.img_placeholder);
+        ImageLoaderUtil.loadImg(holder.imageView, IdeaApiService.HOST+item.getPic(),R.drawable.img_placeholder);
 
         holder.mRelativeLayout.setOnClickListener((View v)-> {
                 if(clickListener!=null){

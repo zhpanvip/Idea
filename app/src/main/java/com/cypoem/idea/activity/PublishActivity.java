@@ -37,6 +37,7 @@ import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.utils.UserInfoTools;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.callback.BitmapLoadCallback;
 import com.yalantis.ucrop.model.ExifInfo;
@@ -140,8 +141,8 @@ public class PublishActivity extends BaseActivity {
                 addDescribe();
                 break;
             case R.id.btn_complete:
-                //submit();
-                WriteActivity.start(this);
+                submit();
+                // WriteActivity.start(this);
                 break;
         }
     }
@@ -162,12 +163,12 @@ public class PublishActivity extends BaseActivity {
 
     private void submit() {
         if (TextUtils.isEmpty(picPath)) {
-            showToast("请添加图片");
+            showToast("为作品添加一张图片吧");
             return;
         }
         opusName = etOpusName.getText().toString().trim();
         if (TextUtils.isEmpty(opusName)) {
-            showToast("请输入作品名称");
+            showToast("作品还没有名字呢");
             return;
         }
         File file = new File(picPath);
@@ -179,6 +180,7 @@ public class PublishActivity extends BaseActivity {
                 .addFormDataPart("reStatus", isCanOverride)
                 .addFormDataPart("upStatus", isCanRenew)
                 .addFormDataPart("type", label)
+                .addFormDataPart("user_id", UserInfoTools.getUserId(this))
                 .addFormDataPart("uploadFile", file.getName(), imageBody);
         List<MultipartBody.Part> parts = builder.build().parts();
         IdeaApi.getApiService()
@@ -188,7 +190,7 @@ public class PublishActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse response) {
-                        Toast.makeText(PublishActivity.this, "请求数据成功", Toast.LENGTH_SHORT).show();
+                        WriteActivity.start(PublishActivity.this);
                         finish();
                     }
                 });
@@ -250,7 +252,7 @@ public class PublishActivity extends BaseActivity {
 
     private void setLabel(Intent data) {
         label = data.getStringExtra("label");
-        if(TextUtils.isEmpty(label)){
+        if (TextUtils.isEmpty(label)) {
             mLlLabel.removeAllViews();
             return;
         }

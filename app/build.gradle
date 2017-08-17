@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.jakewharton.butterknife'
 android {
-   /* signingConfigs {
+    /* signingConfigs {
         release {
             keyAlias 'cypoem'
             keyPassword 'cypoem123'
@@ -56,7 +56,7 @@ dependencies {
     compile project(':core')
     compile name: 'SMSSDK-3.0.0', ext: 'aar'
     compile name: 'SMSSDKGUI-3.0.0', ext: 'aar'
+    compile project(':thirdparty')
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha8'
     testCompile 'junit:junit:4.12'
-    compile project(':thirdparty')
 }

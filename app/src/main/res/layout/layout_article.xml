@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginBottom="@dimen/mp_10"
-    android:layout_marginEnd="@dimen/mp_20"
-    android:background="@color/background"
-    android:layout_marginStart="@dimen/mp_20"
+    android:background="@drawable/home_card_bg"
+    android:id="@+id/fl_read"
+    android:layout_marginStart="@dimen/mp_10"
     android:layout_marginTop="@dimen/mp_10">
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/ll_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,14 +61,14 @@
             android:text="文艺"
             android:textSize="@dimen/f_10" />
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/mp_20"
         android:layout_marginTop="@dimen/mp_20"
-        android:background="@drawable/bg_not_fill_green"
+        android:background="@drawable/home_card_bg"
         android:orientation="vertical"
         android:weightSum="1">
 

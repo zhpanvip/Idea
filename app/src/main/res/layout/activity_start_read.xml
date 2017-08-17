@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rl_read"
-    android:background="@color/background">
+    android:background="@color/gray_e6">
 
 
     <LinearLayout
@@ -11,10 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
         android:orientation="vertical"
-        android:paddingTop="@dimen/mp_5"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true">
-
         <include layout="@layout/base_line" />
 
         <LinearLayout
@@ -46,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/zero"
                     android:textColor="@color/item_text_color"
-                    android:textSize="@dimen/f_16" />
+                    android:textSize="@dimen/f_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -62,8 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/liked"
-                    android:textColor="@color/item_text_color_dark"
-                    android:textSize="@dimen/f_18" />
+                    android:textColor="@color/item_text_color_dark" />
 
                 <TextView
                     android:id="@+id/tv_like"
@@ -71,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/zero"
                     android:textColor="@color/item_text_color"
-                    android:textSize="@dimen/f_16" />
+                    android:textSize="@dimen/f_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -86,9 +83,7 @@
                     android:id="@+id/textView9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/gift"
-                    android:textColor="@color/item_text_color_dark"
-                    android:textSize="@dimen/f_18" />
+                    android:src="@drawable/gift" />
 
                 <TextView
                     android:id="@+id/tv_value"
@@ -96,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/zero"
                     android:textColor="@color/item_text_color"
-                    android:textSize="@dimen/f_16" />
+                    android:textSize="@dimen/f_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -111,9 +106,7 @@
                     android:id="@+id/iv_rewrite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/rewrite"
-                    android:textColor="@color/item_text_color_dark"
-                    android:textSize="@dimen/f_18" />
+                    android:src="@drawable/rewrite" />
 
                 <TextView
                     android:id="@+id/tv_rewrite"
@@ -121,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/zero"
                     android:textColor="@color/item_text_color"
-                    android:textSize="@dimen/f_16" />
+                    android:textSize="@dimen/f_14" />
             </LinearLayout>
 
             <LinearLayout
@@ -136,9 +129,7 @@
                     android:id="@+id/iv_continue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/continued"
-                    android:textColor="@color/item_text_color_dark"
-                    android:textSize="@dimen/f_18" />
+                    android:src="@drawable/continued" />
 
                 <TextView
                     android:id="@+id/tv_continue"
@@ -146,7 +137,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/zero"
                     android:textColor="@color/item_text_color"
-                    android:textSize="@dimen/f_16" />
+                    android:textSize="@dimen/f_14" />
             </LinearLayout>
 
         </LinearLayout>

@@ -131,7 +131,7 @@ public class EditInfoActivity extends BaseActivity {
     private String address = "";
     private String introduction = "";
     private String picPath;
-    private int mMaxBitmapSize = 0;
+    private boolean isSexChanged;
 
 
     @Override
@@ -182,7 +182,7 @@ public class EditInfoActivity extends BaseActivity {
         UserInfoTools.setBirthday(this, birthday);
         UserInfoTools.setAddress(this, address);
         UserInfoTools.setAudthorBrief(this, introduction);
-        UserInfoTools.setHeadPic(this, picPath);
+        //UserInfoTools.setHeadPic(this, picPath);
         mSexView.setMalePercent(Double.parseDouble(sex));
         setUserInfo();
     }
@@ -260,12 +260,6 @@ public class EditInfoActivity extends BaseActivity {
         }
     }
 
-    public int getMaxBitmapSize() {
-        if (mMaxBitmapSize <= 0) {
-            mMaxBitmapSize = BitmapLoadUtils.calculateMaxBitmapSize(this);
-        }
-        return mMaxBitmapSize;
-    }
 
     private void startCropActivity(@NonNull Uri uri) {
         String destinationFileName = SAMPLE_CROPPED_IMAGE_NAME;
@@ -322,29 +316,30 @@ public class EditInfoActivity extends BaseActivity {
         return null;
     }
 
-    DatePickerDialog.OnDateSetListener pickerListener = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            birthday = year + "-" + (month + 1) + "-" + dayOfMonth;
-            updateUserInfo();
-        }
+    //  选择时间对话框
+    DatePickerDialog.OnDateSetListener pickerListener = (DatePicker view, int year, int month, int dayOfMonth) -> {
+        birthday = year + "-" + (month + 1) + "-" + dayOfMonth;
+        updateUserInfo();
     };
 
+    //  编辑性别
     private void editSex() {
+        double dSex = Double.parseDouble(sex);
         View dialog = createDialog(R.layout.layout_select_sex, false);
         SexView sexView = (SexView) dialog.findViewById(R.id.sex_view);
         sexView.setCenterColor(Color.parseColor("#FFFFFF"));
+        sexView.setMalePercent(dSex);
         SeekBar seekBar = (SeekBar) dialog.findViewById(R.id.seek_bar);
+        seekBar.setProgress((int) ((1 - dSex) * 100));
         Button btnConfirm = (Button) dialog.findViewById(R.id.btn_confirm);
         setListener(seekBar, sexView);
-        btnConfirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sex = (percent / 100.0) + "";
+        btnConfirm.setOnClickListener((View v) -> {
+            if (isSexChanged) {
+                sex = String.valueOf(percent);
                 updateUserInfo();
-                // mSexView.setMalePercent(1 - percent / 100.0);
-                dismissDialog();
             }
+            isSexChanged=false;
+            dismissDialog();
         });
     }
 
@@ -352,8 +347,9 @@ public class EditInfoActivity extends BaseActivity {
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                percent = 1 - progress;
-                sexView.setMalePercent(1 - progress / 100.0);
+                isSexChanged = true;
+                percent = (100 - progress) / 100.0;
+                sexView.setMalePercent(percent);
             }
 
             @Override
@@ -512,6 +508,7 @@ public class EditInfoActivity extends BaseActivity {
         pvOptions.show();
     }
 
+    //  更换头像
     private void postHeadPic(int requestCode, String result) {
 
         File file = new File(picPath);

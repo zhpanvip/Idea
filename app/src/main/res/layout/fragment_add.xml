@@ -6,7 +6,7 @@
               android:orientation="vertical">
 
     <include layout="@layout/toolbar_layout"/>
-
+    <include layout="@layout/base_line"/>
     <TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"

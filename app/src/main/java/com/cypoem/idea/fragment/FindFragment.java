@@ -40,8 +40,8 @@ public class FindFragment extends BaseFragment {
     @BindView(R.id.iv_right)
     ImageView mIvRight;
     private List<FindInFragment> mList;
-    public final static int NEWEST = 0;
-    public final static int HOTEST = 1;
+    public final static int NEWEST = 1;
+    public final static int HOTEST = 0;
 
     @Override
     protected int getLayoutId() {
