@@ -4,22 +4,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:textColor="@color/item_text_color"
+    android:background="@color/background"
     android:transitionName="sharedView">
 
     <ScrollView
         android:id="@+id/sv_article"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/item_text_color">
+        android:background="@color/background">
 
         <TextView
             android:id="@+id/tv_article"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background"
             android:padding="@dimen/mp_10"
-            android:textSize="@dimen/f_16" />
+            android:textColor="@color/item_text_color"
+            android:textSize="@dimen/f_17" />
 
     </ScrollView>
 </LinearLayout>

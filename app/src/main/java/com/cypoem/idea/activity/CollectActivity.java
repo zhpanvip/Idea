@@ -47,8 +47,9 @@ public class CollectActivity extends BaseActivity {
     private void setListener() {
         mListView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id)-> {
             OpusBean opusBean = mAdapter.getList().get(position);
-            String uid = opusBean.getUid();
-            StartReadActivity.start(CollectActivity.this,"","");
+            String writeId = String.valueOf(opusBean.getWrite_id());
+            String authorId = opusBean.getUser_id();
+            StartReadActivity.start(CollectActivity.this,writeId,authorId);
         });
     }
 
@@ -63,11 +64,11 @@ public class CollectActivity extends BaseActivity {
 
 
 
+
     public static void start(Context context){
         Intent intent=new Intent(context,CollectActivity.class);
         context.startActivity(intent);
     }
-
     @Override
     public void onPtrLoadMoreBegin(PtrFrameLayout frame) {
         frame.postDelayed((() -> getData(false,++page)), 100);

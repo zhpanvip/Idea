@@ -48,7 +48,10 @@ public class OpusActivity extends BaseActivity {
 
     private void setListener() {
         mListView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id)-> {
-            StartReadActivity.start(OpusActivity.this,"","");
+            OpusBean opusBean = mAdapter.getList().get(position);
+            String writeId = String.valueOf(opusBean.getWrite_id());
+            String authorId = opusBean.getUser_id();
+            StartReadActivity.start(OpusActivity.this,writeId,authorId);
         });
     }
 

@@ -90,7 +90,9 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     private RecyclerView mRecyclerView;
     private ImageView mIvDismiss;
     private CommentAdapter mCommentAdapter;
+    //  章节id
     private String section_id;
+    //  书id
     private String write_id;
     private String likeStatus;
     private PopupWindow mPopupWindow;
@@ -102,6 +104,9 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     private TextView mTvNoData;
     private int prePosition = 0;
     private int horiPosition = 0;
+    private ArticleBean articleBean;
+    private String chapter_id="1";
+    private String parent_id="000";
 
     @Override
     protected int getLayoutId() {
@@ -165,11 +170,14 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         mViewPager.setLongClickable(true);
 
         mViewPager.addOnPageChangedListener((int i, int position) -> {
-          //  startAnim();
+            //  startAnim();
             setArticleData(position, 0);
+            List<List<ArticleBean>> chapterList = mAdapter.getList();
+            articleBean=chapterList.get(position).get(0);
+            chapter_id=(position+1)+"";
+            parent_id=articleBean.getSection_id();
             if (position > prePosition) {
-                List<List<ArticleBean>> chapterList = mAdapter.getList();
-                getNextChapter(chapterList.get(position).get(0).getSection_id(), false);
+                getNextChapter(articleBean.getSection_id(), false);
                 prePosition = position;
             }
         });
@@ -184,11 +192,12 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     public void onHorizontalItemSelected(int position, int id) {
         horiPosition = id;
         prePosition = position;
-       // startAnim();
+        // startAnim();
         setArticleData(position, id);
         List<List<ArticleBean>> list = mAdapter.getList();
         List<ArticleBean> articleBeen = list.get(position);
-        ArticleBean articleBean = articleBeen.get(id);
+        articleBean = articleBeen.get(id);
+        parent_id=articleBean.getSection_id();
         String section_id = articleBean.getSection_id();
         refreshAdapterList(position);
         getNextChapter(section_id, true);
@@ -213,11 +222,11 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         likeStatus = articleBean.getLikeStatus();
         write_id = articleBean.getWrite_id();
         keepStatus = articleBean.getKeepStatus();
-        tvComment.setText("评论"+String.valueOf(articleBean.getComment_count()));
-        tvContinue.setText("续写"+String.valueOf(articleBean.getRead_count()));
-        tvLike.setText("赞"+String.valueOf(articleBean.getLike_count()));
-        tvRewrite.setText("重写"+String.valueOf(articleBean.getEnjoy_count()));
-        tvValue.setText("欣赏"+String.valueOf(articleBean.getEnjoy_count()));
+        tvComment.setText("评论" + String.valueOf(articleBean.getComment_count()));
+        tvContinue.setText("续写" + String.valueOf(articleBean.getRead_count()));
+        tvLike.setText("赞" + String.valueOf(articleBean.getLike_count()));
+        tvRewrite.setText("重写" + String.valueOf(articleBean.getEnjoy_count()));
+        tvValue.setText("欣赏" + String.valueOf(articleBean.getEnjoy_count()));
     }
 
     public void startAnim() {
@@ -296,11 +305,15 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                 break;
             case R.id.ll_value:
                 break;
-            case R.id.ll_rewrite:
-                WriteActivity.start(this);
+            case R.id.ll_rewrite:   //  重写
+                String reparent_id="000";
+                if(articleBean!=null) {
+                    reparent_id = articleBean.getParent_id();
+                }
+                WriteActivity.start(this,writeId,reparent_id,chapter_id);
                 break;
-            case R.id.ll_continue:
-                WriteActivity.start(this);
+            case R.id.ll_continue:  //  续写
+                WriteActivity.start(this, writeId, parent_id,chapter_id);
                 break;
 
         }

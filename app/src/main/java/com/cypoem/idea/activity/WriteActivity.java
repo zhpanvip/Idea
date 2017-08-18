@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -42,8 +43,10 @@ public class WriteActivity extends BaseActivity {
     EditText etContent;
     private String title;
     private String content;
-    private String parent_id="000";
-    private String section_id;
+    private String parent_id = "000";
+    private String chapter_id;
+    private String write_id;
+    private String reStatus = "0";
 
     @Override
     protected int getLayoutId() {
@@ -53,22 +56,42 @@ public class WriteActivity extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
         setData();
+        setListener();
     }
+
+    private void setListener() {
+        tbRewrite.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
+            if (isChecked) {
+                reStatus = "0";
+            } else {
+                reStatus = "1";
+            }
+        });
+    }
+
 
     private void setData() {
         getSubTitle().setText("保存草稿");
         getSubTitle().setVisibility(View.VISIBLE);
-
+        Intent intent = getIntent();
+        chapter_id = intent.getStringExtra("chapter_id");
+        write_id = intent.getStringExtra("write_id");
+        if (!TextUtils.isEmpty(intent.getStringExtra("parent_id"))) {
+            parent_id = intent.getStringExtra("parent_id");
+        }
     }
 
-    public static void start(Context context) {
+    public static void start(Context context, String write_id, String parent_id, String chapter_id) {
         Intent intent = new Intent(context, WriteActivity.class);
+        intent.putExtra("write_id", write_id);
+        intent.putExtra("parent_id", parent_id);
+        intent.putExtra("chapter_id", chapter_id);
         context.startActivity(intent);
     }
 
     @OnClick({R.id.btn_complete})
     public void onViewClicked(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_complete:
                 complete();
                 break;
@@ -76,7 +99,7 @@ public class WriteActivity extends BaseActivity {
     }
 
     private void complete() {
-        if(isEmpty()){
+        if (isEmpty()) {
             return;
         }
         postArticle();
@@ -87,11 +110,11 @@ public class WriteActivity extends BaseActivity {
         adviceMap.put("content", content);
         adviceMap.put("parent_id", parent_id);
         adviceMap.put("user_id", UserInfoTools.getUser(this).getUserId());
-        adviceMap.put("section_id",section_id);
-        adviceMap.put("chapter_id", "1");
-        adviceMap.put("section_name",title);
-        adviceMap.put("upStatus","0");
-        adviceMap.put("reStatus","0");
+        adviceMap.put("write_id", write_id);
+        adviceMap.put("chapter_id", chapter_id);
+        adviceMap.put("section_name", title);
+        adviceMap.put("upStatus", "0");
+        adviceMap.put("reStatus", reStatus);
         IdeaApi.getApiService()
                 .addChapter(adviceMap)
                 .subscribeOn(Schedulers.io())
@@ -105,14 +128,14 @@ public class WriteActivity extends BaseActivity {
                 });
     }
 
-    private boolean isEmpty(){
+    private boolean isEmpty() {
         title = etTitle.getText().toString().trim();
-        if(TextUtils.isEmpty(title)){
+        if (TextUtils.isEmpty(title)) {
             showToast("您还没有添加章节标题呢");
             return true;
         }
         content = etContent.getText().toString().trim();
-        if(TextUtils.isEmpty(content)){
+        if (TextUtils.isEmpty(content)) {
             showToast("文章内容不能为空哦");
             return true;
         }

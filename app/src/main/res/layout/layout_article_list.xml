@@ -28,9 +28,8 @@
                 android:id="@+id/tv_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="如若可以，浅笑安然"
                 android:textColor="@color/item_text_color"
-                android:textSize="@dimen/f_16" />
+                android:textSize="@dimen/f_18" />
 
             <TextView
                 android:id="@+id/tv_author"
@@ -39,7 +38,7 @@
                 android:gravity="center_horizontal"
                 android:text="时间：2017-05-23"
                 android:textColor="@color/item_text_color"
-                android:textSize="@dimen/f_14" />
+                android:textSize="@dimen/f_15" />
 
             <TextView
                 android:id="@+id/tv_article"
@@ -47,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:textColor="@color/item_text_color"
-                android:textSize="@dimen/f_16" />
+                android:textSize="@dimen/f_17" />
         </LinearLayout>
 
         <LinearLayout

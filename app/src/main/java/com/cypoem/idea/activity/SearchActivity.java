@@ -25,6 +25,7 @@ import com.cypoem.idea.adapter.AdapterSearchHistory;
 import com.cypoem.idea.adapter.CollectAdapter;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.SearchHistoryBean;
 import com.cypoem.idea.net.DefaultObserver;
@@ -195,23 +196,20 @@ public class SearchActivity extends BaseActivity {
             }
         });
 
-        mLvSearch.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                StartReadActivity.start(SearchActivity.this,"","");
-            }
+        mLvSearch.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id)-> {
+                OpusBean opusBean = mAdapter.getList().get(position);
+                String writeId = String.valueOf(opusBean.getWrite_id());
+                String authorId = opusBean.getUser_id();
+                StartReadActivity.start(SearchActivity.this,writeId,authorId);
         });
 
 
-        mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
-            @Override
-            public boolean onTagClick(View view, int position, FlowLayout parent) {
+        mFlowLayout.setOnTagClickListener((View view, int position, FlowLayout parent)-> {
                 etSearchText.setText(labelArray[position]);
                 etSearchText.setSelection(labelArray[position].length());
                 mAdapter.getList().clear();
                 getData(page);
                 return false;
-            }
         });
     }
 

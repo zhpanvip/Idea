@@ -5,19 +5,20 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <FrameLayout
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        android:id="@+id/list_view_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:ptr_duration_to_close_either="500"
+        app:ptr_keep_header_when_refresh="true"
+        app:ptr_pull_to_fresh="false"
+        app:ptr_ratio_of_header_height_to_refresh="1.2"
+        app:ptr_resistance="1.7">
 
-        <in.srain.cube.views.ptr.PtrClassicFrameLayout
-            android:id="@+id/list_view_frame"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:ptr_duration_to_close_either="500"
-            app:ptr_keep_header_when_refresh="true"
-            app:ptr_pull_to_fresh="false"
-            app:ptr_ratio_of_header_height_to_refresh="1.2"
-            app:ptr_resistance="1.7">
+            android:layout_height="match_parent">
+            <include layout="@layout/layout_default" />
 
             <ListView
                 android:id="@+id/lv_collect"
@@ -25,10 +26,8 @@
                 android:layout_height="match_parent"
                 android:divider="@null" />
 
-        </in.srain.cube.views.ptr.PtrClassicFrameLayout>
+        </FrameLayout>
 
-        <include layout="@layout/layout_default" />
 
-    </FrameLayout>
-
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 </LinearLayout>

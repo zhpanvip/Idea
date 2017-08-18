@@ -34,10 +34,12 @@ import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.OpusBean;
+import com.cypoem.idea.module.bean.PublishBean;
 import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
+import com.google.gson.Gson;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.callback.BitmapLoadCallback;
 import com.yalantis.ucrop.model.ExifInfo;
@@ -187,10 +189,13 @@ public class PublishActivity extends BaseActivity {
                 .publishOpus(parts)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse>(this, true) {
+                .subscribe(new DefaultObserver<BasicResponse<PublishBean>>(this, true) {
                     @Override
-                    public void onSuccess(BasicResponse response) {
-                        WriteActivity.start(PublishActivity.this);
+                    public void onSuccess(BasicResponse<PublishBean> response) {
+                        Gson gson=new Gson();
+                        String s = gson.toJson(response);
+                        LogUtils.e(s);
+                        WriteActivity.start(PublishActivity.this,response.getResult().getWrite_id(),"000","1");
                         finish();
                     }
                 });

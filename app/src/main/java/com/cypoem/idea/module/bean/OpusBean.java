@@ -33,6 +33,15 @@ public class OpusBean {
     private int like_count;
     private int read_count;
     private String type;
+    private String write_id;
+
+    public String getWrite_id() {
+        return write_id;
+    }
+
+    public void setWrite_id(String write_id) {
+        this.write_id = write_id;
+    }
 
     public String getUid() {
         return uid;

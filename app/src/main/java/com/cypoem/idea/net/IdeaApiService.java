@@ -8,6 +8,7 @@ import com.cypoem.idea.module.bean.EverydayReBackBean;
 import com.cypoem.idea.module.bean.FansBean;
 import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.module.bean.OpusBean;
+import com.cypoem.idea.module.bean.PublishBean;
 import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
@@ -154,7 +155,7 @@ public interface IdeaApiService {
      */
     @Multipart
     @POST("write/add.do")
-    Observable<BasicResponse> publishOpus(@Part List<MultipartBody.Part> partList);
+    Observable<BasicResponse<PublishBean>> publishOpus(@Part List<MultipartBody.Part> partList);
 
     /**
      * 添加章节
@@ -262,7 +263,7 @@ public interface IdeaApiService {
      * @return
      */
     @FormUrlEncoded
-    @POST("advice/add.do")
+    @POST("section/add.do")
     Observable<BasicResponse<String>> addChapter(@FieldMap Map<String, String> chapterMap);
 
     /**
