@@ -82,7 +82,6 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
         });*/
         ArticleBean articleBean = mList.get(position);
         ArticleBean.UserBean user = articleBean.getUser();
-        holder.mTvTime.setText(articleBean.getCreate_time());
         holder.mTvName.setText(user.getPen_name());
 
         int watch_status = articleBean.getWatch_status();
@@ -90,6 +89,7 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
         if (status == 0) {
             holder.mTvContent.setText("此章节已被作者删除，请自行脑补~");
         } else {
+            holder.mTvTime.setText(articleBean.getCreate_time());
             holder.mTvTitle.setText(articleBean.getSection_name());
             holder.mTvContent.setText(articleBean.getContent());
             holder.mTvAuther.setText(user.getPen_name());

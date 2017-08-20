@@ -74,7 +74,9 @@ public class StartReadAdapter extends RecyclerView.Adapter<StartReadAdapter.Simp
         holder.mRecyclerView.setLayoutManager(linearLayoutManager);
         holder.mRecyclerView.setAdapter(adapter);
         holder.mRecyclerView.setHasFixedSize(true);
-       // holder.mRecyclerView.scrollToPosition(mIndexMap.get(position));
+        int hPosition = mIndexMap.get(position);
+        if(hPosition!=0)
+        holder.mRecyclerView.scrollToPosition(hPosition);
         holder.mRecyclerView.clearOnPageChangedListeners();
         holder.mRecyclerView.addOnPageChangedListener((int i, int i1) -> {
                     LogUtils.e(position + "---------------" + i);

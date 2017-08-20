@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -82,7 +83,9 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     RelativeLayout mRlRead;
     @BindView(R.id.iv_prise)
     ImageView mIvPrise;
-    private int position;
+
+    //  vertical position
+    private int vPosition;
 
     private EditText mEtComment;
 
@@ -201,7 +204,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
 
         mViewPager.addOnPageChangedListener((int i, int position) -> {
             //  startAnim();
-            this.position = position;
+            this.vPosition = position;
             int hPosition = mIndexMap.get(position);
             setArticleData(position, hPosition);
             chapter_id = (position + 1) + "";
@@ -247,7 +250,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         }
         list.clear();
         list.addAll(newList);
-        mAdapter.notifyItemChanged(position + 1);
+        //mAdapter.notifyItemChanged(position + 1);
     }
 
 
@@ -346,8 +349,6 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                         List<ArticleBean> results = response.getResult();
                         if (results.size() > 0) {
                             mAdapter.getList().add(results);
-                            // if (isRefresh)
-                            mAdapter.notifyItemChanged(position + 1);
                         }
                     }
                 });
