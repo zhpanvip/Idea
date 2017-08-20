@@ -41,7 +41,7 @@ public class SuggestActivity extends BaseActivity {
     @Override
     protected void init(Bundle savedInstanceState) {
 
-
+        setToolBarTitle("意见反馈");
         Intent intent = getIntent();
         fromWhere = intent.getStringExtra("fromWhere");
     }

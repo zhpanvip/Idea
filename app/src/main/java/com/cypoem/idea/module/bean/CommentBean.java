@@ -23,7 +23,7 @@ public class CommentBean {
     private int like_count;
     private String time;
     private UserBean user;
-    private String like_status;
+    private int like_status;
 
     public String getComment_id() {
         return comment_id;
@@ -73,11 +73,11 @@ public class CommentBean {
         this.user = user;
     }
 
-    public String getLike_status() {
+    public int getLike_status() {
         return like_status;
     }
 
-    public void setLike_status(String like_status) {
+    public void setLike_status(int like_status) {
         this.like_status = like_status;
     }
 

@@ -349,4 +349,7 @@ public interface IdeaApiService {
     @GET("banner/viewBanner.do")
     Observable<BasicResponse<List<BannerBean>>> getBanner(@Query("page") String page,@Query("rows") String row );
 
+    @FormUrlEncoded
+    @POST("section/updateSection.do")
+    Observable<BasicResponse> updateChapter(@FieldMap Map<String, String> chapterMap);
 }

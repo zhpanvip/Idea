@@ -44,11 +44,18 @@ public abstract class CommentAdapter extends BaseAdapter<CommentBean, CommentAda
         holder.tvTime.setText(item.getTime());
         holder.tvCount.setText(String.valueOf(item.getLike_count()));
         ImageLoaderUtil.loadCircleImg(holder.ivHead, IdeaApiService.HOST + item.getUser().getIcon(), R.drawable.head_pic);
-        holder.ivLike.setOnClickListener((View v)->
-                lightComment(item,holder.ivLike));
+        int like_status = item.getLike_status();
+        holder.ivLike.setImageLevel(like_status);
+        holder.ivLike.setOnClickListener((View v) -> {
+            if(like_status==0){
+                lightComment(item, holder.ivLike,1);
+            }else {
+                lightComment(item, holder.ivLike,0);
+            }
+        });
     }
 
-     public abstract void lightComment(CommentBean commentBean,ImageView imageView);
+    public abstract void lightComment(CommentBean commentBean, ImageView imageView,int status);
 
 
     @Override

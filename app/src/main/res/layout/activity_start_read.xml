@@ -42,7 +42,7 @@
                     android:id="@+id/tv_comment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zero"
+                    android:text="评论0"
                     android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_14" />
             </LinearLayout>
@@ -56,17 +56,17 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/textView8"
+                    android:id="@+id/iv_prise"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/liked"
+                    android:src="@drawable/bg_like_chapter"
                     android:textColor="@color/item_text_color_dark" />
 
                 <TextView
                     android:id="@+id/tv_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zero"
+                    android:text="赞0"
                     android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_14" />
             </LinearLayout>
@@ -89,7 +89,7 @@
                     android:id="@+id/tv_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zero"
+                    android:text="欣赏0"
                     android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_14" />
             </LinearLayout>
@@ -112,7 +112,7 @@
                     android:id="@+id/tv_rewrite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zero"
+                    android:text="重写0"
                     android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_14" />
             </LinearLayout>
@@ -135,7 +135,7 @@
                     android:id="@+id/tv_continue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/zero"
+                    android:text="续写0"
                     android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_14" />
             </LinearLayout>

@@ -103,6 +103,7 @@ public class PublishActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        setToolBarTitle("创作作品");
         setListener();
         positions = new String[0];
     }

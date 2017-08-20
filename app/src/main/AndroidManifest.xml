@@ -78,7 +78,8 @@
         <activity android:name=".activity.EditActivity" />
         <activity android:name=".activity.WriteActivity" />
         <activity android:name=".activity.UpdatePswActivity" />
-        <activity android:name=".activity.ArticleActivity"></activity>
+        <activity android:name=".activity.ArticleActivity" />
+        <activity android:name=".activity.UpdateChapterActivity"></activity>
     </application>
 
 </manifest>

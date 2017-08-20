@@ -107,7 +107,7 @@ public class SearchActivity extends BaseActivity {
 
     private void initData() {
         labelArray = getApplicationContext().getResources().getStringArray(R.array.label);
-        mTagAdapter=new TagAdapter<String>(labelArray) {
+        mTagAdapter = new TagAdapter<String>(labelArray) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.item_label2, mFlowLayout, false);
@@ -118,7 +118,6 @@ public class SearchActivity extends BaseActivity {
         };
 
         mFlowLayout.setAdapter(mTagAdapter);
-
 
 
         adapterHistory = new AdapterSearchHistory(this);
@@ -196,20 +195,20 @@ public class SearchActivity extends BaseActivity {
             }
         });
 
-        mLvSearch.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id)-> {
-                OpusBean opusBean = mAdapter.getList().get(position);
-                String writeId = String.valueOf(opusBean.getWrite_id());
-                String authorId = opusBean.getUser_id();
-                StartReadActivity.start(SearchActivity.this,writeId,authorId);
+        mLvSearch.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
+            OpusBean opusBean = mAdapter.getList().get(position);
+            String writeId = String.valueOf(opusBean.getWrite_id());
+            String authorId = opusBean.getUser_id();
+            String write_name = opusBean.getWrite_name();
+            StartReadActivity.start(SearchActivity.this, writeId, authorId, write_name);
         });
 
-
-        mFlowLayout.setOnTagClickListener((View view, int position, FlowLayout parent)-> {
-                etSearchText.setText(labelArray[position]);
-                etSearchText.setSelection(labelArray[position].length());
-                mAdapter.getList().clear();
-                getData(page);
-                return false;
+        mFlowLayout.setOnTagClickListener((View view, int position, FlowLayout parent) -> {
+            etSearchText.setText(labelArray[position]);
+            etSearchText.setSelection(labelArray[position].length());
+            mAdapter.getList().clear();
+            getData(page);
+            return false;
         });
     }
 

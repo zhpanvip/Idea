@@ -19,6 +19,7 @@
             android:layout_height="40dp"
             android:src="@drawable/down" />
 
+
         <LinearLayout
             android:id="@+id/ll_comment"
             android:layout_width="match_parent"
@@ -70,11 +71,13 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <include layout="@layout/layout_default"/>
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_comment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
+
+                <include layout="@layout/layout_default" />
             </FrameLayout>
 
         </in.srain.cube.views.ptr.PtrClassicFrameLayout>

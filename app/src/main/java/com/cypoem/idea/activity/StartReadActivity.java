@@ -2,6 +2,7 @@ package com.cypoem.idea.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.SparseIntArray;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -78,6 +80,9 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     LinearLayout llContinue;
     @BindView(R.id.rl_read)
     RelativeLayout mRlRead;
+    @BindView(R.id.iv_prise)
+    ImageView mIvPrise;
+    private int position;
 
     private EditText mEtComment;
 
@@ -94,19 +99,22 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     private String section_id;
     //  书id
     private String write_id;
-    private String likeStatus;
+    private int likeStatus;
     private PopupWindow mPopupWindow;
     private LinearLayout mLlShare;
     private LinearLayout mLlCollect;
     private LinearLayout mRlReport;
     private LinearLayout mRlAdvice;
     private String keepStatus;
-    private TextView mTvNoData;
+    private LinearLayout mLlDefault;
     private int prePosition = 0;
     private int horiPosition = 0;
     private ArticleBean articleBean;
-    private String chapter_id="1";
-    private String parent_id="000";
+    private String chapter_id = "1";
+    private String parent_id = "000";
+    private String title;
+    private LinearLayout mLlDelete;
+    private LinearLayout mLlEdit;
 
     @Override
     protected int getLayoutId() {
@@ -115,14 +123,17 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        initToolbar();
         initData();
+
+        initToolbar();
         initCommentPopWindows();
     }
 
     private void initToolbar() {
         Toolbar toolbar = getToolbar();
         toolbar.inflateMenu(R.menu.toolbar_menu);
+        setToolBarTitle(title);
+        setToolbarTitleColor(Color.parseColor("#010101"));
         initSharePopWindow();
         setRightIvRes(R.drawable.ic_more);
         getRightIv().setOnClickListener((View v) ->
@@ -142,6 +153,8 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                 mPopupWindow.dismiss());
 
         mLlShare = (LinearLayout) mPopView.findViewById(R.id.ll_share);
+        mLlDelete = (LinearLayout) mPopView.findViewById(R.id.ll_delete);
+        mLlEdit = (LinearLayout) mPopView.findViewById(R.id.ll_edit);
         mLlCollect = (LinearLayout) mPopView.findViewById(R.id.ll_collect);
         mRlReport = (LinearLayout) mPopView.findViewById(R.id.ll_report);
         mRlAdvice = (LinearLayout) mPopView.findViewById(R.id.ll_advice);
@@ -149,21 +162,38 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         mLlCollect.setOnClickListener(this);
         mRlReport.setOnClickListener(this);
         mRlAdvice.setOnClickListener(this);
+        mLlDelete.setOnClickListener(this);
+        mLlEdit.setOnClickListener(this);
+    }
+
+    //  显示删除和编辑章节
+    private void setDeleteChapter() {
+        if (articleBean.getStatus() == 1 &&
+                articleBean.getUser().getUserId().equals(UserInfoTools.getUserId(this))) {
+            mLlDelete.setVisibility(View.VISIBLE);
+            mLlEdit.setVisibility(View.VISIBLE);
+        } else {
+            mLlDelete.setVisibility(View.GONE);
+            mLlEdit.setVisibility(View.GONE);
+        }
     }
 
     private void initData() {
         Intent intent = getIntent();
         authorId = intent.getStringExtra("authorId");
         writeId = intent.getStringExtra("writeId");
-
+        title = intent.getStringExtra("title");
+        SparseIntArray mIndexMap = new SparseIntArray();
+        mIndexMap.put(0, 0);
         List<List<ArticleBean>> list = new ArrayList<>();
         mAdapter = new StartReadAdapter(this);
         mAdapter.setList(list);
+        mAdapter.setmIndexMap(mIndexMap);
 
         LinearLayoutManager layout = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,
                 false);
         mViewPager.setTriggerOffset(0.15f);
-        mViewPager.setFlingFactor(0.25f);
+        mViewPager.setFlingFactor(0.1f);
         mViewPager.setLayoutManager(layout);
         mViewPager.setAdapter(mAdapter);
         mViewPager.setHasFixedSize(true);
@@ -171,14 +201,21 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
 
         mViewPager.addOnPageChangedListener((int i, int position) -> {
             //  startAnim();
-            setArticleData(position, 0);
-            List<List<ArticleBean>> chapterList = mAdapter.getList();
-            articleBean=chapterList.get(position).get(0);
-            chapter_id=(position+1)+"";
-            parent_id=articleBean.getSection_id();
+            this.position = position;
+            int hPosition = mIndexMap.get(position);
+            setArticleData(position, hPosition);
+            chapter_id = (position + 1) + "";
+            parent_id = articleBean.getSection_id();
+            /*if(hPosition!=0) {
+                RecyclerViewPager viewPager = mAdapter.getViewPager();
+                viewPager.scrollToPosition(hPosition);
+            }*/
             if (position > prePosition) {
                 getNextChapter(articleBean.getSection_id(), false);
                 prePosition = position;
+                if (hPosition == 0) {
+                    mIndexMap.put(position, 0);
+                }
             }
         });
 
@@ -190,14 +227,12 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
      * @param id       横向位置
      */
     public void onHorizontalItemSelected(int position, int id) {
+        mAdapter.getmIndexMap().put(position, id);
         horiPosition = id;
         prePosition = position;
         // startAnim();
         setArticleData(position, id);
-        List<List<ArticleBean>> list = mAdapter.getList();
-        List<ArticleBean> articleBeen = list.get(position);
-        articleBean = articleBeen.get(id);
-        parent_id=articleBean.getSection_id();
+        parent_id = articleBean.getSection_id();
         String section_id = articleBean.getSection_id();
         refreshAdapterList(position);
         getNextChapter(section_id, true);
@@ -212,12 +247,13 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         }
         list.clear();
         list.addAll(newList);
+        mAdapter.notifyItemChanged(position + 1);
     }
 
 
     private void setArticleData(int position, int id) {
         List<ArticleBean> articleBeen = mAdapter.getList().get(position);
-        ArticleBean articleBean = articleBeen.get(id);
+        articleBean = articleBeen.get(id);
         section_id = articleBean.getSection_id();
         likeStatus = articleBean.getLikeStatus();
         write_id = articleBean.getWrite_id();
@@ -227,6 +263,28 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         tvLike.setText("赞" + String.valueOf(articleBean.getLike_count()));
         tvRewrite.setText("重写" + String.valueOf(articleBean.getEnjoy_count()));
         tvValue.setText("欣赏" + String.valueOf(articleBean.getEnjoy_count()));
+        int status = articleBean.getStatus();
+        if (status == 0) {
+            llComment.setClickable(false);
+            llLike.setClickable(false);
+            llValue.setClickable(false);
+            llRewrite.setClickable(false);
+            llContinue.setClickable(false);
+        } else {
+            llComment.setClickable(true);
+            llLike.setClickable(true);
+            llValue.setClickable(true);
+            llRewrite.setClickable(true);
+            llContinue.setClickable(true);
+        }
+        if (likeStatus == 0) {
+            mIvPrise.setImageLevel(0);
+        } else {
+            mIvPrise.setImageLevel(1);
+        }
+
+        //  初始化显示不显示编辑和删除
+        setDeleteChapter();
     }
 
     public void startAnim() {
@@ -235,10 +293,11 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         llTab.startAnimation(animation);
     }
 
-    public static void start(Context context, String writeId, String authorId) {
+    public static void start(Context context, String writeId, String authorId, String title) {
         Intent intent = new Intent(context, StartReadActivity.class);
         intent.putExtra("writeId", writeId);
         intent.putExtra("authorId", authorId);
+        intent.putExtra("title", title);
         context.startActivity(intent);
     }
 
@@ -288,7 +347,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                         if (results.size() > 0) {
                             mAdapter.getList().add(results);
                             // if (isRefresh)
-                            //    mAdapter.notifyDataSetChanged();
+                            mAdapter.notifyItemChanged(position + 1);
                         }
                     }
                 });
@@ -300,20 +359,24 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
             case R.id.ll_comment:
                 comment();
                 break;
-            case R.id.ll_like:
-                lightChapter();
+            case R.id.ll_like://    章节点赞
+                if (likeStatus == 0) {  //  未点赞状态，请求点赞
+                    lightChapter(1);
+                } else { //  取消点赞
+                    lightChapter(0);
+                }
                 break;
             case R.id.ll_value:
                 break;
             case R.id.ll_rewrite:   //  重写
-                String reparent_id="000";
-                if(articleBean!=null) {
+                String reparent_id = "000";
+                if (articleBean != null) {
                     reparent_id = articleBean.getParent_id();
                 }
-                WriteActivity.start(this,writeId,reparent_id,chapter_id);
+                WriteActivity.start(this, writeId, reparent_id, chapter_id);
                 break;
             case R.id.ll_continue:  //  续写
-                WriteActivity.start(this, writeId, parent_id,chapter_id);
+                WriteActivity.start(this, writeId, parent_id, chapter_id);
                 break;
 
         }
@@ -322,24 +385,30 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     /**
      * 章节点赞
      */
-    private void lightChapter() {
+    private void lightChapter(int status) {
         Map<String, String> map = new HashMap<>();
         map.put("section_id", section_id);
         map.put("write_id", write_id);
         map.put("user_id", UserInfoTools.getUserId(this));
-        String status = "0";
-        if (likeStatus.equals("0")) {
-            status = "1";
-        }
-        map.put("status", status);
+        map.put("status", String.valueOf(status));
         IdeaApi.getApiService()
                 .lightChapter(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse>(this, true) {
+                .subscribe(new DefaultObserver<BasicResponse>(this, false) {
                     @Override
                     public void onSuccess(BasicResponse response) {
                         commentPage = 1;
+                        likeStatus = status;
+                        mIvPrise.setImageLevel(status);
+                        articleBean.setLikeStatus(status);
+                        /*if (status == 0) {
+                            articleBean.setLike_count(articleBean.getLikeStatus() - 1);
+                        } else {
+                            articleBean.setLike_count(articleBean.getLikeStatus() + 1);
+                        }*/
+                        tvLike.setText("赞" + (articleBean.getLikeStatus()));
+
                     }
                 });
     }
@@ -364,7 +433,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         Button tvComment = (Button) popView.findViewById(R.id.btn_comment);
         mEtComment = (EditText) popView.findViewById(R.id.et_comment);
         mIvDismiss = (ImageView) popView.findViewById(R.id.iv_dismiss);
-        mTvNoData = (TextView) popView.findViewById(R.id.tv_no_data);
+        mLlDefault = (LinearLayout) popView.findViewById(R.id.ll_default);
         LinearLayout linearLayout = (LinearLayout) popView.findViewById(R.id.ll_pop_window);
         linearLayout.setOnClickListener(this);
         tvComment.setOnClickListener(this);
@@ -375,8 +444,8 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         mRecyclerView.setLayoutManager(manager);
         mCommentAdapter = new CommentAdapter(this) {
             @Override
-            public void lightComment(CommentBean commentBean, ImageView imageView) {
-                likeComment(commentBean, imageView);
+            public void lightComment(CommentBean commentBean, ImageView imageView, int status) {
+                likeComment(commentBean, imageView, status);
             }
         };
         mCommentAdapter.fillList(new ArrayList<>());
@@ -386,25 +455,18 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     }
 
     //  为评论点赞
-    private void likeComment(CommentBean commentBean, ImageView imageView) {
+    private void likeComment(CommentBean commentBean, ImageView imageView, int status) {
         String commentId = commentBean.getComment_id();
-        String like_status = commentBean.getLike_status();
-        String status = "0";
-        if ("0".equals(like_status)) {
-            status = "1";
-        }
-        String finalStatus = status;
+        int like_status = commentBean.getLike_status();
+
         IdeaApi.getApiService()
-                .lightComment(UserInfoTools.getUserId(this), commentId, status)
+                .lightComment(UserInfoTools.getUserId(this), commentId, String.valueOf(status))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, false) {
                     @Override
                     public void onSuccess(BasicResponse<String> response) {
-                        if ("1".equals(finalStatus))
-                            imageView.setImageResource(R.drawable.like2);
-                        else
-                            imageView.setImageResource(R.drawable.like1);
+                        imageView.setImageLevel(status);
                     }
                 });
     }
@@ -472,11 +534,11 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                         mCommentAdapter.notifyDataSetChanged();
                         commentPage++;
                         if (list.size() == 0) {
-                            mRecyclerView.setVisibility(View.GONE);
-                            mTvNoData.setText("暂无评论");
+                            TextView tvNoData = (TextView) mLlDefault.findViewById(R.id.tv_no_data);
+                            tvNoData.setText("暂无评论");
+                            mLlDefault.setVisibility(View.VISIBLE);
                         } else {
-                            mRecyclerView.setVisibility(View.VISIBLE);
-                            mTvNoData.setVisibility(View.GONE);
+                            mLlDefault.setVisibility(View.GONE);
                         }
                     }
                 });
@@ -505,7 +567,18 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                 SuggestActivity.start(this, "Read");
                 mPopupWindow.dismiss();
                 break;
+            case R.id.ll_delete:
+                deleteChapter(0);
+                break;
+            case R.id.ll_edit:
+                editChapter();
+                break;
         }
+    }
+
+    private void editChapter() {
+        UpdateChapterActivity.start(this, articleBean.getSection_id(), articleBean.getSection_name(), articleBean.getContent());
+        mPopupWindow.dismiss();
     }
 
     //  分享
@@ -571,6 +644,28 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                         showToast("评论成功");
                         mEtComment.setText("");
                         getComment(1, false);
+                    }
+                });
+    }
+
+    /**
+     * 删除章节
+     *
+     * @param type
+     */
+    private void deleteChapter(int type) {
+        Map<String, String> map = new HashMap<>();
+        map.put("section_id", articleBean.getSection_id());
+        map.put("user_id", UserInfoTools.getUserId(this));
+        map.put("status", String.valueOf(type));
+        IdeaApi.getApiService()
+                .updateChapter(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse>(this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse response) {
+                        showToast("删除成功");
                     }
                 });
     }

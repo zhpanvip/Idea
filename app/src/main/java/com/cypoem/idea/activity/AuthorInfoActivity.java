@@ -125,19 +125,26 @@ public class AuthorInfoActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
     }
 
+    /**
+     * 修改个人资料成功的消息
+     */
     @Subscribe
     public void updateInfoSuccess(EditInfoActivity.UpdateInfoSuccess success) {
-        UserBean user = UserInfoTools.getUser(this);
-        setUserData(user);
+        if(UserInfoTools.getUserId(this).equals(userId)){
+            UserBean user = UserInfoTools.getUser(this);
+            setUserData(user);
+        }
     }
 
     private void setData() {
         UserBean user = UserInfoTools.getUser(this);
         if (null != user && userId.equals(UserInfoTools.getUserId(this))) {
             setUserData(user);
+            setToolBarTitle("我的资料");
         } else {
             mIvEdit.setVisibility(View.GONE);
             getData(false);
+            setToolBarTitle("作者简介");
         }
     }
 
@@ -146,7 +153,7 @@ public class AuthorInfoActivity extends BaseActivity {
         mTvPenName.setText(user.getPen_name());
         String sex = user.getSex();
         mSexView.setMalePercent(Double.parseDouble(sex));
-        mTvSign.setText(user.getIntroduction());
+        mTvSign.setText(user.getDictum());
         mTvBirthday.setText(user.getBirthday());
         mTvAddress.setText(user.getAddress());
         mTvIntroduce.setText(user.getIntroduction());
@@ -192,7 +199,6 @@ public class AuthorInfoActivity extends BaseActivity {
                             mTvFollow.setText("关注");
                         } else {
                             mTvFollow.setText("已关注");
-
                         }
                         setUserData(userBean);
                     }
@@ -232,7 +238,7 @@ public class AuthorInfoActivity extends BaseActivity {
                 CollectActivity.start(this);
                 break;
             case R.id.ll_like:
-                PraiseActivity.start(this);
+               // PraiseActivity.start(this);
                 break;
             case R.id.ll_fans:
                 FansActivity.start(this, Constants.FOLLOWS, userId);
@@ -247,6 +253,7 @@ public class AuthorInfoActivity extends BaseActivity {
                 follow();
                 break;
             case R.id.iv_author:
+                if(userId.equals(UserInfoTools.getUserId(this)))
                 pickFromGallery();
                 break;
         }

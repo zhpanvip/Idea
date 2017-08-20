@@ -152,4 +152,6 @@
     <string name="input_correct_phone_num">请输入正确的手机号</string>
     <string name="input_identify_code">请输入验证码</string>
     <string name="writing_explain">创作说明</string>
+    <string name="create_Opus">创作一个新的作品</string>
+    <string name="join_opus">参与已有作品创作</string>
 </resources>

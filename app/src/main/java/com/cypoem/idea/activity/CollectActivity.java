@@ -27,8 +27,8 @@ import io.reactivex.schedulers.Schedulers;
 public class CollectActivity extends BaseActivity {
     @BindView(R.id.lv_collect)
     ListView mListView;
-    @BindView(R.id.tv_no_data)
-    TextView mTvNoData;
+    /*@BindView(R.id.tv_no_data)
+    TextView mTvNoData;*/
     private CollectAdapter mAdapter;
     private int page=1;
 
@@ -49,11 +49,13 @@ public class CollectActivity extends BaseActivity {
             OpusBean opusBean = mAdapter.getList().get(position);
             String writeId = String.valueOf(opusBean.getWrite_id());
             String authorId = opusBean.getUser_id();
-            StartReadActivity.start(CollectActivity.this,writeId,authorId);
+            String write_name = opusBean.getWrite_name();
+            StartReadActivity.start(CollectActivity.this,writeId,authorId,write_name);
         });
     }
 
     private void initData() {
+        setToolBarTitle("收藏");
         List<OpusBean> mList = new ArrayList<>();
         mAdapter = new CollectAdapter(this, R.layout.item_collect);
         mAdapter.setList(mList);
@@ -104,7 +106,7 @@ public class CollectActivity extends BaseActivity {
                         mAdapter.notifyDataSetChanged();
                         if(response.getResult().size()==0){
                             mListView.setVisibility(View.GONE);
-                            mTvNoData.setText("您还没有收藏的章节呢");
+                           // mTvNoData.setText("您还没有收藏的章节呢");
                         }
                     }
                 });

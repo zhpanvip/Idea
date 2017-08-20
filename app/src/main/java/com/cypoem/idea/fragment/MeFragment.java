@@ -190,7 +190,7 @@ public class MeFragment extends BaseFragment {
                 FansActivity.start(getContext(), Constants.FOLLOWS, UserInfoTools.getUserId(getContext()));
                 break;
             case R.id.ll_like:
-                PraiseActivity.start(getContext());
+               // PraiseActivity.start(getContext());
                 break;
             case R.id.rl_wallet:
                 WalletActivity.start(getContext());

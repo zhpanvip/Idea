@@ -51,7 +51,8 @@ public class OpusActivity extends BaseActivity {
             OpusBean opusBean = mAdapter.getList().get(position);
             String writeId = String.valueOf(opusBean.getWrite_id());
             String authorId = opusBean.getUser_id();
-            StartReadActivity.start(OpusActivity.this,writeId,authorId);
+            String write_name = opusBean.getWrite_name();
+            StartReadActivity.start(OpusActivity.this,writeId,authorId,write_name);
         });
     }
 

@@ -93,7 +93,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
                         } else {
                             mPtrFrame.setMode(PtrFrameLayout.Mode.LOAD_MORE);
                         }
-                        if(result.size()==0){
+                        if (result.size() == 0) {
                             mListView.setVisibility(View.GONE);
                             mTvNoData.setText("暂无数据");
                         }
@@ -128,8 +128,10 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     private void setListener() {
         mListView.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
                     OpusBean opusBean = mAdapter.getList().get(position);
-                    String uid = opusBean.getUid();
-                    StartReadActivity.start(getContext(), "", "");
+                    String write_name = opusBean.getWrite_name();
+                    String write_id = opusBean.getWrite_id();
+                    String user_id = opusBean.getUser_id();
+                    StartReadActivity.start(getContext(), write_id, user_id, write_name);
                 }
         );
     }

@@ -189,6 +189,15 @@ public abstract class BaseActivity extends BaseRxActivity {
         }
     }
 
+    public void setToolbarTitleColor(@ColorInt int color){
+        if (mToolbarTitle != null) {
+            mToolbarTitle.setTextColor(color);
+        } else {
+            getToolbar().setTitleTextColor(color);
+        }
+    }
+
+
     /**
      * this Activity of tool bar.
      * 获取头部.

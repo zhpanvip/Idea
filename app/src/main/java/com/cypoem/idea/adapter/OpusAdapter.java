@@ -80,22 +80,34 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
         /*holder.mTvAll.setOnClickListener((View v) -> {
             ArticleWebViewActivity.start(mContext, "阅读", "http://www.baidu.com");
         });*/
-
         ArticleBean articleBean = mList.get(position);
         ArticleBean.UserBean user = articleBean.getUser();
-        holder.mTvTitle.setText(articleBean.getSection_name());
-        holder.mTvName.setText(user.getPen_name());
-        holder.mTvAuther.setText(user.getPen_name());
         holder.mTvTime.setText(articleBean.getCreate_time());
-        holder.mTvContent.setText(articleBean.getContent());
-        int watch_status = articleBean.getWatch_status();
-        holder.mFrameLayout.setOnClickListener((View v)-> {
-            Intent intent = new Intent(mContext, ArticleActivity.class);
-            intent.putExtra("article", articleBean.getContent());
-            //context.startActivity(intent);
-            mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((StartReadActivity)mContext, holder.mLlText, "sharedView").toBundle());
+        holder.mTvName.setText(user.getPen_name());
 
-        });
+        int watch_status = articleBean.getWatch_status();
+        int status = articleBean.getStatus();
+        if (status == 0) {
+            holder.mTvContent.setText("此章节已被作者删除，请自行脑补~");
+        } else {
+            holder.mTvTitle.setText(articleBean.getSection_name());
+            holder.mTvContent.setText(articleBean.getContent());
+            holder.mTvAuther.setText(user.getPen_name());
+
+            holder.mFrameLayout.setOnClickListener((View v) -> {
+
+                Intent intent = new Intent(mContext, ArticleActivity.class);
+                intent.putExtra("article", articleBean.getContent());
+                intent.putExtra("title", articleBean.getSection_name());
+                intent.putExtra("author", articleBean.getUser().getPen_name());
+                //context.startActivity(intent);
+                mContext.startActivity(intent, ActivityOptions
+                        .makeSceneTransitionAnimation((StartReadActivity) mContext
+                                , holder.mLlText, "sharedView").toBundle());
+
+            });
+        }
+
         if (watch_status == 1) {
             isFocus = true;
             holder.mTvFocus.setText("已关注");
@@ -186,8 +198,8 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
             mTvContent = (TextView) itemView.findViewById(R.id.tv_article);
             mTvTime = (TextView) itemView.findViewById(R.id.tv_time);
             mTvName = (TextView) itemView.findViewById(R.id.tv_name);
-            mFrameLayout= (FrameLayout) itemView.findViewById(R.id.fl_read);
-            mLlText= (LinearLayout) itemView.findViewById(R.id.ll_text);
+            mFrameLayout = (FrameLayout) itemView.findViewById(R.id.fl_read);
+            mLlText = (LinearLayout) itemView.findViewById(R.id.ll_text);
         }
     }
 }

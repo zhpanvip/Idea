@@ -153,6 +153,7 @@ public class EditInfoActivity extends BaseActivity {
     }
 
     private void setData() {
+        setToolBarTitle("编辑个人资料");
         setUserInfo();
     }
 
@@ -552,9 +553,9 @@ public class EditInfoActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse>(this, false) {
                     @Override
                     public void onSuccess(BasicResponse response) {
-                        EventBus.getDefault().post(new UpdateInfoSuccess());
                         showToast(response.getMsg());
                         refreshUserInfo();
+                        EventBus.getDefault().post(new UpdateInfoSuccess());
                     }
                 });
 

@@ -60,6 +60,12 @@ public class FansActivity extends BaseActivity {
         Intent intent = getIntent();
         type = intent.getIntExtra("type", 0);
         userId = intent.getStringExtra("userId");
+
+        if (type == Constants.FOCUS)
+            setToolBarTitle("关注");
+        else if (type == Constants.FOLLOWS)
+            setToolBarTitle("粉丝");
+
         List<FansBean> mList = new ArrayList<>();
         mAdapter = new FansAdapter(this, R.layout.item_fans);
         mAdapter.setList(mList);
@@ -99,10 +105,10 @@ public class FansActivity extends BaseActivity {
                     .getMyFocus(userId, currentPage, Constants.NUM)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new DefaultObserver<BasicResponse<List<FansBean>>>(this, true) {
+                    .subscribe(new DefaultObserver<BasicResponse<List<FansBean>>>(this, false) {
                         @Override
                         public void onSuccess(BasicResponse<List<FansBean>> response) {
-                            getDataSuccess(response,isRefresh);
+                            getDataSuccess(response, isRefresh);
                         }
                     });
         } else if (type == Constants.FOLLOWS) {
@@ -113,13 +119,13 @@ public class FansActivity extends BaseActivity {
                     .subscribe(new DefaultObserver<BasicResponse<List<FansBean>>>(this, true) {
                         @Override
                         public void onSuccess(BasicResponse<List<FansBean>> response) {
-                            getDataSuccess(response,isRefresh);
+                            getDataSuccess(response, isRefresh);
                         }
                     });
         }
     }
 
-    private void getDataSuccess(BasicResponse<List<FansBean>> response,boolean isRefresh) {
+    private void getDataSuccess(BasicResponse<List<FansBean>> response, boolean isRefresh) {
         if (response.getResult().size() < Constants.NUM) {
             mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
         } else {
@@ -128,11 +134,11 @@ public class FansActivity extends BaseActivity {
         page++;
         mAdapter.getList().addAll(response.getResult());
         mAdapter.notifyDataSetChanged();
-        if(response.getResult().size()==0&&isRefresh){
+        if (response.getResult().size() == 0 && isRefresh) {
             lvFans.setVisibility(View.GONE);
-            if(type==Constants.FOLLOWS)
-            mTvNoData.setText("您还没有粉丝哦！");
-            else if(type==Constants.FOCUS)
+            if (type == Constants.FOLLOWS)
+                mTvNoData.setText("您还没有粉丝哦！");
+            else if (type == Constants.FOCUS)
                 mTvNoData.setText("您还没有关注任何用户");
         }
 

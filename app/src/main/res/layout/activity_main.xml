@@ -3,12 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_add"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/add_bg"
-        android:visibility="gone" />
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -113,4 +108,10 @@
             android:orientation="vertical" />
 
     </RelativeLayout>
+    <ImageView
+        android:id="@+id/iv_add"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@drawable/add_bg"/>
 </FrameLayout>

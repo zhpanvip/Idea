@@ -46,7 +46,7 @@ public class ArticleBean {
     private String section_name;
     private String content;
     private String create_time;
-    private String status;
+    private int status;
     private String parent_id;
     private String section_id;
     private String myself_id;
@@ -62,7 +62,7 @@ public class ArticleBean {
     private int upCount;
     private int watch_status;
     private String keep_status;
-    private String like_status;
+    private int like_status;
 
     public int getWatch_status() {
         return watch_status;
@@ -104,11 +104,11 @@ public class ArticleBean {
         this.create_time = create_time;
     }
 
-    public String getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
@@ -224,11 +224,11 @@ public class ArticleBean {
         this.keep_status = keep_status;
     }
 
-    public String getLikeStatus() {
+    public int getLikeStatus() {
         return like_status;
     }
 
-    public void setLikeStatus(String like_status) {
+    public void setLikeStatus(int like_status) {
         this.like_status = like_status;
     }
 

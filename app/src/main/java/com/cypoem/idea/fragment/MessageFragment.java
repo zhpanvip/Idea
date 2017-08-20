@@ -93,10 +93,7 @@ public class MessageFragment extends BaseFragment {
         notifyBean.setContent("这是内容");
         notifyBean.setTime("这是时间");
         notifyBean.setTitle("这是标题");
-        mList.add(notifyBean);
-        mList.add(notifyBean);
-        mList.add(notifyBean);
-        mList.add(notifyBean);
+
 
         mPraiseAdapter.setList(mList);
         mSystemAdapter.setList(mList);

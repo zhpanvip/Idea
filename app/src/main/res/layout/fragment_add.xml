@@ -45,7 +45,7 @@
         android:layout_marginTop="@dimen/mp_50"
         android:background="@color/text_theme"
         android:gravity="center"
-        android:text="发布一个新的作品"
+        android:text="@string/create_Opus"
         android:textColor="@color/white"
         android:textSize="@dimen/f_20" />
 
@@ -55,7 +55,7 @@
         android:layout_height="@dimen/mp_55"
         android:background="@color/gray_dd"
         android:gravity="center"
-        android:text="参与已有作品创作"
+        android:text="@string/join_opus"
         android:textColor="@color/text_theme"
         android:textSize="@dimen/f_20"/>
 </LinearLayout>

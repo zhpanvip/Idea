@@ -30,7 +30,7 @@
     <color name="item_text_color_dark">#333333</color>
     <color name="item_text_color">#666</color>
     <color name="tab_color">#FFFFFF</color>
-    <color name="item_color">#F6F6EE</color>
+    <color name="item_color">#FFFFFF</color>
     <color name="tab_normal_text">#8A9A56</color>
     <color name="tab_selected_text">#C2C528</color>
     <color name="line_color">#CCCCCC</color>
@@ -39,7 +39,7 @@
     <color name="text_hint">#999999</color>
     <color name="edit_background">#FFFFFF</color>
     <color name="label_stroke">#F6F6EE</color>
-    <color name="toolbar_title">#628B31</color>
+    <color name="toolbar_title">#010101</color>
     <color name="toolbar_background">#FFFFFF</color>
     <color name="item_theme">#628B31</color>
     <color name="footer">#EBEBEB</color>

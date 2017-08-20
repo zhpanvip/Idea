@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="50dp"
     android:background="@color/toolbar_background"
     android:fitsSystemWindows="true"
     android:minHeight="50dp">
@@ -59,8 +59,8 @@
     <ImageView
         android:id="@+id/iv_right"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginEnd="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
         android:layout_gravity="end"
         android:background="@drawable/ic_more"
         android:visibility="gone"/>
@@ -73,7 +73,7 @@
         android:lines="1"
         android:ellipsize="end"
         android:text="title"
-        android:textSize="@dimen/f_18"
+        android:textSize="@dimen/f_16"
         android:layout_marginStart="@dimen/mp_20"
         android:scrollHorizontally="true"
         android:textColor="@color/toolbar_title"

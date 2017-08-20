@@ -55,6 +55,7 @@ public class WriteActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        setToolBarTitle("创作作品");
         setData();
         setListener();
     }
