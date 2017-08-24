@@ -5,7 +5,7 @@
     <color name="colorAccent">#4B8B31</color>-->
 
     <color name="colorPrimary">#DCDCDC</color>
-    <color name="colorPrimaryDark">#F3F3F3</color>
+    <color name="colorPrimaryDark">#B5B5B5</color>
     <color name="colorAccent">#DCDCDC</color>
     <color name="themDark">#497218</color>
 
@@ -21,6 +21,7 @@
     <color name="gray_a5">#A5A5A5</color>
     <color name="gray_ea">#EAEAEA</color>
 
+    <color name="read_bg">#E6E6E6</color>
     <color name="theme_style">#829349</color>
     <color name="background">#FFFFFF</color>
     <color name="text_theme">#829349</color>
@@ -28,7 +29,7 @@
     <color name="female_red">#D4237A</color>
     <color name="male_blue">#1296DB</color>
     <color name="item_text_color_dark">#333333</color>
-    <color name="item_text_color">#666</color>
+    <color name="item_text_color">#666666</color>
     <color name="tab_color">#FFFFFF</color>
     <color name="item_color">#FFFFFF</color>
     <color name="tab_normal_text">#8A9A56</color>
@@ -37,11 +38,12 @@
     <color name="item_title">#DDDDDD</color>
     <color name="item_title_text">#628B31</color>
     <color name="text_hint">#999999</color>
-    <color name="edit_background">#FFFFFF</color>
+    <color name="edit_background">#F6F6F6</color>
     <color name="label_stroke">#F6F6EE</color>
     <color name="toolbar_title">#010101</color>
     <color name="toolbar_background">#FFFFFF</color>
     <color name="item_theme">#628B31</color>
     <color name="footer">#EBEBEB</color>
     <color name="me_background">#628B31</color>
+
 </resources>

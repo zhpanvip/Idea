@@ -45,7 +45,6 @@ public class AddFragment extends BaseFragment {
     private void initData() {
         toolbarTitle.setText("发布作品");
         toolbarSubtitle.setVisibility(View.VISIBLE);
-        toolbarSubtitle.setTextColor(Color.parseColor("#DDDDDD"));
         toolbarSubtitle.setText("意见反馈");
 
     }

@@ -18,8 +18,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/mp_10"
+            android:textAppearance="@style/TextFonts"
             android:textColor="@color/item_text_color"
-            android:textSize="@dimen/f_17" />
+            android:textSize="@dimen/f_16" />
 
     </ScrollView>
 </LinearLayout>

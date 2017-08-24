@@ -13,6 +13,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/home_card_bg"
         android:orientation="vertical"
+        android:paddingBottom="@dimen/mp_13"
         android:weightSum="1">
 
         <LinearLayout
@@ -29,6 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/item_text_color"
+                android:textAppearance="@style/TextFonts"
                 android:textSize="@dimen/f_18" />
 
             <TextView
@@ -37,15 +39,18 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
                 android:textColor="@color/item_text_color"
+                android:textAppearance="@style/TextFonts"
                 android:textSize="@dimen/f_15" />
 
             <TextView
                 android:id="@+id/tv_article"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:ellipsize="end"
                 android:textColor="@color/item_text_color"
-                android:textSize="@dimen/f_17" />
+                android:textAppearance="@style/TextFonts"
+                android:textSize="@dimen/f_16" />
         </LinearLayout>
 
         <LinearLayout
@@ -71,7 +76,6 @@
                 android:layout_height="@dimen/mp_1"
                 android:layout_marginEnd="@dimen/mp_10"
                 android:layout_marginStart="@dimen/mp_10"
-                android:layout_marginTop="@dimen/mp_10"
                 android:background="@color/line_color" />
 
             <RelativeLayout
@@ -96,7 +100,7 @@
                     android:layout_marginStart="@dimen/mp_10"
                     android:layout_marginTop="@dimen/mp_5"
                     android:layout_toEndOf="@id/iv_head_pic"
-                    android:text="韩三少的剑"
+                    android:textAppearance="@style/TextFonts"
                     android:textColor="@color/item_text_color_dark"
                     android:textSize="@dimen/f_16" />
 
@@ -107,8 +111,8 @@
                     android:layout_below="@id/tv_name"
                     android:layout_marginStart="@dimen/mp_10"
                     android:layout_marginTop="@dimen/mp_5"
+                    android:textAppearance="@style/TextFonts"
                     android:layout_toEndOf="@id/iv_head_pic"
-                    android:text="2017-05-24 创作"
                     android:textColor="@color/item_text_color"
                     android:textSize="@dimen/f_14" />
 
@@ -121,6 +125,7 @@
                     android:background="@drawable/bg_btn_login"
                     android:gravity="center"
                     android:text="+关注"
+                    android:textAppearance="@style/TextFonts"
                     android:textColor="@color/white"
                     android:textSize="@dimen/f_14" />
             </RelativeLayout>

@@ -21,7 +21,7 @@ public class BannerBean {
     private WriteBean write;
     private String banner_pic;
     private String banner_status;
-    private String type;
+    private int type;
 
     public int getBanner_id() {
         return banner_id;
@@ -63,11 +63,11 @@ public class BannerBean {
         this.banner_status = banner_status;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 
@@ -77,22 +77,22 @@ public class BannerBean {
          * user_id : 2017060004
          */
 
-        private long write_id;
-        private long user_id;
+        private String write_id;
+        private String user_id;
 
-        public long getWrite_id() {
+        public String getWrite_id() {
             return write_id;
         }
 
-        public void setWrite_id(long write_id) {
+        public void setWrite_id(String write_id) {
             this.write_id = write_id;
         }
 
-        public long getUser_id() {
+        public String getUser_id() {
             return user_id;
         }
 
-        public void setUser_id(long user_id) {
+        public void setUser_id(String user_id) {
             this.user_id = user_id;
         }
     }

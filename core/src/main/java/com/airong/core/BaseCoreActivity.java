@@ -2,11 +2,14 @@ package com.airong.core;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import com.airong.core.dialog.CommonDialogUtils;
+import com.airong.core.utils.SnackbarUtils;
 import com.airong.core.utils.ToastUtils;
 import com.airong.core.dialog.CustomProgressDialog;
 
@@ -26,6 +29,11 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
 
     public void showToast(String msg){
         ToastUtils.show(msg);
+    }
+
+    public void showSnackBar(View parent,String msg){
+        SnackbarUtils.showShortSnackbar(parent,msg, Color.parseColor("#FFFFFF"),Color.parseColor("#222222"));
+
     }
 
     public void showToast(@StringRes  int resId){

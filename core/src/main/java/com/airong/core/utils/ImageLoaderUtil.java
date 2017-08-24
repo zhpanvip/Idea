@@ -55,6 +55,7 @@ public class ImageLoaderUtil {
         Glide.with(v.getContext())
                 .load(url)
                 .placeholder(placeholder)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .transform(new GlideCircleTransform(v.getContext()))
                 .into(v);
     }
@@ -63,6 +64,7 @@ public class ImageLoaderUtil {
         Glide.with(v.getContext())
                 .load(url)
                 .transform(new GlideRoundTransform(v.getContext()))
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                .placeholder(placeholder)
                 .into(v);
     }

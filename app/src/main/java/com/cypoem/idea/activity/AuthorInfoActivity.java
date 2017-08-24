@@ -130,7 +130,7 @@ public class AuthorInfoActivity extends BaseActivity {
      */
     @Subscribe
     public void updateInfoSuccess(EditInfoActivity.UpdateInfoSuccess success) {
-        if(UserInfoTools.getUserId(this).equals(userId)){
+        if (UserInfoTools.getUserId(this).equals(userId)) {
             UserBean user = UserInfoTools.getUser(this);
             setUserData(user);
         }
@@ -149,7 +149,7 @@ public class AuthorInfoActivity extends BaseActivity {
     }
 
     private void setUserData(UserBean user) {
-        ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST+user.getCover_photo(), R.drawable.head_pic);
+        ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST + user.getCover_photo(), R.drawable.head_pic);
         mTvPenName.setText(user.getPen_name());
         String sex = user.getSex();
         mSexView.setMalePercent(Double.parseDouble(sex));
@@ -187,7 +187,7 @@ public class AuthorInfoActivity extends BaseActivity {
 
     private void getData(boolean showLoading) {
         IdeaApi.getApiService()
-                .getUserInfo(userId, UserInfoTools.getUserId(this))
+                .getUserInfo(userId, userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, showLoading) {
@@ -231,14 +231,14 @@ public class AuthorInfoActivity extends BaseActivity {
 
 
     @OnClick({R.id.ll_collect, R.id.ll_like, R.id.ll_fans, R.id.ll_focus,
-            R.id.iv_edit, R.id.tv_follow,R.id.iv_author})
+            R.id.iv_edit, R.id.tv_follow, R.id.iv_author})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_collect:
                 CollectActivity.start(this);
                 break;
             case R.id.ll_like:
-               // PraiseActivity.start(this);
+                // PraiseActivity.start(this);
                 break;
             case R.id.ll_fans:
                 FansActivity.start(this, Constants.FOLLOWS, userId);
@@ -250,11 +250,14 @@ public class AuthorInfoActivity extends BaseActivity {
                 EditInfoActivity.start(this);
                 break;
             case R.id.tv_follow:
-                follow();
+                if (UserInfoTools.getIsLogin(this))
+                    follow();
+                else
+                    LoginActivity.start(this);
                 break;
             case R.id.iv_author:
-                if(userId.equals(UserInfoTools.getUserId(this)))
-                pickFromGallery();
+                if (userId.equals(UserInfoTools.getUserId(this)))
+                    pickFromGallery();
                 break;
         }
     }

@@ -113,7 +113,7 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
             holder.mTvFocus.setText("已关注");
         } else {
             isFocus = false;
-            holder.mTvFocus.setText("关注");
+            holder.mTvFocus.setText("+关注");
         }
         ImageLoaderUtil.loadCircleImg(holder.mIvHeader, IdeaApiService.HOST + user.getIcon(), R.drawable.head_pic);
         //  点击关注按钮

@@ -131,7 +131,7 @@ public interface IdeaApiService {
      * @param number
      * @return
      */
-    @Headers("Cache-Control: public, max-age=600")
+    //@Headers("Cache-Control: public, max-age=600")
     @GET("write/first_page.do")
     Observable<BasicResponse<List<HomePageBean>>> getHomePageData(@Query("page") int page, @Query("rows") int number);
 

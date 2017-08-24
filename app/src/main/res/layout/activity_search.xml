@@ -6,7 +6,7 @@
     android:background="@color/background">
 
     <include layout="@layout/search_bar" />
-
+    <include layout="@layout/base_line"/>
     <LinearLayout
         android:id="@+id/ll_loading"
         android:layout_width="match_parent"

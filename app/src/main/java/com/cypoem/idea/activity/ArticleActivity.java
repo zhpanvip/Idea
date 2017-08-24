@@ -1,9 +1,6 @@
 package com.cypoem.idea.activity;
 
-import android.app.ActivityOptions;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -25,7 +22,6 @@ public class ArticleActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        setToolbarTitleColor(Color.parseColor("#010101"));
         Intent intent = getIntent();
         tvArticle.setText(intent.getStringExtra("article"));
         setToolBarTitle(intent.getStringExtra("title"));

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import android.util.SparseIntArray;
+
 import com.airong.core.utils.LogUtils;
 import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
@@ -17,6 +18,10 @@ import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import xiao.free.horizontalrefreshlayout.HorizontalRefreshLayout;
+import xiao.free.horizontalrefreshlayout.RefreshCallBack;
+import xiao.free.horizontalrefreshlayout.refreshhead.LoadingRefreshHeader;
 
 /**
  * Created by zhpan on 2017/5/29.
@@ -74,9 +79,26 @@ public class StartReadAdapter extends RecyclerView.Adapter<StartReadAdapter.Simp
         holder.mRecyclerView.setLayoutManager(linearLayoutManager);
         holder.mRecyclerView.setAdapter(adapter);
         holder.mRecyclerView.setHasFixedSize(true);
+        holder.refreshLayout.setRefreshCallback(new RefreshCallBack() {
+            @Override
+            public void onLeftRefreshing() {
+            }
+
+            @Override
+            public void onRightRefreshing() {
+                holder.refreshLayout.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        holder.refreshLayout.onRefreshComplete();
+                    }
+                }, 2000);
+            }
+        });
+        // holder.refreshLayout.setRefreshHeader(new LoadingRefreshHeader(mContext), HorizontalRefreshLayout.LEFT);
+       // holder.refreshLayout.setRefreshHeader(new LoadingRefreshHeader(mContext), HorizontalRefreshLayout.RIGHT);
         int hPosition = mIndexMap.get(position);
-        if(hPosition!=0)
-        holder.mRecyclerView.scrollToPosition(hPosition);
+        if (hPosition != 0)
+            holder.mRecyclerView.scrollToPosition(hPosition);
         holder.mRecyclerView.clearOnPageChangedListeners();
         holder.mRecyclerView.addOnPageChangedListener((int i, int i1) -> {
                     LogUtils.e(position + "---------------" + i);
@@ -92,10 +114,12 @@ public class StartReadAdapter extends RecyclerView.Adapter<StartReadAdapter.Simp
 
     public static class SimpleViewHolder extends RecyclerView.ViewHolder {
         private RecyclerViewPager mRecyclerView;
+        private HorizontalRefreshLayout refreshLayout;
 
         private SimpleViewHolder(View view) {
             super(view);
             mRecyclerView = (RecyclerViewPager) view.findViewById(R.id.rv_read);
+            refreshLayout = (HorizontalRefreshLayout) view.findViewById(R.id.refresh);
         }
     }
 }

@@ -16,6 +16,7 @@
     <color name="gray_a5">#BBBBBB</color>
     <color name="gray_ea">#EAEAEA</color>
 
+    <color name="read_bg">#000000</color>
     <color name="theme_style">#1C1C1C</color>
     <color name="background">#1B1B1B</color>
     <color name="text_theme">#282828</color>
@@ -23,7 +24,7 @@
     <color name="female_red">#D4237A</color>
     <color name="male_blue">#1296DB</color>
     <color name="item_text_color_dark">#BBBBBB</color>
-    <color name="item_text_color">#9F9F9F</color>
+    <color name="item_text_color">#9E9E9E</color>
     <color name="tab_color">#292929</color>
     <color name="item_color">#1B1B1B</color>
     <color name="tab_normal_text">#829349</color>
@@ -35,7 +36,7 @@
     <color name="edit_background">#3F3F3F</color>
     <color name="label_stroke">#FFFFFF</color>
 
-    <color name="toolbar_title">#FFFFFF</color>
+    <color name="toolbar_title">#FEFFFF</color>
     <color name="toolbar_background">#282828</color>
     <color name="item_theme">#BBBBBB</color>
     <color name="me_background">#282828</color>

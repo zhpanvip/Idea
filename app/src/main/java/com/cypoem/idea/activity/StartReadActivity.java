@@ -25,6 +25,7 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.airong.core.utils.SnackbarUtils;
 import com.airong.core.view.PtrClassicListFooter;
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CommentAdapter;
@@ -118,6 +119,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     private String title;
     private LinearLayout mLlDelete;
     private LinearLayout mLlEdit;
+    private String user_id = "1";
 
     @Override
     protected int getLayoutId() {
@@ -136,7 +138,6 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         Toolbar toolbar = getToolbar();
         toolbar.inflateMenu(R.menu.toolbar_menu);
         setToolBarTitle(title);
-        setToolbarTitleColor(Color.parseColor("#010101"));
         initSharePopWindow();
         setRightIvRes(R.drawable.ic_more);
         getRightIv().setOnClickListener((View v) ->
@@ -172,7 +173,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     //  显示删除和编辑章节
     private void setDeleteChapter() {
         if (articleBean.getStatus() == 1 &&
-                articleBean.getUser().getUserId().equals(UserInfoTools.getUserId(this))) {
+                articleBean.getUser().getUserId().equals(user_id)) {
             mLlDelete.setVisibility(View.VISIBLE);
             mLlEdit.setVisibility(View.VISIBLE);
         } else {
@@ -221,6 +222,9 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                 }
             }
         });
+        if(UserInfoTools.getIsLogin(this)){
+            user_id=UserInfoTools.getUserId(this);
+        }
 
         getFirstChapter(page);
     }
@@ -235,8 +239,8 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         prePosition = position;
         // startAnim();
         setArticleData(position, id);
-        parent_id = articleBean.getSection_id();
-        String section_id = articleBean.getSection_id();
+        // parent_id = articleBean.getSection_id();
+        // String section_id = articleBean.getSection_id();
         refreshAdapterList(position);
         getNextChapter(section_id, true);
     }
@@ -260,6 +264,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         section_id = articleBean.getSection_id();
         likeStatus = articleBean.getLikeStatus();
         write_id = articleBean.getWrite_id();
+        parent_id = articleBean.getSection_id();
         keepStatus = articleBean.getKeepStatus();
         tvComment.setText("评论" + String.valueOf(articleBean.getComment_count()));
         tvContinue.setText("续写" + String.valueOf(articleBean.getRead_count()));
@@ -308,9 +313,9 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     private void getFirstChapter(int page) {
         Map<String, String> map = new HashMap<>();
         map.put("parent_id", "0");
-        map.put("user_id", UserInfoTools.getUserId(this));
+        map.put("user_id", user_id);
         map.put("page", page + "");
-        map.put("rows", "5");
+        map.put("rows", "10");
         map.put("write_id", writeId);
         map.put("write_author_id", authorId);
         IdeaApi.getApiService()
@@ -334,9 +339,9 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     private void getNextChapter(String parent_id, boolean isRefresh) {
         Map<String, String> map = new HashMap<>();
         map.put("parent_id", parent_id);
-        map.put("user_id", UserInfoTools.getUserId(this));
+        map.put("user_id",user_id);
         map.put("page", page + "");
-        map.put("rows", "5");
+        map.put("rows", "10");
         map.put("write_id", writeId);
         map.put("write_author_id", authorId);
         IdeaApi.getApiService()
@@ -349,6 +354,8 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                         List<ArticleBean> results = response.getResult();
                         if (results.size() > 0) {
                             mAdapter.getList().add(results);
+                        } else {
+                            showSnackBar(mRlRead, "没有更改章节了");
                         }
                     }
                 });
@@ -361,23 +368,41 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                 comment();
                 break;
             case R.id.ll_like://    章节点赞
-                if (likeStatus == 0) {  //  未点赞状态，请求点赞
-                    lightChapter(1);
-                } else { //  取消点赞
-                    lightChapter(0);
+                if(UserInfoTools.getIsLogin(this)){
+                    if (likeStatus == 0) {  //  未点赞状态，请求点赞
+                        lightChapter(1);
+                    } else { //  取消点赞
+                        lightChapter(0);
+                    }
+                }else {
+                    LoginActivity.start(this);
                 }
+
                 break;
             case R.id.ll_value:
                 break;
             case R.id.ll_rewrite:   //  重写
-                String reparent_id = "000";
-                if (articleBean != null) {
-                    reparent_id = articleBean.getParent_id();
+                if(UserInfoTools.getIsLogin(this)){
+                    String reparent_id = "000";
+                    if (articleBean != null) {
+                        reparent_id = articleBean.getParent_id();
+                    }
+                    WriteActivity.start(this, writeId, reparent_id, chapter_id);
+                }else {
+                    LoginActivity.start(this);
                 }
-                WriteActivity.start(this, writeId, reparent_id, chapter_id);
+
                 break;
             case R.id.ll_continue:  //  续写
-                WriteActivity.start(this, writeId, parent_id, chapter_id);
+                if(UserInfoTools.getIsLogin(this)){
+                    if (vPosition == 0) {
+                        parent_id = articleBean.getSection_id();
+                    }
+                    WriteActivity.start(this, writeId, parent_id, chapter_id);
+                }else {
+                    LoginActivity.start(this);
+                }
+
                 break;
 
         }
@@ -390,7 +415,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         Map<String, String> map = new HashMap<>();
         map.put("section_id", section_id);
         map.put("write_id", write_id);
-        map.put("user_id", UserInfoTools.getUserId(this));
+        map.put("user_id",user_id);
         map.put("status", String.valueOf(status));
         IdeaApi.getApiService()
                 .lightChapter(map)
@@ -403,13 +428,13 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                         likeStatus = status;
                         mIvPrise.setImageLevel(status);
                         articleBean.setLikeStatus(status);
-                        /*if (status == 0) {
-                            articleBean.setLike_count(articleBean.getLikeStatus() - 1);
+                        int like_count = articleBean.getLike_count();
+                        if (status == 0) {
+                            articleBean.setLike_count(like_count - 1);
                         } else {
-                            articleBean.setLike_count(articleBean.getLikeStatus() + 1);
-                        }*/
-                        tvLike.setText("赞" + (articleBean.getLikeStatus()));
-
+                            articleBean.setLike_count(like_count + 1);
+                        }
+                        tvLike.setText("赞" + (articleBean.getLike_count()));
                     }
                 });
     }
@@ -461,7 +486,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         int like_status = commentBean.getLike_status();
 
         IdeaApi.getApiService()
-                .lightComment(UserInfoTools.getUserId(this), commentId, String.valueOf(status))
+                .lightComment(user_id, commentId, String.valueOf(status))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, false) {
@@ -510,11 +535,12 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
      * @param isLoadMore 是否是上拉加载数据
      */
     private void getComment(int page, boolean isLoadMore) {
+
         Map<String, String> map = new HashMap<>();
         map.put("section_id", section_id);
-        map.put("user_id", UserInfoTools.getUserId(this));
+        map.put("user_id", user_id);
         map.put("page", page + "");
-        map.put("rows", "5");
+        map.put("rows", "10");
         IdeaApi.getApiService()
                 .getComment(map)
                 .subscribeOn(Schedulers.io())
@@ -553,7 +579,12 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                 commentPage = 1;
                 break;
             case R.id.btn_comment:
-                postComment();
+                if(UserInfoTools.getIsLogin(this)){
+                    postComment();
+                }else {
+                    LoginActivity.start(this);
+                }
+
                 break;
             case R.id.ll_collect:
                 collect();
@@ -599,7 +630,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         Map<String, String> map = new HashMap<>();
         map.put("write_id", write_id);
         map.put("section_id", section_id);
-        map.put("user_id", UserInfoTools.getUserId(this));
+        map.put("user_id", user_id);
         String status = "0";
         if ("0".equals(keepStatus)) {
             status = "1";
@@ -635,7 +666,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
             return;
         }
         IdeaApi.getApiService()
-                .comment(UserInfoTools.getUserId(this), section_id, content)
+                .comment(user_id, section_id, content)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {
@@ -657,7 +688,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     private void deleteChapter(int type) {
         Map<String, String> map = new HashMap<>();
         map.put("section_id", articleBean.getSection_id());
-        map.put("user_id", UserInfoTools.getUserId(this));
+        map.put("user_id", user_id);
         map.put("status", String.valueOf(type));
         IdeaApi.getApiService()
                 .updateChapter(map)
@@ -680,7 +711,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         // title标题，印象笔记、邮箱、信息、微信、人人网、QQ和QQ空间使用
         oks.setTitle("创意说");
         // titleUrl是标题的网络链接，仅在Linked-in,QQ和QQ空间使用
-        oks.setTitleUrl("http://cypoem.com:8080/cys/index.html?from=qrcode");
+        oks.setTitleUrl("http://www.cypoem.com");
         // text是分享文本，所有平台都需要这个字段
         oks.setText("当我们阅读的时候，思考，便成了作者。\n当我们写作的时候，思考，便成了读者。");
         //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
@@ -688,13 +719,13 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
         //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
         // url仅在微信（包括好友和朋友圈）中使用
-        oks.setUrl("http://cypoem.com:8080/cys/index.html?from=qrcode");
+        oks.setUrl("http://www.cypoem.com");
         // comment是我对这条分享的评论，仅在人人网和QQ空间使用
         oks.setComment("不一样的阅读体验");
         // site是分享此内容的网站名称，仅在QQ空间使用
         oks.setSite("创意说");
         // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-        oks.setSiteUrl("http://cypoem.com:8080/cys/index.html?from=qrcode");
+        oks.setSiteUrl("http://www.cypoem.com");
 
 // 启动分享GUI
         oks.show(this);

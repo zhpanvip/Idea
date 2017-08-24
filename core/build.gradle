@@ -67,6 +67,8 @@ dependencies {
     compile 'com.zhy:flowlayout-lib:1.0.3'
     compile 'com.contrarywind:Android-PickerView:3.2.5'
    // compile 'com.github.pinguo-zhouwei:MZBannerView:v1.1.2'
-    compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
+   // compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
+    compile 'uk.co.chrisjenx:calligraphy:2.3.0'
+    compile 'xiao.free.horizontalrefreshlayout:lib:v0.1.2'
     compile project(':libres')
 }

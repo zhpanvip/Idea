@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cypoem.idea.R;
+import com.cypoem.idea.activity.BasicWebViewActivity;
 import com.cypoem.idea.activity.StartReadActivity;
 import com.cypoem.idea.adapter.HomeAdapter;
 import com.cypoem.idea.module.BasicResponse;
@@ -76,8 +77,8 @@ public class HomePageFragment extends BaseFragment {
             HomePageBean homePageBean = mAdapter.getList().get(position - 1);
             String writeId = String.valueOf(homePageBean.getWrite_id());
             String authorId = homePageBean.getUser().getUser_id();
-            String title=homePageBean.getWrite_name();
-            StartReadActivity.start(getContext(), writeId, authorId,title);
+            String title = homePageBean.getWrite_name();
+            StartReadActivity.start(getContext(), writeId, authorId, title);
         });
         initViewPager();
     }
@@ -88,11 +89,19 @@ public class HomePageFragment extends BaseFragment {
         bannerView.setInterval(5000);
         bannerView.setUrlList(new ArrayList<>());
         bannerView.setOnPageClickListener((int position) -> {
-            showToast("Forward Url" + position);
+            List<BannerBean> urlList = bannerView.getUrlList();
+            BannerBean bannerBean = urlList.get(position);
+            int type = bannerBean.getType();
+            if (type == 0) {
+                BasicWebViewActivity.start(getContext(), "创意说", bannerBean.getUrl());
+            } else {
+                BannerBean.WriteBean write = bannerBean.getWrite();
+                StartReadActivity.start(getContext(), write.getWrite_id(),write.getUser_id() , "创意说");
+            }
         });
         mAdapter.addHeaderView(headerView);
 
-       // getBannerData();
+        // getBannerData();
         /*bannerView.setDuration(5000);
         List<String> mUrlList = new ArrayList<>();
         mUrlList.add("http://d.5857.com/gqyhx_131102/004.jpg");
@@ -133,7 +142,7 @@ public class HomePageFragment extends BaseFragment {
     @Override
     public void onPtrRefreshBegin(PtrFrameLayout frame) {
         page = 1;
-        frame.postDelayed((() ->{
+        frame.postDelayed((() -> {
             getData(true, page);
             getBannerData();
         }), 100);

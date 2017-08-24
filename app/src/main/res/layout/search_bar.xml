@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="@color/colorPrimary"
+        android:background="@color/toolbar_background"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -63,7 +63,7 @@
             android:layout_gravity="center_vertical"
             android:layout_marginRight="15dp"
             android:text="取消"
-            android:textColor="@color/text_light"
+            android:textColor="@color/toolbar_title"
             android:textSize="@dimen/f_13" />
     </LinearLayout>
 </LinearLayout>

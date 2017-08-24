@@ -61,6 +61,8 @@
                 android:layout_centerVertical="true"
                 android:hint="@string/opus_name"
                 android:background="@null"
+                android:maxLines="2"
+                android:maxLength="30"
                 android:textColorHint="@color/text_hint"
                 android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_18"/>
@@ -71,7 +73,6 @@
         <RelativeLayout
             android:id="@+id/rl_label"
             android:layout_width="match_parent"
-            android:visibility="gone"
             android:layout_height="@dimen/mp_45">
 
             <TextView

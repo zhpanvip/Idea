@@ -186,12 +186,19 @@ public class GetIdentifyCodeActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BasicResponse response) {
                         boolean isRegistered = (boolean) response.getResult();
-                        if (type == REGISTER && isRegistered) {
-                            showToast(R.string.had_registered);
-                        } else {
-                            //  发送验证码
+                        if(type==REGISTER){
+                            showToast("账号已经注册过了哦，请登陆。");
+                        }
+                       if(type == FORGET_PSW&&isRegistered){
                             SMSSDK.getVerificationCode("86", phone, null);
                         }
+                    }
+
+                    @Override
+                    public void onFail(BasicResponse response, int code) {
+                        //  账号未注册
+                        if (type == REGISTER&&code == 202)
+                            SMSSDK.getVerificationCode("86", phone, null);
                     }
                 });
     }
@@ -209,8 +216,6 @@ public class GetIdentifyCodeActivity extends BaseActivity {
         } else {
             showToast(R.string.input_correct_phone_num);
         }
-
-
     }
 
     //  避免内存泄漏

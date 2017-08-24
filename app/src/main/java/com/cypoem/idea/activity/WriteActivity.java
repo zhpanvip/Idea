@@ -73,7 +73,7 @@ public class WriteActivity extends BaseActivity {
 
     private void setData() {
         getSubTitle().setText("保存草稿");
-        getSubTitle().setVisibility(View.VISIBLE);
+        //getSubTitle().setVisibility(View.VISIBLE);
         Intent intent = getIntent();
         chapter_id = intent.getStringExtra("chapter_id");
         write_id = intent.getStringExtra("write_id");

@@ -278,8 +278,8 @@ public class SearchActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onFail(BasicResponse<List<OpusBean>> response) {
-                        super.onFail(response);
+                    public void onFail(BasicResponse<List<OpusBean>> response,int code) {
+                        super.onFail(response,code);
                         dismissLoading();
                     }
 

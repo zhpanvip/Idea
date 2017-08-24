@@ -56,10 +56,11 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     @Override
     public void onNext(T response) {
         mBaseImpl.dismissProgress();
-        if (response.getCode() == 200) {
+        int code = response.getCode();
+        if (code == 200) {
             onSuccess(response);
         } else {
-            onFail(response);
+            onFail(response,code);
         }
     }
 
@@ -103,7 +104,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
      *
      * @param response 服务器返回的数据
      */
-    public void onFail(T response) {
+    public void onFail(T response,int code) {
         String message = response.getMsg();
         if (TextUtils.isEmpty(message)) {
             ToastUtils.show(R.string.response_return_error);
