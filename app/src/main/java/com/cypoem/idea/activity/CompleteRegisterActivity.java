@@ -88,7 +88,7 @@ public class CompleteRegisterActivity extends BaseActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 sex = (progress) / 100.0 + "";
-                mSexView.setMalePercent(1 - progress / 100.0);
+                mSexView.setMalePercent(progress / 100.0);
             }
 
             @Override

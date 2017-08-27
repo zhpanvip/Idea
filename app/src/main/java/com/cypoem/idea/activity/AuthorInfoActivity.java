@@ -149,7 +149,7 @@ public class AuthorInfoActivity extends BaseActivity {
     }
 
     private void setUserData(UserBean user) {
-        ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST + user.getCover_photo(), R.drawable.head_pic);
+        ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST + user.getCover_photo(), R.drawable.user_info_placeholder);
         mTvPenName.setText(user.getPen_name());
         String sex = user.getSex();
         mSexView.setMalePercent(Double.parseDouble(sex));
@@ -161,7 +161,6 @@ public class AuthorInfoActivity extends BaseActivity {
         mTvFocus.setText(String.valueOf(user.getMyWatchCount()));
         mTvCollect.setText(String.valueOf(user.getKeep_count()));
         mTvLike.setText(String.valueOf(user.getEnjoy_count()));
-
     }
 
     private void setListener() {
@@ -427,7 +426,7 @@ public class AuthorInfoActivity extends BaseActivity {
                         showToast(response.getMsg());
                         String url = response.getResult().toString();
                         UserInfoTools.setCover(AuthorInfoActivity.this, url);
-                        ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST + url, R.drawable.head_pic);
+                        ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST + url, R.drawable.user_info_placeholder);
                     }
                 });
     }

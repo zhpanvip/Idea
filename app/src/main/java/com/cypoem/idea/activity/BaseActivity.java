@@ -90,6 +90,14 @@ public abstract class BaseActivity extends BaseRxActivity {
         mPtrFrame.setFooterView(footer);
         mPtrFrame.addPtrUIHandler(footer);
 
+        setPtrHandler(null);
+
+        mPtrFrame.setKeepHeaderWhenRefresh(true);
+        if (isAutoRefresh)
+            mPtrFrame.postDelayed((() -> mPtrFrame.autoRefresh()), 1000);
+    }
+
+    protected void setPtrHandler(View view) {
         mPtrFrame.setPtrHandler(new PtrDefaultHandler2() {
             @Override
             public void onLoadMoreBegin(PtrFrameLayout frame) {
@@ -103,17 +111,14 @@ public abstract class BaseActivity extends BaseRxActivity {
 
             @Override
             public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
-                return super.checkCanDoLoadMore(frame, content, footer);
+                return super.checkCanDoLoadMore(frame, null==view?content:view, footer);
             }
 
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, null==view?content:view, header);
             }
         });
-        mPtrFrame.setKeepHeaderWhenRefresh(true);
-        if (isAutoRefresh)
-            mPtrFrame.postDelayed((() -> mPtrFrame.autoRefresh()), 1000);
     }
 
     /**

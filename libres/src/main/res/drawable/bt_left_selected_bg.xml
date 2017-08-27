@@ -17,7 +17,7 @@
     android:bottom="1dp"
     android:left="1dp">
     <shape>
-        <solid android:color="@color/theme_style"/>
+        <solid android:color="@color/radio_bg_checked"/>
         <corners
             android:topLeftRadius="3dp"
             android:bottomLeftRadius="3dp"/>

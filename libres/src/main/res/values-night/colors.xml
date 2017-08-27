@@ -27,8 +27,8 @@
     <color name="item_text_color">#9E9E9E</color>
     <color name="tab_color">#292929</color>
     <color name="item_color">#1B1B1B</color>
-    <color name="tab_normal_text">#829349</color>
-    <color name="tab_selected_text">#C2C528</color>
+    <color name="tab_normal_text">#BEBEBE</color>
+    <color name="tab_selected_text">#878785</color>
     <color name="line_color">#BDBDBD</color>
     <color name="item_title">#282828</color>
     <color name="item_title_text">#FFFFFF</color>
@@ -40,4 +40,7 @@
     <color name="toolbar_background">#282828</color>
     <color name="item_theme">#BBBBBB</color>
     <color name="me_background">#282828</color>
+    <color name="radio_bg">#1C1C1C</color>
+    <color name="radio_bg_checked">#F6F6F6</color>
+    <color name="radio_text_checked">#1C1C1C</color>
 </resources>

@@ -67,7 +67,13 @@ public abstract class BaseFragment extends BaseLazyFragment {
         mPtrFrame.addPtrUIHandler(header);
         mPtrFrame.setFooterView(footer);
         mPtrFrame.addPtrUIHandler(footer);
+        setPtrHandler(null);
+        mPtrFrame.setKeepHeaderWhenRefresh(true);
+        if (isAutoRefresh)
+            mPtrFrame.postDelayed((() -> mPtrFrame.autoRefresh()), 200);
+    }
 
+    protected void setPtrHandler(View view) {
         mPtrFrame.setPtrHandler(new PtrDefaultHandler2() {
             @Override
             public void onLoadMoreBegin(PtrFrameLayout frame) {
@@ -81,17 +87,14 @@ public abstract class BaseFragment extends BaseLazyFragment {
 
             @Override
             public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
-                return super.checkCanDoLoadMore(frame, content, footer);
+                return super.checkCanDoLoadMore(frame, null==view?content:view, footer);
             }
 
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, content, header);
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, null==view?content:view, header);
             }
         });
-        mPtrFrame.setKeepHeaderWhenRefresh(true);
-        if (isAutoRefresh)
-            mPtrFrame.postDelayed((() -> mPtrFrame.autoRefresh()), 200);
     }
 
     /**

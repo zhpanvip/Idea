@@ -143,7 +143,7 @@ public interface IdeaApiService {
      * @param type   0最新 1最热
      * @return
      */
-    @Headers("Cache-Control: public, max-age=600")
+    //@Headers("Cache-Control: public, max-age=600")
     @GET("write/discover.do")
     Observable<BasicResponse<List<HomePageBean>>> getDiscoverData(@Query("page") int page, @Query("rows") int number, @Query("type") int type);
 

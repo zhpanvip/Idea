@@ -90,14 +90,14 @@ public class SettingActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    @OnClick({R.id.rl_catch, R.id.ll_advice, R.id.rl_about_us, R.id.rl_protocol, R.id.btn_exit,
+    @OnClick({R.id.rl_catch, R.id.rl_advice, R.id.rl_about_us, R.id.rl_protocol, R.id.btn_exit,
     R.id.rl_update,R.id.rl_phone,R.id.rl_update_password})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_catch:
                 clearCache();
                 break;
-            case R.id.ll_advice:
+            case R.id.rl_advice:
                 SuggestActivity.start(this, "我的");
                 break;
             case R.id.rl_about_us:

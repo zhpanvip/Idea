@@ -7,13 +7,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_120"
-        android:paddingBottom="7dp"
-        android:paddingTop="7dp">
+        android:layout_height="@dimen/mp_110"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
 
         <ImageView
             android:id="@+id/iv_collect"
-            android:layout_width="150dp"
+            android:layout_width="160dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="@dimen/mp_10"
             android:layout_marginStart="@dimen/mp_10"

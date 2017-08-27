@@ -30,6 +30,7 @@ import com.airong.core.view.PtrClassicListFooter;
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CommentAdapter;
 import com.cypoem.idea.adapter.StartReadAdapter;
+import com.cypoem.idea.event.RewriteSuccess;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleBean;
 import com.cypoem.idea.module.bean.CommentBean;
@@ -38,6 +39,9 @@ import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.net.IdeaApiService;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -129,7 +133,6 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     @Override
     protected void init(Bundle savedInstanceState) {
         initData();
-
         initToolbar();
         initCommentPopWindows();
     }
@@ -183,6 +186,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     }
 
     private void initData() {
+        EventBus.getDefault().register(this);
         Intent intent = getIntent();
         authorId = intent.getStringExtra("authorId");
         writeId = intent.getStringExtra("writeId");
@@ -229,7 +233,28 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         getFirstChapter(page);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
     /**
+     * 重写续写成功
+     * @param rewriteSuccess
+     */
+    @Subscribe
+    public void rewriteSuccess(RewriteSuccess rewriteSuccess){
+        refreshData();
+    }
+
+   private void refreshData(){
+       mAdapter.getList().clear();
+       page=1;
+       getFirstChapter(page);
+    }
+
+     /**
      * @param position 当前选中的position（竖直）
      * @param id       横向位置
      */
@@ -368,44 +393,58 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                 comment();
                 break;
             case R.id.ll_like://    章节点赞
-                if(UserInfoTools.getIsLogin(this)){
-                    if (likeStatus == 0) {  //  未点赞状态，请求点赞
-                        lightChapter(1);
-                    } else { //  取消点赞
-                        lightChapter(0);
-                    }
-                }else {
-                    LoginActivity.start(this);
-                }
-
+                priseChapter();
                 break;
             case R.id.ll_value:
+                showToast("赞赏功能还未开通哦");
                 break;
             case R.id.ll_rewrite:   //  重写
-                if(UserInfoTools.getIsLogin(this)){
-                    String reparent_id = "000";
-                    if (articleBean != null) {
-                        reparent_id = articleBean.getParent_id();
-                    }
-                    WriteActivity.start(this, writeId, reparent_id, chapter_id);
-                }else {
-                    LoginActivity.start(this);
-                }
-
+                rewrite();
                 break;
             case R.id.ll_continue:  //  续写
-                if(UserInfoTools.getIsLogin(this)){
-                    if (vPosition == 0) {
-                        parent_id = articleBean.getSection_id();
-                    }
-                    WriteActivity.start(this, writeId, parent_id, chapter_id);
-                }else {
-                    LoginActivity.start(this);
-                }
-
+                continueWrite();
                 break;
-
         }
+    }
+    //  章节点赞
+    private void priseChapter() {
+        if(isLogin()){
+            if (likeStatus == 0) {  //  未点赞状态，请求点赞
+                lightChapter(1);
+            } else { //  取消点赞
+                lightChapter(0);
+            }
+        }else {
+            LoginActivity.start(this);
+        }
+    }
+
+    //  续写
+    private void continueWrite() {
+        if(isLogin()){
+            if (vPosition == 0&&null!=articleBean) {
+                parent_id = articleBean.getSection_id();
+            }
+            WriteActivity.start(this, writeId, parent_id, chapter_id/*(Integer.valueOf(chapter_id)+1)+""*/,WriteActivity.CONTINUE_WRITE);
+        }else {
+            LoginActivity.start(this);
+        }
+    }
+    //  重写
+    private void rewrite() {
+        if(isLogin()){
+            String reparent_id = "000";
+            if (articleBean != null) {
+                reparent_id = articleBean.getParent_id();
+            }
+            WriteActivity.start(this, writeId, reparent_id, chapter_id,WriteActivity.REWRITE);
+        }else {
+            LoginActivity.start(this);
+        }
+    }
+
+    private boolean isLogin(){
+        return UserInfoTools.getIsLogin(this);
     }
 
     /**
@@ -483,7 +522,6 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     //  为评论点赞
     private void likeComment(CommentBean commentBean, ImageView imageView, int status) {
         String commentId = commentBean.getComment_id();
-        int like_status = commentBean.getLike_status();
 
         IdeaApi.getApiService()
                 .lightComment(user_id, commentId, String.valueOf(status))
@@ -579,6 +617,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                 commentPage = 1;
                 break;
             case R.id.btn_comment:
+
                 if(UserInfoTools.getIsLogin(this)){
                     postComment();
                 }else {
@@ -621,6 +660,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
 
     //  举报
     private void report() {
+        showToast("举报成功");
         mPopupWindow.dismiss();
     }
 
@@ -698,14 +738,14 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                     @Override
                     public void onSuccess(BasicResponse response) {
                         showToast("删除成功");
+                        refreshData();
                     }
                 });
     }
 
     //  分享
-    private void showShare() {
+   /* private void showShare() {
         OnekeyShare oks = new OnekeyShare();
-
         //关闭sso授权
         oks.disableSSOWhenAuthorize();
         // title标题，印象笔记、邮箱、信息、微信、人人网、QQ和QQ空间使用
@@ -728,6 +768,34 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         oks.setSiteUrl("http://www.cypoem.com");
 
 // 启动分享GUI
+        oks.show(this);
+    }*/
+
+    private void showShare() {
+        OnekeyShare oks = new OnekeyShare();
+        //关闭sso授权
+        oks.disableSSOWhenAuthorize();
+
+        // 分享时Notification的图标和文字  2.5.9以后的版本不     调用此方法
+        //oks.setNotification(R.drawable.ic_launcher, getString(R.string.app_name));
+        // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
+        oks.setTitle(getString(R.string.share));
+        // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
+        oks.setTitleUrl("http://www.cypoem.com");
+        // text是分享文本，所有平台都需要这个字段
+        oks.setText("当我们阅读的时候，思考，便成了作者。\\n当我们写作的时候，思考，便成了读者。");
+        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+       // oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        // url仅在微信（包括好友和朋友圈）中使用
+        oks.setUrl("http://www.cypoem.com");
+        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+        oks.setComment("不一样的阅读体验");
+        // site是分享此内容的网站名称，仅在QQ空间使用
+        oks.setSite(getString(R.string.app_name));
+        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+        oks.setSiteUrl("http://www.cypoem.com");
+
+        // 启动分享GUI
         oks.show(this);
     }
 }

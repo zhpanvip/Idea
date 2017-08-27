@@ -6,11 +6,13 @@ import android.support.annotation.DrawableRes;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+
 import com.airong.core.utils.helper.GlideCircleTransform;
 import com.airong.core.utils.helper.GlideRoundTransform;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.target.SizeReadyCallback;
+
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -26,15 +28,15 @@ public class ImageLoaderUtil {
     public static void loadImg(ImageView v, String url) {
         Glide.with(v.getContext())
                 .load(url)
-                .fitCenter()
+                .centerCrop()
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(v);
     }
 
-    public static void loadImg(ImageView v, String url,@DrawableRes int placeholder) {
+    public static void loadImg(ImageView v, String url, @DrawableRes int placeholder) {
         Glide.with(v.getContext())
                 .load(url)
-                .fitCenter()
+              //  .centerCrop()
                 .placeholder(placeholder)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(v);
@@ -51,7 +53,7 @@ public class ImageLoaderUtil {
     }
 
 
-    public static void loadCircleImg(ImageView v, String url,@DrawableRes int placeholder) {
+    public static void loadCircleImg(ImageView v, String url, @DrawableRes int placeholder) {
         Glide.with(v.getContext())
                 .load(url)
                 .placeholder(placeholder)
@@ -60,12 +62,12 @@ public class ImageLoaderUtil {
                 .into(v);
     }
 
-    public static void loadRoundImg(ImageView v, String url,@DrawableRes int placeholder) {
+    public static void loadRoundImg(ImageView v, String url, @DrawableRes int placeholder) {
         Glide.with(v.getContext())
                 .load(url)
                 .transform(new GlideRoundTransform(v.getContext()))
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
-               .placeholder(placeholder)
+                .placeholder(placeholder)
                 .into(v);
     }
 

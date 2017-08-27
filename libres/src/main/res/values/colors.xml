@@ -45,5 +45,10 @@
     <color name="item_theme">#628B31</color>
     <color name="footer">#EBEBEB</color>
     <color name="me_background">#628B31</color>
+    <color name="radio_bg">#829349</color>
+    <color name="radio_bg_checked">#FFFFFF</color>
+
+    <color name="radio_text">#FFFFFF</color>
+    <color name="radio_text_checked">#829349</color>
 
 </resources>

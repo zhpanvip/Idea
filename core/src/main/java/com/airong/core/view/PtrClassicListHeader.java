@@ -246,7 +246,7 @@ public class PtrClassicListHeader extends FrameLayout implements PtrUIHandler {
     private void crossRotateLineFromTopUnderTouch(PtrFrameLayout frame) {
         if (!frame.isPullToRefresh()) {
             mTitleTextView.setVisibility(VISIBLE);
-            mTitleTextView.setText("松开立即新");
+            mTitleTextView.setText("松开立即刷新");
         }
     }
 

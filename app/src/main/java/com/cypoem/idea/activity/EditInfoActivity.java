@@ -126,7 +126,7 @@ public class EditInfoActivity extends BaseActivity {
     private double percent = 0.5;
     private String sign = "";
     private String penName = "";
-    private String sex = "";
+    private String sex = "0.5";
     private String birthday = "";
     private String address = "";
     private String introduction = "";
@@ -331,7 +331,7 @@ public class EditInfoActivity extends BaseActivity {
         sexView.setCenterColor(Color.parseColor("#FFFFFF"));
         sexView.setMalePercent(dSex);
         SeekBar seekBar = (SeekBar) dialog.findViewById(R.id.seek_bar);
-        seekBar.setProgress((int) ((1 - dSex) * 100));
+        seekBar.setProgress((int) (dSex * 100));
         Button btnConfirm = (Button) dialog.findViewById(R.id.btn_confirm);
         setListener(seekBar, sexView);
         btnConfirm.setOnClickListener((View v) -> {
@@ -339,7 +339,7 @@ public class EditInfoActivity extends BaseActivity {
                 sex = String.valueOf(percent);
                 updateUserInfo();
             }
-            isSexChanged=false;
+            isSexChanged = false;
             dismissDialog();
         });
     }
@@ -349,7 +349,7 @@ public class EditInfoActivity extends BaseActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 isSexChanged = true;
-                percent = (100 - progress) / 100.0;
+                percent = progress / 100.0;
                 sexView.setMalePercent(percent);
             }
 

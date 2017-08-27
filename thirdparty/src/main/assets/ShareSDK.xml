@@ -108,7 +108,7 @@
         AppSecret="80c4eec0d2fccb0609c28606b8a35423"
 		userName="gh_afb25ac019c9"
 		path="pages/index/index.html?id=1"
-        BypassApproval="false"
+        BypassApproval="true"
         Enable="true" />
     
     <WechatMoments
@@ -116,7 +116,7 @@
         SortId="5"
         AppId="wxc585d31bcefaba3e"
         AppSecret="80c4eec0d2fccb0609c28606b8a35423"
-        BypassApproval="false"
+        BypassApproval="true"
         Enable="true" />
         
 	<WechatFavorite
@@ -125,8 +125,6 @@
         AppId="wxc585d31bcefaba3e"
         AppSecret="80c4eec0d2fccb0609c28606b8a35423"
         Enable="true" />
-    
-
     
     <Facebook
         Id="8"

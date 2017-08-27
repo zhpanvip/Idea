@@ -3,6 +3,7 @@ package com.cypoem.idea.fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,6 +33,8 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     private static final int ROWS = 10;
     @BindView(R.id.lv_author)
     ListView mListView;
+    @BindView(R.id.ll_default)
+    LinearLayout mLlDefault;
     @BindView(R.id.tv_no_data)
     TextView mTvNoData;
     private CollectAdapter mAdapter;
@@ -94,7 +97,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
                             mPtrFrame.setMode(PtrFrameLayout.Mode.LOAD_MORE);
                         }
                         if (result.size() == 0) {
-                            mListView.setVisibility(View.GONE);
+                            mLlDefault.setVisibility(View.VISIBLE);
                             mTvNoData.setText("暂无数据");
                         }
                         mAdapter.getList().addAll(response.getResult());
@@ -109,6 +112,11 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
     protected void onPtrLoadMoreBegin(PtrFrameLayout frame) {
         super.onPtrLoadMoreBegin(frame);
         getData(page);
+    }
+
+    @Override
+    protected void setPtrHandler(View view) {
+        super.setPtrHandler(mListView);
     }
 
     @Override

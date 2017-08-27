@@ -60,7 +60,7 @@ public class CrashUtils implements UncaughtExceptionHandler {
         if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())) {
             File baseCache = Environment.getExternalStorageDirectory();
             if (baseCache == null) return false;
-            crashDir = baseCache.getPath() + File.separator + "idea" + File.separator + "crash" + File.separator;
+            crashDir = baseCache.getPath() + File.separator + "cypoem" + File.separator + "crash" + File.separator;
         } else {
             File baseCache = Utils.getContext().getCacheDir();
             if (baseCache == null) return false;

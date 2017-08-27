@@ -9,9 +9,9 @@
         android:id="@+id/ll_tab"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_50"
+        android:orientation="vertical"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:orientation="vertical">
+        android:layout_alignParentStart="true">
 
         <include layout="@layout/base_line" />
 

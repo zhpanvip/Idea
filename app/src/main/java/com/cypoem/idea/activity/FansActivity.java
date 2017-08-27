@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -28,6 +29,8 @@ import io.reactivex.schedulers.Schedulers;
 public class FansActivity extends BaseActivity {
     @BindView(R.id.lv_fans)
     ListView lvFans;
+    @BindView(R.id.ll_default)
+    LinearLayout mLlDefault;
     @BindView(R.id.tv_no_data)
     TextView mTvNoData;
     private FansAdapter mAdapter;
@@ -94,6 +97,11 @@ public class FansActivity extends BaseActivity {
     }
 
     @Override
+    protected void setPtrHandler(View view) {
+        super.setPtrHandler(lvFans);
+    }
+
+    @Override
     public void dismissProgress() {
         super.dismissProgress();
         mPtrFrame.refreshComplete();
@@ -135,12 +143,11 @@ public class FansActivity extends BaseActivity {
         mAdapter.getList().addAll(response.getResult());
         mAdapter.notifyDataSetChanged();
         if (response.getResult().size() == 0 && isRefresh) {
-            lvFans.setVisibility(View.GONE);
+            mLlDefault.setVisibility(View.VISIBLE);
             if (type == Constants.FOLLOWS)
-                mTvNoData.setText("您还没有粉丝哦！");
+                mTvNoData.setText("没有粉丝");
             else if (type == Constants.FOCUS)
-                mTvNoData.setText("您还没有关注任何用户");
+                mTvNoData.setText("没有关注任何用户");
         }
-
     }
 }

@@ -90,8 +90,8 @@ public class PublishActivity extends BaseActivity {
     private String picPath;
     private int mMaxBitmapSize = 0;
     private String opusName;
-    private String isCanOverride = "0";
-    private String isCanRenew = "0";
+    private String isCanOverride = "1";
+    private String isCanRenew = "1";
     private String[] positions;
     private String label = "";
     private String describe = "";
@@ -111,16 +111,16 @@ public class PublishActivity extends BaseActivity {
     private void setListener() {
         tbContinue.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
             if (isChecked) {
-                isCanRenew = "0";
-            } else {
                 isCanRenew = "1";
+            } else {
+                isCanRenew = "0";
             }
         });
         tbOverride.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
             if (isChecked) {
-                isCanOverride = "0";
-            } else {
                 isCanOverride = "1";
+            } else {
+                isCanOverride = "0";
             }
         });
     }
@@ -193,10 +193,11 @@ public class PublishActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse<PublishBean>>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse<PublishBean> response) {
+                        showToast("作品发布成功，为作品添加一个章节吧！");
                         Gson gson=new Gson();
                         String s = gson.toJson(response);
                         LogUtils.e(s);
-                        WriteActivity.start(PublishActivity.this,response.getResult().getWrite_id(),"000","1");
+                        WriteActivity.start(PublishActivity.this,response.getResult().getWrite_id(),"000","1",WriteActivity.PUBLISH);
                         finish();
                     }
                 });
@@ -332,7 +333,7 @@ public class PublishActivity extends BaseActivity {
         UCrop uCrop = UCrop.of(uri, Uri.fromFile(new File(getCacheDir(), destinationFileName)));
 
         //uCrop = basisConfig(uCrop);
-        uCrop = uCrop.withAspectRatio(3, 2);
+        uCrop = uCrop.withAspectRatio(16, 9);
         uCrop = advancedConfig(uCrop);
         uCrop.start(PublishActivity.this);
     }

@@ -5,8 +5,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <RadioGroup
             android:id="@+id/rg_tab"
@@ -14,7 +13,7 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:background="@color/tab_color"
-            android:gravity="center_vertical"
+            android:layout_centerInParent="true"
             android:paddingTop="@dimen/mp_5"
             android:orientation="horizontal">
 

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,8 +28,10 @@ import io.reactivex.schedulers.Schedulers;
 public class CollectActivity extends BaseActivity {
     @BindView(R.id.lv_collect)
     ListView mListView;
-    /*@BindView(R.id.tv_no_data)
-    TextView mTvNoData;*/
+    @BindView(R.id.ll_default)
+    LinearLayout mLlDefault;
+    @BindView(R.id.tv_no_data)
+    TextView mTvNoData;
     private CollectAdapter mAdapter;
     private int page=1;
 
@@ -84,6 +87,11 @@ public class CollectActivity extends BaseActivity {
     }
 
     @Override
+    protected void setPtrHandler(View view) {
+        super.setPtrHandler(mListView);
+    }
+
+    @Override
     public void dismissProgress() {
         super.dismissProgress();
         mPtrFrame.refreshComplete();
@@ -105,8 +113,8 @@ public class CollectActivity extends BaseActivity {
                         mAdapter.getList().addAll(response.getResult());
                         mAdapter.notifyDataSetChanged();
                         if(response.getResult().size()==0){
-                            mListView.setVisibility(View.GONE);
-                           // mTvNoData.setText("您还没有收藏的章节呢");
+                            mLlDefault.setVisibility(View.VISIBLE);
+                            mTvNoData.setText("没有收藏的章节");
                         }
                     }
                 });

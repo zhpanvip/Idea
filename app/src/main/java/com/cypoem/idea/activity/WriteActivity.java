@@ -14,10 +14,13 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.cypoem.idea.R;
+import com.cypoem.idea.event.RewriteSuccess;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +50,11 @@ public class WriteActivity extends BaseActivity {
     private String chapter_id;
     private String write_id;
     private String reStatus = "0";
+    private String toast;
+    private int type;
+    public static final int PUBLISH=0;
+    public static final int REWRITE = 1;
+    public static final int CONTINUE_WRITE = 2;
 
     @Override
     protected int getLayoutId() {
@@ -64,12 +72,11 @@ public class WriteActivity extends BaseActivity {
         tbRewrite.setOnCheckedChangeListener((CompoundButton buttonView, boolean isChecked) -> {
             if (isChecked) {
                 reStatus = "0";
-            } else {
+            } else  {
                 reStatus = "1";
             }
         });
     }
-
 
     private void setData() {
         getSubTitle().setText("保存草稿");
@@ -77,16 +84,25 @@ public class WriteActivity extends BaseActivity {
         Intent intent = getIntent();
         chapter_id = intent.getStringExtra("chapter_id");
         write_id = intent.getStringExtra("write_id");
+         type = intent.getIntExtra("type", 0);
+        if (type == REWRITE) {
+            toast = "重写成功";
+        } else if(type==CONTINUE_WRITE) {
+            toast = "续写成功";
+        }else if(type==PUBLISH){
+            toast="发布成功";
+        }
         if (!TextUtils.isEmpty(intent.getStringExtra("parent_id"))) {
             parent_id = intent.getStringExtra("parent_id");
         }
     }
 
-    public static void start(Context context, String write_id, String parent_id, String chapter_id) {
+    public static void start(Context context, String write_id, String parent_id, String chapter_id, int type) {
         Intent intent = new Intent(context, WriteActivity.class);
         intent.putExtra("write_id", write_id);
         intent.putExtra("parent_id", parent_id);
         intent.putExtra("chapter_id", chapter_id);
+        intent.putExtra("type", type);
         context.startActivity(intent);
     }
 
@@ -123,7 +139,10 @@ public class WriteActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse<String> response) {
-                        showToast(response.getResult());
+                        showToast(toast);
+                        if(type!=PUBLISH){
+                            EventBus.getDefault().post(new RewriteSuccess());
+                        }
                         finish();
                     }
                 });

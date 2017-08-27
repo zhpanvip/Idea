@@ -15,8 +15,7 @@
             android:layout_width="@dimen/mp_100"
             android:layout_height="@dimen/mp_150"
             android:layout_marginEnd="@dimen/mp_15"
-            android:scaleType="fitXY"
-            android:src="@drawable/head_pic" />
+            android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/tv_pen_name_text"
