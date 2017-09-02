@@ -180,7 +180,7 @@ public class HomePageFragment extends BaseFragment {
             mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
         }
         list.addAll(result);
-        mAdapter.notifyDataSetChanged();
+        //mAdapter.notifyDataSetChanged();
     }
 
 

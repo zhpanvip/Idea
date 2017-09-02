@@ -18,6 +18,8 @@ import com.airong.core.utils.FileUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.event.NightModeEvent;
+import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.module.bean.UserInfoBean;
 import com.cypoem.idea.utils.SharedPreferencesHelper;
 import com.cypoem.idea.utils.UserInfoTools;
 
@@ -133,7 +135,7 @@ public class SettingActivity extends BaseActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.animo_alph_open, R.anim.animo_alph_close);
         SharedPreferencesHelper.clear(this);
-        UserInfoTools.setIsLogin(this, false);
+        UserInfoTools.logout();
         //  发送广播结束MainActivity
         EventBus.getDefault().post(new NightModeEvent());
         finish();

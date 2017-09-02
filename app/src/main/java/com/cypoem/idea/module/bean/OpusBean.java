@@ -34,6 +34,15 @@ public class OpusBean {
     private int read_count;
     private String type;
     private String write_id;
+    private String pen_name;
+
+    public String getPen_name() {
+        return pen_name;
+    }
+
+    public void setPen_name(String pen_name) {
+        this.pen_name = pen_name;
+    }
 
     public String getWrite_id() {
         return write_id;

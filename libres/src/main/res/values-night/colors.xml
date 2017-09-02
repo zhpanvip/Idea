@@ -6,7 +6,7 @@
     <color name="themDark">#1C1C1C</color>
 
     <color name="gray_66">#666666</color>
-    <color name="gray_99">#9DBADC</color>
+    <color name="gray_99">#BBBBBB</color>
     <color name="gray_a2">#A2A2A2</color>
     <color name="gray_cc">#CCCCCC</color>
     <color name="gray_dd">#DDDDDD</color>
@@ -43,4 +43,6 @@
     <color name="radio_bg">#1C1C1C</color>
     <color name="radio_bg_checked">#F6F6F6</color>
     <color name="radio_text_checked">#1C1C1C</color>
+    <color name="btn_focus">#BBBBBB</color>
+    <color name="tab_selected">#878785</color>
 </resources>

@@ -26,9 +26,9 @@
             android:backgroundTint="@color/background"
             android:fillViewport="false"
             app:layout_scrollFlags="scroll"
-            app:tabIndicatorColor="@color/text_theme"
+            app:tabIndicatorColor="@color/tab_selected"
             app:tabIndicatorHeight="3.0dp"
-            app:tabSelectedTextColor="@color/text_theme"
+            app:tabSelectedTextColor="@color/tab_selected"
             app:tabTextColor="@color/item_text_color">
 
             <android.support.design.widget.TabItem

@@ -39,7 +39,7 @@ public class CollectAdapter extends CommonAdapter<OpusBean> {
         tvTitle.setText(collectBean.getWrite_name());
        // tvSubTitle.setText(collectBean.get());
         String date = collectBean.getDelivery_time();
-        tvTime.setText(date.substring(0,10)+" /"+"作者");
+        tvTime.setText(date.substring(0,10)+" /"+collectBean.getPen_name());
         tvDetails.setText("赞"+collectBean.getLike_count()+"/阅读"+collectBean.getRead_count()+"/章节"+collectBean.getSection_count());
 
         //String[] split = collectBean.getType().split(" ");

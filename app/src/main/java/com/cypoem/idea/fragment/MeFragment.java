@@ -27,6 +27,7 @@ import com.cypoem.idea.activity.EditInfoActivity;
 import com.cypoem.idea.activity.SettingActivity;
 import com.cypoem.idea.activity.SuggestActivity;
 import com.cypoem.idea.constants.Constants;
+import com.cypoem.idea.event.FollowSuccess;
 import com.cypoem.idea.event.HideView;
 import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.R;
@@ -164,17 +165,35 @@ public class MeFragment extends BaseFragment {
     }
 
 
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
 
+    /**
+     * 修改用户信息成功
+     * @param success
+     */
     @Subscribe
     public void updateInfoSuccess(EditInfoActivity.UpdateInfoSuccess success) {
         setUserInfo();
     }
 
+    /**
+     * 关注/取消关注成功
+     * @param followSuccess
+     */
+    @Subscribe
+    public void followSuccess(FollowSuccess followSuccess){
+       // tvFocus.setText(followSuccess.getCount()+"");
+    }
+    @Subscribe
+    public void collectSuccess(FollowSuccess followSuccess){
+
+    }
 
     @OnClick({R.id.ll_focus, R.id.ll_fans, R.id.ll_collect, R.id.rl_wallet, R.id.ll_like
             , R.id.rl_join, R.id.rl_create, R.id.rl_publish, R.id.rl_draft, R.id.head_img, R.id.iv_right})

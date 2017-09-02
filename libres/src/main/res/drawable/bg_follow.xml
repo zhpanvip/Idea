@@ -6,7 +6,7 @@
     <!-- 边框 -->
     <stroke
         android:width="@dimen/mp_1"
-        android:color="@color/text_theme" />
+        android:color="@color/btn_focus" />
     <!-- 圆角 -->
     <corners android:radius="5dp" />
     <!-- 边距 -->

@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity {
     //  退出时间间隔
     private long exitTime = 0;
     //  上一次RadioGroup选中的Id
-    private int preCheckedId;
+    private int preCheckedId=R.id.rb_home;
 
     @Override
     protected int getLayoutId() {

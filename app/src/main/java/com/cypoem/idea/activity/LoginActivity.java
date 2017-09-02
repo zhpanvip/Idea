@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cypoem.idea.R;
+import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.net.DefaultObserver;
@@ -102,10 +103,21 @@ public class LoginActivity extends BaseActivity /*implements Callback, PlatformA
                 GetIdentifyCodeActivity.start(this,GetIdentifyCodeActivity.REGISTER);
                 break;
             case R.id.tv_login_error:
-
+                goProtocol();
                 break;
 
         }
+    }
+
+    //  协议相关
+    private void goProtocol() {
+        String url;
+        if (UserInfoTools.isNightMode(this)) {
+            url = Constants.PROTOCOL_NIGHT;
+        } else {
+            url = Constants.PROTOCOL;
+        }
+        BasicWebViewActivity.start(this, "协议相关", url);
     }
 
    /* private void authorize(Platform plat) {

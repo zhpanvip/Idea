@@ -261,6 +261,7 @@ public class PublishActivity extends BaseActivity {
         label = data.getStringExtra("label");
         if (TextUtils.isEmpty(label)) {
             mLlLabel.removeAllViews();
+            label="";
             return;
         }
         String[] labels = label.split("-");

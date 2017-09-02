@@ -28,6 +28,8 @@
         android:maxLength="11"
         android:paddingEnd="@dimen/mp_15"
         android:paddingStart="@dimen/mp_15"
+        android:textColor="@color/item_text_color_dark"
+        android:textColorHint="@color/text_hint"
         android:textCursorDrawable="@drawable/edit_text_color_cursor" />
 
     <EditText
@@ -36,7 +38,9 @@
         android:layout_height="@dimen/mp_45"
         android:background="@drawable/bg_edit_text"
         android:layout_marginTop="@dimen/mp_20"
+        android:textColorHint="@color/text_hint"
         android:inputType="textPassword"
+        android:textColor="@color/item_text_color_dark"
         android:textCursorDrawable="@drawable/edit_text_color_cursor"
         android:paddingEnd="@dimen/mp_15"
         android:paddingStart="@dimen/mp_15"
@@ -58,15 +62,17 @@
         android:layout_height="wrap_content"
         android:text="忘记密码？"
         android:textSize="@dimen/f_15"
-        android:textColor="@color/text_theme"
+        android:textColor="@color/item_theme"
         android:layout_marginTop="@dimen/mp_10"
         android:gravity="end"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/mp_10"
-        android:gravity="center_vertical"
         android:layout_marginTop="@dimen/mp_20"
+        android:gravity="center_vertical"
+        android:visibility="gone"
         android:orientation="horizontal">
 
         <View
@@ -124,32 +130,38 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="bottom|center_horizontal"
         android:orientation="horizontal"
-        android:paddingBottom="@dimen/mp_10"
-        android:gravity="bottom|center_horizontal">
+        android:paddingBottom="@dimen/mp_10">
+
         <TextView
             android:id="@+id/tv_new_user"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/new_user_register"
-            android:textSize="@dimen/f_16"
             android:layout_marginBottom="@dimen/mp_2"
-            android:textColor="@color/text_theme"/>
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="@string/new_user_register"
+            android:textColor="@color/item_theme"
+            android:textSize="@dimen/f_16" />
+
         <View
             android:layout_width="@dimen/mp_1"
             android:layout_height="@dimen/mp_25"
-            android:layout_marginStart="@dimen/mp_20"
-            android:layout_marginEnd="@dimen/mp_20"
-            android:background="@color/text_theme"/>
+            android:layout_marginEnd="@dimen/mp_10"
+            android:layout_marginStart="@dimen/mp_10"
+            android:background="@color/item_theme" />
 
         <TextView
             android:id="@+id/tv_login_error"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/login_matter"
-            android:textSize="@dimen/f_16"
             android:layout_marginBottom="@dimen/mp_2"
-            android:textColor="@color/text_theme"/>
+            android:layout_weight="1"
+            android:gravity="left"
+            android:text="@string/login_matter"
+            android:textColor="@color/item_theme"
+            android:textSize="@dimen/f_16" />
     </LinearLayout>
 
 </LinearLayout>

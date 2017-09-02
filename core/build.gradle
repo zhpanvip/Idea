@@ -70,5 +70,6 @@ dependencies {
    // compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     compile 'xiao.free.horizontalrefreshlayout:lib:v0.1.2'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
     compile project(':libres')
 }

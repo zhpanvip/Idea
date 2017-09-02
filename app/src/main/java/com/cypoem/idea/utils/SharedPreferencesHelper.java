@@ -7,11 +7,8 @@ package com.cypoem.idea.utils;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
-
 import android.content.Context;
 import android.content.SharedPreferences;
-
-import com.cypoem.idea.module.bean.UserInfoBean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -83,7 +80,8 @@ public class SharedPreferencesHelper {
     public static <T> void saveObject(Context context, T bean) {
         if (context != null && bean != null) {
             String packaggeName = context.getPackageName();
-            SharedPreferences share = context.getSharedPreferences(packaggeName, 0);
+            SharedPreferences share = context.getSharedPreferences(FILE_NAME, 0);
+           // SharedPreferences share = context.getSharedPreferences(packaggeName, 0);
             GsonBuilder gsonb = new GsonBuilder();
             Gson gson = gsonb.create();
             String json = gson.toJson(bean);
@@ -108,7 +106,7 @@ public class SharedPreferencesHelper {
         String json = "";
         if (context != null && classOfT != null) {
             String packageName = context.getPackageName();
-            SharedPreferences share = context.getSharedPreferences(packageName, 0);
+            SharedPreferences share = context.getSharedPreferences(FILE_NAME, 0);
             String name = classOfT.getSimpleName();
             json = share.getString(name, "");
         }
@@ -138,15 +136,15 @@ public class SharedPreferencesHelper {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
-        editor.clear();
+        editor.clear().apply();
         SharedPreferencesCompat.apply(editor);
 
-        String packageName = context.getPackageName();
+       /* String packageName = context.getPackageName();
         SharedPreferences sp1 = context.getSharedPreferences(packageName,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = sp1.edit();
-        edit.clear();
-        SharedPreferencesCompat.apply(edit);
+        edit.clear().apply();
+        SharedPreferencesCompat.apply(edit);*/
     }
 
     /**

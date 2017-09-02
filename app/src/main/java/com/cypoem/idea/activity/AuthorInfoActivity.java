@@ -25,6 +25,7 @@ import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CommonFragmentAdapter;
 import com.cypoem.idea.constants.Constants;
+import com.cypoem.idea.event.FollowSuccess;
 import com.cypoem.idea.fragment.AuthorFragment;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.UserBean;
@@ -281,6 +282,10 @@ public class AuthorInfoActivity extends BaseActivity {
                     public void onSuccess(BasicResponse<String> response) {
                         ToastUtils.show(response.getMsg());
                         mTvFollow.setText("已关注");
+                        userBean.setWatch_status(1);
+                        int followCount=userBean.getMyWatchCount()+1;
+                        userBean.setMyWatchCount(followCount);
+                        EventBus.getDefault().post(new FollowSuccess(followCount));
                     }
                 });
     }
@@ -296,6 +301,9 @@ public class AuthorInfoActivity extends BaseActivity {
                     public void onSuccess(BasicResponse<String> response) {
                         ToastUtils.show(response.getMsg());
                         mTvFollow.setText(R.string.focus);
+                        userBean.setWatch_status(0);
+                        userBean.setMyWatchCount(userBean.getMyWatchCount()-1);
+                        EventBus.getDefault().post(new FollowSuccess(userBean.getMyWatchCount()));
                     }
                 });
     }

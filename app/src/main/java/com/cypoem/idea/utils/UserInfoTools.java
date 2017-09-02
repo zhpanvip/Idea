@@ -23,12 +23,18 @@ public class UserInfoTools {
         setUserInfoBean(context, sUserInfoBean);
     }
 
+
+
     /**
      * 设置本地个人信息
      */
     private static void setUserInfoBean(Context context, UserInfoBean userInfoBean) {
         sUserInfoBean = userInfoBean;
         SharedPreferencesHelper.saveObject(context, sUserInfoBean);
+    }
+
+    public static void logout(){
+        sUserInfoBean=null;
     }
 
     public static void setChangeNightMode(Context context, boolean isChanged) {

@@ -120,7 +120,7 @@
             android:layout_alignParentEnd="true"
             android:background="@drawable/bg_follow"
             android:text="@string/focus"
-            android:textColor="@color/text_theme"
+            android:textColor="@color/btn_focus"
             android:textSize="@dimen/f_15"
             android:visibility="gone" />
     </RelativeLayout>
