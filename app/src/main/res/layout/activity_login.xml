@@ -72,7 +72,6 @@
         android:layout_marginBottom="@dimen/mp_10"
         android:layout_marginTop="@dimen/mp_20"
         android:gravity="center_vertical"
-        android:visibility="gone"
         android:orientation="horizontal">
 
         <View
@@ -104,7 +103,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/mp_10"
-        android:visibility="gone"
         android:orientation="horizontal">
         <ImageView
             android:id="@+id/iv_qq"

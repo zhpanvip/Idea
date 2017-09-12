@@ -3,6 +3,7 @@ package com.cypoem.idea.view;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.DrawableRes;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
@@ -63,6 +64,7 @@ public class CircleViewPager extends FrameLayout {
     }
 
     static Handler mHandler = new Handler();
+
     Runnable mRunnable = new Runnable() {
         @Override
         public void run() {

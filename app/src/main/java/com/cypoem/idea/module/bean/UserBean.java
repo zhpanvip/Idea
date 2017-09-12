@@ -1,5 +1,7 @@
 package com.cypoem.idea.module.bean;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by zhpan on 2017/7/2.
  */
@@ -47,6 +49,29 @@ public class UserBean {
     private int watch_status;
     private String msg;
     private boolean follow;
+    /**
+     * balance : 0
+     * create_count : 0
+     * income_count : 0
+     * input_money_count : 0
+     * my_count : 0
+     * output_money_count : 0
+     * rollout_count : 0
+     * start_count : 0
+     * user_id : 212345689788
+     * wx_ob : sadsfefqwrwfr
+     */
+
+    private int balance;
+    private int create_count;
+    private int income_count;
+    private int input_money_count;
+    private int my_count;
+    private int output_money_count;
+    private int rollout_count;
+    private int start_count;
+    private String wx_ob;
+
 
     public int getWatch_status() {
         return watch_status;
@@ -214,5 +239,77 @@ public class UserBean {
 
     public void setKeep_count(int keep_count) {
         this.keep_count = keep_count;
+    }
+
+    public int getBalance() {
+        return balance;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public int getCreate_count() {
+        return create_count;
+    }
+
+    public void setCreate_count(int create_count) {
+        this.create_count = create_count;
+    }
+
+    public int getIncome_count() {
+        return income_count;
+    }
+
+    public void setIncome_count(int income_count) {
+        this.income_count = income_count;
+    }
+
+    public int getInput_money_count() {
+        return input_money_count;
+    }
+
+    public void setInput_money_count(int input_money_count) {
+        this.input_money_count = input_money_count;
+    }
+
+    public int getMy_count() {
+        return my_count;
+    }
+
+    public void setMy_count(int my_count) {
+        this.my_count = my_count;
+    }
+
+    public int getOutput_money_count() {
+        return output_money_count;
+    }
+
+    public void setOutput_money_count(int output_money_count) {
+        this.output_money_count = output_money_count;
+    }
+
+    public int getRollout_count() {
+        return rollout_count;
+    }
+
+    public void setRollout_count(int rollout_count) {
+        this.rollout_count = rollout_count;
+    }
+
+    public int getStart_count() {
+        return start_count;
+    }
+
+    public void setStart_count(int start_count) {
+        this.start_count = start_count;
+    }
+
+    public String getWx_ob() {
+        return wx_ob;
+    }
+
+    public void setWx_ob(String wx_ob) {
+        this.wx_ob = wx_ob;
     }
 }

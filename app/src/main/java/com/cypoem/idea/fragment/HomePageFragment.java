@@ -67,6 +67,13 @@ public class HomePageFragment extends BaseFragment {
         setRecycler();
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //  销毁Activity时移除runnable防止内存泄露
+        bannerView.stopCircleViewPager();
+    }
+
     private void setRecycler() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);

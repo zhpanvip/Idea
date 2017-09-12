@@ -18,6 +18,7 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -40,9 +41,10 @@ public interface IdeaApiService {
     int DEFAULT_TIMEOUT = 20000;
 
     //String HOST = "http://hansanshao.cn:8080/";
-    String HOST = "http://cypoem.com:8080/";
-    String API_SERVER_URL = HOST + "cys/";
-
+    String HOST = "http://cypoem.com";
+    String PORT=":8080/";
+    String API_SERVER_URL = HOST +PORT+ "cys/";
+    String WEBSITE="http://www.cypoem.com";
 
     /**
      * 注册接口
@@ -83,6 +85,14 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST("user/login.do")
     Observable<BasicResponse<UserBean>> login(@FieldMap Map<String, Object> mapLogin);
+
+    /**
+     * 第三方登录
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("user/thirdPartyLogin.do")
+    Observable<BasicResponse<UserBean>> thirdPartLogin(@Field("name") String name,@Field("thirdPartyCode") String userId,@Field("type") String type);
 
     /**
      * 意见反馈

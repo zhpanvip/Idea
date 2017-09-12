@@ -1,5 +1,6 @@
 package com.cypoem.idea.module.bean;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -7,6 +8,8 @@ import java.util.List;
  */
 
 public class Meizi {
+
+    HashSet<String> hashSet=new HashSet<>();
 
     /**
      * error : false
@@ -17,6 +20,7 @@ public class Meizi {
 
 
     public List<ResultsBean> getResults() {
+        hashSet.add("hello");
         return results;
     }
 

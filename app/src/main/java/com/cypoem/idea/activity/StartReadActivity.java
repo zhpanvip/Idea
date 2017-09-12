@@ -50,7 +50,11 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrDefaultHandler2;
@@ -257,7 +261,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         commentPage = 1;
         chapter_id = "1";
         parent_id = "000";
-        prePosition=0;
+        prePosition = 0;
         getFirstChapter(page);
     }
 
@@ -673,6 +677,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     private void share() {
         mPopupWindow.dismiss();
         showShare();
+        // share2Moments();
     }
 
     //  举报
@@ -707,6 +712,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                     }
                 });
     }
+
 
 
     @Override
@@ -761,33 +767,6 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     }
 
     //  分享
-   /* private void showShare() {
-        OnekeyShare oks = new OnekeyShare();
-        //关闭sso授权
-        oks.disableSSOWhenAuthorize();
-        // title标题，印象笔记、邮箱、信息、微信、人人网、QQ和QQ空间使用
-        oks.setTitle("创意说");
-        // titleUrl是标题的网络链接，仅在Linked-in,QQ和QQ空间使用
-        oks.setTitleUrl("http://www.cypoem.com");
-        // text是分享文本，所有平台都需要这个字段
-        oks.setText("当我们阅读的时候，思考，便成了作者。\n当我们写作的时候，思考，便成了读者。");
-        //分享网络图片，新浪微博分享网络图片需要通过审核后申请高级写入接口，否则请注释掉测试新浪微博
-        oks.setImageUrl(IdeaApiService.HOST + "/cys/upload/icon.jpg");
-        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
-        // url仅在微信（包括好友和朋友圈）中使用
-        oks.setUrl("http://www.cypoem.com");
-        // comment是我对这条分享的评论，仅在人人网和QQ空间使用
-        oks.setComment("不一样的阅读体验");
-        // site是分享此内容的网站名称，仅在QQ空间使用
-        oks.setSite("创意说");
-        // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-        oks.setSiteUrl("http://www.cypoem.com");
-
-// 启动分享GUI
-        oks.show(this);
-    }*/
-
     private void showShare() {
         OnekeyShare oks = new OnekeyShare();
         //关闭sso授权
@@ -798,21 +777,42 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
         oks.setTitle(getString(R.string.share));
         // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-        oks.setTitleUrl("http://www.cypoem.com");
+        oks.setTitleUrl(IdeaApiService.WEBSITE);
         // text是分享文本，所有平台都需要这个字段
         oks.setText("当我们阅读的时候，思考，便成了作者。\n当我们写作的时候，思考，便成了读者。");
-        // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-        // oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+        oks.setImageUrl(IdeaApiService.HOST + "/favicon.jpg");
         // url仅在微信（包括好友和朋友圈）中使用
-        oks.setUrl("http://www.cypoem.com");
+        oks.setUrl(IdeaApiService.WEBSITE);
         // comment是我对这条分享的评论，仅在人人网和QQ空间使用
         oks.setComment("不一样的阅读体验");
         // site是分享此内容的网站名称，仅在QQ空间使用
         oks.setSite(getString(R.string.app_name));
         // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-        oks.setSiteUrl("http://www.cypoem.com");
+        oks.setSiteUrl(IdeaApiService.WEBSITE);
 
         // 启动分享GUI
         oks.show(this);
+    }
+
+    private void share2Friend() {    //  分享到好友
+        Platform weixin = ShareSDK.getPlatform(Wechat.NAME);
+        Wechat.ShareParams sp = new Wechat.ShareParams();
+        sp.setShareType(Platform.SHARE_WEBPAGE);
+        sp.setImageUrl(IdeaApiService.HOST + "/favicon.ico");
+        sp.setUrl("http://www.cypoem.com");
+        sp.setText("当我们阅读的时候，思考，便成了作者。当我们写作的时候，思考，便成了读者。");
+        sp.setTitle(getString(R.string.app_name));
+        weixin.share(sp);
+    }
+
+    private void share2Moments() {   //  分享到朋友圈
+        Platform weixin = ShareSDK.getPlatform(WechatMoments.NAME);
+        WechatMoments.ShareParams sp = new WechatMoments.ShareParams();
+        sp.setShareType(Platform.SHARE_WEBPAGE);
+        sp.setUrl("http://www.cypoem.com");
+        sp.setImageUrl(IdeaApiService.HOST + "/favicon.ico");
+        sp.setText("当我们阅读的时候，思考，便成了作者。当我们写作的时候，思考，便成了读者。");
+        sp.setTitle(getString(R.string.app_name));
+        weixin.share(sp);
     }
 }

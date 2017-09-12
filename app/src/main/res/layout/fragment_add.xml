@@ -57,5 +57,5 @@
         android:gravity="center"
         android:text="@string/join_opus"
         android:textColor="@color/text_theme"
-        android:textSize="@dimen/f_20"/>
+        android:textSize="@dimen/f_20" />
 </LinearLayout>
