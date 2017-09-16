@@ -1,12 +1,15 @@
 package com.cypoem.idea.fragment;
 
+import android.app.ActivityOptions;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -39,9 +42,29 @@ public class FindFragment extends BaseFragment {
     ViewPager mViewPager;
     @BindView(R.id.iv_right)
     ImageView mIvRight;
+    @BindView(R.id.ll_search)
+    LinearLayout mLlSearch;
+    @BindView(R.id.et_search_text)
+    EditText editText;
+    @BindView(R.id.tv_search)
+    TextView mTvSearch;
+    @BindView(R.id.tv_cancel)
+    TextView mTvCancel;
+    @BindView(R.id.tl_find)
+    TabLayout mTabLayout;
+
     private List<FindInFragment> mList;
+    private String[] mTitleList;
     public final static int NEWEST = 1;
-    public final static int HOTEST = 0;
+    public final static int HOTTEST = 0;
+    public final static int DALUANDOU=3;
+    public final static int POEM=4;
+    public final static int VIDEO=5;
+    public final static int WULITOU=6;
+    public final static int STORY=7;
+    public final static int ENCOURAGEMENT=8;
+    public final static int CUSTOM=200;
+
 
     @Override
     protected int getLayoutId() {
@@ -51,19 +74,25 @@ public class FindFragment extends BaseFragment {
     @Override
     protected void init(Bundle savedInstanceState) {
         initData();
-        if(savedInstanceState!=null){
+        if (savedInstanceState != null) {
             mViewPager.setCurrentItem(0);
         }
     }
 
     private void initData() {
         mTitle.setVisibility(View.GONE);
-        mRgSelector.setVisibility(View.VISIBLE);
-        mIvRight.setVisibility(View.VISIBLE);
-        mIvRight.setBackgroundResource(R.drawable.ic_search);
+        // mRgSelector.setVisibility(View.VISIBLE);
+       // mIvRight.setVisibility(View.VISIBLE);
+       // mIvRight.setBackgroundResource(R.drawable.ic_search);
+        mLlSearch.setVisibility(View.VISIBLE);
+        editText.setVisibility(View.GONE);
+        mTvSearch.setVisibility(View.VISIBLE);
+        mTvCancel.setText("搜索");
         setViewPager();
         setListener();
+
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,11 +109,11 @@ public class FindFragment extends BaseFragment {
 
             @Override
             public void onPageSelected(int position) {
-                if (position == 0) {
+               /* if (position == 0) {
                     mRbLeft.setChecked(true);
                 } else if (position == 1) {
                     mRbRight.setChecked(true);
-                }
+                }*/
             }
 
             @Override
@@ -94,19 +123,28 @@ public class FindFragment extends BaseFragment {
     }
 
     private void setViewPager() {
-         mList = new ArrayList<>();
-        FindInFragment newFragment = FindInFragment.getFragment(NEWEST);
-        FindInFragment hotFragment = FindInFragment.getFragment(HOTEST);
-        mList.add(newFragment);
-        mList.add(hotFragment);
+        mList = new ArrayList<>();
+        mTitleList=getActivity().getApplication().getResources().getStringArray(R.array.type);
+
+        mList.add(FindInFragment.getFragment(NEWEST));
+        mList.add(FindInFragment.getFragment(HOTTEST));
+        mList.add(FindInFragment.getFragment(DALUANDOU));
+        mList.add(FindInFragment.getFragment(POEM));
+        mList.add(FindInFragment.getFragment(VIDEO));
+        mList.add(FindInFragment.getFragment(WULITOU));
+        mList.add(FindInFragment.getFragment(STORY));
+        mList.add(FindInFragment.getFragment(ENCOURAGEMENT));
+        mList.add(FindInFragment.getFragment(CUSTOM));
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         CommonFragmentAdapter mFragmentAdapter = new CommonFragmentAdapter(fragmentManager, getContext());
         mFragmentAdapter.setFragmentList(mList);
+        mFragmentAdapter.setPageTitle(mTitleList);
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setCurrentItem(0);
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    @OnClick({R.id.rb_left, R.id.rb_right, R.id.iv_right})
+    @OnClick({R.id.rb_left, R.id.rb_right, R.id.iv_right,R.id.ll_search})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rb_left:
@@ -118,7 +156,17 @@ public class FindFragment extends BaseFragment {
             case R.id.iv_right:
                 SearchActivity.start(getContext());
                 break;
+            case R.id.ll_search:
+                toSearch();
+                break;
         }
+    }
+
+    private void toSearch() {
+        Intent intent = new Intent(getContext(), SearchActivity.class);
+        startActivity(intent, ActivityOptions
+                .makeSceneTransitionAnimation(getActivity()
+                        , mLlSearch, "sharedSearch").toBundle());
     }
 
 }

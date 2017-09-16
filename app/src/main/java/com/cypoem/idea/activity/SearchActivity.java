@@ -68,7 +68,7 @@ public class SearchActivity extends BaseActivity {
     InScrollListView mListView;
     @BindView(R.id.ll_search_history)
     LinearLayout llSearchHistory;
-    @BindView(R.id.ll_search)
+    @BindView(R.id.ll_search_default)
     LinearLayout llSearch;
     @BindView(R.id.ll_loading)
     LinearLayout llLoading;
@@ -81,6 +81,8 @@ public class SearchActivity extends BaseActivity {
     TextView mTvNoData;
     @BindView(R.id.fl_hot)
     TagFlowLayout mFlowLayout;
+    @BindView(R.id.ll_search)
+    LinearLayout mLlSearch;
 
     private TagAdapter<String> mTagAdapter;
 
@@ -100,12 +102,18 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        getToolbar().setVisibility(View.GONE);
+       // getToolbar().setVisibility(View.GONE);
         initData();
         setListener();
     }
 
+    @Override
+    protected boolean isShowBacking() {
+        return false;
+    }
+
     private void initData() {
+        mLlSearch.setVisibility(View.VISIBLE);
         labelArray = getApplicationContext().getResources().getStringArray(R.array.label);
         mTagAdapter = new TagAdapter<String>(labelArray) {
             @Override
@@ -250,7 +258,7 @@ public class SearchActivity extends BaseActivity {
                 etSearchText.setText("");
                 break;
             case R.id.tv_cancel:
-                finish();
+                onBackPress();
                 break;
             case R.id.tv_clear_history:
                 clearHistory();

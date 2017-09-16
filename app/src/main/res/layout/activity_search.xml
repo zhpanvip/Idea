@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:background="@color/background">
 
-    <include layout="@layout/search_bar" />
+    <!--<include layout="@layout/layout_search"/>-->
+
     <include layout="@layout/base_line"/>
     <LinearLayout
         android:id="@+id/ll_loading"
@@ -135,7 +136,7 @@
         </ScrollView>
 
         <LinearLayout
-            android:id="@+id/ll_search"
+            android:id="@+id/ll_search_default"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/background"

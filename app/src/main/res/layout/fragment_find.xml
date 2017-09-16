@@ -2,10 +2,28 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_layout" />
+    <include layout="@layout/base_line" />
+
+    <!--app:tabMode="scrollable"-->
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_find"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_30"
+        android:layout_gravity="bottom"
+        android:background="#fff"
+        android:backgroundTint="@color/background"
+        android:fillViewport="false"
+        app:tabMode="scrollable"
+        app:layout_scrollFlags="scroll"
+        app:tabIndicatorColor="@color/tab_selected"
+        app:tabIndicatorHeight="3.0dp"
+        app:tabSelectedTextColor="@color/tab_selected"
+        app:tabTextColor="@color/item_text_color"/>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_find"

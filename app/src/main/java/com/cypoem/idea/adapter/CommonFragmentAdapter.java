@@ -9,12 +9,20 @@ import java.util.List;
 
 /**
  * Created by zhpan on 2016/12/18.
- *
  */
 
 public class CommonFragmentAdapter extends FragmentStatePagerAdapter {
-   private List<? extends Fragment> mFragmentList;
-   private Context mContext;
+    private List<? extends Fragment> mFragmentList;
+    private Context mContext;
+    private String[] pageTitle;
+
+    public String[] getPageTitle() {
+        return pageTitle;
+    }
+
+    public void setPageTitle(String[] pageTitle) {
+        this.pageTitle = pageTitle;
+    }
 
     public CommonFragmentAdapter(FragmentManager fm, Context context) {
         super(fm);
@@ -25,7 +33,7 @@ public class CommonFragmentAdapter extends FragmentStatePagerAdapter {
         return mFragmentList;
     }
 
-    public void setFragmentList(List<?extends Fragment> fragmentList) {
+    public void setFragmentList(List<? extends Fragment> fragmentList) {
         this.mFragmentList = fragmentList;
     }
 
@@ -42,5 +50,10 @@ public class CommonFragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return mFragmentList.size();
+    }
+
+    @Override
+    public CharSequence getPageTitle(int position) {
+        return pageTitle==null?super.getPageTitle(position):pageTitle[position];
     }
 }

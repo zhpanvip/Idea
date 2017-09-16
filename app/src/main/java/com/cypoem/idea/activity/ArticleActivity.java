@@ -25,7 +25,6 @@ public class ArticleActivity extends BaseActivity {
         Intent intent = getIntent();
         tvArticle.setText(intent.getStringExtra("article"));
         setToolBarTitle(intent.getStringExtra("title"));
-
     }
 
     @OnClick({R.id.ll_article, R.id.tv_article})

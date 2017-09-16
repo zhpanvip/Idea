@@ -8,15 +8,16 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+
 import com.cypoem.idea.R;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -28,9 +29,10 @@ public class AddLabelActivity extends BaseActivity {
     Button btnComplete;
 
     private String[] mLabels;
-   // private String[] labelArray;
+    // private String[] labelArray;
     Set<Integer> selectedList;
     private TagAdapter<String> mAdapter;
+    private EditText mEtCustom;
 
     @Override
     protected int getLayoutId() {
@@ -39,10 +41,10 @@ public class AddLabelActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        String[] positions = getIntent().getStringArrayExtra("positions");
+        int positions = getIntent().getIntExtra("positions", 100);
         selectedList = new ArraySet<>();
         mLabels = getApplicationContext().getResources().getStringArray(R.array.label);
-        mAdapter=new TagAdapter<String>(mLabels) {
+        mAdapter = new TagAdapter<String>(mLabels) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 View view = LayoutInflater.from(AddLabelActivity.this).inflate(R.layout.item_label, mFlowLayout, false);
@@ -51,14 +53,35 @@ public class AddLabelActivity extends BaseActivity {
                 return tv;
             }
         };
+
         mFlowLayout.setAdapter(mAdapter);
-       // mFlowLayout.setMaxSelectCount(3);
-       // mAdapter.setSelectedList(1,2,4);
-        for(int i=0;i<positions.length;i++){
+        // mFlowLayout.setMaxSelectCount(3);
+        // mAdapter.setSelectedList(1,2,4);
+       /* for (int i = 0; i < positions.length; i++) {
             mAdapter.setSelectedList(Integer.parseInt(positions[i]));
-        }
-        mFlowLayout.setOnSelectListener((Set<Integer> selectPosSet)-> {
-                selectedList = selectPosSet;
+        }*/
+       // mAdapter.setSelected(positions, "");
+        mFlowLayout.setOnSelectListener((Set<Integer> selectPosSet) -> {
+            selectedList = selectPosSet;
+        });
+        mFlowLayout.setOnTagClickListener((View view, int position, FlowLayout parent) -> {
+            if (position == mLabels.length - 1) {
+                showCustomDialog();
+            }
+            return true;
+        });
+
+
+    }
+
+    private void showCustomDialog() {
+        View dialog = createDialog(R.layout.input_dialog, true);
+        mEtCustom = (EditText) dialog.findViewById(R.id.et_dialog_content);
+        dialog.findViewById(R.id.tv_confirm).setOnClickListener((View v) -> {
+            String customStr = mEtCustom.getText().toString();
+            selectedLabel(customStr, 200);
+            dismissDialog();
+            finish();
         });
     }
 
@@ -94,24 +117,29 @@ public class AddLabelActivity extends BaseActivity {
 
     private void setValues() {
         String labels = "";
-        String positions="";
-        selectedList=mFlowLayout.getSelectedList();
+        int positions = 100;
+        selectedList = mFlowLayout.getSelectedList();
         for (Integer i : selectedList) {
-            labels += mLabels[i] + "-";
-            positions+=i+"-";
+            labels += mLabels[i];
+            positions = i;
         }
-        Intent intent = new Intent();
-        intent.putExtra("label", labels);
-        intent.putExtra("positions",positions);
-        setResult(PublishActivity.SELECT_LABEL, intent);
+        selectedLabel(labels, positions + 3);
         finish();
     }
+
+    private void selectedLabel(String labels, int positions) {
+        Intent intent = new Intent();
+        intent.putExtra("label", labels);
+        intent.putExtra("positions", positions);
+        setResult(PublishActivity.SELECT_LABEL, intent);
+    }
+
 
     private void showDig() {
         showTwoButtonDialog("您还没有选择标签，\n确定要退出吗？", "确定", "取消", (View v) -> {
             dismissDialog();
-            Intent intent=new Intent();
-            setResult(PublishActivity.SELECT_LABEL,intent);
+            Intent intent = new Intent();
+            setResult(PublishActivity.SELECT_LABEL, intent);
             finish();
         }, (View v) -> dismissDialog());
     }
@@ -125,7 +153,7 @@ public class AddLabelActivity extends BaseActivity {
     }
 
     private void goBack() {
-        if ( mFlowLayout.getSelectedList().size() == 0) {
+        if (mFlowLayout.getSelectedList().size() == 0) {
             showDig();
         } else {
             setValues();

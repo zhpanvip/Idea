@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="label">
-        <item>都市</item>
+
+        <item>大乱斗</item>
+        <item>诗歌散文</item>
+        <item>影视相关</item>
+        <item>无厘头</item>
+        <item>小小说</item>
+        <item>暖心励志</item>
+        <item>自定义</item>
+
+
+
+        <!--<item>都市</item>
         <item>校园</item>
         <item>古风</item>
         <item>玄幻</item>
@@ -20,7 +31,22 @@
         <item>同人</item>
         <item>体育</item>
         <item>治愈</item>
-        <item>搞笑</item>
+        <item>搞笑</item>-->
     </string-array>
+
+    <string-array name="type">
+        <item>最新</item>
+        <item>最热</item>
+        <item>大乱斗</item>
+        <item>诗歌散文</item>
+        <item>影视相关</item>
+        <item>无厘头</item>
+        <item>小小说</item>
+        <item>暖心励志</item>
+        <item>自定义</item>
+
+    </string-array>
+
+    <!--<string-array name=""-->
 
 </resources>

@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="15dp"
-        app:max_select="3"/>
+        app:max_select="1"/>
     <Button
         android:id="@+id/btn_complete"
         android:layout_width="match_parent"

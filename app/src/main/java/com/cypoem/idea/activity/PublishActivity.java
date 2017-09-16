@@ -92,7 +92,7 @@ public class PublishActivity extends BaseActivity {
     private String opusName;
     private String isCanOverride = "1";
     private String isCanRenew = "1";
-    private String[] positions;
+    private int type;
     private String label = "";
     private String describe = "";
 
@@ -105,7 +105,7 @@ public class PublishActivity extends BaseActivity {
     protected void init(Bundle savedInstanceState) {
         setToolBarTitle("创作作品");
         setListener();
-        positions = new String[0];
+       // positions = new String[0];
     }
 
     private void setListener() {
@@ -160,7 +160,7 @@ public class PublishActivity extends BaseActivity {
 
     private void selectLabel() {
         Intent intent = new Intent(this, AddLabelActivity.class);
-        intent.putExtra("positions", positions);
+        intent.putExtra("positions", type);
         startActivityForResult(intent, SELECT_LABEL);
     }
 
@@ -182,7 +182,7 @@ public class PublishActivity extends BaseActivity {
                 .addFormDataPart("write_name", opusName)
                 .addFormDataPart("reStatus", isCanOverride)
                 .addFormDataPart("upStatus", isCanRenew)
-                .addFormDataPart("type", label)
+                .addFormDataPart("type", type+"")
                 .addFormDataPart("user_id", UserInfoTools.getUserId(this))
                 .addFormDataPart("uploadFile", file.getName(), imageBody);
         List<MultipartBody.Part> parts = builder.build().parts();
@@ -264,18 +264,24 @@ public class PublishActivity extends BaseActivity {
             label="";
             return;
         }
-        String[] labels = label.split("-");
-        positions = data.getStringExtra("positions").split("-");
+       // String[] labels = label.split("-");
+        type = data.getIntExtra("positions",100);
         mLlLabel.removeAllViews();
+
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(0, 0, 10, 0);
-        for (int i = 0; i < labels.length; i++) {
+        View view = LayoutInflater.from(this).inflate(R.layout.item_label_normal, mLlLabel, false);
+        view.setLayoutParams(params);
+        TextView tvLabel = (TextView) view.findViewById(R.id.tv_label);
+        tvLabel.setText(label);
+        mLlLabel.addView(view);
+        /*for (int i = 0; i < labels.length; i++) {
             View view = LayoutInflater.from(this).inflate(R.layout.item_label_normal, mLlLabel, false);
             view.setLayoutParams(params);
             TextView tvLabel = (TextView) view.findViewById(R.id.tv_label);
             tvLabel.setText(labels[i]);
             mLlLabel.addView(view);
-        }
+        }*/
     }
 
     private void handleCropError(@NonNull Intent result) {
