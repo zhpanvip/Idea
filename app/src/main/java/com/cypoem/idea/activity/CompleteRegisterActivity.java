@@ -25,8 +25,10 @@ import com.airong.core.utils.SDCardUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.RegisterBean;
+import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.SexView;
 import com.yalantis.ucrop.UCrop;
 import com.yalantis.ucrop.callback.BitmapLoadCallback;
@@ -273,10 +275,12 @@ public class CompleteRegisterActivity extends BaseActivity {
                 .register(parts)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<RegisterBean>>(this, true) {
+                .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, true) {
                     @Override
-                    public void onSuccess(BasicResponse<RegisterBean> response) {
+                    public void onSuccess(BasicResponse<UserBean> response) {
                         EventBus.getDefault().post(new RegisterSuccess("register success"));
+                        UserInfoTools.setIsLogin(getApplication(),true);
+                        UserInfoTools.setUser(getApplicationContext(),response.getResult());
                         showToast("注册成功，请登陆");
                         finish();
                     }

@@ -28,14 +28,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.airong.core.utils.ImageUtils;
 import com.airong.core.utils.LogUtils;
-import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
-import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.PublishBean;
-import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
@@ -49,7 +45,6 @@ import java.io.File;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -92,7 +87,7 @@ public class PublishActivity extends BaseActivity {
     private String opusName;
     private String isCanOverride = "1";
     private String isCanRenew = "1";
-    private int type;
+    private int type = 200;
     private String label = "";
     private String describe = "";
 
@@ -105,7 +100,7 @@ public class PublishActivity extends BaseActivity {
     protected void init(Bundle savedInstanceState) {
         setToolBarTitle("创作作品");
         setListener();
-       // positions = new String[0];
+        // positions = new String[0];
     }
 
     private void setListener() {
@@ -182,7 +177,7 @@ public class PublishActivity extends BaseActivity {
                 .addFormDataPart("write_name", opusName)
                 .addFormDataPart("reStatus", isCanOverride)
                 .addFormDataPart("upStatus", isCanRenew)
-                .addFormDataPart("type", type+"")
+                .addFormDataPart("type", type + "")
                 .addFormDataPart("user_id", UserInfoTools.getUserId(this))
                 .addFormDataPart("uploadFile", file.getName(), imageBody);
         List<MultipartBody.Part> parts = builder.build().parts();
@@ -194,10 +189,10 @@ public class PublishActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BasicResponse<PublishBean> response) {
                         showToast("作品发布成功，为作品添加一个章节吧！");
-                        Gson gson=new Gson();
+                        Gson gson = new Gson();
                         String s = gson.toJson(response);
                         LogUtils.e(s);
-                        WriteActivity.start(PublishActivity.this,response.getResult().getWrite_id(),"000","1",WriteActivity.PUBLISH);
+                        WriteActivity.start(PublishActivity.this, response.getResult().getWrite_id(), "000", "1", WriteActivity.PUBLISH);
                         finish();
                     }
                 });
@@ -261,11 +256,11 @@ public class PublishActivity extends BaseActivity {
         label = data.getStringExtra("label");
         if (TextUtils.isEmpty(label)) {
             mLlLabel.removeAllViews();
-            label="";
+            label = "";
             return;
         }
-       // String[] labels = label.split("-");
-        type = data.getIntExtra("positions",100);
+        // String[] labels = label.split("-");
+        type = data.getIntExtra("positions", 200);
         mLlLabel.removeAllViews();
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);

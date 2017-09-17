@@ -39,6 +39,8 @@ import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.net.IdeaApiService;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.lsjwzh.widget.recyclerviewpager.RecyclerViewPager;
+import com.umeng.analytics.MobclickAgent;
+import com.umeng.analytics.social.UMPlatformData;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -803,6 +805,13 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         sp.setText("当我们阅读的时候，思考，便成了作者。当我们写作的时候，思考，便成了读者。");
         sp.setTitle(getString(R.string.app_name));
         weixin.share(sp);
+
+
+        UMPlatformData platform = new UMPlatformData(UMPlatformData.UMedia.WEIXIN_FRIENDS, UserInfoTools.getUserId(this));
+        platform.setGender(UMPlatformData.GENDER.FEMALE); // optional
+        platform.setWeiboId("weChatId"); // optional
+
+        MobclickAgent.onSocialEvent(this, platform);
     }
 
     private void share2Moments() {   //  分享到朋友圈

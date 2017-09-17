@@ -26,6 +26,7 @@ import com.airong.core.dialog.CustomDialog;
 import com.airong.core.view.PtrClassicListFooter;
 import com.airong.core.view.PtrClassicListHeader;
 import com.cypoem.idea.R;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -58,6 +59,18 @@ public abstract class BaseActivity extends BaseRxActivity {
         setContentView(getLayoutId());
         initToolBar();
         init(savedInstanceState);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override

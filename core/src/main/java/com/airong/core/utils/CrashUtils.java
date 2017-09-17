@@ -5,6 +5,9 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 import android.support.compat.BuildConfig;
+
+import com.umeng.analytics.MobclickAgent;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -75,6 +78,7 @@ public class CrashUtils implements UncaughtExceptionHandler {
     public void uncaughtException(Thread thread, final Throwable throwable) {
         String name = "android-" + new SimpleDateFormat("yy-MM-dd HH:mm:ss", Locale.getDefault()).format(new Date());
         final String fullPath = crashDir + name + ".txt";
+        MobclickAgent.reportError(Utils.getContext(),throwable.getCause());
         if (!FileUtils.createOrExistsFile(fullPath)) return;
         new Thread(() -> {
 

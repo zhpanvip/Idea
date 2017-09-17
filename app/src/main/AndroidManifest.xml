@@ -15,10 +15,10 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_SMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
 
     <application
         android:name=".app.MainApplication"
@@ -80,7 +80,13 @@
         <activity android:name=".activity.WriteActivity" />
         <activity android:name=".activity.UpdatePswActivity" />
         <activity android:name=".activity.ArticleActivity" />
-        <activity android:name=".activity.UpdateChapterActivity"></activity>
+        <activity android:name=".activity.UpdateChapterActivity"/>
+
+        <meta-data android:value="59be7c245312dd521d0001e4" android:name="UMENG_APPKEY"/>
+        <meta-data android:value="Channel ID" android:name="UMENG_CHANNEL"/>
     </application>
+
+
+
 
 </manifest>

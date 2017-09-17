@@ -72,4 +72,5 @@ dependencies {
     compile 'xiao.free.horizontalrefreshlayout:lib:v0.1.2'
     compile 'com.bigkoo:convenientbanner:2.0.5'
     compile project(':libres')
+    compile 'com.umeng.analytics:analytics:6.1.2'
 }

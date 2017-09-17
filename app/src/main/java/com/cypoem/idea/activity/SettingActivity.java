@@ -22,6 +22,7 @@ import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.module.bean.UserInfoBean;
 import com.cypoem.idea.utils.SharedPreferencesHelper;
 import com.cypoem.idea.utils.UserInfoTools;
+import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -138,6 +139,7 @@ public class SettingActivity extends BaseActivity {
         UserInfoTools.logout();
         //  发送广播结束MainActivity
         EventBus.getDefault().post(new NightModeEvent());
+        MobclickAgent.onProfileSignOff();
         finish();
     }
 

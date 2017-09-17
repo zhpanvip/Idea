@@ -54,7 +54,7 @@ public interface IdeaApiService {
      */
     @Multipart
     @POST("user/register.do")
-    Observable<BasicResponse<RegisterBean>> register(@Part List<MultipartBody.Part> partList);
+    Observable<BasicResponse<UserBean>> register(@Part List<MultipartBody.Part> partList);
 
     /**
      * 完善用户信息

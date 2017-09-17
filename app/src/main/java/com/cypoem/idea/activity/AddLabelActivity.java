@@ -41,7 +41,7 @@ public class AddLabelActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        int positions = getIntent().getIntExtra("positions", 100);
+        int positions = getIntent().getIntExtra("positions", 200);
         selectedList = new ArraySet<>();
         mLabels = getApplicationContext().getResources().getStringArray(R.array.label);
         mAdapter = new TagAdapter<String>(mLabels) {
@@ -117,7 +117,7 @@ public class AddLabelActivity extends BaseActivity {
 
     private void setValues() {
         String labels = "";
-        int positions = 100;
+        int positions = 200;
         selectedList = mFlowLayout.getSelectedList();
         for (Integer i : selectedList) {
             labels += mLabels[i];

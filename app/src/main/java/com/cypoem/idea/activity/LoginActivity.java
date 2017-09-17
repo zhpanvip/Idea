@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airong.core.utils.LogUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
@@ -20,6 +21,10 @@ import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.mob.tools.utils.UIHandler;
+import com.umeng.analytics.MobclickAgent;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -35,7 +40,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener,Handler.Callback, PlatformActionListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener, Handler.Callback, PlatformActionListener {
     private static final int MSG_USERID_FOUND = 1;
     private static final int MSG_LOGIN = 2;
     private static final int MSG_AUTH_CANCEL = 3;
@@ -75,7 +80,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private void initData() {
         getToolbar().setVisibility(View.GONE);
+        EventBus.getDefault().register(this);
     }
+
 
     public static void start(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
@@ -92,16 +99,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 GetIdentifyCodeActivity.start(this, GetIdentifyCodeActivity.FORGET_PSW);
                 break;
             case R.id.iv_qq:
-                 authorize(new QQ(),2);
+                authorize(new QQ(), 2);
                 break;
             case R.id.iv_weChat:
-                 authorize(new Wechat(),1);
+                authorize(new Wechat(), 1);
                 break;
             case R.id.iv_weiBo:
-                 authorize(new SinaWeibo(),3);
+                authorize(new SinaWeibo(), 3);
                 break;
             case R.id.tv_new_user:
-                GetIdentifyCodeActivity.start(this, GetIdentifyCodeActivity.REGISTER);
+              //  GetIdentifyCodeActivity.start(this, GetIdentifyCodeActivity.REGISTER);
+                SetPasswordActivity.start(this, "17602150876");
                 break;
             case R.id.tv_login_error:
                 goProtocol();
@@ -145,6 +153,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse<UserBean> response) {
+                        MobclickAgent.onProfileSignIn(phone);
                         loginSuccess(response.getResult());
                     }
                 });
@@ -159,12 +168,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     public void onDestroy() {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
-    @Override
-    public boolean handleMessage(Message msg) {
-        return false;
-    }
 
     @Override
     public void onClick(View v) {
@@ -172,27 +178,52 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     }
 
     @Override
-    public void onComplete(Platform platform, int i, HashMap<String, Object> hashMap) {
-
+    public void onComplete(Platform platform, int action, HashMap<String, Object> hashMap) {
+        if (action == Platform.ACTION_USER_INFOR) {
+            //登录成功,获取需要的信息
+            UIHandler.sendEmptyMessage(MSG_AUTH_COMPLETE, this);
+            // login(platform.getName(), platform.getDb().getUserId(), res);
+            String openid = platform.getDb().getUserId() + "";
+            String gender = platform.getDb().getUserGender();
+            String head_url = platform.getDb().getUserIcon();
+            String nickname = platform.getDb().getUserName();
+        }
     }
 
     @Override
-    public void onError(Platform platform, int i, Throwable throwable) {
-
+    public void onError(Platform platform, int action, Throwable throwable) {
+        if (action == Platform.ACTION_USER_INFOR) {
+            UIHandler.sendEmptyMessage(MSG_AUTH_ERROR, this);
+        }
+        throwable.printStackTrace();
     }
 
     @Override
-    public void onCancel(Platform platform, int i) {
-
+    public void onCancel(Platform platform, int action) {
+        if (action == Platform.ACTION_USER_INFOR) {
+            UIHandler.sendEmptyMessage(MSG_AUTH_CANCEL, this);
+        }
     }
 
-    private void authorize(Platform plat,int type) {
+    @Subscribe
+    public void registerSuccess(CompleteRegisterActivity.RegisterSuccess registerSuccess) {
+        LogUtils.e(registerSuccess.msg);
+        finish();
+    }
+
+    private void authorize(Platform plat, int type) {
         if (plat == null) {
             popupOthers();
             return;
         }
+        if (plat.isClientValid()) {
+
+        } else {
+
+        }
         //判断指定平台是否已经完成授权
-        if(plat.isAuthValid()) {
+        if (plat.isAuthValid()) {
+            plat.removeAccount(true);
             String userId = plat.getDb().getUserId();
             if (userId != null) {
                 UIHandler.sendEmptyMessage(MSG_USERID_FOUND, this);
@@ -213,14 +244,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private void thirdPartLogin(String name, String userId, int type) {
         IdeaApi.getApiService()
-                .thirdPartLogin(name,userId,String.valueOf(type))
+                .thirdPartLogin(name, userId, String.valueOf(type))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, true) {
                     @Override
                     public void onFail(BasicResponse<UserBean> response, int code) {
                         //super.onFail(response, code);
-                        if(code==203){
+                        if (code == 203) {
                             showToast(response.getMsg());
                         }
                     }
@@ -228,7 +259,36 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     @Override
                     public void onSuccess(BasicResponse<UserBean> response) {
                         loginSuccess(response.getResult());
+                        MobclickAgent.onProfileSignIn(userId);
                     }
                 });
+    }
+
+    @Override
+    public boolean handleMessage(Message msg) {
+        switch (msg.what) {
+            case MSG_USERID_FOUND: {
+                showToast(R.string.userid_found);
+            }
+            break;
+            case MSG_LOGIN: {
+                String text = getString(R.string.logining, msg.obj);
+                showToast(text);
+            }
+            break;
+            case MSG_AUTH_CANCEL: {
+                showToast(R.string.auth_cancel);
+            }
+            break;
+            case MSG_AUTH_ERROR: {
+                showToast(R.string.auth_error);
+            }
+            break;
+            case MSG_AUTH_COMPLETE: {
+                showToast(R.string.auth_complete);
+            }
+            break;
+        }
+        return false;
     }
 }

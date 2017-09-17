@@ -10,15 +10,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
 import com.cypoem.idea.adapter.AdapterFragmentPager;
 import com.cypoem.idea.event.LogoutEvent;
 import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.R;
 import com.cypoem.idea.fragment.AddFragment;
+import com.cypoem.idea.utils.SharedPreferencesHelper;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.MViewPaper;
+import com.umeng.analytics.MobclickAgent;
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -42,11 +47,22 @@ public class MainActivity extends BaseActivity {
     //  退出时间间隔
     private long exitTime = 0;
     //  上一次RadioGroup选中的Id
-    private int preCheckedId=R.id.rb_home;
+    private int preCheckedId = R.id.rb_home;
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_main;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //  友盟统计统计下载量（并不准确）
+        boolean isFirst = (boolean) SharedPreferencesHelper.get(this, "isFirstIn", false);
+        if(!isFirst){
+            MobclickAgent.onEvent(this,"download");
+        }
+        SharedPreferencesHelper.put(this, "isFirstIn", true);
     }
 
     @Override
@@ -163,7 +179,7 @@ public class MainActivity extends BaseActivity {
                 showToast("再按一次退出程序");
                 exitTime = System.currentTimeMillis();
             } else {
-               // finish();
+                // finish();
                 System.exit(0);
             }
             return true;
@@ -182,6 +198,7 @@ public class MainActivity extends BaseActivity {
 
     /**
      * 接收到夜间模式改变的事件后结束当前Activity
+     *
      * @param event
      */
     @Subscribe
@@ -191,6 +208,7 @@ public class MainActivity extends BaseActivity {
 
     /**
      * 接受退出事件
+     *
      * @param event
      */
     @Subscribe
@@ -200,6 +218,7 @@ public class MainActivity extends BaseActivity {
 
     /**
      * 接受点击参与已有作品的事件
+     *
      * @param joinOpus
      */
     @Subscribe

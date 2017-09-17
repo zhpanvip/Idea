@@ -11,6 +11,7 @@ import com.airong.core.dialog.CustomDialog;
 import com.airong.core.view.PtrClassicListFooter;
 import com.airong.core.view.PtrClassicListHeader;
 import com.cypoem.idea.R;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.Unbinder;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -32,6 +33,19 @@ public abstract class BaseFragment extends BaseLazyFragment {
     public void showToast(String msg) {
         ToastUtils.show(msg);
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getName());
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getActivity().getLocalClassName());
+    }
+
 
     /**
      * @param content         内容
