@@ -21,10 +21,8 @@ import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.airong.core.utils.LogUtils;
-import com.airong.core.utils.SDCardUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
-import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;

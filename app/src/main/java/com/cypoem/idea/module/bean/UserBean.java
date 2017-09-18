@@ -1,7 +1,5 @@
 package com.cypoem.idea.module.bean;
 
-import com.google.gson.annotations.SerializedName;
-
 /**
  * Created by zhpan on 2017/7/2.
  */

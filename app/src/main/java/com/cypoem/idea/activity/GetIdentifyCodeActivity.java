@@ -49,7 +49,7 @@ public class GetIdentifyCodeActivity extends BaseActivity {
     private EventHandler eventHandler;
     private String phone;
 
-    private final static long ANIMATION_DURATION = 50000;
+    private final static long ANIMATION_DURATION = 60000;
     private final static long SECOND = 1000;
     private static final int FAIL = 10;   //  验证码获取/提交异常
 
@@ -76,7 +76,6 @@ public class GetIdentifyCodeActivity extends BaseActivity {
                 tvGetCode.setEnabled(true);
             }
         };
-
         timer.start();
     }
 
@@ -239,7 +238,6 @@ public class GetIdentifyCodeActivity extends BaseActivity {
                         SetPasswordActivity.start(activity, activity.phone);
                         activity.finish();
                     }
-
 
                     break;
                 case SMSSDK.EVENT_GET_VERIFICATION_CODE:// 验证码获取成功

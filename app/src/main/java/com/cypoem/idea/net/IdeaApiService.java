@@ -9,7 +9,6 @@ import com.cypoem.idea.module.bean.FansBean;
 import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.PublishBean;
-import com.cypoem.idea.module.bean.RegisterBean;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
 
@@ -22,11 +21,9 @@ import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
@@ -92,7 +89,7 @@ public interface IdeaApiService {
      */
     @FormUrlEncoded
     @POST("user/thirdPartyLogin.do")
-    Observable<BasicResponse<UserBean>> thirdPartLogin(@Field("name") String name,@Field("thirdPartyCode") String userId,@Field("type") String type);
+    Observable<BasicResponse<UserBean>> thirdPartLogin(@FieldMap Map<String,Object> map);
 
     /**
      * 意见反馈

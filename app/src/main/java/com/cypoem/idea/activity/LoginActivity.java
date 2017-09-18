@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -33,6 +34,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
+import cn.sharesdk.framework.PlatformDb;
+import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
@@ -40,7 +43,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener, Handler.Callback, PlatformActionListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener,PlatformActionListener {
     private static final int MSG_USERID_FOUND = 1;
     private static final int MSG_LOGIN = 2;
     private static final int MSG_AUTH_CANCEL = 3;
@@ -66,6 +69,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @BindView(R.id.tv_login_error)
     TextView tvLoginError;
     private String phone;
+    private int type;
 
 
     @Override
@@ -99,17 +103,20 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 GetIdentifyCodeActivity.start(this, GetIdentifyCodeActivity.FORGET_PSW);
                 break;
             case R.id.iv_qq:
-                authorize(new QQ(), 2);
+                authorize(QQ.NAME);
+                type = 2;
                 break;
             case R.id.iv_weChat:
-                authorize(new Wechat(), 1);
+                authorize(Wechat.NAME);
+                type = 1;
                 break;
             case R.id.iv_weiBo:
-                authorize(new SinaWeibo(), 3);
+                authorize(SinaWeibo.NAME);
+                type = 3;
                 break;
             case R.id.tv_new_user:
-              //  GetIdentifyCodeActivity.start(this, GetIdentifyCodeActivity.REGISTER);
-                SetPasswordActivity.start(this, "17602150876");
+                GetIdentifyCodeActivity.start(this, GetIdentifyCodeActivity.REGISTER);
+                //  SetPasswordActivity.start(this, "17602150876");
                 break;
             case R.id.tv_login_error:
                 goProtocol();
@@ -179,29 +186,48 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     public void onComplete(Platform platform, int action, HashMap<String, Object> hashMap) {
-        if (action == Platform.ACTION_USER_INFOR) {
+        Log.e("onComplete", "登录成功");
+        Log.e("openid", platform.getDb().getUserId());//拿到登录后的openid
+        Log.e("username", platform.getDb().getUserName());//拿到登录用户的昵称
+
+        if (action == Platform.ACTION_AUTHORIZING) {
             //登录成功,获取需要的信息
-            UIHandler.sendEmptyMessage(MSG_AUTH_COMPLETE, this);
+           // UIHandler.sendEmptyMessage(MSG_AUTH_COMPLETE, this);
             // login(platform.getName(), platform.getDb().getUserId(), res);
-            String openid = platform.getDb().getUserId() + "";
-            String gender = platform.getDb().getUserGender();
-            String head_url = platform.getDb().getUserIcon();
-            String nickname = platform.getDb().getUserName();
+            PlatformDb db = platform.getDb();
+            String openid = db.getUserId() + "";
+            String gender = db.getUserGender();
+            String head_url = db.getUserIcon();
+            String nickname = db.getUserName();
+            String userId = db.getUserId();
+
+            //判断指定平台是否已经完成授权
+            if (platform.isAuthValid()) {
+                // platform.removeAccount(true);
+                if (!TextUtils.isEmpty(userId)) {
+                   // UIHandler.sendEmptyMessage(MSG_USERID_FOUND, this);
+                    thirdPartLogin(nickname, userId, type, head_url);
+                }
+            }
         }
     }
 
     @Override
     public void onError(Platform platform, int action, Throwable throwable) {
+        Log.e("onError", throwable.toString() + "");
+        Log.e("onError", "登录失败" + throwable.toString());
+
         if (action == Platform.ACTION_USER_INFOR) {
-            UIHandler.sendEmptyMessage(MSG_AUTH_ERROR, this);
+          //  UIHandler.sendEmptyMessage(MSG_AUTH_ERROR, this);
         }
         throwable.printStackTrace();
     }
 
     @Override
     public void onCancel(Platform platform, int action) {
+        Log.e("onError", "登录取消");
         if (action == Platform.ACTION_USER_INFOR) {
-            UIHandler.sendEmptyMessage(MSG_AUTH_CANCEL, this);
+          //  UIHandler.sendEmptyMessage(MSG_AUTH_CANCEL, this);
         }
     }
 
@@ -211,40 +237,27 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         finish();
     }
 
-    private void authorize(Platform plat, int type) {
-        if (plat == null) {
-            popupOthers();
-            return;
-        }
-        if (plat.isClientValid()) {
-
-        } else {
-
-        }
-        //判断指定平台是否已经完成授权
-        if (plat.isAuthValid()) {
-            plat.removeAccount(true);
-            String userId = plat.getDb().getUserId();
-            if (userId != null) {
-                UIHandler.sendEmptyMessage(MSG_USERID_FOUND, this);
-                thirdPartLogin(plat.getName(), userId, type);
-                return;
-            }
-        }
+    private void authorize(String name) {
+        Platform plat = ShareSDK.getPlatform(name);
+        plat.SSOSetting(false);
+        plat.removeAccount(true);
         plat.setPlatformActionListener(this);
+        if (!plat.isAuthValid()) {
+            plat.authorize();
+        }
         // true不使用SSO授权，false使用SSO授权
-        plat.SSOSetting(true);
-        //获取用户资料
-        plat.showUser(null);
+      //  plat.showUser(null);
     }
 
-    private void popupOthers() {
+    private void thirdPartLogin(String name, String userId, int type, String icon) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("pen_name", name);
+        map.put("thirdPartyCode", userId);
+        map.put("type", type);
+        map.put("icon", icon);
 
-    }
-
-    private void thirdPartLogin(String name, String userId, int type) {
         IdeaApi.getApiService()
-                .thirdPartLogin(name, userId, String.valueOf(type))
+                .thirdPartLogin(map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, true) {
@@ -264,7 +277,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 });
     }
 
-    @Override
+    /*@Override
     public boolean handleMessage(Message msg) {
         switch (msg.what) {
             case MSG_USERID_FOUND: {
@@ -290,5 +303,5 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             break;
         }
         return false;
-    }
+    }*/
 }
