@@ -130,6 +130,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
     private LinearLayout mLlDelete;
     private LinearLayout mLlEdit;
     private String user_id = "1";
+    private String write_name;
 
     @Override
     protected int getLayoutId() {
@@ -458,6 +459,11 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         }
     }
 
+    /*private boolean isCanRewrite(){
+        int status = .getStatus();
+        return status==1;
+    }
+*/
     private boolean isLogin() {
         return UserInfoTools.getIsLogin(this);
     }
@@ -471,6 +477,8 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         map.put("write_id", write_id);
         map.put("user_id", user_id);
         map.put("status", String.valueOf(status));
+        map.put("write_name",title);
+        map.put("type","1");
         IdeaApi.getApiService()
                 .lightChapter(map)
                 .subscribeOn(Schedulers.io())

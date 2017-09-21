@@ -8,7 +8,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.airong.core.recycler.BaseAdapter;
 import com.airong.core.recycler.BaseHolder;
@@ -16,25 +15,25 @@ import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.bean.BaseOpusBean;
 import com.cypoem.idea.module.bean.HomeBean;
+import com.cypoem.idea.module.bean.SubjectBean;
 import com.cypoem.idea.net.IdeaApiService;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by zhpan on 2017/5/14.
  */
 
-public class HomeAdapter extends BaseAdapter<BaseOpusBean, HomeAdapter.HomeViewHolder> {
+public class SubjectAdapter extends BaseAdapter<SubjectBean.WritesBean, SubjectAdapter.HomeViewHolder> {
     private OnItemClickListener clickListener;
 
 
-    public HomeAdapter setOnItemClickListener(OnItemClickListener clickListener) {
+    public SubjectAdapter setOnItemClickListener(OnItemClickListener clickListener) {
         this.clickListener = clickListener;
         return this;
     }
 
-    public HomeAdapter(Context context) {
+    public SubjectAdapter(Context context) {
         super(context);
         fillList(new ArrayList<>());
     }
@@ -46,43 +45,20 @@ public class HomeAdapter extends BaseAdapter<BaseOpusBean, HomeAdapter.HomeViewH
 
     @Override
     public void bindCustomViewHolder(HomeViewHolder holder, int position) {
-        BaseOpusBean item = getItem(position);
-        if (item instanceof HomeBean.WritesBean) {
-            HomeBean.WritesBean writesBean = (HomeBean.WritesBean) item;
-            holder.mTvTitle.setText(writesBean.getWrite_name());
-            holder.mTvTime.setText(writesBean.getDelivery_time().substring(0, 10) + "/" + writesBean.getUser().getPen_name());
-            holder.mTvDetails.setText("赞" + writesBean.getLike_count() + "/阅读" + writesBean.getRead_count() + "/章节" + writesBean.getSection_count());
-            ImageLoaderUtil.loadImg(holder.imageView, IdeaApiService.HOST + writesBean.getPic(), R.drawable.image_replace);
-            setVisible(holder);
-        } else if (item instanceof HomeBean.SubjectsBean) {
-            HomeBean.SubjectsBean subjectsBean = (HomeBean.SubjectsBean) item;
-            ImageLoaderUtil.loadImg(holder.imageView, IdeaApiService.HOST + subjectsBean.getSubject_pic(), R.drawable.image_replace);
-
-            setInVisible(holder);
-        }
+        SubjectBean.WritesBean item = getItem(position);
+        holder.mTvTitle.setText(item.getWrite_name());
+        holder.mTvTime.setText(item.getDelivery_time().substring(0, 10));
+        holder.mTvDetails.setText("赞" + item.getLike_count() + "/阅读" + item.getSection_count() + "/章节" + item.getSection_count());
+        ImageLoaderUtil.loadImg(holder.imageView, IdeaApiService.HOST + item.getPic(), R.drawable.image_replace);
         //  item点击事件
         holder.mRelativeLayout.setOnClickListener((View v) -> {
             if (clickListener != null) {
                 clickListener.onItemClick(position);
             }
         });
+
     }
 
-    private void setInVisible(HomeViewHolder homeViewHolder) {
-        homeViewHolder.mLlLabel.setVisibility(View.GONE);
-        homeViewHolder.mTvTitle.setVisibility(View.GONE);
-        homeViewHolder.mTvTime.setVisibility(View.GONE);
-        homeViewHolder.mTvDetails.setVisibility(View.GONE);
-        homeViewHolder.mIvShadow.setVisibility(View.GONE);
-    }
-
-    private void setVisible(HomeViewHolder homeViewHolder) {
-        homeViewHolder.mLlLabel.setVisibility(View.VISIBLE);
-        homeViewHolder.mTvTitle.setVisibility(View.VISIBLE);
-        homeViewHolder.mTvTime.setVisibility(View.VISIBLE);
-        homeViewHolder.mTvDetails.setVisibility(View.VISIBLE);
-        homeViewHolder.mIvShadow.setVisibility(View.VISIBLE);
-    }
 
     @Override
     public int getCustomViewType(int position) {

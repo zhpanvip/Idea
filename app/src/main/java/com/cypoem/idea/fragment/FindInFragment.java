@@ -1,22 +1,18 @@
 package com.cypoem.idea.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.StartReadActivity;
 import com.cypoem.idea.adapter.HomeAdapter;
-import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
-import com.cypoem.idea.module.bean.HomePageBean;
+import com.cypoem.idea.module.bean.BaseOpusBean;
+import com.cypoem.idea.module.bean.HomeBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import java.util.ArrayList;
@@ -31,7 +27,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by zhpan on 2017/4/21.
  */
 public class FindInFragment extends BaseFragment {
-    @BindView(R.id.rv_home)
+    @BindView(R.id.rv_write)
     RecyclerView mRecyclerView;
     @BindView(R.id.toolbar_subtitle)
     TextView toolbarSubtitle;
@@ -54,7 +50,7 @@ public class FindInFragment extends BaseFragment {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.fragment_homepage;
+        return R.layout.fragment_find_in;
     }
 
     @Override
@@ -82,7 +78,7 @@ public class FindInFragment extends BaseFragment {
         mAdapter.fillList(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((position) -> {
-            HomePageBean homePageBean = mAdapter.getList().get(position);
+            HomeBean.WritesBean homePageBean = (HomeBean.WritesBean) mAdapter.getList().get(position);
             String writeId = String.valueOf(homePageBean.getWrite_id());
             String authorId = homePageBean.getUser().getUser_id();
             String write_name = homePageBean.getWrite_name();
@@ -113,9 +109,9 @@ public class FindInFragment extends BaseFragment {
                 .getDiscoverData(currentPage, ROWS,type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<List<HomePageBean>>>(this, false) {
+                .subscribe(new DefaultObserver<BasicResponse<List<HomeBean.WritesBean>>>(this, false) {
                     @Override
-                    public void onSuccess(BasicResponse<List<HomePageBean>> response) {
+                    public void onSuccess(BasicResponse<List<HomeBean.WritesBean>> response) {
                         if (isRefresh) {
                             mAdapter.getList().clear();
                         }
@@ -125,8 +121,8 @@ public class FindInFragment extends BaseFragment {
                 });
     }
 
-    private void updateList(List<HomePageBean> result) {
-        List<HomePageBean> list = mAdapter.getList();
+    private void updateList(List<HomeBean.WritesBean> result) {
+        List<BaseOpusBean> list = mAdapter.getList();
         if (result.size() < ROWS) {
             mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
         } else {

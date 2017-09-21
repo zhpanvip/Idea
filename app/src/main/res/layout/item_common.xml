@@ -15,6 +15,7 @@
         android:scaleType="fitXY" />
 
     <ImageView
+        android:id="@+id/iv_shadow"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
@@ -61,6 +62,8 @@
         android:layout_marginLeft="@dimen/mp_10"
         android:textColor="@color/white" />
 
-    <include layout="@layout/layout_label"/>
+    <include
+        android:id="@+id/ll_label"
+        layout="@layout/layout_label"/>
 
 </RelativeLayout>

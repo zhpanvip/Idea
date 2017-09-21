@@ -153,7 +153,7 @@ public class AuthorInfoActivity extends BaseActivity {
         ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST + user.getCover_photo(), R.drawable.user_info_placeholder);
         mTvPenName.setText(user.getPen_name());
         String sex = user.getSex();
-        mSexView.setMalePercent(Double.parseDouble(sex));
+        mSexView.setMalePercent(sex);
         mTvSign.setText(user.getDictum());
         mTvBirthday.setText(user.getBirthday());
         mTvAddress.setText(user.getAddress());

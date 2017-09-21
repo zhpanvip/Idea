@@ -27,25 +27,25 @@ public class UserBean {
          */
 
     private String user_id="";
-    private String pen_name;
-    private String sex;
+    private String pen_name="";
+    private String sex="0.5";
     private String icon;
-    private String address;
-    private String phone;
-    private String birthday;
-    private String reg_date;
-    private String user_status;
+    private String address="";
+    private String phone="";
+    private String birthday="";
+    private String reg_date="";
+    private String user_status="";
     private String password="";
-    private String cover_photo;
-    private String introduction;
-    private String dictum;
+    private String cover_photo="";
+    private String introduction="";
+    private String dictum="";
     private int watchMeCount;
     private int myWatchCount;
     private int enjoy_count;
     private int keep_count;
     private String return_code;
     private int watch_status;
-    private String msg;
+    private String msg="";
     private boolean follow;
     /**
      * balance : 0

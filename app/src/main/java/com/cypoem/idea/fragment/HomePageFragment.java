@@ -10,10 +10,13 @@ import android.widget.TextView;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.BasicWebViewActivity;
 import com.cypoem.idea.activity.StartReadActivity;
+import com.cypoem.idea.activity.SubjectActivity;
 import com.cypoem.idea.adapter.HomeAdapter;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.BannerBean;
-import com.cypoem.idea.module.bean.HomePageBean;
+import com.cypoem.idea.module.bean.BaseOpusBean;
+import com.cypoem.idea.module.bean.HomeBean;
+import com.cypoem.idea.module.bean.SubjectBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.view.CircleViewPager;
@@ -79,13 +82,21 @@ public class HomePageFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new HomeAdapter(getContext());
         mAdapter.fillList(new ArrayList<>());
+       // mAdapter.setSubjectList(new ArrayList<>());
         mRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((position) -> {
-            HomePageBean homePageBean = mAdapter.getList().get(position - 1);
-            String writeId = String.valueOf(homePageBean.getWrite_id());
-            String authorId = homePageBean.getUser().getUser_id();
-            String title = homePageBean.getWrite_name();
-            StartReadActivity.start(getContext(), writeId, authorId, title);
+            BaseOpusBean baseOpusBean = mAdapter.getList().get(position - 1);
+            if(baseOpusBean instanceof HomeBean.WritesBean){
+                HomeBean.WritesBean writesBean=(HomeBean.WritesBean)baseOpusBean;
+                String writeId = String.valueOf(writesBean.getWrite_id());
+                String authorId = writesBean.getUser().getUser_id();
+                String title = writesBean.getWrite_name();
+                StartReadActivity.start(getContext(), writeId, authorId, title);
+            }else if(baseOpusBean instanceof HomeBean.SubjectsBean){
+                HomeBean.SubjectsBean subjectsBean=( HomeBean.SubjectsBean)baseOpusBean;
+                SubjectActivity.start(getContext(),subjectsBean.getSubject_id());
+            }
+
         });
         initViewPager();
     }
@@ -164,12 +175,12 @@ public class HomePageFragment extends BaseFragment {
     private void getData(boolean isRefresh, int currentPage) {
         //  Retrofit请求数据
         IdeaApi.getApiService()
-                .getHomePageData(currentPage, ROWS)
+                .getHomeData(currentPage, ROWS)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<List<HomePageBean>>>(this, false) {
+                .subscribe(new DefaultObserver<BasicResponse<HomeBean>>(this, false) {
                     @Override
-                    public void onSuccess(BasicResponse<List<HomePageBean>> response) {
+                    public void onSuccess(BasicResponse<HomeBean> response) {
                         if (isRefresh) {
                             mAdapter.getList().clear();
                         }
@@ -179,14 +190,16 @@ public class HomePageFragment extends BaseFragment {
                 });
     }
 
-    private void updateList(List<HomePageBean> result) {
-        List<HomePageBean> list = mAdapter.getList();
-        if (result.size() < ROWS) {
+    private void updateList(HomeBean result) {
+        List<BaseOpusBean> list = mAdapter.getList();
+        List<HomeBean.WritesBean> writeList = result.getWrites();
+        if (writeList.size() < ROWS) {
             mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
         } else {
             mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
         }
-        list.addAll(result);
+        list.addAll(result.getSubjects());
+        list.addAll(writeList);
         //mAdapter.notifyDataSetChanged();
     }
 

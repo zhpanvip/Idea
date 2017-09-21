@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
@@ -85,6 +86,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     private void initData() {
         getToolbar().setVisibility(View.GONE);
         EventBus.getDefault().register(this);
+
+        String threadName = Thread.currentThread().getName();
+        Log.e("Thread。。。。。",threadName);
     }
 
 
@@ -161,12 +165,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                     @Override
                     public void onSuccess(BasicResponse<UserBean> response) {
                         MobclickAgent.onProfileSignIn(phone);
-                        loginSuccess(response.getResult());
+                        loginSuccess(response.getResult(),"");
                     }
                 });
     }
 
-    private void loginSuccess(UserBean result) {
+    private void loginSuccess(UserBean result,String userId) {
+        MobclickAgent.onProfileSignIn(userId);
+        String threadName = Thread.currentThread().getName();
         showToast("登录成功");
         UserInfoTools.setIsLogin(this, true);
         UserInfoTools.setUser(this, result);
@@ -189,8 +195,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         Log.e("onComplete", "登录成功");
         Log.e("openid", platform.getDb().getUserId());//拿到登录后的openid
         Log.e("username", platform.getDb().getUserName());//拿到登录用户的昵称
+        if(action==Platform.ACTION_AUTHORIZING){
+            String userName = platform.getDb().getUserName();
+            String asdjf=platform.getDb().getUserGender();
+        }
 
-        if (action == Platform.ACTION_AUTHORIZING) {
+
+        if (action == Platform.ACTION_USER_INFOR) {
             //登录成功,获取需要的信息
            // UIHandler.sendEmptyMessage(MSG_AUTH_COMPLETE, this);
             // login(platform.getName(), platform.getDb().getUserId(), res);
@@ -200,13 +211,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
             String head_url = db.getUserIcon();
             String nickname = db.getUserName();
             String userId = db.getUserId();
-
+            double sex=gender.equals("m")?1.0:0.0;
             //判断指定平台是否已经完成授权
             if (platform.isAuthValid()) {
                 // platform.removeAccount(true);
                 if (!TextUtils.isEmpty(userId)) {
                    // UIHandler.sendEmptyMessage(MSG_USERID_FOUND, this);
-                    thirdPartLogin(nickname, userId, type, head_url);
+                    thirdPartRegister(nickname, userId, type, head_url,sex);
                 }
             }
         }
@@ -237,25 +248,46 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         finish();
     }
 
-    private void authorize(String name) {
+        private void authorize(String name) {
+
         Platform plat = ShareSDK.getPlatform(name);
-        plat.SSOSetting(false);
-        plat.removeAccount(true);
-        plat.setPlatformActionListener(this);
-        if (!plat.isAuthValid()) {
-            plat.authorize();
+
+        if (plat.isAuthValid()) {
+            plat.removeAccount(true);
+           /* String userId = plat.getDb().getUserId();
+            if (!TextUtils.isEmpty(userId)) {
+                thirdPartLogin(userId);
+                return;
+            }*/
         }
+        plat.authorize();
+        plat.setPlatformActionListener(this);
+        //true不使用SSO授权，false使用SSO授权
+        plat.SSOSetting(false);
+       // plat.showUser(null);
+
+
+
         // true不使用SSO授权，false使用SSO授权
+      //  plat.SSOSetting(false);
+       // plat.removeAccount(true);
+      //  plat.authorize();
+     //   plat.setPlatformActionListener(this);
+        /*if (!plat.isAuthValid()) {
+            plat.authorize();
+        }*/
+
       //  plat.showUser(null);
     }
 
-    private void thirdPartLogin(String name, String userId, int type, String icon) {
+    private void thirdPartRegister(String name, String userId, int type, String icon,double sex) {
+        Looper.prepare();
         Map<String, Object> map = new HashMap<>();
         map.put("pen_name", name);
         map.put("thirdPartyCode", userId);
         map.put("type", type);
         map.put("icon", icon);
-
+        map.put("sex",sex);
         IdeaApi.getApiService()
                 .thirdPartLogin(map)
                 .subscribeOn(Schedulers.io())
@@ -271,8 +303,31 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
                     @Override
                     public void onSuccess(BasicResponse<UserBean> response) {
-                        loginSuccess(response.getResult());
-                        MobclickAgent.onProfileSignIn(userId);
+                        loginSuccess(response.getResult(),userId);
+
+                    }
+                });
+    }
+
+    private void thirdPartLogin(String userId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("thirdPartyCode", userId);
+        IdeaApi.getApiService()
+                .thirdPartLogin(map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, true) {
+                    @Override
+                    public void onFail(BasicResponse<UserBean> response, int code) {
+                        //super.onFail(response, code);
+                        if (code == 203) {
+                           showToast(response.getMsg());
+                        }
+                    }
+
+                    @Override
+                    public void onSuccess(BasicResponse<UserBean> response) {
+                        loginSuccess(response.getResult(),userId);
                     }
                 });
     }

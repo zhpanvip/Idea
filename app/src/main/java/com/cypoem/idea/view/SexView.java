@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 import com.cypoem.idea.R;
@@ -154,5 +155,9 @@ public class SexView extends View {
     public void setMalePercent(double malePercent) {
         this.malePercent = malePercent;
         invalidate();
+    }
+
+    public void setMalePercent(String malePercent){
+        this.malePercent=Double.parseDouble(TextUtils.isEmpty(malePercent)?"0.5":malePercent);
     }
 }

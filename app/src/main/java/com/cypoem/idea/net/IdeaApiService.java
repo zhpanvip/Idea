@@ -3,12 +3,14 @@ package com.cypoem.idea.net;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleBean;
 import com.cypoem.idea.module.bean.BannerBean;
+import com.cypoem.idea.module.bean.HomeBean;
 import com.cypoem.idea.module.bean.CommentBean;
 import com.cypoem.idea.module.bean.EverydayReBackBean;
 import com.cypoem.idea.module.bean.FansBean;
 import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.PublishBean;
+import com.cypoem.idea.module.bean.SubjectBean;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
 
@@ -17,7 +19,6 @@ import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -132,7 +133,7 @@ public interface IdeaApiService {
     Observable<BasicResponse<List<EverydayReBackBean>>> lookBack(@Query("page") int page, @Query("rows") int number);
 
     /**
-     * 首页数据
+     * 首页/发现数据
      *
      * @param page
      * @param number
@@ -141,6 +142,19 @@ public interface IdeaApiService {
     //@Headers("Cache-Control: public, max-age=600")
     @GET("write/first_page.do")
     Observable<BasicResponse<List<HomePageBean>>> getHomePageData(@Query("page") int page, @Query("rows") int number);
+
+    /**
+     * 新首页接口
+     */
+    @GET("write/newFirstPage.do")
+    Observable<BasicResponse<HomeBean>> getHomeData(@Query("page") int page, @Query("rows") int number);
+
+    /**
+     * 获取专题列表
+     * @return
+     */
+    @GET("write/querySubjectWrites.do")
+    Observable<BasicResponse<SubjectBean>> getSubject(@Query("subject_id") int subject_id,@Query("page") int page, @Query("rows") int number);
 
     /**
      * 发现页面数据
@@ -152,7 +166,7 @@ public interface IdeaApiService {
      */
     //@Headers("Cache-Control: public, max-age=600")
     @GET("write/discover.do")
-    Observable<BasicResponse<List<HomePageBean>>> getDiscoverData(@Query("page") int page, @Query("rows") int number, @Query("type") int type);
+    Observable<BasicResponse<List<HomeBean.WritesBean>>> getDiscoverData(@Query("page") int page, @Query("rows") int number, @Query("type") int type);
 
     /**
      * 发布作品

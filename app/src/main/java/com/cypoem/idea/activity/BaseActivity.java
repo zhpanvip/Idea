@@ -79,7 +79,7 @@ public abstract class BaseActivity extends BaseRxActivity {
     }
 
 
-    protected abstract int getLayoutId();
+    protected abstract @LayoutRes int getLayoutId();
 
     protected abstract void init(Bundle savedInstanceState);
 
