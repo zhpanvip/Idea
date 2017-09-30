@@ -4,7 +4,7 @@ package com.airong.core;
 /**
  * Fragment 延迟加载
  */
-public abstract class BaseLazyFragment extends BaseRxFragment {
+public abstract class BaseLazyFragment extends BaseCoreFragment {
 
     /**
      * Fragment当前状态是否可见

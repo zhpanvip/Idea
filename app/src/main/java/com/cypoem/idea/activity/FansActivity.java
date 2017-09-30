@@ -112,6 +112,7 @@ public class FansActivity extends BaseActivity {
             IdeaApi.getApiService()
                     .getMyFocus(userId, currentPage, Constants.NUM)
                     .subscribeOn(Schedulers.io())
+                    .compose(bindToLifecycle())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new DefaultObserver<BasicResponse<List<FansBean>>>(this, false) {
                         @Override

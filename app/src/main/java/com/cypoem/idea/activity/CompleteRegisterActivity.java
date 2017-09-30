@@ -272,6 +272,7 @@ public class CompleteRegisterActivity extends BaseActivity {
         IdeaApi.getApiService()
                 .register(parts)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, true) {
                     @Override

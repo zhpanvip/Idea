@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.airong.core.BaseLazyFragment;
-import com.airong.core.BaseRxFragment;
 import com.airong.core.utils.ToastUtils;
 import com.airong.core.dialog.CustomDialog;
 import com.airong.core.view.PtrClassicListFooter;
@@ -54,11 +53,10 @@ public abstract class BaseFragment extends BaseLazyFragment {
      * @param confirmListener 确定键监听
      * @param cancelListener  取消键监听
      */
-    @Override
     public void showTwoButtonDialog(String content, String confirm, String cancel,
                                     View.OnClickListener confirmListener,
                                     View.OnClickListener cancelListener) {
-        dialog = new CustomDialog.Builder(getContext())
+        dialog = new CustomDialog.Builder(getActivity())
                 .setTheme(com.airong.core.R.style.IdeaDialog)
                 .setContent(content)
                 .addConfirmClickListener(confirm, confirmListener)
@@ -73,10 +71,10 @@ public abstract class BaseFragment extends BaseLazyFragment {
         if (mPtrFrame == null) return;
 
         mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
-        PtrClassicListHeader header = new PtrClassicListHeader(getContext());
-        header.setLastUpdateTimeRelateObject(getContext());
-        PtrClassicListFooter footer = new PtrClassicListFooter(getContext());
-        footer.setLastUpdateTimeRelateObject(getContext());
+        PtrClassicListHeader header = new PtrClassicListHeader(getActivity());
+        header.setLastUpdateTimeRelateObject(getActivity());
+        PtrClassicListFooter footer = new PtrClassicListFooter(getActivity());
+        footer.setLastUpdateTimeRelateObject(getActivity());
         mPtrFrame.setHeaderView(header);
         mPtrFrame.addPtrUIHandler(header);
         mPtrFrame.setFooterView(footer);
@@ -120,12 +118,11 @@ public abstract class BaseFragment extends BaseLazyFragment {
      * @param confirmListener 确定键监听
      * @param cancelListener  取消键监听
      */
-    @Override
     public void showTwoButtonDialog(String content, String confirm, String cancel,
                                     @ColorInt int confirmColor, @ColorInt int cancelColor,
                                     View.OnClickListener confirmListener,
                                     View.OnClickListener cancelListener) {
-        dialog = new CustomDialog.Builder(getContext())
+        dialog = new CustomDialog.Builder(getActivity())
                 .setTheme(com.airong.core.R.style.IdeaDialog)
                 .setContent(content)
                 .setConfirmColor(confirmColor)
@@ -141,9 +138,8 @@ public abstract class BaseFragment extends BaseLazyFragment {
      * @param confirm         按钮文字
      * @param confirmListener 按钮监听
      */
-    @Override
     public void showOneButtonDialog(String content, String confirm, View.OnClickListener confirmListener) {
-        dialog = new CustomDialog.Builder(getContext())
+        dialog = new CustomDialog.Builder(getActivity())
                 .setTheme(com.airong.core.R.style.IdeaDialog)
                 .setContent(content)
                 .addConfirmClickListener(confirm, confirmListener)
@@ -176,14 +172,14 @@ public abstract class BaseFragment extends BaseLazyFragment {
         if (dialogLayoutRes == null) {
             dialogLayoutRes = com.airong.core.R.layout.custom_dialog;
         }
-        View dialogView = LayoutInflater.from(getContext()).inflate(dialogLayoutRes, null);
+        View dialogView = LayoutInflater.from(getActivity()).inflate(dialogLayoutRes, null);
         //  计算dialog宽高
         int measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
         dialogView.measure(measureSpec, measureSpec);
         int height = dialogView.getMeasuredHeight();
         int width = dialogView.getMeasuredWidth();
 
-        dialog = new CustomDialog.Builder(getContext())
+        dialog = new CustomDialog.Builder(getActivity())
                 .setTheme(com.airong.core.R.style.IdeaDialog)
                 .setHeightPx(height)
                 .setWidthPx(width)

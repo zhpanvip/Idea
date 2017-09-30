@@ -87,6 +87,7 @@ public class SubjectActivity extends BaseActivity {
         IdeaApi.getApiService()
                 .getSubject(subjectId, page, Constants.NUM)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<SubjectBean>>(this, false) {
                     @Override

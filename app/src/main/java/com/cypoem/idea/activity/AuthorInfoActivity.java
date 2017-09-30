@@ -189,6 +189,7 @@ public class AuthorInfoActivity extends BaseActivity {
         IdeaApi.getApiService()
                 .getUserInfo(userId, userId)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, showLoading) {
                     @Override

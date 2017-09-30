@@ -8,14 +8,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.airong.core.dialog.CustomProgressDialog;
+import com.trello.rxlifecycle2.components.RxFragment;
+
 import butterknife.ButterKnife;
 
-public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
+public abstract class BaseCoreFragment extends com.trello.rxlifecycle2.components.support.RxFragment {
     public View rootView;
     public LayoutInflater inflater;
 
-    //  加载进度的dialog
-    private CustomProgressDialog mProgressDialog;
+
 
     @Nullable
     @Override
@@ -40,52 +41,6 @@ public abstract class BaseCoreFragment extends Fragment implements BaseImpl{
 
     }
 
-    /**
-     * 显示ProgressDialog
-     */
-    @Override
-    public void showProgress(BaseImpl baseImpl, String msg) {
-        Fragment fragment= (Fragment) baseImpl;
-        if (fragment.getActivity() == null || fragment.getActivity().isFinishing()) {
-            return;
-        }
-        if(mProgressDialog==null){
-            mProgressDialog= new CustomProgressDialog.Builder(getContext())
-                    .setTheme(R.style.ProgressDialogStyle)
-                    .setMessage(msg)
-                    .build();
-        }
-        if(mProgressDialog!=null&&!mProgressDialog.isShowing()) {
-            mProgressDialog.show();
-        }
-    }
-    /**
-     * 显示ProgressDialog
-     */
-    @Override
-    public void showProgress(BaseImpl baseImpl) {
-        Fragment fragment= (Fragment) baseImpl;
-        if (fragment.getActivity() == null || fragment.getActivity().isFinishing()) {
-            return;
-        }
-        if(mProgressDialog==null){
-            mProgressDialog= new CustomProgressDialog.Builder(getContext())
-                    .setTheme(R.style.ProgressDialogStyle)
-                    .build();
-        }
-        if(mProgressDialog!=null&&!mProgressDialog.isShowing()) {
-            mProgressDialog.show();
-        }
-    }
-
-    /**
-     * 取消ProgressDialog
-     */
-    public void dismissProgress() {
-        if (mProgressDialog != null&&mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-    }
     protected abstract int getLayoutId();
 
     protected abstract void init(Bundle savedInstanceState);

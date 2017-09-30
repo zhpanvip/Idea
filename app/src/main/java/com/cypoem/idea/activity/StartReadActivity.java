@@ -359,6 +359,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         map.put("write_author_id", authorId);
         IdeaApi.getApiService()
                 .getArticle(map)
+                .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<ArticleBean>>>(this, true) {
@@ -385,6 +386,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         map.put("write_author_id", authorId);
         IdeaApi.getApiService()
                 .getArticle(map)
+                .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<ArticleBean>>>(this, false) {
@@ -482,6 +484,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         IdeaApi.getApiService()
                 .lightChapter(map)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse>(this, false) {
                     @Override
@@ -549,6 +552,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         IdeaApi.getApiService()
                 .lightComment(user_id, commentId, String.valueOf(status))
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, false) {
                     @Override
@@ -605,6 +609,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         IdeaApi.getApiService()
                 .getComment(map)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<CommentBean>>>(this, true) {
                     @Override
@@ -710,6 +715,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         map.put("keep_status", status);
         IdeaApi.getApiService()
                 .addCollect(map)
+                .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse>(this, true) {
@@ -741,6 +747,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         IdeaApi.getApiService()
                 .comment(user_id, section_id, content)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {
                     @Override
@@ -766,6 +773,7 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         IdeaApi.getApiService()
                 .updateChapter(map)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse>(this, true) {
                     @Override

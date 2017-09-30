@@ -273,6 +273,7 @@ public class CreateEveryDayActivity extends BaseActivity {
         IdeaApi.getApiService()
                 .publishEverydaySay(parts)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse>(this, true) {
                     @Override

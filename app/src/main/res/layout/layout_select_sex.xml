@@ -57,9 +57,9 @@
             android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/mp_15"
-            android:background="@drawable/bg_btn_confirm"
             android:textColor="#3bbaff"
             android:text="确定" />
+        <!--android:background="@drawable/bg_btn_confirm"-->
     </LinearLayout>
 
 </LinearLayout>

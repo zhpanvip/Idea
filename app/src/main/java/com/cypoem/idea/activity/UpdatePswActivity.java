@@ -81,6 +81,7 @@ public class UpdatePswActivity extends BaseActivity {
         }
         IdeaApi.getApiService()
                 .updatePsw(UserInfoTools.getPhone(this),newPsw)
+                .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {

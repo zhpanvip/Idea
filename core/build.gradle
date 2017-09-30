@@ -50,6 +50,8 @@ dependencies {
     compile "com.android.support:appcompat-v7:$rootProject.supportLibVersion"
     compile "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava2Version"
     compile "com.squareup.retrofit2:retrofit:$rootProject.ext.retrofit2Version"
+    compile 'com.trello.rxlifecycle2:rxlifecycle:2.1.0'
+    compile 'com.trello.rxlifecycle2:rxlifecycle-components:2.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
     compile "com.squareup.retrofit2:converter-gson:$rootProject.ext.retrofit2Version"
     compile "com.squareup.retrofit2:adapter-rxjava2:$rootProject.ext.retrofit2Version"
@@ -66,8 +68,8 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:2.1.0'
     compile 'com.zhy:flowlayout-lib:1.0.3'
     compile 'com.contrarywind:Android-PickerView:3.2.5'
-   // compile 'com.github.pinguo-zhouwei:MZBannerView:v1.1.2'
-   // compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
+    // compile 'com.github.pinguo-zhouwei:MZBannerView:v1.1.2'
+    // compile 'cn.bingoogolapple:bga-banner:2.1.7@aar'
     compile 'uk.co.chrisjenx:calligraphy:2.3.0'
     compile 'xiao.free.horizontalrefreshlayout:lib:v0.1.2'
     compile 'com.bigkoo:convenientbanner:2.0.5'

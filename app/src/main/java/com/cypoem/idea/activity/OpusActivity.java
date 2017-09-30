@@ -106,6 +106,7 @@ public class OpusActivity extends BaseActivity {
     private void getData(boolean isRefresh, int currentPage) {
         IdeaApi.getApiService()
                 .getMyOpus(UserInfoTools.getUser(this).getUserId(),currentPage, Constants.NUM,type)
+                .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this,true) {

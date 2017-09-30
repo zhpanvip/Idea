@@ -16,7 +16,6 @@ public abstract class BaseRxActivity extends BaseCoreActivity{
     private CompositeDisposable disposables2Stop;// 管理Stop取消订阅者者
     private CompositeDisposable disposables2Destroy;// 管理Destroy取消订阅者者
 
-    @Override
     public boolean addRxStop(BaseImpl activity, Disposable disposable) {
         if (activity == null || ((Activity)activity).isFinishing()) {
             return false;
@@ -28,7 +27,6 @@ public abstract class BaseRxActivity extends BaseCoreActivity{
         disposables2Stop.add(disposable);
         return true;
     }
-    @Override
     public boolean addRxDestroy(BaseImpl activity, Disposable disposable) {
         if (activity == null || ((Activity)activity).isFinishing()) {
             return false;
@@ -41,7 +39,6 @@ public abstract class BaseRxActivity extends BaseCoreActivity{
         disposables2Destroy.add(disposable);
         return true;
     }
-    @Override
     public void remove(BaseImpl activity, Disposable disposable) {
         if (activity == null || ((Activity)activity).isFinishing()) {
             return ;

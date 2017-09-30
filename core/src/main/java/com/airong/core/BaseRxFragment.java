@@ -1,6 +1,5 @@
 package com.airong.core;
 
-import android.app.Activity;
 import android.os.Bundle;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -71,7 +70,6 @@ public abstract class BaseRxFragment extends BaseCoreFragment  {
             throw new IllegalStateException("onStop called multiple times or onStart not called");
         }
         disposables2Stop.dispose();
-        dismissProgress();
         disposables2Stop = null;
     }
 
@@ -81,7 +79,6 @@ public abstract class BaseRxFragment extends BaseCoreFragment  {
             throw new IllegalStateException(
                     "onDestroy called multiple times or onCreate not called");
         }
-        dismissProgress();
         disposables2Destroy.dispose();
         disposables2Destroy = null;
     }

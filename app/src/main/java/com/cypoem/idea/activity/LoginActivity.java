@@ -160,6 +160,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         IdeaApi.getApiService()
                 .login(params)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, true) {
                     @Override
@@ -291,6 +292,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         IdeaApi.getApiService()
                 .thirdPartLogin(map)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, true) {
                     @Override
@@ -315,6 +317,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         IdeaApi.getApiService()
                 .thirdPartLogin(map)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, true) {
                     @Override

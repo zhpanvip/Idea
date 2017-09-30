@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.airong.core.BaseCoreActivity;
+import com.airong.core.BaseCoreFragment;
 import com.airong.core.BaseRxActivity;
 import com.airong.core.dialog.CustomDialog;
 import com.airong.core.view.PtrClassicListFooter;
@@ -35,8 +37,7 @@ import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public abstract class BaseActivity extends BaseRxActivity {
-
+public abstract class BaseActivity extends BaseCoreActivity {
 
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
     protected static final int REQUEST_STORAGE_WRITE_ACCESS_PERMISSION = 102;
@@ -313,7 +314,6 @@ public abstract class BaseActivity extends BaseRxActivity {
      * @param confirmListener 确定键监听
      * @param cancelListener  取消键监听
      */
-    @Override
     public void showTwoButtonDialog(String content, String confirm, String cancel,
                                     View.OnClickListener confirmListener,
                                     View.OnClickListener cancelListener) {
@@ -335,7 +335,6 @@ public abstract class BaseActivity extends BaseRxActivity {
      * @param confirmListener 确定键监听
      * @param cancelListener  取消键监听
      */
-    @Override
     public void showTwoButtonDialog(String content, String confirm, String cancel,
                                     @ColorInt int confirmColor, @ColorInt int cancelColor,
                                     View.OnClickListener confirmListener,
@@ -356,7 +355,6 @@ public abstract class BaseActivity extends BaseRxActivity {
      * @param confirm         按钮文字
      * @param confirmListener 按钮监听
      */
-    @Override
     public void showOneButtonDialog(String content, String confirm, View.OnClickListener confirmListener) {
         dialog = new CustomDialog.Builder(this)
                 .setTheme(com.airong.core.R.style.IdeaDialog)

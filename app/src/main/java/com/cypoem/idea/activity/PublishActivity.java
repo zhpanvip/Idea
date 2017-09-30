@@ -184,6 +184,7 @@ public class PublishActivity extends BaseActivity {
         IdeaApi.getApiService()
                 .publishOpus(parts)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<PublishBean>>(this, true) {
                     @Override

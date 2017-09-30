@@ -20,7 +20,6 @@ import java.util.Locale;
 /**
  * <pre>
  *     author: zhpan
- *     blog  : http://blankj.com
  *     time  : 2016/9/27
  *     desc  : 崩溃相关工具类
  * </pre>

@@ -97,9 +97,8 @@ public class FindInFragment extends BaseFragment {
         frame.postDelayed((() -> getData(true, page)), 100);
     }
 
-    @Override
     public void dismissProgress() {
-        super.dismissProgress();
+       // super.dismissProgress();
         mPtrFrame.refreshComplete();
     }
 
@@ -107,16 +106,31 @@ public class FindInFragment extends BaseFragment {
         //  Retrofit请求数据
         IdeaApi.getApiService()
                 .getDiscoverData(currentPage, ROWS,type)
+                .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<List<HomeBean.WritesBean>>>(this, false) {
+                .subscribe(new DefaultObserver<BasicResponse<List<HomeBean.WritesBean>>>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse<List<HomeBean.WritesBean>> response) {
+                        mPtrFrame.refreshComplete();
                         if (isRefresh) {
                             mAdapter.getList().clear();
                         }
                         page++;
                         updateList(response.getResult());
+                    }
+
+                    @Override
+                    public void onFail(BasicResponse<List<HomeBean.WritesBean>> response, int code) {
+                        super.onFail(response, code);
+                        mPtrFrame.refreshComplete();
+                    }
+
+                    @Override
+                    public void onException(ExceptionReason reason) {
+                        super.onException(reason);
+                        mPtrFrame.refreshComplete();
                     }
                 });
     }
