@@ -76,7 +76,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
         userId = arguments.getString("userId");
         type = arguments.getInt("type", 1);
         List<OpusBean> mList = new ArrayList<>();
-        mAdapter = new CollectAdapter(getContext(), R.layout.item_collect);
+        mAdapter = new CollectAdapter(getActivity(), R.layout.item_collect);
         mAdapter.setList(mList);
         mListView.setAdapter(mAdapter);
         getData(page);
@@ -86,8 +86,9 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
         IdeaApi.getApiService()
                 .getMyOpus(userId, currentPage, ROWS, type)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this, false) {
+                .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse<List<OpusBean>> response) {
                         List<OpusBean> result = response.getResult();
@@ -119,9 +120,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
         super.setPtrHandler(mListView);
     }
 
-    @Override
     public void dismissProgress() {
-        super.dismissProgress();
         mPtrFrame.refreshComplete();
     }
 
@@ -139,7 +138,7 @@ public class AuthorFragment extends BaseFragment implements ScrollableHelper.Scr
                     String write_name = opusBean.getWrite_name();
                     String write_id = opusBean.getWrite_id();
                     String user_id = opusBean.getUser_id();
-                    StartReadActivity.start(getContext(), write_id, user_id, write_name);
+                    StartReadActivity.start(getActivity(), write_id, user_id, write_name);
                 }
         );
     }

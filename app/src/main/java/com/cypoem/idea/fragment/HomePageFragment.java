@@ -141,7 +141,7 @@ public class HomePageFragment extends BaseFragment {
                 .getBanner("1", "4")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<List<BannerBean>>>(this, false) {
+                .subscribe(new DefaultObserver<BasicResponse<List<BannerBean>>>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse<List<BannerBean>> response) {
                         bannerView.getUrlList().clear();
@@ -166,26 +166,35 @@ public class HomePageFragment extends BaseFragment {
         }), 100);
     }
 
-    @Override
-    public void dismissProgress() {
-        super.dismissProgress();
-        mPtrFrame.refreshComplete();
-    }
-
     private void getData(boolean isRefresh, int currentPage) {
         //  Retrofit请求数据
         IdeaApi.getApiService()
                 .getHomeData(currentPage, ROWS)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<HomeBean>>(this, false) {
+                .subscribe(new DefaultObserver<BasicResponse<HomeBean>>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse<HomeBean> response) {
+                        mPtrFrame.refreshComplete();
                         if (isRefresh) {
                             mAdapter.getList().clear();
                         }
                         page++;
                         updateList(response.getResult());
+                    }
+
+                    @Override
+                    public void onFail(BasicResponse<HomeBean> response, int code) {
+                        super.onFail(response, code);
+                        mPtrFrame.refreshComplete();
+                    }
+
+                    @Override
+                    public void onException(ExceptionReason reason) {
+                        super.onException(reason);
+                        mPtrFrame.refreshComplete();
                     }
                 });
     }

@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.airong.core.utils.Utils;
 import com.cypoem.idea.adapter.AdapterFragmentPager;
 import com.cypoem.idea.event.LogoutEvent;
 import com.cypoem.idea.event.NightModeEvent;
@@ -63,6 +64,8 @@ public class MainActivity extends BaseActivity {
             MobclickAgent.onEvent(this,"download");
         }
         SharedPreferencesHelper.put(this, "isFirstIn", true);
+
+        showToast(""+ Utils.isDebugBuild());
     }
 
     @Override

@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.airong.core.dialog.DialogUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.event.PublishEverydaySuccess;
 import com.cypoem.idea.module.BasicResponse;
@@ -61,6 +62,7 @@ public class PreviewActivity extends BaseActivity {
     private int mMaxBitmapSize;
     private String penName;
     private String content;
+    private DialogUtils dialogUtils;
 
     @Override
     protected int getLayoutId() {
@@ -77,19 +79,20 @@ public class PreviewActivity extends BaseActivity {
         String date = df.format(new Date());
         tvTime.setText(penName + "/" + date);
         tvContent.setText(content);
+        dialogUtils=new DialogUtils();
         setPic();
     }
 
     private void setPic() {
         int maxBitmapSize = getMaxBitmapSize();
         Uri uri = Uri.fromFile(new File(picPath));
-        showProgress(this);
+        dialogUtils.showProgress(this);
         BitmapLoadUtils.decodeBitmapInBackground(this, uri, null, maxBitmapSize, maxBitmapSize, new BitmapLoadCallback() {
             @Override
             public void onBitmapLoaded(@NonNull Bitmap bitmap, @NonNull ExifInfo exifInfo, @NonNull String s, @Nullable String s1) {
                 llSplash.setBackground(new BitmapDrawable(bitmap));
                 ivPic.setImageBitmap(bitmap);
-                dismissProgress();
+                dialogUtils.dismissProgress();
             }
 
             @Override
@@ -143,6 +146,7 @@ public class PreviewActivity extends BaseActivity {
         IdeaApi.getApiService()
                 .publishEverydaySay(parts)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse>(this, true) {
                     @Override

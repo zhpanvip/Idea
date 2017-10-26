@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.airong.core.dialog.DialogUtils;
 import com.airong.core.utils.LogUtils;
 import com.airong.core.utils.RegexUtils;
 import com.cypoem.idea.R;
@@ -37,6 +38,7 @@ import io.reactivex.schedulers.Schedulers;
 public class GetIdentifyCodeActivity extends BaseActivity {
     protected static final int FORGET_PSW = 1;
     protected static final int REGISTER = 0;
+    private DialogUtils dialogUtils;
 
     @BindView(R.id.et_username)
     EditText etUsername;
@@ -89,6 +91,7 @@ public class GetIdentifyCodeActivity extends BaseActivity {
     protected void init(Bundle savedInstanceState) {
         Intent intent = getIntent();
         type = intent.getIntExtra("type", 0);
+        dialogUtils=new DialogUtils();
         initData();
     }
 
@@ -171,7 +174,8 @@ public class GetIdentifyCodeActivity extends BaseActivity {
             showToast(R.string.input_identify_code);
             return;
         }
-        showProgress(this);
+        dialogUtils.showProgress(this);
+        //showProgress(this);
         SMSSDK.submitVerificationCode("86", phone, code);
     }
 
@@ -180,6 +184,7 @@ public class GetIdentifyCodeActivity extends BaseActivity {
         IdeaApi.getApiService()
                 .isRegistered(phone)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse>(this, true) {
                     @Override
@@ -231,7 +236,7 @@ public class GetIdentifyCodeActivity extends BaseActivity {
             super.handleMessage(msg);
             switch (msg.what) {
                 case SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE:// 验证码提交成功
-                    activity.dismissProgress();
+                    activity.dialogUtils.dismissProgress();
                     if (type == FORGET_PSW) {
                         UpdatePswActivity.start(activity, UpdatePswActivity.FORGET_PSW);
                     } else if (type == REGISTER) {
@@ -243,14 +248,14 @@ public class GetIdentifyCodeActivity extends BaseActivity {
                 case SMSSDK.EVENT_GET_VERIFICATION_CODE:// 验证码获取成功
                     activity.showToast(R.string.send_vertify_code_success);
                     activity.countDown();
-                    activity.dismissProgress();
+                    activity.dialogUtils.dismissProgress();
                     break;
                 case FAIL:
                     String message = ((Throwable) msg.obj).getMessage();
                     Gson gson = new Gson();
                     MobResultBean mobResultBean = gson.fromJson(message, MobResultBean.class);
                     activity.showToast(mobResultBean.getDetail());
-                    activity.dismissProgress();
+                    activity.dialogUtils.dismissProgress();
                     break;
             }
         }

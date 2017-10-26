@@ -66,6 +66,7 @@ public class SuggestActivity extends BaseActivity {
         adviceMap.put("user_type", "1");
         IdeaApi.getApiService()
                 .postAdvice(adviceMap)
+                .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {

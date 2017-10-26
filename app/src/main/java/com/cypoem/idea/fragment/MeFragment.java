@@ -241,8 +241,10 @@ public class MeFragment extends BaseFragment {
         IdeaApi.getApiService()
                 .getUserInfo(userId,userId)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, false) {
+                .subscribe(new DefaultObserver<BasicResponse<UserBean>>(getActivity(), false) {
                     @Override
                     public void onSuccess(BasicResponse<UserBean> response) {
                         userBean = response.getResult();

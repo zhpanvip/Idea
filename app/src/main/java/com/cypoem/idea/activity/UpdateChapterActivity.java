@@ -111,6 +111,7 @@ public class UpdateChapterActivity extends BaseActivity {
         adviceMap.put("status","1");
         IdeaApi.getApiService()
                 .updateChapter(adviceMap)
+                .compose(bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse>(this, true) {

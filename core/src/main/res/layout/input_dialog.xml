@@ -29,9 +29,9 @@
                 android:paddingTop="@dimen/mp_7"
                 android:paddingBottom="@dimen/mp_7"
                 android:maxLength="8"
-                android:background="@drawable/bg_edit_text2"
                 android:textColor="@color/item_text_color_dark"
                 android:textSize="18sp" />
+        <!--android:background="@drawable/bg_edit_text2"-->
 
 
 

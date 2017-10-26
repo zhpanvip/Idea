@@ -1,6 +1,10 @@
 package com.airong.core.utils;
 
 import android.content.Context;
+import android.support.compat.BuildConfig;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 /**
  * <pre>
@@ -13,6 +17,8 @@ import android.content.Context;
 public class Utils {
 
     private static Context context;
+
+    private static Boolean sDebug;
 
     private Utils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -35,5 +41,29 @@ public class Utils {
     public static Context getContext() {
         if (context != null) return context;
         throw new NullPointerException("u should init first");
+    }
+
+
+    public static boolean isDebugBuild() {
+        if (sDebug == null) {
+            try {
+                final Class<?> activityThread = Class.forName("android.app.ActivityThread");
+                final Method currentPackage = activityThread.getMethod("currentPackageName");
+                final String packageName = (String) currentPackage.invoke(null, (Object[]) null);
+                final Class<?> buildConfig = Class.forName(packageName + ".BuildConfig");
+                final Field DEBUG = buildConfig.getField("DEBUG");
+                DEBUG.setAccessible(true);
+                sDebug = DEBUG.getBoolean(null);
+            } catch (final Throwable t) {
+                final String message = t.getMessage();
+                if (message != null && message.contains("BuildConfig")) {
+                    // Proguard obfuscated build. Most likely a production build.
+                    sDebug = false;
+                } else {
+                    sDebug = BuildConfig.DEBUG;
+                }
+            }
+        }
+        return sDebug;
     }
 }

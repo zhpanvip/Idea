@@ -12,12 +12,14 @@ import com.airong.core.dialog.CommonDialogUtils;
 import com.airong.core.utils.SnackbarUtils;
 import com.airong.core.utils.ToastUtils;
 import com.airong.core.dialog.CustomProgressDialog;
+import com.trello.rxlifecycle2.components.RxActivity;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 /**
  * Created by zhpan on 2017/1/10.
  */
 
-public abstract class BaseCoreActivity extends AppCompatActivity implements BaseImpl{
+public abstract class BaseCoreActivity extends RxAppCompatActivity {
     //  加载进度的dialog
     private CustomProgressDialog mProgressDialog;
   //  protected CommonDialogUtils mDialogUtils;
@@ -40,43 +42,6 @@ public abstract class BaseCoreActivity extends AppCompatActivity implements Base
         ToastUtils.show(resId);
     }
 
-    /**
-     * 显示ProgressDialog
-     */
-    @Override
-    public void showProgress(BaseImpl activity,String msg) {
-        //mDialogUtils.showProgress(this,msg);
-        if (activity == null || ((Activity)activity).isFinishing()) {
-            return;
-        }
-        if(mProgressDialog==null){
-            mProgressDialog= new CustomProgressDialog.Builder(this)
-                    .setTheme(R.style.ProgressDialogStyle)
-                    .setMessage(msg)
-                    .build();
-        }
-        if(mProgressDialog!=null&&!mProgressDialog.isShowing()) {
-            mProgressDialog.show();
-        }
-    }
-    /**
-     * 显示ProgressDialog
-     */
-    @Override
-    public void showProgress(BaseImpl activity) {
-       // mDialogUtils.showProgress(this);
-        if (activity == null || ((Activity)activity).isFinishing()) {
-            return;
-        }
-        if(mProgressDialog==null){
-            mProgressDialog= new CustomProgressDialog.Builder(this)
-                    .setTheme(R.style.ProgressDialogStyle)
-                    .build();
-        }
-        if(mProgressDialog!=null&&!mProgressDialog.isShowing()) {
-            mProgressDialog.show();
-        }
-    }
 
     /**
      * 取消ProgressDialog

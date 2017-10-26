@@ -36,8 +36,6 @@ ext {
     minSdkVersion = 16
     targetSdkVersion = 24
 
-
-
 }
 task clean(type: Delete) {
     delete rootProject.buildDir

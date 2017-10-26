@@ -101,6 +101,7 @@ public class CollectActivity extends BaseActivity {
         IdeaApi.getApiService()
                 .getCollect(UserInfoTools.getUser(this).getUserId(),page, Constants.NUM)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this,showLoading) {
                     @Override

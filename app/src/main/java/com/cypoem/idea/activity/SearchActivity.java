@@ -278,6 +278,7 @@ public class SearchActivity extends BaseActivity {
         IdeaApi.getApiService()
                 .getSearchData(editContent, page, Constants.NUM)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this, false) {
                     @Override

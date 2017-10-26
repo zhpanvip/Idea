@@ -135,6 +135,7 @@ public class WriteActivity extends BaseActivity {
         IdeaApi.getApiService()
                 .addChapter(adviceMap)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {
                     @Override

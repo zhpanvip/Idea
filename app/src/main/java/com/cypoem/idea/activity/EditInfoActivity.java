@@ -524,6 +524,7 @@ public class EditInfoActivity extends BaseActivity {
         IdeaApi.getApiService()
                 .updateHeadPic(parts)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse>(this, true) {
                     @Override
@@ -549,6 +550,7 @@ public class EditInfoActivity extends BaseActivity {
         IdeaApi.getApiService()
                 .updateUserInfo(map)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse>(this, false) {
                     @Override

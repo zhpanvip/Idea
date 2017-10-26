@@ -55,6 +55,7 @@ public class EverydayLookBackActivity extends BaseActivity {
         IdeaApi.getApiService()
                 .lookBack(page, Constants.NUM)
                 .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<List<EverydayReBackBean>>>(this,showLoading) {
                     @Override

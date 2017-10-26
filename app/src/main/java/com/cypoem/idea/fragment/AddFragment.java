@@ -1,9 +1,7 @@
 package com.cypoem.idea.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.cypoem.idea.R;
@@ -16,7 +14,6 @@ import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by zhpan on 2017/4/21.
