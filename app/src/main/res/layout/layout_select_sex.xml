@@ -60,6 +60,7 @@
             android:background="@drawable/bg_btn_confirm"
             android:textColor="#3bbaff"
             android:text="确定" />
+        <!--android:background="@drawable/bg_btn_confirm"-->
     </LinearLayout>
 
 </LinearLayout>
