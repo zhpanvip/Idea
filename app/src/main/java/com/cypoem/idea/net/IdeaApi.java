@@ -54,13 +54,8 @@ public class IdeaApi {
                 .addNetworkInterceptor(new HttpCacheInterceptor())
                 .cache(cache)
                 .addInterceptor(loggingInterceptor)
-                .addInterceptor((chain) -> {     //  统一配置配置请求头
-                    Request request = chain.request().newBuilder()
-                            .addHeader("user_id", UserInfoTools.getUserId(Utils.getContext()))
-                            .addHeader("password", UserInfoTools.getPassword(Utils.getContext()))
-                            .build();
-                    return chain.proceed(request);
-                }).build();
+                .addInterceptor(new HttpHeaderInterceptor())
+                .build();
 
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").serializeNulls().create();
 
@@ -73,6 +68,8 @@ public class IdeaApi {
         service = retrofit.create(IdeaApiService.class);
     }
 
+
+
     //  创建单例
     private static class SingletonHolder {
         private static final IdeaApi INSTANCE = new IdeaApi();
@@ -83,7 +80,21 @@ public class IdeaApi {
     }
 
 
-    class HttpCacheInterceptor implements Interceptor {
+    private class HttpHeaderInterceptor implements Interceptor{
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            //  也可以统一配置用户名
+            String user_id="123456";
+            Response originalResponse = chain.proceed(chain.request());
+            return originalResponse.newBuilder()
+                    .header("token", "token")
+                    .header("user_id", user_id)
+                    .build();
+        }
+    }
+
+    private class HttpCacheInterceptor implements Interceptor {
 
         @Override
         public Response intercept(Chain chain) throws IOException {
