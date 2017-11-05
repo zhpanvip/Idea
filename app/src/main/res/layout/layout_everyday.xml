@@ -3,7 +3,7 @@
               android:id="@+id/ll_splash"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@drawable/splash"
+              android:background="@drawable/splash1"
               android:orientation="vertical">
 
     <FrameLayout
