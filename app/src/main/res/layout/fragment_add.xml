@@ -7,7 +7,169 @@
 
     <include layout="@layout/toolbar_layout"/>
     <include layout="@layout/base_line"/>
-    <TextView
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_80"
+            android:layout_marginEnd="@dimen/mp_30"
+            android:layout_marginStart="@dimen/mp_30"
+            android:background="@drawable/bg_create_personal_story">
+
+            <ImageView
+                android:id="@+id/iv_circle"
+                android:layout_width="@dimen/mp_55"
+                android:layout_height="@dimen/mp_45"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="@dimen/mp_20"
+                android:layout_marginEnd="@dimen/mp_15"
+                android:background="@drawable/creative_one" />
+
+            <TextView
+                android:id="@+id/tv_create_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/create_circle"
+                android:textColor="#000000"
+                android:layout_toEndOf="@id/iv_circle"
+                android:layout_alignTop="@id/iv_circle"
+                android:textSize="@dimen/f_20"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/circle_describe"
+                android:textColor="#000000"
+                android:layout_below="@id/tv_create_circle"
+                android:layout_toEndOf="@id/iv_circle"
+                android:textSize="@dimen/f_16"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_80"
+            android:layout_marginEnd="@dimen/mp_30"
+            android:layout_marginStart="@dimen/mp_30"
+            android:layout_marginTop="@dimen/mp_15"
+            android:background="@drawable/bg_create_public_story">
+
+            <ImageView
+                android:id="@+id/iv_personal_story"
+                android:layout_width="@dimen/mp_40"
+                android:layout_height="@dimen/mp_55"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/mp_25"
+                android:layout_marginStart="25dp"
+                android:background="@drawable/creativ_two" />
+
+            <TextView
+                android:id="@+id/tv_create_person_story"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/iv_personal_story"
+                android:layout_marginTop="@dimen/mp_5"
+                android:layout_alignTop="@+id/iv_personal_story"
+                android:text="@string/create_personal_story"
+                android:textColor="#000000"
+                android:textSize="@dimen/f_20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/circle_describe"
+                android:textColor="#000000"
+                android:textSize="@dimen/f_16"
+                android:layout_below="@+id/tv_create_person_story"
+                android:layout_toEndOf="@+id/iv_personal_story" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_80"
+            android:layout_marginEnd="@dimen/mp_30"
+            android:layout_marginStart="@dimen/mp_30"
+            android:layout_marginTop="@dimen/mp_15"
+            android:background="@drawable/bg_create_circle">
+
+            <ImageView
+                android:id="@+id/iv_public_story"
+                android:layout_width="@dimen/mp_55"
+                android:layout_height="@dimen/mp_45"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/mp_15"
+                android:layout_marginStart="@dimen/mp_20"
+                android:background="@drawable/creative_three" />
+
+            <TextView
+                android:id="@+id/tv_create_public_story"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/iv_public_story"
+                android:layout_toEndOf="@+id/iv_public_story"
+                android:text="@string/create_public_story"
+                android:textColor="#000000"
+                android:textSize="@dimen/f_20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_create_public_story"
+                android:layout_toEndOf="@+id/iv_public_story"
+                android:text="@string/public_story_describe"
+                android:textColor="#000000"
+                android:textSize="@dimen/f_16" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_80"
+            android:layout_marginEnd="@dimen/mp_30"
+            android:layout_marginStart="@dimen/mp_30"
+            android:layout_marginTop="@dimen/mp_15"
+            android:background="@drawable/bg_create_everyday_sentence">
+
+            <ImageView
+                android:id="@+id/iv_everyday_sentence"
+                android:layout_width="@dimen/mp_40"
+                android:layout_height="@dimen/mp_55"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/mp_25"
+                android:layout_marginStart="@dimen/mp_25"
+                android:background="@drawable/creative_four" />
+
+            <TextView
+                android:id="@+id/tv_everyday_sentence"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/mp_5"
+                android:layout_alignTop="@id/iv_everyday_sentence"
+                android:layout_toEndOf="@id/iv_everyday_sentence"
+                android:text="@string/create_everyday_sentence"
+                android:textColor="#000000"
+                android:textSize="@dimen/f_20" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_everyday_sentence"
+                android:layout_toEndOf="@id/iv_everyday_sentence"
+                android:text="@string/everyday_sentence_describe"
+                android:textColor="#000000"
+                android:textSize="@dimen/f_16" />
+        </RelativeLayout>
+    </LinearLayout>
+
+
+    <!--<TextView
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,5 +219,5 @@
         android:gravity="center"
         android:text="@string/join_opus"
         android:textColor="@color/text_theme"
-        android:textSize="@dimen/f_20" />
+        android:textSize="@dimen/f_20" />-->
 </LinearLayout>

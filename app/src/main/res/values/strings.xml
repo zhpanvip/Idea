@@ -3,8 +3,8 @@
 
     <string name="tab1">首页</string>
     <string name="tab2">发现</string>
-    <string name="tab3">发布</string>
-    <string name="tab4">消息</string>
+    <string name="tab3">创作</string>
+    <string name="tab4">动态</string>
     <string name="tab5">我的</string>
     <string name="connect_error">网络连接失败,请检查网络</string>
     <string name="connect_timeout">连接超时,请稍后再试</string>
@@ -156,4 +156,11 @@
     <string name="join_opus">参与已有作品创作</string>
     <string name="newest">最新</string>
     <string name="hottest">最热</string>
+    <string name="create_circle">创建圈子</string>
+    <string name="circle_describe">你喜欢的人和故事都在这里</string>
+    <string name="create_public_story">创建共创体故事</string>
+    <string name="public_story_describe">我写出开头却写不出结尾</string>
+    <string name="create_everyday_sentence">创建每日一句</string>
+    <string name="everyday_sentence_describe">分享你的，聆听他的</string>
+    <string name="create_personal_story">创建个人故事</string>
 </resources>

@@ -9,6 +9,14 @@
     <color name="colorAccent">#DCDCDC</color>
     <color name="themDark">#497218</color>
 
+    <color name="line_color">#DCDCDC</color>
+    <color name="tab_normal_text">#000000</color>
+    <color name="tab_selected_text">#000000</color>
+
+
+
+
+
     <color name="gray_66">#666666</color>
     <color name="gray_33">#333333</color>
     <color name="gray_99">#999999</color>
@@ -32,9 +40,6 @@
     <color name="item_text_color">#666666</color>
     <color name="tab_color">#FFFFFF</color>
     <color name="item_color">#FFFFFF</color>
-    <color name="tab_normal_text">#8A9A56</color>
-    <color name="tab_selected_text">#C2C528</color>
-    <color name="line_color">#CCCCCC</color>
     <color name="item_title">#DDDDDD</color>
     <color name="item_title_text">#628B31</color>
     <color name="text_hint">#999999</color>

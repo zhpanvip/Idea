@@ -24,10 +24,10 @@ public class AddFragment extends BaseFragment {
     TextView toolbarSubtitle;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-    @BindView(R.id.tv_publish)
+   /* @BindView(R.id.tv_publish)
     TextView mTvPublish;
     @BindView(R.id.tv_join)
-    TextView mTvJoin;
+    TextView mTvJoin;*/
 
     @Override
     protected int getLayoutId() {
@@ -42,11 +42,10 @@ public class AddFragment extends BaseFragment {
     private void initData() {
         toolbarTitle.setText("发布作品");
         toolbarSubtitle.setVisibility(View.VISIBLE);
-        toolbarSubtitle.setText("意见反馈");
-
+        toolbarSubtitle.setText("创作说明");
     }
 
-    @OnClick({R.id.toolbar_subtitle, R.id.toolbar_title, R.id.tv_publish, R.id.tv_join})
+   /* @OnClick({R.id.toolbar_subtitle, R.id.toolbar_title, R.id.tv_publish, R.id.tv_join})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_subtitle:
@@ -65,7 +64,7 @@ public class AddFragment extends BaseFragment {
                 EventBus.getDefault().post(new JoinOpus());
                 break;
         }
-    }
+    }*/
 
     public static class JoinOpus {
 
