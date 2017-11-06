@@ -86,9 +86,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     private void initData() {
         getToolbar().setVisibility(View.GONE);
         EventBus.getDefault().register(this);
-
-        String threadName = Thread.currentThread().getName();
-        Log.e("Thread。。。。。",threadName);
     }
 
 
@@ -173,7 +170,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     private void loginSuccess(UserBean result,String userId) {
         MobclickAgent.onProfileSignIn(userId);
-        String threadName = Thread.currentThread().getName();
         showToast("登录成功");
         UserInfoTools.setIsLogin(this, true);
         UserInfoTools.setUser(this, result);

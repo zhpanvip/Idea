@@ -60,12 +60,10 @@ public class MainActivity extends BaseActivity {
         super.onResume();
         //  友盟统计统计下载量（并不准确）
         boolean isFirst = (boolean) SharedPreferencesHelper.get(this, "isFirstIn", false);
-        if(!isFirst){
-            MobclickAgent.onEvent(this,"download");
+        if (!isFirst) {
+            MobclickAgent.onEvent(this, "download");
         }
         SharedPreferencesHelper.put(this, "isFirstIn", true);
-
-        showToast(""+ Utils.isDebugBuild());
     }
 
     @Override

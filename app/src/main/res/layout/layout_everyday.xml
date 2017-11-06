@@ -3,7 +3,7 @@
               android:id="@+id/ll_splash"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@drawable/splash1"
+              android:background="@drawable/bg_login"
               android:orientation="vertical">
 
     <FrameLayout
@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"
-            android:background="@drawable/splash1"/>
+            android:background="@drawable/bg_login"/>
 
         <TextView
             android:id="@+id/btn_count_down"
