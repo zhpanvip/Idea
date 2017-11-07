@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -69,9 +70,9 @@ public class PublishActivity extends BaseActivity {
     @BindView(R.id.rl_brief)
     RelativeLayout rlBrief;
     @BindView(R.id.tb_override)
-    ToggleButton tbOverride;
+    Switch tbOverride;
     @BindView(R.id.tb_continue)
-    ToggleButton tbContinue;
+    Switch tbContinue;
     @BindView(R.id.btn_complete)
     Button btnComplete;
     @BindView(R.id.activity_publish)

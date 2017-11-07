@@ -76,7 +76,7 @@
             android:layout_width="@dimen/mp_15"
             android:layout_height="@dimen/mp_15"
             android:layout_marginStart="@dimen/mp_20"
-            android:src="@drawable/female" />
+            android:src="@drawable/login_woman" />
 
         <SeekBar
             android:id="@+id/seek_bar"
@@ -93,7 +93,7 @@
         <ImageView
             android:layout_width="@dimen/mp_15"
             android:layout_height="@dimen/mp_15"
-            android:src="@drawable/male" />
+            android:src="@drawable/login_man" />
 
         <com.cypoem.idea.view.SexView
             android:id="@+id/sex_view"

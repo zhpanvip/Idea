@@ -9,6 +9,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -47,7 +48,7 @@ public class SettingActivity extends BaseActivity {
     @BindView(R.id.tv_cache)
     TextView mTvCache;
     @BindView(R.id.tb_night_mode)
-    ToggleButton mToggleButton;
+    Switch mToggleButton;
     @BindView(R.id.btn_exit)
     Button mBtnExit;
     @BindView(R.id.rl_phone)

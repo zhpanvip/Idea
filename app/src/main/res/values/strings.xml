@@ -163,4 +163,5 @@
     <string name="create_everyday_sentence">创建每日一句</string>
     <string name="everyday_sentence_describe">分享你的，聆听他的</string>
     <string name="create_personal_story">创建个人故事</string>
+    <string name="forget_password">忘记密码？</string>
 </resources>

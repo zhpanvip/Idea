@@ -35,7 +35,7 @@ public class CollectAdapter extends CommonAdapter<OpusBean> {
         TextView tvContinue=holder.getView(R.id.tv_continue);
         TextView tvEssay= holder.getView(R.id.tv_essay);
 
-        ImageLoaderUtil.loadRoundImg(imageView,IdeaApiService.HOST+collectBean.getPic(),R.drawable.background);
+        ImageLoaderUtil.loadRoundImg(imageView,IdeaApiService.HOST+collectBean.getPic(),R.drawable.t5_equip_photo);
         tvTitle.setText(collectBean.getWrite_name());
        // tvSubTitle.setText(collectBean.get());
         String date = collectBean.getDelivery_time();

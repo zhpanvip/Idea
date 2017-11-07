@@ -11,7 +11,7 @@
         android:layout_height="70dp"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="30dp"
-        android:src="@drawable/head_pic" />
+        android:src="@drawable/login_photo" />
 
     <LinearLayout
         android:id="@+id/ll_name"

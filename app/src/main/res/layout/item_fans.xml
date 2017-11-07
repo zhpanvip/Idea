@@ -9,7 +9,7 @@
         android:id="@+id/iv_head_pic"
         android:layout_width="@dimen/mp_60"
         android:layout_height="@dimen/mp_60"
-        android:src="@drawable/head_pic"
+        android:src="@drawable/login_photo"
         android:layout_centerVertical="true"/>
     <TextView
         android:id="@+id/tv_name"

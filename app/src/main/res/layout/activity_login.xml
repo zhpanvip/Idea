@@ -3,75 +3,150 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_login"
+    android:background="@drawable/ary_3"
     android:orientation="vertical"
-    android:paddingStart="@dimen/mp_15"
     android:paddingEnd="@dimen/mp_15"
+    android:paddingStart="@dimen/mp_15"
     tools:context="com.cypoem.idea.activity.LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="@dimen/mp_65"
+        android:layout_height="@dimen/mp_65"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/mp_55"
+        android:background="@mipmap/ic_launcher" />
+
     <TextView
+        android:id="@+id/textView10"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_150"
-        android:scaleType="fitXY"
-        android:textSize="@dimen/mp_50"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/mp_20"
         android:gravity="center"
-        android:textColor="@color/item_text_color"
-        android:text="創意說"/>
+        android:scaleType="fitXY"
+        android:layout_marginBottom="@dimen/mp_35"
+        android:text="@string/app_name"
+        android:textSize="@dimen/f_25" />
 
-    <EditText
-        android:id="@+id/et_username"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_45"
-        android:layout_marginTop="@dimen/mp_20"
-        android:background="@drawable/bg_edit_text"
-        android:hint="@string/phone_number"
-        android:inputType="number"
-        android:maxLength="11"
-        android:paddingEnd="@dimen/mp_15"
-        android:paddingStart="@dimen/mp_15"
-        android:textColor="@color/item_text_color_dark"
-        android:textColorHint="@color/text_hint"
-        android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+        android:layout_height="@dimen/mp_35"
+        android:gravity="center_vertical"
+        android:layout_marginEnd="@dimen/mp_30"
+        android:layout_marginStart="@dimen/mp_30"
+        android:orientation="horizontal">
 
-    <EditText
-        android:id="@+id/et_password"
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_user" />
+
+        <EditText
+            android:id="@+id/et_username"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_45"
+            android:background="@null"
+            android:hint="@string/phone_number"
+            android:inputType="number"
+            android:maxLength="11"
+            android:paddingEnd="@dimen/mp_15"
+            android:paddingStart="@dimen/mp_15"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+    </LinearLayout>
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_45"
-        android:background="@drawable/bg_edit_text"
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/mp_30"
+        android:layout_marginStart="@dimen/mp_30"
+        android:background="#333333" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_35"
+        android:gravity="center_vertical"
+        android:layout_marginEnd="@dimen/mp_30"
+        android:layout_marginStart="@dimen/mp_30"
         android:layout_marginTop="@dimen/mp_20"
-        android:textColorHint="@color/text_hint"
-        android:inputType="textPassword"
-        android:textColor="@color/item_text_color_dark"
-        android:textCursorDrawable="@drawable/edit_text_color_cursor"
-        android:paddingEnd="@dimen/mp_15"
-        android:paddingStart="@dimen/mp_15"
-        android:hint="@string/password"/>
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_password" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_45"
+            android:background="@null"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingEnd="@dimen/mp_15"
+            android:paddingStart="@dimen/mp_15"
+            android:textColor="@color/white"
+            android:textColorHint="@color/white"
+            android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="@dimen/mp_30"
+        android:layout_marginStart="@dimen/mp_30"
+        android:background="#333333" />
+
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_50"
+        android:layout_height="@dimen/mp_40"
+        android:layout_marginEnd="@dimen/mp_30"
+        android:layout_marginStart="@dimen/mp_30"
+        android:layout_marginTop="@dimen/mp_30"
+        android:background="@drawable/bg_btn_login"
+        android:gravity="center"
         android:text="@string/login"
         android:textColor="@color/white"
-        android:textSize="@dimen/f_18"
-        android:gravity="center"
-        android:background="@drawable/bg_btn_login"
-        android:layout_marginTop="@dimen/mp_40"/>
-    <TextView
-        android:id="@+id/tv_forget_psw"
+        android:textSize="@dimen/f_18" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="忘记密码？"
-        android:textSize="@dimen/f_15"
-        android:textColor="@color/item_theme"
-        android:layout_marginTop="@dimen/mp_10"
-        android:gravity="end"/>
+        android:layout_marginEnd="@dimen/mp_30"
+        android:layout_marginStart="@dimen/mp_30"
+        android:layout_marginTop="@dimen/mp_15">
+
+        <TextView
+            android:id="@+id/tv_new_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/mp_2"
+            android:text="@string/new_user_register"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f_15" />
+
+        <TextView
+            android:id="@+id/tv_forget_psw"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/forget_password"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f_15" />
+
+
+    </RelativeLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/mp_10"
-        android:layout_marginTop="@dimen/mp_20"
-        android:visibility="gone"
+        android:layout_marginTop="@dimen/mp_40"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -82,12 +157,13 @@
             android:layout_marginLeft="@dimen/mp_15"
             android:layout_marginRight="@dimen/mp_15"
             android:layout_weight="1"
-            android:background="@color/gray_66" />
+            android:background="@color/white" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:textColor="@color/white"
             android:text="@string/quickly_login" />
 
         <View
@@ -97,14 +173,13 @@
             android:layout_marginLeft="@dimen/mp_15"
             android:layout_marginRight="@dimen/mp_15"
             android:layout_weight="1"
-            android:background="@color/gray_66" />
+            android:background="@color/white" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/mp_10"
-        android:visibility="gone"
+        android:layout_marginTop="@dimen/mp_18"
         android:orientation="horizontal">
 
         <ImageView
@@ -119,13 +194,14 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/mp_50"
             android:layout_weight="1"
-            android:src="@drawable/login_wechat"/>
+            android:src="@drawable/login_wechat" />
+
         <ImageView
             android:id="@+id/iv_weiBo"
             android:layout_width="0dp"
             android:layout_height="@dimen/mp_50"
             android:layout_weight="1"
-            android:src="@drawable/login_weibo"/>
+            android:src="@drawable/login_weibo" />
 
     </LinearLayout>
 
@@ -134,24 +210,17 @@
         android:layout_height="match_parent"
         android:gravity="bottom|center_horizontal"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:paddingBottom="@dimen/mp_10">
 
-        <TextView
-            android:id="@+id/tv_new_user"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/mp_2"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:text="@string/new_user_register"
-            android:textColor="@color/item_theme"
-            android:textSize="@dimen/f_16" />
+
 
         <View
             android:layout_width="@dimen/mp_1"
             android:layout_height="@dimen/mp_25"
             android:layout_marginEnd="@dimen/mp_10"
             android:layout_marginStart="@dimen/mp_10"
+            android:visibility="gone"
             android:background="@color/item_theme" />
 
         <TextView
@@ -161,6 +230,7 @@
             android:layout_marginBottom="@dimen/mp_2"
             android:layout_weight="1"
             android:gravity="left"
+            android:visibility="gone"
             android:text="@string/login_matter"
             android:textColor="@color/item_theme"
             android:textSize="@dimen/f_16" />

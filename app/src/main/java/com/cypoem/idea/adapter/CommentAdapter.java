@@ -44,7 +44,7 @@ public abstract class CommentAdapter extends BaseAdapter<CommentBean, CommentAda
         holder.tvTime.setText(item.getTime());
         int like_count = item.getLike_count();
         holder.tvCount.setText(String.valueOf(item.getLike_count()));
-        ImageLoaderUtil.loadCircleImg(holder.ivHead, IdeaApiService.HOST + item.getUser().getIcon(), R.drawable.head_pic);
+        ImageLoaderUtil.loadCircleImg(holder.ivHead, IdeaApiService.HOST + item.getUser().getIcon(), R.drawable.login_photo);
         int like_status = item.getLike_status();
         holder.ivLike.setImageLevel(like_status);
         holder.ivLike.setOnClickListener((View v) -> {

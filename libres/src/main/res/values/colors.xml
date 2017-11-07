@@ -9,6 +9,9 @@
     <color name="colorAccent">#DCDCDC</color>
     <color name="themDark">#497218</color>
 
+    <color name="status_bar">#014C6E</color>
+
+
     <color name="line_color">#DCDCDC</color>
     <color name="tab_normal_text">#000000</color>
     <color name="tab_selected_text">#000000</color>

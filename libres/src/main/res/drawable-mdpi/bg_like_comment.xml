@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <level-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-            android:drawable="@drawable/like1"
+            android:drawable="@drawable/t3_good"
             android:maxLevel="0" />
     <item
-            android:drawable="@drawable/like2"
+            android:drawable="@drawable/t3_good"
             android:maxLevel="1" />
 </level-list>

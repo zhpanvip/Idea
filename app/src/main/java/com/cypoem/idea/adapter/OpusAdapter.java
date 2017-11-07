@@ -115,7 +115,7 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
             isFocus = false;
             holder.mTvFocus.setText("+关注");
         }
-        ImageLoaderUtil.loadCircleImg(holder.mIvHeader, IdeaApiService.HOST + user.getIcon(), R.drawable.head_pic);
+        ImageLoaderUtil.loadCircleImg(holder.mIvHeader, IdeaApiService.HOST + user.getIcon(), R.drawable.login_photo);
         //  点击关注按钮
         holder.mTvFocus.setOnClickListener((View v) -> {
             if (UserInfoTools.getIsLogin(mContext)) {

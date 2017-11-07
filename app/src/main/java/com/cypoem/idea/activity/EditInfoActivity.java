@@ -173,7 +173,7 @@ public class EditInfoActivity extends BaseActivity {
         tvAddress.setText(address);
         tvIntroduce.setText(introduction);
         tvUserId.setText(user.getUserId());
-        ImageLoaderUtil.loadCircleImg(ivHeadPic, IdeaApiService.HOST + user.getIcon(), R.drawable.head_pic);
+        ImageLoaderUtil.loadCircleImg(ivHeadPic, IdeaApiService.HOST + user.getIcon(), R.drawable.login_photo);
     }
 
     private void refreshUserInfo() {
@@ -533,7 +533,7 @@ public class EditInfoActivity extends BaseActivity {
                         showToast(response.getMsg());
                         String url = response.getResult().toString();
                         UserInfoTools.setHeadPic(EditInfoActivity.this, url);
-                        ImageLoaderUtil.loadCircleImg(ivHeadPic, IdeaApiService.HOST + url, R.drawable.head_pic);
+                        ImageLoaderUtil.loadCircleImg(ivHeadPic, IdeaApiService.HOST + url, R.drawable.login_photo);
                     }
                 });
     }

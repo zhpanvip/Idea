@@ -150,7 +150,7 @@ public class AuthorInfoActivity extends BaseActivity {
     }
 
     private void setUserData(UserBean user) {
-        ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST + user.getCover_photo(), R.drawable.user_info_placeholder);
+        ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST + user.getCover_photo(), R.drawable.t3_head_people);
         mTvPenName.setText(user.getPen_name());
         String sex = user.getSex();
         mSexView.setMalePercent(sex);
@@ -435,7 +435,7 @@ public class AuthorInfoActivity extends BaseActivity {
                         showToast(response.getMsg());
                         String url = response.getResult().toString();
                         UserInfoTools.setCover(AuthorInfoActivity.this, url);
-                        ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST + url, R.drawable.user_info_placeholder);
+                        ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST + url, R.drawable.t3_head_people);
                     }
                 });
     }

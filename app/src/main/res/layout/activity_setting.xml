@@ -139,14 +139,13 @@
                     android:text="适用于夜间长期阅读" />-->
             </LinearLayout>
 
-            <ToggleButton
+            <Switch
                 android:id="@+id/tb_night_mode"
-                style="@style/ToggleButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="-25dp"
+                android:layout_marginEnd="25dp"
                 android:background="#00000000"
                 android:checked="true"
                 android:textOff=""

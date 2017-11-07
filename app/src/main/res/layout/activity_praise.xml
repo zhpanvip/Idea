@@ -19,13 +19,13 @@
             android:layout_width="@dimen/mp_80"
             android:layout_height="match_parent"
             android:paddingEnd="@dimen/mp_5"
-            android:src="@drawable/head_pic"/>
+            android:src="@drawable/login_photo"/>
         <ImageView
             android:id="@+id/iv_head2"
             android:layout_width="@dimen/mp_80"
             android:layout_height="match_parent"
             android:paddingEnd="@dimen/mp_5"
-            android:src="@drawable/head_pic"/>
+            android:src="@drawable/login_photo"/>
     </LinearLayout>
 
     <TextView

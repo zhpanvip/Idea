@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:src="@drawable/delete"
+            android:src="@drawable/t5_dustbin"
             android:visibility="gone" />
     </LinearLayout>
 

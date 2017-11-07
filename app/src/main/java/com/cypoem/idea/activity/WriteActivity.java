@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -39,7 +40,7 @@ public class WriteActivity extends BaseActivity {
     @BindView(R.id.tv_rewrite)
     TextView tvRewrite;
     @BindView(R.id.tb_rewrite)
-    ToggleButton tbRewrite;
+    Switch tbRewrite;
     @BindView(R.id.rl_can_rewrite)
     RelativeLayout rlCanRewrite;
     @BindView(R.id.et_content)

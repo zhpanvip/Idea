@@ -142,7 +142,7 @@ public class MeFragment extends BaseFragment {
     }
 
     private void setUserInfo() {
-        ImageLoaderUtil.loadCircleImg(headImg, IdeaApiService.HOST + userBean.getIcon(), R.drawable.head_pic);
+        ImageLoaderUtil.loadCircleImg(headImg, IdeaApiService.HOST + userBean.getIcon(), R.drawable.login_photo);
         tvFocus.setText(String.valueOf(userBean.getMyWatchCount()));
         tvFans.setText(String.valueOf(userBean.getWatchMeCount()));
         tvCollect.setText(String.valueOf(userBean.getKeep_count()));

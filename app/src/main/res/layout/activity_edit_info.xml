@@ -55,7 +55,7 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/mp_15"
             android:layout_toStartOf="@+id/iv_arrow"
-            android:src="@drawable/head_pic" />
+            android:src="@drawable/login_photo" />
     </RelativeLayout>
 
     <include layout="@layout/base_line" />

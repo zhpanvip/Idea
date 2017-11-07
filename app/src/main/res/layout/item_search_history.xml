@@ -34,7 +34,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:padding="5dp"
-            android:src="@drawable/delete" />
+            android:src="@drawable/t5_dustbin" />
     </LinearLayout>
 
     <include layout="@layout/base_line" />

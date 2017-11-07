@@ -25,6 +25,7 @@ import com.airong.core.BaseCoreActivity;
 import com.airong.core.BaseCoreFragment;
 import com.airong.core.BaseRxActivity;
 import com.airong.core.dialog.CustomDialog;
+import com.airong.core.utils.BarUtils;
 import com.airong.core.view.PtrClassicListFooter;
 import com.airong.core.view.PtrClassicListHeader;
 import com.cypoem.idea.R;
@@ -53,14 +54,15 @@ public abstract class BaseActivity extends BaseCoreActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setStatusBarColor(this,"#628B31");
         initContentView(R.layout.activity_base);
-        //  注入子Activity布局
         setStatusBarColor(R.color.colorPrimaryDark);
+        //  注入子Activity布局
         setContentView(getLayoutId());
-        initToolBar();
         init(savedInstanceState);
+        initToolBar();
+
     }
+
 
     @Override
     protected void onResume() {
@@ -80,7 +82,9 @@ public abstract class BaseActivity extends BaseCoreActivity {
     }
 
 
-    protected abstract @LayoutRes int getLayoutId();
+    protected abstract
+    @LayoutRes
+    int getLayoutId();
 
     protected abstract void init(Bundle savedInstanceState);
 
@@ -125,12 +129,12 @@ public abstract class BaseActivity extends BaseCoreActivity {
 
             @Override
             public boolean checkCanDoLoadMore(PtrFrameLayout frame, View content, View footer) {
-                return super.checkCanDoLoadMore(frame, null==view?content:view, footer);
+                return super.checkCanDoLoadMore(frame, null == view ? content : view, footer);
             }
 
             @Override
             public boolean checkCanDoRefresh(PtrFrameLayout frame, View content, View header) {
-                return PtrDefaultHandler.checkContentCanBePulledDown(frame, null==view?content:view, header);
+                return PtrDefaultHandler.checkContentCanBePulledDown(frame, null == view ? content : view, header);
             }
         });
     }
@@ -216,7 +220,7 @@ public abstract class BaseActivity extends BaseCoreActivity {
         }
     }
 
-    public void setToolbarTitleColor(@ColorInt int color){
+    public void setToolbarTitleColor(@ColorInt int color) {
         if (mToolbarTitle != null) {
             mToolbarTitle.setTextColor(color);
         } else {
@@ -403,6 +407,23 @@ public abstract class BaseActivity extends BaseCoreActivity {
         }
     }
 
+    private void setStatusBarTransparent() {
+        //  把状态栏去掉
+        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        //  设置状态栏透明
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                    | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+            window.setNavigationBarColor(Color.TRANSPARENT);
+        }
+    }
+
 
     /**
      * 设置系统标题栏透明
@@ -428,9 +449,9 @@ public abstract class BaseActivity extends BaseCoreActivity {
      * @param color 颜色
      */
     public void setStatusBarColor(@ColorRes int color) {
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             setTranslucentStatus(this, true);
-        }*/
+        }
         if (Build.VERSION.SDK_INT >= 21) {
             Window statusBar = getWindow();
             statusBar.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);

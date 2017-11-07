@@ -111,7 +111,7 @@
             android:layout_width="@dimen/mp_30"
             android:layout_height="@dimen/mp_30"
             android:layout_alignParentEnd="true"
-            android:src="@drawable/edit_info" />
+            android:src="@drawable/t3_edit" />
 
         <Button
             android:id="@+id/tv_follow"

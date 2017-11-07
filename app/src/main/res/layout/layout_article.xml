@@ -140,7 +140,7 @@
                 android:layout_width="@dimen/mp_50"
                 android:layout_height="@dimen/mp_50"
                 android:layout_centerVertical="true"
-                android:src="@drawable/head_pic" />
+                android:src="@drawable/login_photo" />
 
             <TextView
                 android:id="@+id/tv_name"

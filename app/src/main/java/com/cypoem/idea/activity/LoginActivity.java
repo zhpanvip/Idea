@@ -1,7 +1,10 @@
 package com.cypoem.idea.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -9,11 +12,14 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.airong.core.utils.BarUtils;
 import com.airong.core.utils.LogUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.constants.Constants;
@@ -80,13 +86,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        setStatusBarColor(R.color.status_bar);
         initData();
     }
+
 
     private void initData() {
         getToolbar().setVisibility(View.GONE);
         EventBus.getDefault().register(this);
     }
+
 
 
     public static void start(Context context) {

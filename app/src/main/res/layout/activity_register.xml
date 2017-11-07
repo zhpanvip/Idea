@@ -2,62 +2,102 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/background"
-    android:paddingStart="@dimen/mp_15"
-    android:paddingEnd="@dimen/mp_15">
+    android:orientation="vertical"
+    android:paddingEnd="@dimen/mp_15"
+    android:paddingStart="@dimen/mp_15">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="@dimen/mp_65"
+        android:layout_height="@dimen/mp_65"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/mp_55"
+        android:background="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView10"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_150"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/mp_35"
+        android:layout_marginTop="@dimen/mp_20"
         android:gravity="center"
-        android:text="創意說"
-        android:textColor="@color/item_text_color"
-        android:textSize="@dimen/mp_50" />
+        android:scaleType="fitXY"
+        android:text="@string/app_name"
+        android:textSize="@dimen/f_25" />
 
     <EditText
         android:id="@+id/et_username"
         android:layout_width="match_parent"
         android:layout_height="@dimen/mp_45"
+        android:layout_marginEnd="@dimen/mp_30"
+        android:layout_marginStart="@dimen/mp_30"
         android:layout_marginTop="@dimen/mp_20"
-        android:background="@drawable/bg_edit_text"
+        android:background="@null"
+
         android:hint="@string/phone_number"
+        android:inputType="phone"
         android:maxLength="11"
         android:paddingEnd="@dimen/mp_15"
         android:paddingStart="@dimen/mp_15"
-        android:inputType="phone"
         android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginEnd="@dimen/mp_30"
+        android:layout_marginStart="@dimen/mp_30"
+        android:background="#333333" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/bg_edit_text"
-        android:layout_height="@dimen/mp_45">
-        <EditText
-            android:id="@+id/et_identify_code"
+        android:layout_height="@dimen/mp_45"
+        android:layout_marginEnd="@dimen/mp_30"
+        android:layout_marginStart="@dimen/mp_30"
+        android:layout_marginTop="20dp">
+
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:background="@null"
-            android:layout_weight="4"
-            android:hint="@string/identify_code"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:paddingEnd="@dimen/mp_15"
-            android:paddingStart="@dimen/mp_15"
-            android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+            android:layout_weight="4"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/et_identify_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@null"
+                android:hint="@string/identify_code"
+                android:paddingEnd="@dimen/mp_15"
+                android:paddingStart="@dimen/mp_15"
+                android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="@dimen/mp_10"
+                android:background="#333333" />
+        </LinearLayout>
+
         <View
             android:layout_width="@dimen/mp_1"
             android:layout_height="@dimen/mp_30"
             android:layout_gravity="center_vertical"
-            android:background="@color/text_theme"/>
+            android:background="@color/text_theme"
+            android:visibility="gone" />
+
         <TextView
             android:id="@+id/tv_get_code"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
             android:gravity="center"
-            android:textColor="@color/text_theme"
-            android:text="获取验证码"/>
+            android:text="获取验证码"
+            android:textColor="@color/gray_66" />
     </LinearLayout>
+
 
     <!--<EditText
         android:id="@+id/et_password"
@@ -86,10 +126,22 @@
     <Button
         android:id="@+id/btn_next"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_50"
+        android:layout_height="@dimen/mp_40"
+        android:layout_marginEnd="@dimen/mp_30"
+        android:layout_marginStart="@dimen/mp_30"
+        android:layout_marginTop="@dimen/mp_40"
+        android:background="@drawable/bg_btn_login"
         android:text="@string/next_step"
         android:textColor="@color/white"
-        android:textSize="@dimen/f_18"
-        android:background="@drawable/bg_btn_login"
-        android:layout_marginTop="@dimen/mp_40"/>
+        android:textSize="@dimen/f_18" />
+
+    <TextView
+        android:id="@+id/tv_problem"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_gravity="end"
+        android:layout_marginEnd="@dimen/mp_30"
+        android:layout_marginTop="@dimen/mp_10"
+        android:gravity="end"
+        android:text="遇到问题" />
 </LinearLayout>

@@ -33,7 +33,7 @@ public class FansAdapter extends CommonAdapter<FansBean> {
         TextView tvArticle=holder.getView(R.id.tv_article);
         SexView sexView=holder.getView(R.id.iv_sex);
         sexView.setMalePercent(Double.parseDouble(fansBean.getSex()));
-        ImageLoaderUtil.loadCircleImg(ivHead, IdeaApiService.HOST+fansBean.getIcon(),R.drawable.head_pic);
+        ImageLoaderUtil.loadCircleImg(ivHead, IdeaApiService.HOST+fansBean.getIcon(),R.drawable.login_photo);
         tvName.setText(fansBean.getPen_name());
         tvSign.setText(fansBean.getIntroduction());
         tvArticle.setText("发起"+fansBean.getEnjoy_count()+"/参与"+fansBean.getMyWatchCount()+"/原创"+fansBean.getWatchMeCount());

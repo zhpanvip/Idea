@@ -150,19 +150,16 @@
                 android:layout_centerVertical="true"
                 android:text="@string/is_can_override"
                 android:textColor="@color/item_text_color"
-                android:textSize="@dimen/f_18"/>
-            <ToggleButton
+                android:textSize="@dimen/f_18"
+                android:id="@+id/textView5" />
+            <Switch
                 android:id="@+id/tb_override"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_alignBottom="@+id/textView5"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:background="#00000000"
-                android:textOff=""
-                android:layout_marginEnd="-30dp"
-                android:textOn=""
-                style="@style/ToggleButton"
-                android:checked="true"/>
+                android:layout_alignTop="@+id/textView5" />
         </RelativeLayout>
 
         <include layout="@layout/base_line"/>
@@ -179,17 +176,12 @@
                 android:textColor="@color/item_text_color"
                 android:textSize="@dimen/f_18"/>
 
-            <ToggleButton
+            <Switch
                 android:id="@+id/tb_continue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:background="#00000000"
-                android:textOff=""
-                android:textOn=""
-                android:layout_marginEnd="-30dp"
-                style="@style/ToggleButton"
                 android:checked="true"/>
         </RelativeLayout>
 

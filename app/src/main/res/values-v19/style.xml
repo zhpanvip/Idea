@@ -35,7 +35,4 @@
 
     </style>
 
-    <style name="ToggleButton" parent="@android:style/Widget.CompoundButton">
-        <item name="android:button">@drawable/selector_toggle_button</item>
-    </style>
 </resources>

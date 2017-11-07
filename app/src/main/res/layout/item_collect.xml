@@ -18,7 +18,7 @@
             android:layout_marginEnd="@dimen/mp_10"
             android:layout_marginStart="@dimen/mp_10"
             android:scaleType="fitXY"
-            android:src="@drawable/background" />
+            android:src="@drawable/t5_equip_photo" />
 
         <include
             android:id="@+id/label"
