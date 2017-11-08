@@ -22,7 +22,7 @@
     <string name="quickly_login">社交账号快捷登陆</string>
     <string name="new_user_register">新用户注册</string>
     <string name="login_matter">《用户协议》</string>
-    <string name="confirm_password">确认密码</string>
+    <string name="confirm_password">请确认密码</string>
     <string name="register">注册</string>
     <string name="pen_name">笔名：</string>
     <string name="motto">格言：</string>
@@ -164,4 +164,9 @@
     <string name="everyday_sentence_describe">分享你的，聆听他的</string>
     <string name="create_personal_story">创建个人故事</string>
     <string name="forget_password">忘记密码？</string>
+    <string name="modify_head_pic">点击修改头像</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="circle_of_me">我创建的圈子</string>
 </resources>

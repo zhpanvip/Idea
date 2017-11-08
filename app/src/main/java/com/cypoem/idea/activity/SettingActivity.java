@@ -80,7 +80,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void setData() {
-        getToolbarTitle().setText("设置");
+        setToolBarTitle("设置");
         mTvCache.setText(FileUtils.getDirSize(getCacheDir()));
         mTvVersion.setText("V " + AppUtils.getAppVersionName(this));
         mToggleButton.setChecked(UserInfoTools.isNightMode(this));

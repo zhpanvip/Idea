@@ -6,49 +6,120 @@
     android:orientation="vertical"
     android:paddingEnd="@dimen/mp_15"
     android:paddingStart="@dimen/mp_15"
+    android:paddingTop="@dimen/mp_80"
     tools:context="com.cypoem.idea.activity.UpdatePswActivity">
 
-    <EditText
-        android:id="@+id/et_old_password"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_45"
-        android:layout_marginTop="@dimen/mp_50"
-        android:background="@drawable/bg_edit_text"
-        android:hint="@string/input_old_psw"
-        android:inputType="textPassword"
-        android:paddingEnd="@dimen/mp_15"
-        android:paddingStart="@dimen/mp_15"
-        android:textCursorDrawable="@drawable/edit_text_color_cursor" />
 
-    <EditText
-        android:id="@+id/et_password"
+    <LinearLayout
+        android:id="@+id/ll_update_password"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_45"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/mp_20"
-        android:background="@drawable/bg_edit_text"
-        android:hint="@string/input_new_psw"
-        android:inputType="textPassword"
-        android:paddingEnd="@dimen/mp_15"
-        android:paddingStart="@dimen/mp_15"
-        android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+        android:gravity="center_vertical"
+        android:orientation="vertical">
 
-    <EditText
-        android:id="@+id/et_confirm_password"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_35"
+            android:layout_marginEnd="@dimen/mp_30"
+            android:layout_marginStart="@dimen/mp_30"
+            android:layout_marginTop="@dimen/mp_20"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/login_password" />
+
+            <EditText
+                android:id="@+id/et_old_password"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mp_45"
+                android:background="@null"
+                android:hint="@string/input_old_psw"
+                android:inputType="textPassword"
+                android:paddingEnd="@dimen/mp_15"
+                android:paddingStart="@dimen/mp_15"
+                android:textColor="@color/item_text_color_dark"
+                android:textColorHint="@color/text_hint"
+                android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+
+        </LinearLayout>
+
+        <include layout="@layout/layout_login_line" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_45"
+        android:layout_height="@dimen/mp_35"
+        android:layout_marginEnd="@dimen/mp_30"
+        android:layout_marginStart="@dimen/mp_30"
         android:layout_marginTop="@dimen/mp_20"
-        android:background="@drawable/bg_edit_text"
-        android:hint="@string/confirm_password"
-        android:inputType="textPassword"
-        android:paddingEnd="@dimen/mp_15"
-        android:paddingStart="@dimen/mp_15"
-        android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_password" />
+
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_45"
+            android:background="@null"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:paddingEnd="@dimen/mp_15"
+            android:paddingStart="@dimen/mp_15"
+            android:textColor="@color/item_text_color_dark"
+            android:textColorHint="@color/text_hint"
+            android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+    </LinearLayout>
+
+    <include layout="@layout/layout_login_line" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_35"
+        android:layout_marginEnd="@dimen/mp_30"
+        android:layout_marginStart="@dimen/mp_30"
+        android:layout_marginTop="@dimen/mp_15"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/login_verify" />
+
+        <EditText
+            android:id="@+id/et_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/mp_45"
+            android:background="@null"
+            android:hint="@string/confirm_password"
+            android:inputType="textPassword"
+            android:paddingEnd="@dimen/mp_15"
+            android:paddingStart="@dimen/mp_15"
+            android:textColor="@color/item_text_color_dark"
+            android:textColorHint="@color/text_hint"
+            android:textCursorDrawable="@drawable/edit_text_color_cursor" />
+    </LinearLayout>
+
+    <include layout="@layout/layout_login_line" />
+
 
     <Button
         android:id="@+id/btn_confirm"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_50"
-        android:layout_marginTop="@dimen/mp_50"
+        android:layout_height="@dimen/mp_40"
+        android:layout_marginEnd="@dimen/mp_20"
+        android:layout_marginStart="@dimen/mp_30"
+        android:layout_marginTop="@dimen/mp_70"
         android:background="@drawable/bg_btn_login"
         android:text="@string/confirm"
         android:textColor="@color/white"

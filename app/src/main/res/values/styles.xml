@@ -1,12 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-   <!-- <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        &lt;!&ndash; Customize your theme here. &ndash;&gt;
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>-->
+    <!-- <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+         &lt;!&ndash; Customize your theme here. &ndash;&gt;
+         <item name="colorPrimary">@color/colorPrimary</item>
+         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+         <item name="colorAccent">@color/colorAccent</item>
+     </style>-->
 
     <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <!-- Blah blah -->
@@ -51,4 +51,24 @@
     <style name="TextFonts">
         <item name="fontPath">fonts/SonyReader_Ming.ttf</item>
     </style>
+
+    <style name="item_me">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/mp_45</item>
+        <item name="android:paddingStart">@dimen/mp_20</item>
+        <item name="android:paddingEnd">@dimen/mp_0</item>
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="item_me_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:layout_marginStart">@dimen/mp_10</item>
+        <item name="android:textColor">@color/item_me_text</item>
+        <item name="android:textSize">@dimen/f_18</item>
+
+    </style>
+
+
 </resources>

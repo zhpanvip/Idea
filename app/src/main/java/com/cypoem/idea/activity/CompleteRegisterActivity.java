@@ -16,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
@@ -63,6 +64,8 @@ public class CompleteRegisterActivity extends BaseActivity {
     Button mBtnComplete;
     @BindView(R.id.iv_head_pic)
     CircleImageView ivHeadPic;
+    @BindView(R.id.iv_back)
+    ImageView mIvBack;
     private String phone;
     String password;
     private int mMaxBitmapSize = 0;
@@ -110,7 +113,7 @@ public class CompleteRegisterActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.iv_head_pic, R.id.btn_complete})
+    @OnClick({R.id.iv_head_pic, R.id.btn_complete, R.id.iv_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_head_pic:
@@ -118,6 +121,9 @@ public class CompleteRegisterActivity extends BaseActivity {
                 break;
             case R.id.btn_complete:
                 completeRegister();
+                break;
+            case R.id.iv_back:
+                onBackPress();
                 break;
         }
     }
@@ -277,8 +283,8 @@ public class CompleteRegisterActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BasicResponse<UserBean> response) {
                         EventBus.getDefault().post(new RegisterSuccess("register success"));
-                        UserInfoTools.setIsLogin(getApplication(),true);
-                        UserInfoTools.setUser(getApplicationContext(),response.getResult());
+                        UserInfoTools.setIsLogin(getApplication(), true);
+                        UserInfoTools.setUser(getApplicationContext(), response.getResult());
                         showToast("注册成功，请登陆");
                         finish();
                     }

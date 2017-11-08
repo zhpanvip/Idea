@@ -4,20 +4,23 @@
     <color name="colorPrimaryDark">#497218</color>
     <color name="colorAccent">#4B8B31</color>-->
 
-    <color name="colorPrimary">#DCDCDC</color>
-    <color name="colorPrimaryDark">#B5B5B5</color>
+    <color name="colorPrimary">#1a9bef</color>
+    <color name="colorPrimaryDark">#003D91</color>
     <color name="colorAccent">#DCDCDC</color>
-    <color name="themDark">#497218</color>
+    <color name="themDark">#1a9bef</color>
 
     <color name="status_bar">#014C6E</color>
+    <color name="text_theme">#1a9bef</color>
+    <color name="female_red">#D4237A</color>
+    <color name="male_blue">#1296DB</color>
+    <color name="modify_head_pic">#98C3E4</color>
+    <color name="item_me_text">#000000</color>
+    <color name="item_me_text_right">#999999</color>
 
 
     <color name="line_color">#DCDCDC</color>
     <color name="tab_normal_text">#000000</color>
     <color name="tab_selected_text">#000000</color>
-
-
-
 
 
     <color name="gray_66">#666666</color>
@@ -35,10 +38,8 @@
     <color name="read_bg">#E6E6E6</color>
     <color name="theme_style">#829349</color>
     <color name="background">#FFFFFF</color>
-    <color name="text_theme">#829349</color>
     <color name="text_light">#F6F6EE</color>
-    <color name="female_red">#D4237A</color>
-    <color name="male_blue">#1296DB</color>
+
     <color name="item_text_color_dark">#333333</color>
     <color name="item_text_color">#666666</color>
     <color name="tab_color">#FFFFFF</color>

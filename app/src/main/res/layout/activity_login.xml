@@ -56,12 +56,7 @@
             android:textCursorDrawable="@drawable/edit_text_color_cursor" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginEnd="@dimen/mp_30"
-        android:layout_marginStart="@dimen/mp_30"
-        android:background="#333333" />
+    <include layout="@layout/layout_login_line"/>
 
 
     <LinearLayout
@@ -92,12 +87,7 @@
             android:textColorHint="@color/white"
             android:textCursorDrawable="@drawable/edit_text_color_cursor" />
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginEnd="@dimen/mp_30"
-        android:layout_marginStart="@dimen/mp_30"
-        android:background="#333333" />
+    <include layout="@layout/layout_login_line"/>
 
 
     <Button

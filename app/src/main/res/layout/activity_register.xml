@@ -60,7 +60,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="4"
+            android:layout_marginEnd="@dimen/mp_15"
+            android:layout_weight="3"
             android:orientation="vertical">
 
             <EditText
@@ -91,11 +92,14 @@
         <TextView
             android:id="@+id/tv_get_code"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/mp_28"
             android:layout_weight="2"
+            android:layout_marginTop="@dimen/mp_10"
             android:gravity="center"
+            android:textSize="@dimen/f_14"
+            android:background="@drawable/bg_btn_not_fill_gray"
             android:text="获取验证码"
-            android:textColor="@color/gray_66" />
+            android:textColor="@color/text_theme" />
     </LinearLayout>
 
 

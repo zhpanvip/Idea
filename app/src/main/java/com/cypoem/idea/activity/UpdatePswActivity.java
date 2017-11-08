@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.event.UpdatePswEvent;
@@ -18,7 +19,6 @@ import com.cypoem.idea.utils.UserInfoTools;
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -34,6 +34,8 @@ public class UpdatePswActivity extends BaseActivity {
     EditText etConfirmPassword;
     @BindView(R.id.btn_confirm)
     Button btnConfirm;
+    @BindView(R.id.ll_update_password)
+    LinearLayout mLlOldPassword;
     private int type;
 
     @Override
@@ -46,7 +48,7 @@ public class UpdatePswActivity extends BaseActivity {
         Intent intent = getIntent();
         type = intent.getIntExtra("type",0);
         if(type==FORGET_PSW){
-            etOldPassword.setVisibility(View.GONE);
+            mLlOldPassword.setVisibility(View.GONE);
         }
     }
 
