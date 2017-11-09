@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/mp_32"
+
+    android:layout_marginTop="@dimen/mp_10"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/mp_20"
+        android:layout_marginStart="@dimen/mp_20"
+        android:layout_weight="8"
+        android:background="@drawable/bg_find_search"
+        android:paddingStart="@dimen/mp_10">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="9"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:text="查找圈子、故事、或人"
+            android:textSize="@dimen/f_13" />
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="@dimen/mp_10"
+            android:layout_marginStart="@dimen/mp_10"
+            android:layout_weight="1"
+            android:src="@drawable/t2_search" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/mp_20"
+        android:layout_weight="2"
+        android:background="@drawable/bg_find_search_type"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/mp_10">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/t2_kindsearch" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/mp_5"
+                android:layout_weight="1"
+                android:lines="2"
+                android:text="分类"
+                android:textColor="@color/white"
+                android:textSize="@dimen/f_12" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/mp_5"
+                android:layout_weight="1"
+                android:lines="2"
+                android:text="查找"
+                android:textColor="@color/white"
+                android:textSize="@dimen/f_12" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

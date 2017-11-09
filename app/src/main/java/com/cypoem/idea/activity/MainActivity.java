@@ -102,22 +102,23 @@ public class MainActivity extends BaseActivity {
     }
 
     private boolean isLogin() {
-        return UserInfoTools.getIsLogin(this);
+        boolean isLogin = UserInfoTools.getIsLogin(this);
+        return true;
     }
 
     private void setListener() {
         rgTab.setOnCheckedChangeListener((RadioGroup group, @IdRes int checkedId) -> {
             switch (checkedId) {
                 case R.id.rb_home:
-                   // setStatusBarColor(R.color.colorPrimaryDark);
+                    // setStatusBarColor(R.color.colorPrimaryDark);
                     mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_HOME, false);
                     break;
                 case R.id.rb_find:
-                   // setStatusBarColor(R.color.colorPrimaryDark);
+                    // setStatusBarColor(R.color.colorPrimaryDark);
                     mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_FIND, false);
                     break;
                 case R.id.rb_add:
-                   // setStatusBarColor(R.color.colorPrimaryDark);
+                    // setStatusBarColor(R.color.colorPrimaryDark);
                     mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_PUBLISH, false);
                     break;
                 case R.id.rb_message:
@@ -130,7 +131,6 @@ public class MainActivity extends BaseActivity {
                         return;
                     }
                     break;
-
             }
             preCheckedId = checkedId;
         });
@@ -140,7 +140,7 @@ public class MainActivity extends BaseActivity {
     private boolean meClicked() {
         if (isLogin()) {
             mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_ME, false);
-          //  setStatusBarColor(R.color.themDark);
+            //  setStatusBarColor(R.color.themDark);
             return false;
         } else {
             goToLogin();
@@ -151,7 +151,7 @@ public class MainActivity extends BaseActivity {
 
     private boolean messageClicked() {
         if (isLogin()) {
-           // setStatusBarColor(R.color.colorPrimaryDark);
+            // setStatusBarColor(R.color.colorPrimaryDark);
             mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_MESSAGE, false);
             return false;
         } else {

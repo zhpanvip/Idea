@@ -1,0 +1,48 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context="com.cypoem.idea.fragment.FindNewFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mp_200"
+                android:background="@drawable/t2_banner"
+                android:orientation="horizontal" />
+
+            <GridView
+                android:id="@+id/gv_item"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/mp_200"
+                android:numColumns="5" />
+
+            <include layout="@layout/base_line10" />
+
+            <include
+                android:id="@+id/ll_recommend"
+                layout="@layout/layout_hot_recommend" />
+
+            <include
+                android:id="@+id/ll_new"
+                layout="@layout/layout_hot_recommend" />
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+    <!--搜索状态栏-->
+    <include layout="@layout/layout_find_search_bar" />
+
+
+</FrameLayout>

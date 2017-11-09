@@ -174,10 +174,7 @@
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/mp_10"
-                android:background="#F4F8FB" />
+            <include layout="@layout/base_line10"/>
 
             <RelativeLayout style="@style/item_me">
 
@@ -248,10 +245,7 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/mp_10"
-                android:background="#F4F8FB" />
+            <include layout="@layout/base_line10"/>
 
 
             <RelativeLayout style="@style/item_me">
@@ -357,10 +351,7 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/mp_10"
-                android:background="#F4F8FB" />
+            <include layout="@layout/base_line10"/>
 
 
             <RelativeLayout style="@style/item_me">
@@ -466,10 +457,7 @@
 
             </RelativeLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/mp_10"
-                android:background="#F4F8FB" />
+            <include layout="@layout/base_line10"/>
 
 
             <RelativeLayout style="@style/item_me">
