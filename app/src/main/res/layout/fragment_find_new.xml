@@ -1,9 +1,10 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView
+    <com.cypoem.idea.view.MScrollView
+        android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -14,7 +15,8 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/iv_banner"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/mp_200"
                 android:background="@drawable/t2_banner"
@@ -38,11 +40,19 @@
 
         </LinearLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </com.cypoem.idea.view.MScrollView>
 
 
     <!--搜索状态栏-->
-    <include layout="@layout/layout_find_search_bar" />
+    <include
+        android:id="@+id/ll_search_bar"
+        layout="@layout/layout_find_search_bar" />
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/mp_0.5"
+        android:layout_below="@id/ll_search_bar"
+        android:background="#00DDDDDD"/>
 
 
-</FrameLayout>
+</RelativeLayout>
