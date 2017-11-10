@@ -33,7 +33,7 @@
             <include
                 android:id="@+id/ll_recommend"
                 layout="@layout/layout_hot_recommend" />
-
+            <include layout="@layout/base_line10" />
             <include
                 android:id="@+id/ll_new"
                 layout="@layout/layout_hot_recommend" />

@@ -61,18 +61,17 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
 
     @Override
     public void onScrollChanged(MScrollView scrollView, int y) {
-        if (y < 3) {
+        if (y < 3 || y == 3) {
             mLlSearchBar.setBackgroundColor(Color.argb(0, 255, 255, 255));
             mLine.setBackgroundColor(Color.argb(0, 208, 208, 208));
         } else if (y > 3 && y < mBannerHeight) {
             float scale = y / mBannerHeight;
             if (scale <= 1) {
                 int alpha = (int) (255 * scale);
-                Log.e("Main", "Alpha-----------" + alpha);
                 mLlSearchBar.setBackgroundColor(Color.argb(alpha, 255, 255, 255));
                 mLine.setBackgroundColor(Color.argb(alpha, 208, 208, 208));
             }
-        } else if(y<1.5*mBannerHeight){
+        } else if (y < 1.5 * mBannerHeight) {
             mLlSearchBar.setBackgroundColor(Color.argb(255, 255, 255, 255));
             mLine.setBackgroundColor(Color.argb(255, 208, 208, 208));
         }
