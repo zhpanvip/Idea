@@ -56,7 +56,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">@dimen/mp_45</item>
         <item name="android:paddingStart">@dimen/mp_20</item>
-        <item name="android:paddingEnd">@dimen/mp_0</item>
+        <item name="android:paddingEnd">@dimen/dp_0</item>
         <item name="android:background">@color/white</item>
     </style>
 

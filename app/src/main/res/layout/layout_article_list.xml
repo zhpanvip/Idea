@@ -19,7 +19,7 @@
         <LinearLayout
             android:id="@+id/ll_text"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/mp_0"
+            android:layout_height="@dimen/dp_0"
             android:layout_margin="@dimen/mp_10"
             android:layout_weight="1"
             android:transitionName="sharedView"
