@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <include layout="@layout/layout_user_info"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="圈子简介："
+        android:layout_marginStart="@dimen/dp_20"
+        android:textColor="@color/text_black"
+        android:textSize="@dimen/sp_16"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/text_black"
+        android:layout_marginStart="@dimen/dp_20"
+        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_15"
+        android:paddingBottom="@dimen/dp_15"
+        android:textSize="@dimen/sp_16"
+        android:text="选得此圈子，每天会有数次多了。好i哈佛i哇好的绯闻分红阿斯分红i还好我发哦i我和然后i温柔我i呼呼韩国哭诉好的四黑好i我换个"/>
+
+</LinearLayout>

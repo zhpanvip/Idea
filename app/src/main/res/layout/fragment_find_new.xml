@@ -8,7 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
-        tools:context="com.cypoem.idea.fragment.FindNewFragment">
+        tools:context="com.cypoem.idea.fragment.FindNewFragment"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -18,41 +20,58 @@
             <ImageView
                 android:id="@+id/iv_banner"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/mp_200"
+                android:layout_height="@dimen/dp_200"
                 android:background="@drawable/t2_banner"
                 android:orientation="horizontal" />
 
-            <GridView
+            <android.support.v7.widget.RecyclerView
                 android:id="@+id/gv_item"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/mp_200"
-                android:numColumns="5" />
+                android:layout_height="@dimen/dp_170" />
 
             <include layout="@layout/base_line10" />
 
+            <!--热门推荐-->
             <include
                 android:id="@+id/ll_recommend"
                 layout="@layout/layout_hot_recommend" />
+
             <include layout="@layout/base_line10" />
+
+
+            <!--热门作者-->
+            <include
+                android:id="@+id/ll_hot_author"
+                layout="@layout/layout_follow_user" />
+
+            <include layout="@layout/base_line10"/>
+
+            <!--最新-->
             <include
                 android:id="@+id/ll_new"
                 layout="@layout/layout_hot_recommend" />
 
+            <include layout="@layout/base_line10" />
+
+            <include layout="@layout/layout_circle_intro" />
+
+            <include layout="@layout/base_line10" />
         </LinearLayout>
 
     </com.cypoem.idea.view.MScrollView>
-
 
     <!--搜索状态栏-->
     <include
         android:id="@+id/ll_search_bar"
         layout="@layout/layout_find_search_bar" />
+
+    <!--状态栏下划线-->
     <View
         android:id="@+id/line"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/mp_0.5"
+        android:layout_height="@dimen/dp_0_5"
         android:layout_below="@id/ll_search_bar"
-        android:background="#00DDDDDD"/>
+        android:background="#00DDDDDD" />
 
 
 </RelativeLayout>

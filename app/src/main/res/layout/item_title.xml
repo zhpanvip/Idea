@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="@dimen/mp_35"
+    android:paddingEnd="@dimen/mp_15"
+    android:paddingStart="@dimen/mp_20"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:id="@+id/iv_hot_recommend"
+        android:layout_width="@dimen/mp_20"
+        android:layout_height="@dimen/mp_20"
+        android:layout_marginEnd="@dimen/dp_15"
+        android:layout_centerVertical="true"
+        android:src="@drawable/t2_jewel" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="热门推荐"
+        android:textColor="@color/item_title_color"
+        android:layout_alignTop="@+id/iv_hot_recommend"
+        android:layout_toEndOf="@+id/iv_hot_recommend" />
+
+    <ImageView
+        android:id="@+id/iv_hot_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/t2_more_arrow" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/mp_5"
+        android:layout_toStartOf="@id/iv_hot_arrow"
+        android:text="更多"
+        android:textColor="@color/text_theme"
+        android:textSize="@dimen/f_15" />
+</RelativeLayout>

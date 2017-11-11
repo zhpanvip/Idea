@@ -55,7 +55,7 @@ public abstract class BaseActivity extends BaseCoreActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initContentView(R.layout.activity_base);
-       // setStatusBarColor(R.color.colorPrimaryDark);
+        setStatusBarColor(R.color.white);
         //  注入子Activity布局
         setContentView(getLayoutId());
         initToolBar();

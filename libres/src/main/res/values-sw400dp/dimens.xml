@@ -51,7 +51,7 @@
 	<dimen name="dp_29">32.22dp</dimen>
 	<dimen name="dp_30">33.33dp</dimen>
 	<dimen name="dp_31">34.44dp</dimen>
-	<dimen name="dp_32">35.52p</dimen>
+	<dimen name="dp_32">35.52dp</dimen>
 	<dimen name="dp_33">36.67dp</dimen>
 	<dimen name="dp_34">37.78dp</dimen>
 	<dimen name="dp_35">38.89dp</dimen>
@@ -310,7 +310,6 @@
 	<dimen name="dp_285">316.67dp</dimen>
 	<dimen name="dp_286">317.78dp</dimen>
 	<dimen name="dp_287">318.89dp</dimen>
-	<dimen name="dp_288">p</dimen>
 	<dimen name="dp_289">321.11dp</dimen>
 	<dimen name="dp_290">322.22dp</dimen>
 	<dimen name="dp_291">323.33dp</dimen>

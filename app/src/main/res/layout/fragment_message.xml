@@ -2,132 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background"
     android:orientation="vertical">
 
     <include layout="@layout/toolbar_layout" />
-
     <include layout="@layout/base_line" />
 
-    <ScrollView
+    <!--app:tabMode="scrollable"-->
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tl_find"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="@dimen/mp_30"
+        android:layout_gravity="bottom"
+        android:background="#fff"
+        android:backgroundTint="@color/background"
+        android:fillViewport="false"
+        app:layout_scrollFlags="scroll"
+        app:tabIndicatorColor="@color/tab_selected"
+        app:tabIndicatorHeight="3.0dp"
+        app:tabSelectedTextColor="@color/tab_selected"
+        app:tabTextColor="@color/item_text_color"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <RelativeLayout
-                android:id="@+id/rl_praise"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/mp_50"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="@string/praise_notification"
-                    android:textColor="@color/item_theme"
-                    android:textSize="16sp" />
-
-                <CheckBox
-                    android:id="@+id/cb_praise"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/selector_array"
-                    android:button="@null" />
-            </RelativeLayout>
-
-            <include layout="@layout/base_line" />
-
-            <com.cypoem.idea.view.ListViewForScrollView
-                android:id="@+id/lv_praise"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:visibility="gone" />
-
-            <include layout="@layout/base_line" />
-
-            <RelativeLayout
-                android:id="@+id/rl_system"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/mp_50"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/cb_system"
-                    android:layout_alignBottom="@+id/cb_system"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/system_notification"
-                    android:textColor="@color/item_theme"
-                    android:textSize="16sp" />
-
-                <CheckBox
-                    android:id="@+id/cb_system"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/selector_array"
-                    android:button="@null" />
-            </RelativeLayout>
-
-            <include layout="@layout/base_line" />
-
-            <com.cypoem.idea.view.ListViewForScrollView
-                android:id="@+id/lv_system"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <include layout="@layout/base_line" />
-
-            <RelativeLayout
-                android:id="@+id/rl_other"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/mp_50"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/cb_other"
-                    android:layout_alignBottom="@+id/cb_other"
-                    android:layout_alignParentStart="true"
-                    android:text="@string/other_notification"
-                    android:textColor="@color/item_theme"
-                    android:textSize="16sp" />
-
-                <CheckBox
-                    android:id="@+id/cb_other"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/selector_array"
-                    android:button="@null" />
-            </RelativeLayout>
-
-            <include layout="@layout/base_line" />
-
-            <com.cypoem.idea.view.ListViewForScrollView
-                android:id="@+id/lv_other"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone" />
-
-            <include layout="@layout/base_line" />
-        </LinearLayout>
-    </ScrollView>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_find"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

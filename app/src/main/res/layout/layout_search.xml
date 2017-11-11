@@ -4,7 +4,6 @@
     android:layout_height="45dp"
     android:transitionName="sharedSearch"
     android:id="@+id/ll_search"
-    android:visibility="gone"
     android:background="@color/toolbar_background"
     android:orientation="horizontal">
 

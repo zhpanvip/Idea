@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -52,11 +53,7 @@ public class SettingActivity extends BaseActivity {
     @BindView(R.id.btn_exit)
     Button mBtnExit;
     @BindView(R.id.rl_phone)
-    RelativeLayout mRlPhone;
-    @BindView(R.id.tv_phone)
-    TextView mTvPhone;
-    @BindView(R.id.rl_update_password)
-    RelativeLayout mRlUpdatePsw;
+    LinearLayout mRlPhone;
 
     private boolean isChangeNightMode;
 
@@ -85,7 +82,6 @@ public class SettingActivity extends BaseActivity {
         mTvVersion.setText("V " + AppUtils.getAppVersionName(this));
         mToggleButton.setChecked(UserInfoTools.isNightMode(this));
         String phone = UserInfoTools.getUser(this).getPhone();
-        mTvPhone.setText(phone);
     }
 
 

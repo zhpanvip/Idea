@@ -30,24 +30,13 @@ import butterknife.OnClick;
 
 public class FindFragment extends BaseFragment {
 
-    @BindView(R.id.rb_left)
-    RadioButton mRbLeft;
-    @BindView(R.id.rb_right)
-    RadioButton mRbRight;
-    @BindView(R.id.rg_selector)
-    RadioGroup mRgSelector;
     @BindView(R.id.toolbar_title)
     TextView mTitle;
     @BindView(R.id.vp_find)
     ViewPager mViewPager;
     @BindView(R.id.iv_right)
     ImageView mIvRight;
-    @BindView(R.id.ll_search)
-    LinearLayout mLlSearch;
-    @BindView(R.id.et_search_text)
-    EditText editText;
-    @BindView(R.id.tv_search)
-    TextView mTvSearch;
+
     @BindView(R.id.tv_cancel)
     TextView mTvCancel;
     @BindView(R.id.tl_find)
@@ -84,9 +73,7 @@ public class FindFragment extends BaseFragment {
         // mRgSelector.setVisibility(View.VISIBLE);
        // mIvRight.setVisibility(View.VISIBLE);
        // mIvRight.setBackgroundResource(R.drawable.ic_search);
-        mLlSearch.setVisibility(View.VISIBLE);
-        editText.setVisibility(View.GONE);
-        mTvSearch.setVisibility(View.VISIBLE);
+
         mTvCancel.setText("搜索");
         setViewPager();
         setListener();
@@ -124,7 +111,7 @@ public class FindFragment extends BaseFragment {
 
     private void setViewPager() {
         mList = new ArrayList<>();
-        mTitleList=getActivity().getApplication().getResources().getStringArray(R.array.type);
+        mTitleList=getActivity().getApplication().getResources().getStringArray(R.array.message);
 
         mList.add(FindInFragment.getFragment(NEWEST));
         mList.add(FindInFragment.getFragment(HOTTEST));
@@ -144,29 +131,9 @@ public class FindFragment extends BaseFragment {
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
-    @OnClick({R.id.rb_left, R.id.rb_right, R.id.iv_right,R.id.ll_search})
+    @OnClick({})
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.rb_left:
-                mViewPager.setCurrentItem(0);
-                break;
-            case R.id.rb_right:
-                mViewPager.setCurrentItem(1);
-                break;
-            case R.id.iv_right:
-                SearchActivity.start(getContext());
-                break;
-            case R.id.ll_search:
-                toSearch();
-                break;
-        }
-    }
 
-    private void toSearch() {
-        Intent intent = new Intent(getContext(), SearchActivity.class);
-        startActivity(intent, ActivityOptions
-                .makeSceneTransitionAnimation(getActivity()
-                        , mLlSearch, "sharedSearch").toBundle());
     }
 
 }

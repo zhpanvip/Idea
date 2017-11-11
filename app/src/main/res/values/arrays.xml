@@ -11,7 +11,6 @@
         <item>自定义</item>
 
 
-
         <!--<item>都市</item>
         <item>校园</item>
         <item>古风</item>
@@ -34,17 +33,23 @@
         <item>搞笑</item>-->
     </string-array>
 
-    <string-array name="type">
-        <item>最新</item>
-        <item>最热</item>
-        <item>大乱斗</item>
-        <item>诗歌散文</item>
-        <item>影视相关</item>
-        <item>无厘头</item>
-        <item>小小说</item>
-        <item>暖心励志</item>
-        <item>自定义</item>
+    <string-array name="message">
+        <item>私信</item>
+        <item>赞赏</item>
+        <item>赞和评论</item>
+        <item>系统通知</item>
 
+    </string-array>
+
+
+    <string-array name="gv_find_text">
+        <item>排行榜</item>
+        <item>每日一句</item>
+        <item>线下读书</item>
+        <item>附近的</item>
+        <item>热门故事</item>
+        <item>一周精选</item>
+        <item>有奖征文</item>
     </string-array>
 
     <!--<string-array name=""-->

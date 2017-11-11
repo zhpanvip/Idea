@@ -16,6 +16,10 @@
     <color name="modify_head_pic">#98C3E4</color>
     <color name="item_me_text">#000000</color>
     <color name="item_me_text_right">#999999</color>
+    <color name="item_title_color">#000000</color>
+    <color name="text_black">#000000</color>
+    <color name="tab_selected">#1a9bef</color>
+
 
 
     <color name="line_color">#DCDCDC</color>
@@ -60,5 +64,4 @@
     <color name="radio_text">#FFFFFF</color>
     <color name="radio_text_checked">#829349</color>
     <color name="btn_focus">#829349</color>
-    <color name="tab_selected">#829349</color>
 </resources>

@@ -2,10 +2,10 @@
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="@dimen/dp_50"
     android:background="@color/toolbar_background"
     android:fitsSystemWindows="true"
-    android:minHeight="50dp">
+    android:minHeight="@dimen/dp_45">
 
     <!--android:minHeight="?attr/actionBarSize"-->
     <!--自定义toolbar的title 和subtitle -->
@@ -16,25 +16,24 @@
         android:layout_height="wrap_content"
         android:layout_gravity="right"
         android:maxLines="1"
-        android:paddingRight="10dp"
+        android:paddingRight="@dimen/dp_10"
         android:text="subtitle"
         android:textColor="@color/toolbar_title"
-        android:textSize="@dimen/f_15"
+        android:textSize="@dimen/sp_15"
         android:visibility="gone" />
 
-    <RadioGroup
+    <!--<RadioGroup
         android:id="@+id/rg_selector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:orientation="horizontal"
-        android:visibility="gone">
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/rb_left"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_30"
             android:background="@drawable/bt_item_left_selector"
             android:button="@null"
             android:checked="true"
@@ -46,26 +45,25 @@
 
         <RadioButton
             android:id="@+id/rb_right"
-            android:layout_width="60dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_30"
             android:background="@drawable/bt_item_right_selector"
             android:button="@null"
             android:gravity="center"
             android:text="@string/hottest"
             android:textColor="@drawable/selector_text_color_white_red"
             android:textSize="15sp" />
-    </RadioGroup>
+    </RadioGroup>-->
 
     <ImageView
         android:id="@+id/iv_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
-        android:layout_marginEnd="10dp"
+        android:layout_marginEnd="@dimen/dp_10"
         android:background="@drawable/ic_more"
         android:visibility="gone" />
 
-    <include layout="@layout/layout_search" />
 
     <TextView
         android:id="@+id/toolbar_title"
@@ -73,13 +71,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="@dimen/mp_20"
+        android:layout_marginStart="@dimen/dp_20"
         android:ellipsize="end"
         android:lines="1"
         android:scrollHorizontally="true"
         android:text="title"
         android:textColor="@color/toolbar_title"
-        android:textSize="@dimen/f_16" />
+        android:textSize="@dimen/sp_16" />
 
 
 </android.support.v7.widget.Toolbar>
