@@ -39,9 +39,9 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     public DefaultObserver(Activity activity) {
         //mBaseImpl = baseImpl;
         if(dialogUtils==null){
-            dialogUtils=new DialogUtils();
+            dialogUtils=new DialogUtils(activity);
         }
-        dialogUtils.showProgress(activity);
+        dialogUtils.showProgress();
         //mBaseImpl.showProgress(mBaseImpl);
     }
 
@@ -50,9 +50,9 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
        // mBaseImpl = baseImpl;
         if (isShowLoading) {
             if(dialogUtils==null){
-                dialogUtils=new DialogUtils();
+                dialogUtils=new DialogUtils(activity);
             }
-            dialogUtils.showProgress(activity);
+            dialogUtils.showProgress();
            // mBaseImpl.showProgress(mBaseImpl);
         }
     }

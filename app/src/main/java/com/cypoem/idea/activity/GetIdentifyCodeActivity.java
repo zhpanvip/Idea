@@ -91,7 +91,7 @@ public class GetIdentifyCodeActivity extends BaseActivity {
     protected void init(Bundle savedInstanceState) {
         Intent intent = getIntent();
         type = intent.getIntExtra("type", 0);
-        dialogUtils=new DialogUtils();
+        dialogUtils=new DialogUtils(this);
         initData();
     }
 
@@ -174,7 +174,7 @@ public class GetIdentifyCodeActivity extends BaseActivity {
             showToast(R.string.input_identify_code);
             return;
         }
-        dialogUtils.showProgress(this);
+        dialogUtils.showProgress();
         //showProgress(this);
         SMSSDK.submitVerificationCode("86", phone, code);
     }

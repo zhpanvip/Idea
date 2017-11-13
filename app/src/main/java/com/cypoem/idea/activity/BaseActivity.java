@@ -25,6 +25,7 @@ import com.airong.core.BaseCoreActivity;
 import com.airong.core.BaseCoreFragment;
 import com.airong.core.BaseRxActivity;
 import com.airong.core.dialog.CustomDialog;
+import com.airong.core.dialog.DialogUtils;
 import com.airong.core.utils.BarUtils;
 import com.airong.core.view.PtrClassicListFooter;
 import com.airong.core.view.PtrClassicListHeader;
@@ -56,6 +57,7 @@ public abstract class BaseActivity extends BaseCoreActivity {
         super.onCreate(savedInstanceState);
         initContentView(R.layout.activity_base);
         setStatusBarColor(R.color.white);
+        BarUtils.StatusBarLightMode(this);
         //  注入子Activity布局
         setContentView(getLayoutId());
         initToolBar();
@@ -327,102 +329,6 @@ public abstract class BaseActivity extends BaseCoreActivity {
         ButterKnife.bind(this);
     }
 
-    /**
-     * @param content         内容
-     * @param confirm         确定键文字
-     * @param cancel          取消键文字
-     * @param confirmListener 确定键监听
-     * @param cancelListener  取消键监听
-     */
-    public void showTwoButtonDialog(String content, String confirm, String cancel,
-                                    View.OnClickListener confirmListener,
-                                    View.OnClickListener cancelListener) {
-        dialog = new CustomDialog.Builder(this)
-                .setTheme(com.airong.core.R.style.IdeaDialog)
-                .setContent(content)
-                .addConfirmClickListener(confirm, confirmListener)
-                .addCancelClickListener(cancel, cancelListener)
-                .build();
-        dialog.show();
-    }
-
-    /**
-     * @param content         内容
-     * @param confirm         确定键文字
-     * @param cancel          取消键文字
-     * @param confirmColor    确定键颜色
-     * @param cancelColor     取消键颜色
-     * @param confirmListener 确定键监听
-     * @param cancelListener  取消键监听
-     */
-    public void showTwoButtonDialog(String content, String confirm, String cancel,
-                                    @ColorInt int confirmColor, @ColorInt int cancelColor,
-                                    View.OnClickListener confirmListener,
-                                    View.OnClickListener cancelListener) {
-        dialog = new CustomDialog.Builder(this)
-                .setTheme(com.airong.core.R.style.IdeaDialog)
-                .setContent(content)
-                .setConfirmColor(confirmColor)
-                .setCancelColor(cancelColor)
-                .addConfirmClickListener(confirm, confirmListener)
-                .addCancelClickListener(cancel, cancelListener)
-                .build();
-        dialog.show();
-    }
-
-    /**
-     * @param content         内容
-     * @param confirm         按钮文字
-     * @param confirmListener 按钮监听
-     */
-    public void showOneButtonDialog(String content, String confirm, View.OnClickListener confirmListener) {
-        dialog = new CustomDialog.Builder(this)
-                .setTheme(com.airong.core.R.style.IdeaDialog)
-                .setContent(content)
-                .addConfirmClickListener(confirm, confirmListener)
-                .showOneButton()
-                .build();
-        dialog.show();
-    }
-
-
-    /**
-     * create custom dialog
-     *
-     * @param dialogLayoutRes    dialog布局资源文件
-     * @param cancelTouchOutside 点击外部是否可以取消
-     * @return 自定义的dialog对应的View
-     */
-    public View createDialog(@LayoutRes Integer dialogLayoutRes, boolean cancelTouchOutside) {
-        if (dialogLayoutRes == null) {
-            dialogLayoutRes = com.airong.core.R.layout.custom_dialog;
-        }
-        View dialogView = LayoutInflater.from(this).inflate(dialogLayoutRes, null);
-        //  计算dialog宽高
-        int measureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-        dialogView.measure(measureSpec, measureSpec);
-        int height = dialogView.getMeasuredHeight();
-        int width = dialogView.getMeasuredWidth();
-
-        dialog = new CustomDialog.Builder(this)
-                .setTheme(com.airong.core.R.style.IdeaDialog)
-                .setHeightPx(height)
-                .setWidthPx(width)
-                .cancelTouchOutside(cancelTouchOutside)
-                .setDialogLayout(dialogView).build();
-        dialog.show();
-        return dialogView;
-    }
-
-    /**
-     * 隐藏dialog
-     */
-    public void dismissDialog() {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
-        }
-    }
-
     private void setStatusBarTransparent() {
         //  把状态栏去掉
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -484,19 +390,9 @@ public abstract class BaseActivity extends BaseCoreActivity {
      */
     protected void requestPermission(final String permission, String rationale, final int requestCode) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
-
-            showTwoButtonDialog(getString(R.string.label_ok), null, getString(R.string.label_cancel), new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    ActivityCompat.requestPermissions(BaseActivity.this,
-                            new String[]{permission}, requestCode);
-                }
-            }, new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dismissDialog();
-                }
-            });
+            DialogUtils dialogUtils=new DialogUtils(this);
+            dialogUtils.showTwoButtonDialog(getString(R.string.label_ok), v -> ActivityCompat.requestPermissions(BaseActivity.this,
+                    new String[]{permission}, requestCode), v -> dialogUtils.dismissDialog());
 
            /* showAlertDialog(getString(R.string.permission_title_rationale), rationale,
                     new DialogInterface.OnClickListener() {

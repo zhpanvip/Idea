@@ -46,6 +46,7 @@ dependencies {
     annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.ext.butterknifeVersion"
     compile "com.android.support:design:$rootProject.ext.supportLibVersion"
     compile "com.android.support:recyclerview-v7:$rootProject.ext.supportLibVersion"
+    compile "com.android.support:cardview-v7:$rootProject.ext.supportLibVersion"
     compile "com.android.support:support-v4:$rootProject.ext.supportLibVersion"
     compile "com.android.support:appcompat-v7:$rootProject.supportLibVersion"
     compile "io.reactivex.rxjava2:rxjava:$rootProject.ext.rxjava2Version"

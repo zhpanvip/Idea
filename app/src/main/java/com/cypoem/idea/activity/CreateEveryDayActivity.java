@@ -22,6 +22,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airong.core.dialog.DialogUtils;
 import com.airong.core.utils.ImageUtils;
 import com.airong.core.utils.LogUtils;
 import com.cypoem.idea.R;
@@ -295,10 +296,11 @@ public class CreateEveryDayActivity extends BaseActivity {
     }
 
     private void showConfirmDialog() {
-        showTwoButtonDialog("您还没有发布，确定要退出吗？", "确定", "取消", (View v) -> {
+        DialogUtils dialogUtils=new DialogUtils(this);
+        dialogUtils.showTwoButtonDialog("您还没有发布，确定要退出吗？", (View v) -> {
             MainActivity.start(CreateEveryDayActivity.this);
             finish();
-        }, (View v) -> dismissDialog());
+        }, (View v) -> dialogUtils.dismissDialog());
     }
 
     @Override

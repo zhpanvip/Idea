@@ -295,7 +295,7 @@ public class SearchActivity extends BaseActivity {
                     @Override
                     public void onException(ExceptionReason reason) {
                         super.onException(reason);
-                        dismissDialog();
+                        dismissLoading();
                     }
                 });
     }

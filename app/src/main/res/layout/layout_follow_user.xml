@@ -9,6 +9,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_follow_user"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_210"/>
+        android:layout_height="@dimen/dp_220"/>
 
 </LinearLayout>

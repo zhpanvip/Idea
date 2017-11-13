@@ -6,6 +6,7 @@
     android:layout_height="@dimen/mp_200"
     android:layout_marginLeft="@dimen/mp_5"
     android:layout_marginRight="@dimen/mp_5"
+    android:foreground="@drawable/bg_ripple"
     android:layout_marginTop="@dimen/mp_5">
 
     <ImageView

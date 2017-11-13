@@ -26,12 +26,14 @@ public class CustomDialog extends Dialog {
     private boolean cancelTouchOutside;
     //  弹窗布局View
     private View dialogView;
+    private boolean cancelable;
 
     private CustomDialog(Builder builder) {
         super(builder.context);
         height = builder.height;
         width = builder.width;
         cancelTouchOutside = builder.cancelTouchOutside;
+        this.cancelable = builder.cancelable;
         dialogView = builder.mDialogView;
     }
 
@@ -41,6 +43,7 @@ public class CustomDialog extends Dialog {
         height = builder.height;
         width = builder.width;
         cancelTouchOutside = builder.cancelTouchOutside;
+        this.cancelable = builder.cancelable;
         dialogView = builder.mDialogView;
     }
 
@@ -51,7 +54,7 @@ public class CustomDialog extends Dialog {
         setContentView(dialogView);
 
         setCanceledOnTouchOutside(cancelTouchOutside);
-
+        setCancelable(cancelable);
         Window win = getWindow();
         WindowManager.LayoutParams lp = win.getAttributes();
         lp.gravity = Gravity.CENTER;
@@ -67,6 +70,7 @@ public class CustomDialog extends Dialog {
         private boolean cancelTouchOutside;
         private View mDialogView;
         private int resStyle = -1;
+        private boolean cancelable;
 
         public Builder(Context context) {
             this.context = context;
@@ -144,6 +148,7 @@ public class CustomDialog extends Dialog {
 
         /**
          * 确定键监听
+         *
          * @param confirm
          * @param listener
          * @return
@@ -157,6 +162,7 @@ public class CustomDialog extends Dialog {
 
         /**
          * 取消键监听
+         *
          * @param cancel
          * @param listener
          * @return
@@ -170,6 +176,7 @@ public class CustomDialog extends Dialog {
 
         /**
          * 设置内容
+         *
          * @param content
          * @return
          */
@@ -181,32 +188,41 @@ public class CustomDialog extends Dialog {
 
         /**
          * 设置取消键颜色
+         *
          * @param color 颜色
          * @return
          */
-        public Builder setCancelColor(int color){
-            TextView tvCancel= (TextView) mDialogView.findViewById(R.id.tv_cancel);
-            tvCancel.setTextColor(color);
-            return this;
-        }
-        /**
-         * 设置确定键颜色
-         * @param color 颜色
-         * @return
-         */
-        public Builder setConfirmColor(int color){
-            TextView tvCancel= (TextView) mDialogView.findViewById(R.id.tv_confirm);
+        public Builder setCancelColor(int color) {
+            TextView tvCancel = (TextView) mDialogView.findViewById(R.id.tv_cancel);
             tvCancel.setTextColor(color);
             return this;
         }
 
         /**
+         * 设置确定键颜色
+         *
+         * @param color 颜色
+         * @return
+         */
+        public Builder setConfirmColor(int color) {
+            TextView tvCancel = (TextView) mDialogView.findViewById(R.id.tv_confirm);
+            tvCancel.setTextColor(color);
+            return this;
+        }
+
+        public Builder setCancelable(boolean cancelable) {
+            this.cancelable = cancelable;
+            return this;
+        }
+
+        /**
          * 显示一个按钮的弹窗
+         *
          * @return
          */
         public Builder showOneButton() {
-                mDialogView.findViewById(R.id.tv_cancel).setVisibility(View.GONE);
-                mDialogView.findViewById(R.id.view_dialog).setVisibility(View.GONE);
+            mDialogView.findViewById(R.id.tv_cancel).setVisibility(View.GONE);
+            mDialogView.findViewById(R.id.view_dialog).setVisibility(View.GONE);
             return this;
         }
 

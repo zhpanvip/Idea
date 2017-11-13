@@ -24,6 +24,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airong.core.dialog.DialogUtils;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.airong.core.utils.LogUtils;
 import com.bigkoo.pickerview.OptionsPickerView;
@@ -326,7 +327,8 @@ public class EditInfoActivity extends BaseActivity {
     //  编辑性别
     private void editSex() {
         double dSex = Double.parseDouble(sex);
-        View dialog = createDialog(R.layout.layout_select_sex, false);
+        DialogUtils dialogUtils=new DialogUtils(this);
+        View dialog = dialogUtils.createDialog(R.layout.layout_select_sex, false);
         SexView sexView = (SexView) dialog.findViewById(R.id.sex_view);
         sexView.setCenterColor(Color.parseColor("#FFFFFF"));
         sexView.setMalePercent(dSex);
@@ -340,7 +342,7 @@ public class EditInfoActivity extends BaseActivity {
                 updateUserInfo();
             }
             isSexChanged = false;
-            dismissDialog();
+            dialogUtils.dismissDialog();
         });
     }
 

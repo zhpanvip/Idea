@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.airong.core.dialog.DialogUtils;
 import com.cypoem.idea.R;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -75,12 +76,13 @@ public class AddLabelActivity extends BaseActivity {
     }
 
     private void showCustomDialog() {
-        View dialog = createDialog(R.layout.input_dialog, true);
+        DialogUtils dialogUtils=new DialogUtils(this);
+        View dialog = dialogUtils.createDialog(R.layout.input_dialog, true);
         mEtCustom = (EditText) dialog.findViewById(R.id.et_dialog_content);
         dialog.findViewById(R.id.tv_confirm).setOnClickListener((View v) -> {
             String customStr = mEtCustom.getText().toString();
             selectedLabel(customStr, 200);
-            dismissDialog();
+            dialogUtils.dismissDialog();
             finish();
         });
     }
@@ -136,12 +138,13 @@ public class AddLabelActivity extends BaseActivity {
 
 
     private void showDig() {
-        showTwoButtonDialog("您还没有选择标签，\n确定要退出吗？", "确定", "取消", (View v) -> {
-            dismissDialog();
+        DialogUtils dialogUtils=new DialogUtils(this);
+        dialogUtils.showTwoButtonDialog("您还没有选择标签，\n确定要退出吗？",(View v) -> {
+            dialogUtils.dismissDialog();
             Intent intent = new Intent();
             setResult(PublishActivity.SELECT_LABEL, intent);
             finish();
-        }, (View v) -> dismissDialog());
+        }, (View v) -> dialogUtils.dismissDialog());
     }
 
     @Override

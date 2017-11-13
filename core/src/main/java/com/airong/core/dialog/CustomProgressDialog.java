@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.airong.core.R;
 
 /**
@@ -18,17 +19,20 @@ public class CustomProgressDialog extends Dialog {
     private View mDialogView;
     private boolean cancelTouchOutside;
     private AnimationDrawable animationDrawable;
+    private boolean cancelable;
 
     public CustomProgressDialog(Builder builder) {
         super(builder.context);
         mDialogView = builder.mDialogView;
         cancelTouchOutside = builder.cancelTouchOutside;
+        cancelable = builder.cancelable;
     }
 
     private CustomProgressDialog(Builder builder, int themeResId) {
         super(builder.context, themeResId);
         mDialogView = builder.mDialogView;
         cancelTouchOutside = builder.cancelTouchOutside;
+        cancelable = builder.cancelable;
     }
 
     @Override
@@ -36,6 +40,7 @@ public class CustomProgressDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(mDialogView);
         setCanceledOnTouchOutside(cancelTouchOutside);
+        setCancelable(cancelable);
     }
 
     @Override
@@ -52,8 +57,8 @@ public class CustomProgressDialog extends Dialog {
     @Override
     protected void onStop() {
         super.onStop();
-        if(animationDrawable!=null)
-        animationDrawable.stop();
+        if (animationDrawable != null)
+            animationDrawable.stop();
     }
 
     public static final class Builder {
@@ -61,6 +66,7 @@ public class CustomProgressDialog extends Dialog {
         private int resStyle = -1;
         private View mDialogView;
         private boolean cancelTouchOutside;
+        private boolean cancelable;
 
         public Builder(Context context) {
             this.context = context;
@@ -69,6 +75,7 @@ public class CustomProgressDialog extends Dialog {
 
         /**
          * 设置主题
+         *
          * @param resStyle style id
          * @return CustomProgressDialog.Builder
          */
@@ -82,6 +89,11 @@ public class CustomProgressDialog extends Dialog {
             if (tvMessage != null) {
                 tvMessage.setText(message);
             }
+            return this;
+        }
+
+        public Builder setCancelable(boolean cancelable) {
+            this.cancelable = cancelable;
             return this;
         }
 

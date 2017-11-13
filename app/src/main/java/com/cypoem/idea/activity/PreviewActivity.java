@@ -79,14 +79,14 @@ public class PreviewActivity extends BaseActivity {
         String date = df.format(new Date());
         tvTime.setText(penName + "/" + date);
         tvContent.setText(content);
-        dialogUtils=new DialogUtils();
+        dialogUtils = new DialogUtils(this);
         setPic();
     }
 
     private void setPic() {
         int maxBitmapSize = getMaxBitmapSize();
         Uri uri = Uri.fromFile(new File(picPath));
-        dialogUtils.showProgress(this);
+        dialogUtils.showProgress();
         BitmapLoadUtils.decodeBitmapInBackground(this, uri, null, maxBitmapSize, maxBitmapSize, new BitmapLoadCallback() {
             @Override
             public void onBitmapLoaded(@NonNull Bitmap bitmap, @NonNull ExifInfo exifInfo, @NonNull String s, @Nullable String s1) {

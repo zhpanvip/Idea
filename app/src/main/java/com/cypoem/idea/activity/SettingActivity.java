@@ -14,6 +14,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.airong.core.dialog.DialogUtils;
 import com.airong.core.utils.AppUtils;
 import com.airong.core.utils.CleanUtils;
 import com.airong.core.utils.FileUtils;
@@ -56,6 +57,7 @@ public class SettingActivity extends BaseActivity {
     LinearLayout mRlPhone;
 
     private boolean isChangeNightMode;
+    private DialogUtils dialogUtils;
 
     @Override
     protected int getLayoutId() {
@@ -66,8 +68,8 @@ public class SettingActivity extends BaseActivity {
     protected void init(Bundle savedInstanceState) {
         setData();
         setListener();
-        isChangeNightMode=UserInfoTools.isChangeNightMode(this);
-        UserInfoTools.setChangeNightMode(this,false);
+        isChangeNightMode = UserInfoTools.isChangeNightMode(this);
+        UserInfoTools.setChangeNightMode(this, false);
     }
 
     private void setListener() {
@@ -91,7 +93,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     @OnClick({R.id.rl_catch, R.id.rl_advice, R.id.rl_about_us, R.id.rl_protocol, R.id.btn_exit,
-    R.id.rl_update,R.id.rl_phone,R.id.rl_update_password})
+            R.id.rl_update, R.id.rl_phone, R.id.rl_update_password})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_catch:
@@ -110,7 +112,7 @@ public class SettingActivity extends BaseActivity {
                 logout();
                 break;
             case R.id.rl_update_password:
-                UpdatePswActivity.start(this,UpdatePswActivity.UPDATE_PSW);
+                UpdatePswActivity.start(this, UpdatePswActivity.UPDATE_PSW);
                 break;
             case R.id.rl_phone:
 
@@ -122,9 +124,10 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void logout() {
-        showTwoButtonDialog("确定退出登录吗？", "确定", "取消",
+        dialogUtils = new DialogUtils(this);
+        dialogUtils.showTwoButtonDialog("确定退出登录吗？",
                 (View v) -> confirmLogout(),
-                (View v) -> dismissDialog());
+                (View v) -> dialogUtils.dismissDialog());
     }
 
     private void confirmLogout() {
@@ -164,15 +167,16 @@ public class SettingActivity extends BaseActivity {
 
     //  清除缓存
     private void clearCache() {
-        showTwoButtonDialog("确定要清除所有缓存吗？", "确定", "取消", (View v) -> {
+        dialogUtils=new DialogUtils(this);
+        dialogUtils.showTwoButtonDialog("确定要清除所有缓存吗？", (View v) -> {
             if (CleanUtils.cleanInternalCache()) {
                 mTvCache.setText(FileUtils.getDirSize(getCacheDir()));
                 showToast("缓存已清除");
             } else {
                 showToast("清除缓存失败...");
             }
-            dismissDialog();
-        }, (View v) -> dismissDialog());
+            dialogUtils.dismissDialog();
+        }, (View v) -> dialogUtils.dismissDialog());
     }
 
     @Override
@@ -208,9 +212,9 @@ public class SettingActivity extends BaseActivity {
         //  切换模式
         getDelegate().setDefaultNightMode(currentNightMode == Configuration.UI_MODE_NIGHT_NO ?
                 AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-        UserInfoTools.setChangeNightMode(this,true);
+        UserInfoTools.setChangeNightMode(this, true);
         //recreate();
-        startActivity(new Intent(this,SettingActivity.class));
+        startActivity(new Intent(this, SettingActivity.class));
         overridePendingTransition(R.anim.animo_alph_close, R.anim.animo_alph_close);
         finish();
     }

@@ -29,7 +29,7 @@ public class ToastUtils {
     }
 
     public static void showDebug(CharSequence text) {
-        if (BuildConfig.DEBUG) {
+        if (Utils.isDebugBuild()) {
             show(text, Toast.LENGTH_SHORT);
         }
     }

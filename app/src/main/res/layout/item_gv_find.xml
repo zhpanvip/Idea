@@ -4,6 +4,9 @@
     android:layout_height="@dimen/dp_85"
     android:gravity="center"
     android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground"
     android:paddingBottom="@dimen/dp_10"
     android:paddingTop="@dimen/dp_10">
 
