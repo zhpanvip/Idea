@@ -5,11 +5,12 @@
     android:layout_height="match_parent">
 
     <include layout="@layout/layout_user_info"/>
-
+    <include layout="@layout/base_line"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="圈子简介："
+        android:layout_marginTop="@dimen/dp_10"
         android:layout_marginStart="@dimen/dp_20"
         android:textColor="@color/text_black"
         android:textSize="@dimen/sp_16"/>

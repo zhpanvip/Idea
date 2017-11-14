@@ -46,13 +46,13 @@ public class FindFragment extends BaseFragment {
     private String[] mTitleList;
     public final static int NEWEST = 1;
     public final static int HOTTEST = 0;
-    public final static int DALUANDOU=3;
-    public final static int POEM=4;
-    public final static int VIDEO=5;
-    public final static int WULITOU=6;
-    public final static int STORY=7;
-    public final static int ENCOURAGEMENT=8;
-    public final static int CUSTOM=200;
+    public final static int DALUANDOU = 3;
+    public final static int POEM = 4;
+    public final static int VIDEO = 5;
+    public final static int WULITOU = 6;
+    public final static int STORY = 7;
+    public final static int ENCOURAGEMENT = 8;
+    public final static int CUSTOM = 200;
 
 
     @Override
@@ -71,8 +71,8 @@ public class FindFragment extends BaseFragment {
     private void initData() {
         mTitle.setVisibility(View.GONE);
         // mRgSelector.setVisibility(View.VISIBLE);
-       // mIvRight.setVisibility(View.VISIBLE);
-       // mIvRight.setBackgroundResource(R.drawable.ic_search);
+        // mIvRight.setVisibility(View.VISIBLE);
+        // mIvRight.setBackgroundResource(R.drawable.ic_search);
 
         mTvCancel.setText("搜索");
         setViewPager();
@@ -111,7 +111,7 @@ public class FindFragment extends BaseFragment {
 
     private void setViewPager() {
         mList = new ArrayList<>();
-        mTitleList=getActivity().getApplication().getResources().getStringArray(R.array.message);
+        mTitleList = getActivity().getApplication().getResources().getStringArray(R.array.message);
 
         mList.add(FindInFragment.getFragment(NEWEST));
         mList.add(FindInFragment.getFragment(HOTTEST));
