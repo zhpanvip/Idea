@@ -43,8 +43,8 @@ public class MainActivity extends BaseActivity {
     RadioGroup rgTab;
     @BindView(R.id.vp_fragment)
     MViewPaper mViewPager;
-    @BindView(R.id.iv_add)
-    ImageView mIvBackground;
+   /* @BindView(R.id.iv_add)
+    ImageView mIvBackground;*/
     //  退出时间间隔
     private long exitTime = 0;
     //  上一次RadioGroup选中的Id
@@ -172,10 +172,10 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            if (mIvBackground.getVisibility() == View.VISIBLE) {
+            /*if (mIvBackground.getVisibility() == View.VISIBLE) {
                 mIvBackground.setVisibility(View.GONE);
                 return true;
-            }
+            }*/
             if ((System.currentTimeMillis() - exitTime) > 2000) {
                 showToast("再按一次退出程序");
                 exitTime = System.currentTimeMillis();
@@ -188,14 +188,14 @@ public class MainActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    @OnClick({R.id.iv_add})
+    /*@OnClick({R.id.iv_add})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_add:
-                mIvBackground.setVisibility(View.GONE);
+               mIvBackground.setVisibility(View.GONE);
                 break;
         }
-    }
+    }*/
 
     /**
      * 接收到夜间模式改变的事件后结束当前Activity
@@ -224,6 +224,6 @@ public class MainActivity extends BaseActivity {
      */
     @Subscribe
     public void joinOpus(AddFragment.JoinOpus joinOpus) {
-        mIvBackground.setVisibility(View.VISIBLE);
+       // mIvBackground.setVisibility(View.VISIBLE);
     }
 }

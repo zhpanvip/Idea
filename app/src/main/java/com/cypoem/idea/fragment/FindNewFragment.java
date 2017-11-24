@@ -2,6 +2,8 @@ package com.cypoem.idea.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 
 
-public class FindNewFragment extends BaseFragment implements MScrollView.OnScrollChangedListener {
+public class FindNewFragment extends BaseFragment implements MScrollView.OnScrollChangedListener, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.gv_item)
     RecyclerView gvItem;
@@ -48,6 +50,8 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
     LinearLayout mLlNew;
     @BindView(R.id.ll_hot_author)
     LinearLayout mLlAuthor;
+    @BindView(R.id.srl)
+    SwipeRefreshLayout refreshLayout;
     //  Banner高度
     private float mBannerHeight;
 
@@ -64,6 +68,25 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
     protected void init(Bundle savedInstanceState) {
         setListener();
         setData();
+        setRefreshLayout();
+    }
+
+    private void setRefreshLayout() {
+        refreshLayout.setProgressViewEndTarget(false, 300);
+        /*refreshLayout.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);*/
+
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(true);
+                onRefresh();
+            }
+        });
+        refreshLayout.setOnRefreshListener(this);
     }
 
     private void setData() {
@@ -156,5 +179,16 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
             mLlSearchBar.setBackgroundColor(Color.argb(255, 255, 255, 255));
             mLine.setBackgroundColor(Color.argb(255, 208, 208, 208));
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(false);
+            }
+        }, 2000);
     }
 }

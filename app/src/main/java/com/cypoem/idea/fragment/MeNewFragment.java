@@ -1,7 +1,9 @@
 package com.cypoem.idea.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +21,7 @@ import butterknife.Unbinder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MeNewFragment extends BaseFragment {
+public class MeNewFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
@@ -29,6 +31,8 @@ public class MeNewFragment extends BaseFragment {
     TextView toolbarSubtitle;
     @BindView(R.id.iv_head)
     ImageView ivHead;
+    @BindView(R.id.srl)
+    SwipeRefreshLayout refreshLayout;
 
 
     public static MeNewFragment getFragment() {
@@ -46,6 +50,25 @@ public class MeNewFragment extends BaseFragment {
     @Override
     protected void init(Bundle savedInstanceState) {
         initData();
+        setRefreshLayout();
+    }
+
+    private void setRefreshLayout() {
+        refreshLayout.setProgressViewEndTarget(false, 300);
+        /*refreshLayout.setColorSchemeResources(
+                android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);*/
+
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(true);
+                onRefresh();
+            }
+        });
+        refreshLayout.setOnRefreshListener(this);
     }
 
     private void initData() {
@@ -63,5 +86,16 @@ public class MeNewFragment extends BaseFragment {
                 break;
 
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(false);
+            }
+        }, 2000);
     }
 }

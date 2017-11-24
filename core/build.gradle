@@ -1,5 +1,5 @@
 apply plugin: 'com.android.library'
-apply plugin: 'me.tatarka.retrolambda'
+//apply plugin: 'me.tatarka.retrolambda'
 // Java8 not fully supported in library projects yet, https://code.google.com/p/android/issues/detail?id=211386
 // this is a temporary workaround to get at least lambdas compiling
 /*gradle.projectsEvaluated {
