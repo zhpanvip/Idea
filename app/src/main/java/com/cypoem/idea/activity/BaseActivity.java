@@ -11,6 +11,7 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.airong.core.view.PtrClassicListHeader;
 import com.cypoem.idea.R;
 import com.umeng.analytics.MobclickAgent;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -43,9 +45,9 @@ public abstract class BaseActivity extends BaseCoreActivity {
 
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
     protected static final int REQUEST_STORAGE_WRITE_ACCESS_PERMISSION = 102;
-
+    LinearLayout parentLinearLayout;
     //把父类activity和子类activity的view都add到这里
-    private LinearLayout parentLinearLayout;
+   // private LinearLayout parentLinearLayout;
     private TextView mToolbarTitle;
     private TextView mToolbarSubTitle;
     //  对话框
@@ -54,7 +56,11 @@ public abstract class BaseActivity extends BaseCoreActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        //getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+        //setTranslucentStatus(this,true);
+        /*StatusBarManager.getInstance().setActivityWindowStyle(getWindow());
+        StatusBarManager.getInstance().setStatusBar(getWindow(), Color.TRANSPARENT);*/
         initContentView(R.layout.activity_base);
         setStatusBarColor(R.color.white);
         BarUtils.StatusBarLightMode(this);
@@ -296,13 +302,10 @@ public abstract class BaseActivity extends BaseCoreActivity {
      * 初始化contentiew
      */
     private void initContentView(@LayoutRes int layoutResID) {
-        ViewGroup viewGroup = (ViewGroup) findViewById(android.R.id.content);
+        ViewGroup viewGroup= (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
         viewGroup.removeAllViews();
-        parentLinearLayout = new LinearLayout(this);
-        parentLinearLayout.setOrientation(LinearLayout.VERTICAL);
+        parentLinearLayout= (LinearLayout) LayoutInflater.from(this).inflate(layoutResID, parentLinearLayout, true);
         viewGroup.addView(parentLinearLayout);
-        //  将BaseActivity的布局添加到parentLinearLayout
-        LayoutInflater.from(this).inflate(layoutResID, parentLinearLayout, true);
     }
 
     /**

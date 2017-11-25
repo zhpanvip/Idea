@@ -4,14 +4,10 @@
     <modules>
       <module fileurl="file://E:\work\cypoem\Idea.iml" filepath="E:\work\cypoem\Idea.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://E:\work\cypoem\app\app.iml" filepath="E:\work\cypoem\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
-      <module fileurl="file://E:\work\cypoem\core\core.iml" filepath="E:\work\cypoem\core\core.iml" />
       <module fileurl="file://$PROJECT_DIR$/cypoem.iml" filepath="$PROJECT_DIR$/cypoem.iml" />
       <module fileurl="file://$PROJECT_DIR$/libres/libres.iml" filepath="$PROJECT_DIR$/libres/libres.iml" />
-      <module fileurl="file://E:\work\cypoem\libres\libres.iml" filepath="E:\work\cypoem\libres\libres.iml" />
       <module fileurl="file://$PROJECT_DIR$/thirdparty/thirdparty.iml" filepath="$PROJECT_DIR$/thirdparty/thirdparty.iml" />
-      <module fileurl="file://E:\work\cypoem\thirdparty\thirdparty.iml" filepath="E:\work\cypoem\thirdparty\thirdparty.iml" />
     </modules>
   </component>
 </project>

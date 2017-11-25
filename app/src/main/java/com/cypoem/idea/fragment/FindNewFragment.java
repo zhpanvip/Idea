@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.cypoem.idea.R;
+import com.cypoem.idea.activity.FansActivity;
+import com.cypoem.idea.activity.SearchActivity;
+import com.cypoem.idea.activity.TestActivity;
 import com.cypoem.idea.adapter.AdapterArticleHList;
 import com.cypoem.idea.adapter.AdapterAuthorHList;
 import com.cypoem.idea.adapter.AdapterGvFind;
@@ -22,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 
 public class FindNewFragment extends BaseFragment implements MScrollView.OnScrollChangedListener, SwipeRefreshLayout.OnRefreshListener {
@@ -184,11 +188,16 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
     @Override
     public void onRefresh() {
         Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                refreshLayout.setRefreshing(false);
-            }
-        }, 2000);
+        handler.postDelayed(() -> refreshLayout.setRefreshing(false), 2000);
+    }
+
+    @OnClick({R.id.ll_search_bar})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.ll_search_bar:
+                SearchActivity.start(getContext());
+                break;
+
+        }
     }
 }

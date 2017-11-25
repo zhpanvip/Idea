@@ -26,7 +26,7 @@ import io.reactivex.schedulers.Schedulers;
 /**
  * Created by zhpan on 2017/4/21.
  */
-public class FindInFragment extends BaseFragment {
+public class MessageInFragment extends BaseFragment {
     @BindView(R.id.rv_write)
     RecyclerView mRecyclerView;
     @BindView(R.id.toolbar_subtitle)
@@ -40,8 +40,8 @@ public class FindInFragment extends BaseFragment {
     private final int ROWS = 10;
     private int type;
 
-    public static FindInFragment getFragment(int type) {
-        FindInFragment fragment = new FindInFragment();
+    public static MessageInFragment getFragment(int type) {
+        MessageInFragment fragment = new MessageInFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
         fragment.setArguments(bundle);

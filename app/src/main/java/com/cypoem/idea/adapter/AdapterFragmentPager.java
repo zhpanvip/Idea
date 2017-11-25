@@ -1,6 +1,5 @@
 package com.cypoem.idea.adapter;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -8,11 +7,8 @@ import android.util.SparseArray;
 import android.view.ViewGroup;
 
 import com.cypoem.idea.fragment.AddFragment;
-import com.cypoem.idea.fragment.FindFragment;
 import com.cypoem.idea.fragment.FindNewFragment;
 import com.cypoem.idea.fragment.HomePageFragment;
-import com.cypoem.idea.fragment.HomePageNewFragment;
-import com.cypoem.idea.fragment.MeFragment;
 import com.cypoem.idea.fragment.MeNewFragment;
 import com.cypoem.idea.fragment.MessageFragment;
 import java.util.List;
@@ -57,7 +53,7 @@ public class AdapterFragmentPager extends FragmentPagerAdapter {
 
     public AdapterFragmentPager(FragmentManager fm) {
         super(fm);
-        fragmentList.put(PAGE_HOME, HomePageNewFragment.getFragment());
+        fragmentList.put(PAGE_HOME, HomePageFragment.getFragment());
         fragmentList.put(PAGE_FIND, FindNewFragment.getFragment());
         fragmentList.put(PAGE_PUBLISH, new AddFragment());
         fragmentList.put(PAGE_MESSAGE, new MessageFragment());

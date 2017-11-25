@@ -102,7 +102,7 @@ public class SearchActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-       // getToolbar().setVisibility(View.GONE);
+        getToolbar().setVisibility(View.GONE);
         initData();
         setListener();
     }
@@ -258,7 +258,8 @@ public class SearchActivity extends BaseActivity {
                 etSearchText.setText("");
                 break;
             case R.id.tv_cancel:
-                onBackPress();
+                finish();
+               // onBackPress();
                 break;
             case R.id.tv_clear_history:
                 clearHistory();
