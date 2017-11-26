@@ -6,7 +6,7 @@
 <!-- 边框 -->
 <stroke
     android:width="0dp"
-    android:color="#FFFFFF" />
+    android:color="@color/gray_48" />
 <!-- 圆角 -->
 <corners android:radius="6dp" />
 <!-- 边距 -->

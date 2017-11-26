@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:id="@+id/ll_gv_find"
     android:layout_height="@dimen/dp_85"
     android:gravity="center"
     android:orientation="vertical"

@@ -100,7 +100,7 @@ public class CreateEveryDayActivity extends BaseActivity {
     }
 
     @Subscribe
-    public void publishSuccess(PublishEverydaySuccess event){
+    public void publishSuccess(PublishEverydaySuccess event) {
         finish();
     }
 
@@ -127,7 +127,7 @@ public class CreateEveryDayActivity extends BaseActivity {
 
     private void preview() {
         if (!checkIsEmpty()) {
-            PreviewActivity.start(this,picPath,penName,content);
+            PreviewActivity.start(this, picPath, penName, content);
         }
     }
 
@@ -289,23 +289,33 @@ public class CreateEveryDayActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
-            showConfirmDialog();
-            return true;
+            if (!isCanBack()) {
+                showConfirmDialog();
+                return true;
+            }
         }
         return super.onKeyDown(keyCode, event);
     }
 
+    private boolean isCanBack() {
+        return TextUtils.isEmpty(picPath)
+                && TextUtils.isEmpty(mEtPenName.getText().toString().trim())
+                && TextUtils.isEmpty(mEtSentence1.getText().toString().trim());
+    }
+
     private void showConfirmDialog() {
-        DialogUtils dialogUtils=new DialogUtils(this);
+        DialogUtils dialogUtils = new DialogUtils(this);
         dialogUtils.showTwoButtonDialog("您还没有发布，确定要退出吗？", (View v) -> {
-            MainActivity.start(CreateEveryDayActivity.this);
+            // MainActivity.start(CreateEveryDayActivity.this);
             finish();
         }, (View v) -> dialogUtils.dismissDialog());
     }
 
     @Override
     protected void onBackPress() {
-        showConfirmDialog();
+        if (!isCanBack())
+            showConfirmDialog();
+        else finish();
     }
 
 }

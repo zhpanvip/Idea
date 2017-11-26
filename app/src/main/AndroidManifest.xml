@@ -33,8 +33,7 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
-            android:name=".activity.MainActivity"/>
+        <activity android:name=".activity.MainActivity" />
         <!-- <activity android:name=".activity.BaseActivity" /> -->
         <activity
             android:name=".activity.SplashActivity"
@@ -89,6 +88,16 @@
 
         <activity android:name=".activity.SubjectActivity" />
         <activity android:name=".activity.TestActivity" />
+        <activity android:name=".activity.RankingListActivity" />
+        <activity android:name=".activity.ReadMeetingActivity" />
+        <activity android:name=".activity.NearbyActivity" />
+        <activity android:name=".activity.HotStoryActivity" />
+        <activity android:name=".activity.WeekSelectActivity" />
+        <activity android:name=".activity.EssayCompetitionActivity" />
+        <activity
+            android:name=".activity.CreateCircleActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".activity.CreateStoryActivity"></activity>
     </application>
 
 </manifest>

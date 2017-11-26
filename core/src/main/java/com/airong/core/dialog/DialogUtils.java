@@ -86,6 +86,7 @@ public class DialogUtils {
         dialog = new CustomDialog.Builder(activity)
                 .setTheme(R.style.IdeaDialog)
                 .setContent(content)
+                .setCancelable(true)
                 .addConfirmClickListener("确定", confirmListener)
                 .addCancelClickListener("取消", cancelListener)
                 .build();
@@ -164,6 +165,7 @@ public class DialogUtils {
                 .setTheme(R.style.IdeaDialog)
                 .setHeightPx(height)
                 .setWidthPx(width)
+                .setCancelable(true)
                 .cancelTouchOutside(cancelTouchOutside)
                 .setDialogLayout(dialogView).build();
         dialog.show();

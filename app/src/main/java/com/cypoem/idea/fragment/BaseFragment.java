@@ -1,5 +1,7 @@
 package com.cypoem.idea.fragment;
 
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 
 import com.airong.core.BaseLazyFragment;
@@ -8,7 +10,10 @@ import com.airong.core.dialog.CustomDialog;
 import com.airong.core.view.PtrClassicListFooter;
 import com.airong.core.view.PtrClassicListHeader;
 import com.cypoem.idea.R;
+import com.cypoem.idea.module.bean.CircleBean;
 import com.umeng.analytics.MobclickAgent;
+
+import java.util.List;
 
 import butterknife.Unbinder;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
@@ -18,12 +23,12 @@ import in.srain.cube.views.ptr.PtrFrameLayout;
 
 /**
  * Created by zhpan on 2017/4/22.
- *
  */
 
-public abstract class BaseFragment extends BaseLazyFragment {
+public abstract class BaseFragment extends BaseLazyFragment implements SwipeRefreshLayout.OnRefreshListener {
 
-    PtrClassicFrameLayout mPtrFrame;
+    protected PtrClassicFrameLayout mPtrFrame;
+    protected SwipeRefreshLayout mRefreshLayout;
     //  对话框
     private CustomDialog dialog;
     Unbinder unbinder;
@@ -63,6 +68,26 @@ public abstract class BaseFragment extends BaseLazyFragment {
         mPtrFrame.setKeepHeaderWhenRefresh(true);
         if (isAutoRefresh)
             mPtrFrame.postDelayed((() -> mPtrFrame.autoRefresh()), 200);
+    }
+
+    protected void setRefreshLayout(boolean isAutoRefresh) {
+        mRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.srl);
+        if (mRefreshLayout == null) return;
+        if (isAutoRefresh) {
+            mRefreshLayout.post(() -> {
+                mRefreshLayout.setRefreshing(true);
+                onRefresh();
+            });
+        }
+        mRefreshLayout.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onRefresh() {
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            mRefreshLayout.setRefreshing(false);
+        }, 2000);
     }
 
     protected void setPtrHandler(View view) {

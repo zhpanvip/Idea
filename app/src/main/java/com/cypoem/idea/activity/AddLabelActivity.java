@@ -26,8 +26,6 @@ public class AddLabelActivity extends BaseActivity {
 
     @BindView(R.id.id_fl)
     TagFlowLayout mFlowLayout;
-    @BindView(R.id.btn_complete)
-    Button btnComplete;
 
     private String[] mLabels;
     // private String[] labelArray;
@@ -42,6 +40,9 @@ public class AddLabelActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        getSubTitle().setText("完成");
+        getSubTitle().setTextColor(getResources().getColor(R.color.text_theme));
+        getSubTitle().setVisibility(View.VISIBLE);
         int positions = getIntent().getIntExtra("positions", 200);
         selectedList = new ArraySet<>();
         mLabels = getApplicationContext().getResources().getStringArray(R.array.label);
@@ -55,6 +56,7 @@ public class AddLabelActivity extends BaseActivity {
             }
         };
 
+
         mFlowLayout.setAdapter(mAdapter);
         // mFlowLayout.setMaxSelectCount(3);
         // mAdapter.setSelectedList(1,2,4);
@@ -65,14 +67,18 @@ public class AddLabelActivity extends BaseActivity {
         mFlowLayout.setOnSelectListener((Set<Integer> selectPosSet) -> {
             selectedList = selectPosSet;
         });
-        mFlowLayout.setOnTagClickListener((View view, int position, FlowLayout parent) -> {
+        /*mFlowLayout.setOnTagClickListener((View view, int position, FlowLayout parent) -> {
             if (position == mLabels.length - 1) {
                 showCustomDialog();
             }
             return true;
-        });
+        });*/
 
 
+    }
+
+    public void selfLabel(View view){
+        showCustomDialog();
     }
 
     private void showCustomDialog() {
@@ -98,12 +104,12 @@ public class AddLabelActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    @OnClick({R.id.id_fl, R.id.btn_complete})
+    @OnClick({R.id.id_fl, R.id.toolbar_subtitle})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.id_fl:
                 break;
-            case R.id.btn_complete:
+            case R.id.toolbar_subtitle:
                 selectComplete();
                 break;
         }
@@ -135,7 +141,6 @@ public class AddLabelActivity extends BaseActivity {
         intent.putExtra("positions", positions);
         setResult(PublishActivity.SELECT_LABEL, intent);
     }
-
 
     private void showDig() {
         DialogUtils dialogUtils=new DialogUtils(this);

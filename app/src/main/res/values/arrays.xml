@@ -8,7 +8,6 @@
         <item>无厘头</item>
         <item>小小说</item>
         <item>暖心励志</item>
-        <item>自定义</item>
 
 
         <!--<item>都市</item>
@@ -39,6 +38,11 @@
         <item>赞和评论</item>
         <item>系统通知</item>
 
+    </string-array>
+
+    <string-array name="ranking_type">
+        <item>贡献赞赏榜</item>
+        <item>收获赞赏榜</item>
     </string-array>
 
 

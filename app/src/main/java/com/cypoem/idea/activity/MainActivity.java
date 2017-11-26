@@ -6,17 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.airong.core.utils.Utils;
 import com.cypoem.idea.adapter.AdapterFragmentPager;
 import com.cypoem.idea.event.LogoutEvent;
 import com.cypoem.idea.event.NightModeEvent;
 import com.cypoem.idea.R;
-import com.cypoem.idea.fragment.AddFragment;
+import com.cypoem.idea.fragment.WritingFragment;
 import com.cypoem.idea.utils.SharedPreferencesHelper;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.MViewPaper;
@@ -26,7 +23,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity {
     @BindView(R.id.rb_home)
@@ -43,8 +39,8 @@ public class MainActivity extends BaseActivity {
     RadioGroup rgTab;
     @BindView(R.id.vp_fragment)
     MViewPaper mViewPager;
-   /* @BindView(R.id.iv_add)
-    ImageView mIvBackground;*/
+    /* @BindView(R.id.iv_add)
+     ImageView mIvBackground;*/
     //  退出时间间隔
     private long exitTime = 0;
     //  上一次RadioGroup选中的Id
@@ -208,7 +204,7 @@ public class MainActivity extends BaseActivity {
     }
 
     /**
-     * 接受退出事件
+     * 接受退出登录事件
      *
      * @param event
      */
@@ -223,7 +219,7 @@ public class MainActivity extends BaseActivity {
      * @param joinOpus
      */
     @Subscribe
-    public void joinOpus(AddFragment.JoinOpus joinOpus) {
-       // mIvBackground.setVisibility(View.VISIBLE);
+    public void joinOpus(WritingFragment.JoinOpus joinOpus) {
+        // mIvBackground.setVisibility(View.VISIBLE);
     }
 }

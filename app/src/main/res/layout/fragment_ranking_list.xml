@@ -1,0 +1,182 @@
+
+<android.support.v4.widget.SwipeRefreshLayout
+    android:id="@+id/srl"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/dp_80">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/dp_75"
+                    android:layout_height="@dimen/dp_75"
+                    android:background="@drawable/login_photo"
+                    app:civ_border_color="@color/no1_pink"
+                    app:civ_border_width="@dimen/dp_2" />
+
+                <ImageView
+                    android:layout_width="@dimen/dp_75"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginTop="@dimen/dp_20"
+                    android:background="@drawable/t2_no1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="@dimen/dp_5"
+                    android:text="NO.1"
+                    android:textColor="@color/white" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="韩三少"
+                android:textColor="@color/no1_pink"
+                android:textSize="@dimen/sp_18" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="送出  15000"
+                android:textColor="@color/no1_pink"
+                android:textSize="@dimen/sp_12" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/dp_75"
+                    android:layout_height="@dimen/dp_80">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="@dimen/dp_75"
+                        android:layout_height="@dimen/dp_75"
+                        android:background="@drawable/login_photo"
+                        app:civ_border_color="@color/no2_orange"
+                        app:civ_border_width="@dimen/dp_2" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_75"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/t2_no2" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/dp_5"
+                        android:text="NO.2"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="韩三少"
+                    android:textColor="@color/no2_orange"
+                    android:textSize="@dimen/sp_18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="送出  15000"
+                    android:textColor="@color/no2_orange"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="@dimen/dp_75"
+                    android:layout_height="@dimen/dp_80">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:layout_width="@dimen/dp_75"
+                        android:layout_height="@dimen/dp_75"
+                        android:background="@drawable/login_photo"
+                        app:civ_border_color="@color/no3_purple"
+                        app:civ_border_width="@dimen/dp_2" />
+
+                    <ImageView
+                        android:layout_width="@dimen/dp_75"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/t2_no3" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="@dimen/dp_5"
+                        android:text="NO.3"
+                        android:textColor="@color/white" />
+                </RelativeLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="韩三少"
+                    android:textColor="@color/no3_purple"
+                    android:textSize="@dimen/sp_18" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="送出  15000"
+                    android:textColor="@color/no3_purple"
+                    android:textSize="@dimen/sp_12" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <include layout="@layout/base_line" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_ranking"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

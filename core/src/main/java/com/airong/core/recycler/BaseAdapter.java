@@ -198,4 +198,8 @@ public abstract class BaseAdapter<M, VH extends BaseHolder> extends AbsAdapter<M
             notifyItemRemoved(index + 1);
         }
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
 }

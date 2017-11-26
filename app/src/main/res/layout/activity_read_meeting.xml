@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/srl"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/t2_banner" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_15"
+                android:layout_marginStart="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="纵使互联网再发达，我也想在一个恬静的午后，捧着一本泛黄的纸质书，和你面对面分享..."
+                android:textColor="@color/gray_33"
+                android:textSize="@dimen/sp_15" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_15"
+                android:layout_marginStart="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_30"
+                android:text="线下读书官方群：123456"
+                android:textColor="@color/gray_33"
+                android:textSize="@dimen/sp_15" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dp_15"
+                android:layout_marginStart="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_10"
+                android:text="官方微信：123456"
+                android:textColor="@color/gray_33"
+                android:textSize="@dimen/sp_15" />
+
+            <include layout="@layout/base_line10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_35"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_5"
+
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:src="@drawable/t2_nearby_book" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="附近的读书会"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/sp_18" />
+            </LinearLayout>
+
+            <include layout="@layout/base_line" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_nearby"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+            <include layout="@layout/base_line10" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_35"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_5"
+
+                    android:layout_marginStart="@dimen/dp_15"
+                    android:src="@drawable/t2_nearby_book" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全部读书会"
+                    android:textColor="@color/gray_33"
+                    android:textSize="@dimen/sp_18" />
+            </LinearLayout>
+
+            <include layout="@layout/base_line" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_all"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </ScrollView>
+</android.support.v4.widget.SwipeRefreshLayout>

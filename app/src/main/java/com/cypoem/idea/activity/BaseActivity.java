@@ -2,15 +2,18 @@ package com.cypoem.idea.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -41,18 +44,19 @@ import in.srain.cube.views.ptr.PtrDefaultHandler2;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
-public abstract class BaseActivity extends BaseCoreActivity {
+public abstract class BaseActivity extends BaseCoreActivity implements SwipeRefreshLayout.OnRefreshListener {
 
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
     protected static final int REQUEST_STORAGE_WRITE_ACCESS_PERMISSION = 102;
-    LinearLayout parentLinearLayout;
+    protected LinearLayout parentLinearLayout;
     //把父类activity和子类activity的view都add到这里
-   // private LinearLayout parentLinearLayout;
+    // private LinearLayout parentLinearLayout;
     private TextView mToolbarTitle;
     private TextView mToolbarSubTitle;
     //  对话框
     private CustomDialog dialog;
-    PtrClassicFrameLayout mPtrFrame;
+    protected PtrClassicFrameLayout mPtrFrame;
+    protected SwipeRefreshLayout mRefreshLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,9 +73,15 @@ public abstract class BaseActivity extends BaseCoreActivity {
         initToolBar();
         init(savedInstanceState);
 
+        Bundle bundle = getIntent().getBundleExtra("bundle");
+        if (bundle != null) {
+            String title = bundle.getString("title");
+            setToolBarTitle(title);
+        }
     }
 
-        //当你确定要使用沉浸式模式，那么只需要重写Activity的onWindowFocusChanged()方法，然后加入如下逻辑即可
+
+    //当你确定要使用沉浸式模式，那么只需要重写Activity的onWindowFocusChanged()方法，然后加入如下逻辑即可
    /* @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
@@ -175,6 +185,27 @@ public abstract class BaseActivity extends BaseCoreActivity {
      */
     protected void onPtrRefreshBegin(PtrFrameLayout frame) {
 
+    }
+
+
+    protected void setRefreshLayout(boolean isAutoRefresh) {
+        mRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.srl);
+        if (mRefreshLayout == null) return;
+        if (isAutoRefresh) {
+            mRefreshLayout.post(() -> {
+                mRefreshLayout.setRefreshing(true);
+                onRefresh();
+            });
+        }
+        mRefreshLayout.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onRefresh() {
+        Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            mRefreshLayout.setRefreshing(false);
+        }, 2000);
     }
 
     /******************************************* TollBar相关 ******************************************************/
@@ -302,9 +333,9 @@ public abstract class BaseActivity extends BaseCoreActivity {
      * 初始化contentiew
      */
     private void initContentView(@LayoutRes int layoutResID) {
-        ViewGroup viewGroup= (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
+        ViewGroup viewGroup = (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
         viewGroup.removeAllViews();
-        parentLinearLayout= (LinearLayout) LayoutInflater.from(this).inflate(layoutResID, parentLinearLayout, true);
+        parentLinearLayout = (LinearLayout) LayoutInflater.from(this).inflate(layoutResID, parentLinearLayout, true);
         viewGroup.addView(parentLinearLayout);
     }
 
@@ -393,7 +424,7 @@ public abstract class BaseActivity extends BaseCoreActivity {
      */
     protected void requestPermission(final String permission, String rationale, final int requestCode) {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, permission)) {
-            DialogUtils dialogUtils=new DialogUtils(this);
+            DialogUtils dialogUtils = new DialogUtils(this);
             dialogUtils.showTwoButtonDialog(getString(R.string.label_ok), v -> ActivityCompat.requestPermissions(BaseActivity.this,
                     new String[]{permission}, requestCode), v -> dialogUtils.dismissDialog());
 
@@ -408,5 +439,25 @@ public abstract class BaseActivity extends BaseCoreActivity {
         } else {
             ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
         }
+    }
+
+    /**
+     * @param context      跳转起始页面
+     * @param baseActivity 跳转目的页面
+     */
+    public static void start(Context context, Class<? extends BaseActivity> baseActivity) {
+        Intent intent = new Intent(context, baseActivity);
+        context.startActivity(intent);
+    }
+
+    /**
+     * @param context      跳转起始页面
+     * @param baseActivity 跳转目的页面
+     * @param bundle       跳转携带数据
+     */
+    public static void start(Context context, Class<? extends BaseActivity> baseActivity, Bundle bundle) {
+        Intent intent = new Intent(context, baseActivity);
+        intent.putExtra("bundle", bundle);
+        context.startActivity(intent);
     }
 }

@@ -50,25 +50,7 @@ public class MeNewFragment extends BaseFragment implements SwipeRefreshLayout.On
     @Override
     protected void init(Bundle savedInstanceState) {
         initData();
-        setRefreshLayout();
-    }
-
-    private void setRefreshLayout() {
-        refreshLayout.setProgressViewEndTarget(false, 300);
-        /*refreshLayout.setColorSchemeResources(
-                android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);*/
-
-        refreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                refreshLayout.setRefreshing(true);
-                onRefresh();
-            }
-        });
-        refreshLayout.setOnRefreshListener(this);
+        setRefreshLayout(true);
     }
 
     private void initData() {

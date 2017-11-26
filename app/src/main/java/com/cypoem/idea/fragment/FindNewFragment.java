@@ -12,10 +12,18 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.airong.core.recycler.BaseAdapter;
 import com.cypoem.idea.R;
-import com.cypoem.idea.activity.FansActivity;
+import com.cypoem.idea.activity.BaseActivity;
+import com.cypoem.idea.activity.CreateEveryDayActivity;
+import com.cypoem.idea.activity.EssayCompetitionActivity;
+import com.cypoem.idea.activity.EverydayLookBackActivity;
+import com.cypoem.idea.activity.HotStoryActivity;
+import com.cypoem.idea.activity.NearbyActivity;
+import com.cypoem.idea.activity.RankingListActivity;
+import com.cypoem.idea.activity.ReadMeetingActivity;
 import com.cypoem.idea.activity.SearchActivity;
-import com.cypoem.idea.activity.TestActivity;
+import com.cypoem.idea.activity.WeekSelectActivity;
 import com.cypoem.idea.adapter.AdapterArticleHList;
 import com.cypoem.idea.adapter.AdapterAuthorHList;
 import com.cypoem.idea.adapter.AdapterGvFind;
@@ -28,7 +36,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 
-public class FindNewFragment extends BaseFragment implements MScrollView.OnScrollChangedListener, SwipeRefreshLayout.OnRefreshListener {
+public class FindNewFragment extends BaseFragment implements MScrollView.OnScrollChangedListener, SwipeRefreshLayout.OnRefreshListener, BaseAdapter.OnItemClickListener {
 
     @BindView(R.id.gv_item)
     RecyclerView gvItem;
@@ -72,25 +80,7 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
     protected void init(Bundle savedInstanceState) {
         setListener();
         setData();
-        setRefreshLayout();
-    }
-
-    private void setRefreshLayout() {
-        refreshLayout.setProgressViewEndTarget(false, 300);
-        /*refreshLayout.setColorSchemeResources(
-                android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);*/
-
-        refreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                refreshLayout.setRefreshing(true);
-                onRefresh();
-            }
-        });
-        refreshLayout.setOnRefreshListener(this);
+        setRefreshLayout(true);
     }
 
     private void setData() {
@@ -141,6 +131,7 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
         gvItem.setAdapter(adapter);
         //  防止滑动卡顿
         gvItem.setNestedScrollingEnabled(false);
+        adapter.setOnItemClickListener(this);
     }
 
     //  设置热门作者
@@ -197,7 +188,44 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
             case R.id.ll_search_bar:
                 SearchActivity.start(getContext());
                 break;
-
         }
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Class<? extends BaseActivity> activity = null;
+        Bundle bundle = new Bundle();
+        switch (position) {
+            case 0:
+                activity = RankingListActivity.class;
+                bundle.putString("title", "欣赏值排行榜");
+                break;
+            case 1:
+                activity = CreateEveryDayActivity.class;
+                bundle.putString("title", "每日一句");
+                break;
+            case 2:
+                activity = ReadMeetingActivity.class;
+                bundle.putString("title", "线下读书会");
+                break;
+            case 3:
+                activity = NearbyActivity.class;
+                bundle.putString("title", "附近");
+                break;
+
+            case 4:
+                activity = HotStoryActivity.class;
+                bundle.putString("title", "热门故事");
+                break;
+            case 5:
+                activity = WeekSelectActivity.class;
+                bundle.putString("title", "一周精选");
+                break;
+            case 6:
+                activity = EssayCompetitionActivity.class;
+                bundle.putString("title", "有奖征文");
+                break;
+        }
+        BaseActivity.start(getContext(), activity, bundle);
     }
 }

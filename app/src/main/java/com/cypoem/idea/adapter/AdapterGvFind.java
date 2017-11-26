@@ -2,8 +2,10 @@ package com.cypoem.idea.adapter;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cypoem.idea.R;
@@ -16,6 +18,12 @@ import com.airong.core.recycler.BaseHolder;
 
 public class AdapterGvFind extends BaseAdapter<AdapterGvFind.FindGvBean, AdapterGvFind.FindGvHolder> {
 
+    private BaseAdapter.OnItemClickListener clickListener;
+
+    public AdapterGvFind setOnItemClickListener(BaseAdapter.OnItemClickListener clickListener) {
+        this.clickListener = clickListener;
+        return this;
+    }
 
     public AdapterGvFind(Context context) {
         super(context);
@@ -31,6 +39,7 @@ public class AdapterGvFind extends BaseAdapter<AdapterGvFind.FindGvBean, Adapter
         FindGvBean item = getItem(position);
         holder.mImageView.setBackgroundResource(item.getResId());
         holder.mTextView.setText(item.getText());
+        holder.mLlGvFind.setOnClickListener(v -> clickListener.onItemClick(position));
     }
 
     @Override
@@ -39,14 +48,15 @@ public class AdapterGvFind extends BaseAdapter<AdapterGvFind.FindGvBean, Adapter
     }
 
 
-    public  class FindGvHolder extends BaseHolder {
+    public class FindGvHolder extends BaseHolder {
         private ImageView mImageView;
         private TextView mTextView;
-
+        private LinearLayout mLlGvFind;
         public FindGvHolder(ViewGroup parent, @LayoutRes int resId) {
             super(parent, resId);
-            mImageView=getView(R.id.iv_gv_find);
-            mTextView=getView(R.id.tv_gv_find);
+            mImageView = getView(R.id.iv_gv_find);
+            mTextView = getView(R.id.tv_gv_find);
+            mLlGvFind=getView(R.id.ll_gv_find);
         }
     }
 

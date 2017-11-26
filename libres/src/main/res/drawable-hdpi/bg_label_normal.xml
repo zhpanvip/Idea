@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 实心 -->
     <solid android:color="@color/item_color" />
@@ -8,7 +8,7 @@
         android:width="@dimen/mp_0.5"
         android:color="@color/item_text_color_dark" />
     <!-- 圆角 -->
-    <corners android:radius="2dp" />
+    <corners android:radius="4dp" />
     <!-- 边距 -->
     <padding
         android:bottom="0dp"

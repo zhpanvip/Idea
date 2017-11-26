@@ -5,6 +5,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.cypoem.idea.R;
+import com.cypoem.idea.activity.BaseActivity;
+import com.cypoem.idea.activity.CreateCircleActivity;
+import com.cypoem.idea.activity.CreateEveryDayActivity;
+import com.cypoem.idea.activity.CreateStoryActivity;
 import com.cypoem.idea.activity.LoginActivity;
 import com.cypoem.idea.activity.PublishActivity;
 import com.cypoem.idea.activity.SuggestActivity;
@@ -19,7 +23,7 @@ import butterknife.OnClick;
  * Created by zhpan on 2017/4/21.
  */
 
-public class AddFragment extends BaseFragment {
+public class WritingFragment extends BaseFragment {
     @BindView(R.id.toolbar_subtitle)
     TextView toolbarSubtitle;
     @BindView(R.id.toolbar_title)
@@ -43,6 +47,27 @@ public class AddFragment extends BaseFragment {
         toolbarTitle.setText("发布作品");
         toolbarSubtitle.setVisibility(View.VISIBLE);
         toolbarSubtitle.setText("创作说明");
+    }
+
+    @OnClick({R.id.fl_create_circle, R.id.fl_person_story, R.id.fl_everyday_sentence, R.id.fl_public_story})
+    public void onClick(View view) {
+        Class<? extends BaseActivity> activity = null;
+        switch (view.getId()) {
+            case R.id.fl_create_circle:
+                activity = CreateCircleActivity.class;
+                break;
+            case R.id.fl_person_story:
+                activity = CreateStoryActivity.class;
+                break;
+            case R.id.fl_everyday_sentence:
+                activity = CreateEveryDayActivity.class;
+                break;
+            case R.id.fl_public_story:
+                activity = CreateStoryActivity.class;
+                break;
+        }
+        if (activity != null)
+            BaseActivity.start(getContext(), activity);
     }
 
    /* @OnClick({R.id.toolbar_subtitle, R.id.toolbar_title, R.id.tv_publish, R.id.tv_join})

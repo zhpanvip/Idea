@@ -6,11 +6,12 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.util.SparseArray;
 import android.view.ViewGroup;
 
-import com.cypoem.idea.fragment.AddFragment;
 import com.cypoem.idea.fragment.FindNewFragment;
 import com.cypoem.idea.fragment.HomePageFragment;
 import com.cypoem.idea.fragment.MeNewFragment;
 import com.cypoem.idea.fragment.MessageFragment;
+import com.cypoem.idea.fragment.WritingFragment;
+
 import java.util.List;
 
 /**
@@ -55,7 +56,7 @@ public class AdapterFragmentPager extends FragmentPagerAdapter {
         super(fm);
         fragmentList.put(PAGE_HOME, HomePageFragment.getFragment());
         fragmentList.put(PAGE_FIND, FindNewFragment.getFragment());
-        fragmentList.put(PAGE_PUBLISH, new AddFragment());
+        fragmentList.put(PAGE_PUBLISH, new WritingFragment());
         fragmentList.put(PAGE_MESSAGE, new MessageFragment());
         fragmentList.put(PAGE_ME, MeNewFragment.getFragment());
     }

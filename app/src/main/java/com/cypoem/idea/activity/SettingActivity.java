@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.SwitchCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -50,7 +51,7 @@ public class SettingActivity extends BaseActivity {
     @BindView(R.id.tv_cache)
     TextView mTvCache;
     @BindView(R.id.tb_night_mode)
-    Switch mToggleButton;
+    SwitchCompat mToggleButton;
     @BindView(R.id.btn_exit)
     Button mBtnExit;
     @BindView(R.id.rl_phone)

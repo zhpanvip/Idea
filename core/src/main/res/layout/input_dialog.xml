@@ -3,54 +3,51 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
-    android:background="@drawable/bg_dialog"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="290dp"
-        android:layout_height="180dp"
+    <LinearLayout
+        android:layout_width="250dp"
+        android:layout_height="@dimen/dp_100"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
         android:layout_gravity="center"
         android:background="@drawable/bg_dialog"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_dialog_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:layout_marginStart="@dimen/mp_20"
-                android:layout_marginEnd="@dimen/mp_20"
-                android:layout_centerVertical="true"
-                android:hint="请输入标签"
-                android:paddingTop="@dimen/mp_7"
-                android:paddingBottom="@dimen/mp_7"
-                android:maxLength="8"
-                android:textColor="@color/item_text_color_dark"
-                android:textSize="18sp" />
+        <EditText
+            android:id="@+id/et_dialog_content"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50"
+            android:layout_marginEnd="@dimen/mp_20"
+            android:layout_marginStart="@dimen/mp_20"
+            android:background="@null"
+            android:gravity="center"
+            android:hint="请输入标签名称"
+            android:maxLength="8"
+            android:paddingBottom="@dimen/mp_7"
+            android:paddingTop="@dimen/mp_20"
+            android:textColor="@color/item_text_color_dark"
+            android:textSize="18sp" />
+
         <!--android:background="@drawable/bg_edit_text2"-->
-
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/tv_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/mp_50"
-                android:layout_weight="1"
+                android:layout_width="@dimen/dp_80"
+                android:layout_height="@dimen/dp_30"
+                android:layout_gravity="center"
+                android:background="@drawable/bg_btn_login"
                 android:gravity="center"
                 android:text="确认"
-                android:textColor="@color/item_text_color_dark"
-                android:textSize="18sp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true" />
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </LinearLayout>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_above="@+id/ll_button"
-            android:background="@color/gray_cc" />
-    </RelativeLayout>
+
+    </LinearLayout>
 </RelativeLayout>

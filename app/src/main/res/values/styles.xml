@@ -14,7 +14,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
         <!--<item name="android:windowAnimationStyle">@style/ActivityInOutAnimation</item>-->
+    </style>
+
+    <style name="Color1SwitchStyle">
+        <item name="colorControlActivated">@color/themDark</item>
     </style>
 
     <style name="Theme.NoTitleBar.Fullscreen" parent="AppTheme">

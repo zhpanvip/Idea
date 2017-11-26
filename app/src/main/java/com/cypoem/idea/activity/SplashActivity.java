@@ -30,7 +30,7 @@ public class SplashActivity extends BaseActivity {
     TextView mTvTime;
     @BindView(R.id.tv_publish)
     TextView mTvPublish;
-    private final static long ANIMATION_DURATION = 3000;
+    private final static long ANIMATION_DURATION = 2000;
     private final static long SECOND = 1000;
     private boolean isGo2Main = true;
 

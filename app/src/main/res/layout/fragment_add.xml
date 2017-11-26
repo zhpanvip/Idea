@@ -24,6 +24,7 @@
             android:background="@drawable/bg_create_personal_story">
 
             <RelativeLayout
+                android:id="@+id/fl_create_circle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?android:attr/selectableItemBackground"
@@ -72,6 +73,7 @@
             android:background="@drawable/bg_create_public_story">
 
             <RelativeLayout
+                android:id="@+id/fl_person_story"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?android:attr/selectableItemBackground"
@@ -121,6 +123,7 @@
             android:background="@drawable/bg_create_circle">
 
             <RelativeLayout
+                android:id="@+id/fl_public_story"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?android:attr/selectableItemBackground"
@@ -170,6 +173,7 @@
             android:background="@drawable/bg_create_everyday_sentence">
 
             <RelativeLayout
+                android:id="@+id/fl_everyday_sentence"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="?android:attr/selectableItemBackground"
