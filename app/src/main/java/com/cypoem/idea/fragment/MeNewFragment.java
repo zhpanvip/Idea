@@ -8,10 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cypoem.idea.R;
+import com.cypoem.idea.activity.AuthorInfoActivity;
+import com.cypoem.idea.activity.BaseActivity;
+import com.cypoem.idea.activity.FansActivity;
+import com.cypoem.idea.activity.PraiseActivity;
 import com.cypoem.idea.activity.SettingActivity;
+import com.cypoem.idea.constants.Constants;
+import com.cypoem.idea.utils.UserInfoTools;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,7 +40,26 @@ public class MeNewFragment extends BaseFragment implements SwipeRefreshLayout.On
     ImageView ivHead;
     @BindView(R.id.srl)
     SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.rl_user)
+    RelativeLayout mRlUser;
 
+    @OnClick({R.id.rl_user,R.id.ll_follow,R.id.ll_fans,R.id.ll_reward})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.rl_user:
+                AuthorInfoActivity.start(getContext(),UserInfoTools.getUserId(getContext()));
+                break;
+            case R.id.ll_follow:
+                FansActivity.start(getContext(), Constants.FOCUS, UserInfoTools.getUserId(getContext()));
+                break;
+            case R.id.ll_fans:
+                FansActivity.start(getContext(), Constants.FOLLOWS, UserInfoTools.getUserId(getContext()));
+                break;
+            case R.id.ll_reward:
+                PraiseActivity.start(getContext());
+                break;
+        }
+    }
 
     public static MeNewFragment getFragment() {
         MeNewFragment fragment = new MeNewFragment();

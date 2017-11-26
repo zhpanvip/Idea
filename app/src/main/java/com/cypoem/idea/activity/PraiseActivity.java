@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import com.cypoem.idea.R;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 

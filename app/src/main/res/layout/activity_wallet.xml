@@ -3,32 +3,45 @@
     android:layout_width="match_parent"
     android:background="@color/background"
     android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/ll_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_185"
+        android:gravity="center"
+        android:background="#C8E5F9"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="账户余额"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_14"
+            android:layout_marginTop="@dimen/mp_10"/>
+        <ImageView
+            android:id="@+id/iv_wallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/t5_walletphoto" />
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="￥12.8"
+            android:textColor="@color/white"
+            android:layout_below="@id/iv_wallet"
+            android:textSize="@dimen/sp_25"
+            android:layout_marginTop="@dimen/mp_10"/>
+    </LinearLayout>
 
-    <ImageView
-        android:id="@+id/iv_wallet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/mp_50"
-        android:layout_centerHorizontal="true"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/wallet" />
-    <TextView
-        android:id="@+id/tv_money"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="12.8元"
-        android:textColor="@color/text_theme"
-        android:layout_below="@id/iv_wallet"
-        android:textSize="@dimen/f_18"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/mp_10"/>
 
     <TextView
         android:id="@+id/tv_withdraw"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="20sp"
-        android:layout_below="@id/tv_money"
+        android:layout_below="@id/ll_wallet"
         android:textColor="@color/white"
         android:layout_marginTop="50dp"
         android:text="提现"

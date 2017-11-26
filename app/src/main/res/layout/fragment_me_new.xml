@@ -26,6 +26,7 @@
                     android:orientation="vertical">
 
                     <RelativeLayout
+                        android:id="@+id/rl_user"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_60"
                         android:layout_marginBottom="@dimen/dp_10"
@@ -107,6 +108,7 @@
                         android:layout_height="match_parent">
 
                         <LinearLayout
+                            android:id="@+id/ll_follow"
                             android:layout_width="@dimen/dp_0"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
@@ -131,6 +133,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/ll_fans"
                             android:layout_width="@dimen/dp_0"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
@@ -156,6 +159,7 @@
                         </LinearLayout>
 
                         <LinearLayout
+                            android:id="@+id/ll_reward"
                             android:layout_width="@dimen/dp_0"
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
@@ -166,7 +170,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="欣赏只"
+                                android:text="欣赏值"
                                 android:textColor="@color/item_me_text"
                                 android:textSize="@dimen/sp_15" />
 

@@ -73,6 +73,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_add_pic"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_85">
 

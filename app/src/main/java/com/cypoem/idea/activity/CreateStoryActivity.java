@@ -2,11 +2,14 @@ package com.cypoem.idea.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cypoem.idea.R;
@@ -17,6 +20,10 @@ import butterknife.BindView;
 public class CreateStoryActivity extends BaseActivity {
     @BindView(R.id.ll_label)
     LinearLayout mLlLabel;
+    @BindView(R.id.pic_switch)
+    SwitchCompat mSwitchCompat;
+    @BindView(R.id.rl_add_pic)
+    RelativeLayout mRlAddPic;
 
     public static final int SELECT_LABEL = 256;
     public static final int ADD_DESCRIBE = 257;
@@ -80,6 +87,16 @@ public class CreateStoryActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        setListener();
+    }
 
+    private void setListener() {
+        mSwitchCompat.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if(isChecked){
+                mRlAddPic.setVisibility(View.VISIBLE);
+            }else {
+                mRlAddPic.setVisibility(View.GONE);
+            }
+        });
     }
 }
