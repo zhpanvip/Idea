@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray_ee"
+        android:gravity="center"
+        android:text="发布"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/f_18" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_above="@id/btn_save">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -151,7 +163,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:gravity="center_vertical|end"
+                    android:gravity="center_vertical"
                     android:hint="请输入圈子简介..."
                     android:minHeight="@dimen/dp_50"
                     android:paddingBottom="@dimen/dp_10"
@@ -160,21 +172,8 @@
 
             <include layout="@layout/base_line" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45" />
-
         </LinearLayout>
     </ScrollView>
 
-    <TextView
-        android:id="@+id/btn_save"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:layout_alignParentBottom="true"
-        android:background="@color/gray_ee"
-        android:gravity="center"
-        android:text="发布"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/f_18" />
+
 </RelativeLayout>

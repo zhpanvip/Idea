@@ -47,6 +47,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MediaType;
@@ -60,42 +61,25 @@ import static com.cypoem.idea.constants.Constants.TAG;
 public class AuthorInfoActivity extends BaseActivity {
 
     @BindView(R.id.iv_author)
-    ImageView mIvAuthor;
+    CircleImageView mIvAuthor;
     @BindView(R.id.tv_pen_name)
     TextView mTvPenName;
     @BindView(R.id.sex_view)
     SexView mSexView;
     @BindView(R.id.tv_sign)
     TextView mTvSign;
-    @BindView(R.id.tv_birthday)
-    TextView mTvBirthday;
-    @BindView(R.id.tv_address)
-    TextView mTvAddress;
     @BindView(R.id.tv_focus)
     TextView mTvFocus;
     @BindView(R.id.tv_follow)
     TextView mTvFollow;
-    @BindView(R.id.tv_collect)
-    TextView mTvCollect;
     @BindView(R.id.tv_like)
     TextView mTvLike;
     @BindView(R.id.tv_fans)
     TextView mTvFans;
     @BindView(R.id.tv_introduce)
     TextView mTvIntroduce;
-    @BindView(R.id.iv_edit)
-    ImageView mIvEdit;
-    @BindView(R.id.ll_focus)
-    LinearLayout llFocus;
-    @BindView(R.id.ll_collect)
-    LinearLayout llCollect;
-    @BindView(R.id.ll_like)
-    LinearLayout llLike;
-    @BindView(R.id.ll_fans)
-    LinearLayout llFans;
     @BindView(R.id.vp_author)
     ViewPager mViewPager;
-    private CommonFragmentAdapter mAdapter;
     @BindView(R.id.tl_author)
     TabLayout mTabLayout;
     @BindView(R.id.sl_view)
@@ -142,8 +126,9 @@ public class AuthorInfoActivity extends BaseActivity {
         if (null != user && userId.equals(UserInfoTools.getUserId(this))) {
             setUserData(user);
             setToolBarTitle("我的资料");
+            getRightIv().setVisibility(View.VISIBLE);
+            getRightIv().setBackgroundResource(R.drawable.t5_edit);
         } else {
-            mIvEdit.setVisibility(View.GONE);
             getData(false);
             setToolBarTitle("作者简介");
         }
@@ -155,16 +140,14 @@ public class AuthorInfoActivity extends BaseActivity {
         String sex = user.getSex();
         mSexView.setMalePercent(sex);
         mTvSign.setText(user.getDictum());
-        mTvBirthday.setText(user.getBirthday());
-        mTvAddress.setText(user.getAddress());
         mTvIntroduce.setText(user.getIntroduction());
         mTvFans.setText(String.valueOf(user.getWatchMeCount()));
         mTvFocus.setText(String.valueOf(user.getMyWatchCount()));
-        mTvCollect.setText(String.valueOf(user.getKeep_count()));
         mTvLike.setText(String.valueOf(user.getEnjoy_count()));
     }
 
     private void setListener() {
+
         mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
         mTabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -215,13 +198,18 @@ public class AuthorInfoActivity extends BaseActivity {
         AuthorFragment fragmentStart = AuthorFragment.getFragment(Constants.MY_START_OPUS, userId);
         AuthorFragment fragmentJoin = AuthorFragment.getFragment(Constants.MY_JOIN_OPUS, userId);
         AuthorFragment fragmentCreate = AuthorFragment.getFragment(Constants.MY_OWN_OPUS, userId);
+        AuthorFragment fragmentCreate1 = AuthorFragment.getFragment(Constants.MY_OWN_OPUS, userId);
         mList.add(fragmentStart);
         mList.add(fragmentJoin);
         mList.add(fragmentCreate);
-        mAdapter = new CommonFragmentAdapter(getSupportFragmentManager(), this);
+        mList.add(fragmentCreate1);
+        CommonFragmentAdapter mAdapter = new CommonFragmentAdapter(getSupportFragmentManager(), this);
+        String[] mTitleList = getApplication().getResources().getStringArray(R.array.my_data);
+        mAdapter.setPageTitle(mTitleList);
         mAdapter.setFragmentList(mList);
         mViewPager.setAdapter(mAdapter);
         mScrollView.getHelper().setCurrentScrollableContainer(mList.get(0));
+        mTabLayout.setupWithViewPager(mViewPager);
     }
 
     public static void start(Context context, String userId) {
@@ -232,7 +220,7 @@ public class AuthorInfoActivity extends BaseActivity {
 
 
     @OnClick({R.id.ll_collect, R.id.ll_like, R.id.ll_fans, R.id.ll_focus,
-            R.id.iv_edit, R.id.tv_follow, R.id.iv_author})
+            R.id.iv_right, R.id.tv_follow, R.id.iv_author})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_collect:
@@ -247,7 +235,7 @@ public class AuthorInfoActivity extends BaseActivity {
             case R.id.ll_focus:
                 FansActivity.start(this, Constants.FOCUS, userId);
                 break;
-            case R.id.iv_edit:
+            case R.id.iv_right:
                 EditInfoActivity.start(this);
                 break;
             case R.id.tv_follow:

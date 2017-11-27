@@ -1,12 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:id="@+id/ll_button"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btn_save"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/gray_ee"
+            android:gravity="center"
+            android:text="存为草稿"
+            android:textColor="@color/text_theme"
+            android:textSize="@dimen/f_18" />
+
+        <TextView
+            android:id="@+id/btn_publish"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="发布故事"
+            android:textColor="@color/white"
+            android:textSize="@dimen/f_18" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_above="@id/ll_button">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -38,9 +69,9 @@
                     android:hint="请输入故事名称"
                     android:minHeight="@dimen/dp_50"
                     android:paddingBottom="@dimen/dp_10"
-                    android:textSize="@dimen/sp_15"
                     android:paddingEnd="@dimen/dp_15"
-                    android:paddingTop="@dimen/dp_10" />
+                    android:paddingTop="@dimen/dp_10"
+                    android:textSize="@dimen/sp_15" />
             </LinearLayout>
 
             <include layout="@layout/base_line" />
@@ -179,40 +210,8 @@
 
             <include layout="@layout/base_line" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45" />
-
         </LinearLayout>
     </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_45"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/dp_30"
-        android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/btn_save"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/gray_ee"
-            android:gravity="center"
-            android:text="存为草稿"
-            android:textColor="@color/text_theme"
-            android:textSize="@dimen/f_18" />
-
-        <TextView
-            android:id="@+id/btn_publish"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/colorPrimary"
-            android:gravity="center"
-            android:text="发布故事"
-            android:textColor="@color/white"
-            android:textSize="@dimen/f_18" />
-    </LinearLayout>
 </RelativeLayout>

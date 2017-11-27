@@ -29,9 +29,9 @@
             app:tabIndicatorColor="@color/tab_selected"
             app:tabIndicatorHeight="3.0dp"
             app:tabSelectedTextColor="@color/tab_selected"
-            app:tabTextColor="@color/item_text_color">
+            app:tabTextColor="@color/item_text_color"/>
 
-            <android.support.design.widget.TabItem
+            <!--<android.support.design.widget.TabItem
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="我发起的" />
@@ -45,8 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="我原创的" />
-
-        </android.support.design.widget.TabLayout>
+-->
 
         <include layout="@layout/base_line" />
 
