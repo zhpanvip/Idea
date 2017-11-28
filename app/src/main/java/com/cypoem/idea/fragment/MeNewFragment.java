@@ -109,9 +109,9 @@ public class MeNewFragment extends BaseFragment {
         ImageLoaderUtil.loadImg(circleImageView, IdeaApiService.HOST+user.getIcon());
         mTvSign.setText(user.getDictum());
         mSexView.setMalePercent(user.getSex());
-        mTvAward.setText(user.getIncome_count());
-        mTvFans.setText(user.getWatchMeCount());
-        mTvFollow.setText(user.getMyWatchCount());
+        mTvAward.setText(String.valueOf(user.getIncome_count()));
+        mTvFans.setText(String.valueOf(user.getWatchMeCount()));
+        mTvFollow.setText(String.valueOf(user.getMyWatchCount()));
 
     }
 
