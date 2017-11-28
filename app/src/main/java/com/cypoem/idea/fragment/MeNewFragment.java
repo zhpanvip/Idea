@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.AuthorInfoActivity;
 import com.cypoem.idea.activity.BaseActivity;
@@ -18,17 +19,20 @@ import com.cypoem.idea.activity.FansActivity;
 import com.cypoem.idea.activity.PraiseActivity;
 import com.cypoem.idea.activity.SettingActivity;
 import com.cypoem.idea.constants.Constants;
+import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.net.IdeaApiService;
 import com.cypoem.idea.utils.UserInfoTools;
+import com.cypoem.idea.view.SexView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MeNewFragment extends BaseFragment implements SwipeRefreshLayout.OnRefreshListener {
+public class MeNewFragment extends BaseFragment {
 
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
@@ -36,18 +40,30 @@ public class MeNewFragment extends BaseFragment implements SwipeRefreshLayout.On
     ImageView mIvRight;
     @BindView(R.id.toolbar_subtitle)
     TextView toolbarSubtitle;
-    @BindView(R.id.iv_head)
-    ImageView ivHead;
-    @BindView(R.id.srl)
-    SwipeRefreshLayout refreshLayout;
     @BindView(R.id.rl_user)
     RelativeLayout mRlUser;
+    @BindView(R.id.tv_username)
+    TextView mTvUserName;
+    @BindView(R.id.iv_icon)
+    CircleImageView circleImageView;
+    @BindView(R.id.tv_sign)
+    TextView mTvSign;
+    @BindView(R.id.sex_view)
+    SexView mSexView;
+    @BindView(R.id.tv_follow)
+    TextView mTvFollow;
+    @BindView(R.id.tv_award)
+    TextView mTvAward;
+    @BindView(R.id.tv_fans)
+    TextView mTvFans;
 
-    @OnClick({R.id.rl_user,R.id.ll_follow,R.id.ll_fans,R.id.ll_reward})
-    public void onClick(View view){
-        switch (view.getId()){
+
+
+    @OnClick({R.id.rl_user, R.id.ll_follow, R.id.ll_fans, R.id.ll_reward})
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.rl_user:
-                AuthorInfoActivity.start(getContext(),UserInfoTools.getUserId(getContext()));
+                AuthorInfoActivity.start(getContext(), UserInfoTools.getUserId(getContext()));
                 break;
             case R.id.ll_follow:
                 FansActivity.start(getContext(), Constants.FOCUS, UserInfoTools.getUserId(getContext()));
@@ -76,13 +92,27 @@ public class MeNewFragment extends BaseFragment implements SwipeRefreshLayout.On
     @Override
     protected void init(Bundle savedInstanceState) {
         initData();
-        setRefreshLayout(true);
+        setUserData();
+        // setRefreshLayout(true);
     }
 
     private void initData() {
         toolbarTitle.setText("我的");
         mIvRight.setVisibility(View.VISIBLE);
         mIvRight.setBackgroundResource(R.drawable.t3_set);
+
+    }
+
+    private void setUserData() {
+        UserBean user = UserInfoTools.getUser(getContext());
+        mTvUserName.setText(user.getPen_name());
+        ImageLoaderUtil.loadImg(circleImageView, IdeaApiService.HOST+user.getIcon());
+        mTvSign.setText(user.getDictum());
+        mSexView.setMalePercent(user.getSex());
+        mTvAward.setText(user.getIncome_count());
+        mTvFans.setText(user.getWatchMeCount());
+        mTvFollow.setText(user.getMyWatchCount());
+
     }
 
 
@@ -94,16 +124,5 @@ public class MeNewFragment extends BaseFragment implements SwipeRefreshLayout.On
                 break;
 
         }
-    }
-
-    @Override
-    public void onRefresh() {
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                refreshLayout.setRefreshing(false);
-            }
-        }, 2000);
     }
 }

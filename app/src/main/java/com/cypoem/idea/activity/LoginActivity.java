@@ -24,6 +24,7 @@ import com.airong.core.utils.LogUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.module.bean.LoginResponse;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
@@ -168,11 +169,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 .subscribeOn(Schedulers.io())
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, true) {
+                .subscribe(new DefaultObserver<BasicResponse<LoginResponse>>(this, true) {
                     @Override
-                    public void onSuccess(BasicResponse<UserBean> response) {
+                    public void onSuccess(BasicResponse<LoginResponse> response) {
                         MobclickAgent.onProfileSignIn(phone);
-                        loginSuccess(response.getResult(),"");
+                        loginSuccess(response.getResult().getUserBean(),"");
                     }
                 });
     }

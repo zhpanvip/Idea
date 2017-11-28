@@ -143,7 +143,7 @@ public class AuthorInfoActivity extends BaseActivity {
         mTvIntroduce.setText(user.getIntroduction());
         mTvFans.setText(String.valueOf(user.getWatchMeCount()));
         mTvFocus.setText(String.valueOf(user.getMyWatchCount()));
-        mTvLike.setText(String.valueOf(user.getEnjoy_count()));
+       // mTvLike.setText(String.valueOf(user.getEnjoy_count()));
     }
 
     private void setListener() {
@@ -179,11 +179,11 @@ public class AuthorInfoActivity extends BaseActivity {
                     public void onSuccess(BasicResponse<UserBean> response) {
                         userBean = response.getResult();
                         mTvFollow.setVisibility(View.VISIBLE);
-                        if (userBean.getWatch_status() == 0) {
+                        /*if (userBean.getWatch_status() == 0) {
                             mTvFollow.setText("关注");
                         } else {
                             mTvFollow.setText("已关注");
-                        }
+                        }*/
                         setUserData(userBean);
                     }
                 });
@@ -253,11 +253,11 @@ public class AuthorInfoActivity extends BaseActivity {
 
 
     private void follow() {
-        if (userBean.getWatch_status() == 1) {
+       /* if (userBean.getWatch_status() == 1) {
             cancelFocus(userBean.getUserId());
         } else {
             addFocus(userBean.getUserId());
-        }
+        }*/
     }
 
     //  关注
@@ -271,7 +271,7 @@ public class AuthorInfoActivity extends BaseActivity {
                     public void onSuccess(BasicResponse<String> response) {
                         ToastUtils.show(response.getMsg());
                         mTvFollow.setText("已关注");
-                        userBean.setWatch_status(1);
+                        //userBean.setWatch_status(1);
                         int followCount=userBean.getMyWatchCount()+1;
                         userBean.setMyWatchCount(followCount);
                         EventBus.getDefault().post(new FollowSuccess(followCount));
@@ -290,7 +290,7 @@ public class AuthorInfoActivity extends BaseActivity {
                     public void onSuccess(BasicResponse<String> response) {
                         ToastUtils.show(response.getMsg());
                         mTvFollow.setText(R.string.focus);
-                        userBean.setWatch_status(0);
+                       // userBean.setWatch_status(0);
                         userBean.setMyWatchCount(userBean.getMyWatchCount()-1);
                         EventBus.getDefault().post(new FollowSuccess(userBean.getMyWatchCount()));
                     }

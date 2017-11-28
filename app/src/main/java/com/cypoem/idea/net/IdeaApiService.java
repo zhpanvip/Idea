@@ -8,6 +8,7 @@ import com.cypoem.idea.module.bean.CommentBean;
 import com.cypoem.idea.module.bean.EverydayReBackBean;
 import com.cypoem.idea.module.bean.FansBean;
 import com.cypoem.idea.module.bean.HomePageBean;
+import com.cypoem.idea.module.bean.LoginResponse;
 import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.PublishBean;
 import com.cypoem.idea.module.bean.SubjectBean;
@@ -82,7 +83,7 @@ public interface IdeaApiService {
      */
     @FormUrlEncoded
     @POST("user/login.do")
-    Observable<BasicResponse<UserBean>> login(@FieldMap Map<String, Object> mapLogin);
+    Observable<BasicResponse<LoginResponse>> login(@FieldMap Map<String, Object> mapLogin);
 
     /**
      * 第三方登录

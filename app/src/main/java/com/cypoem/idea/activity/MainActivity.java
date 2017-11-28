@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity {
 
     private boolean isLogin() {
         boolean isLogin = UserInfoTools.getIsLogin(this);
-        return true;
+        return isLogin;
     }
 
     private void setListener() {
