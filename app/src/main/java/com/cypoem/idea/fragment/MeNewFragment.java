@@ -14,13 +14,11 @@ import android.widget.TextView;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.AuthorInfoActivity;
-import com.cypoem.idea.activity.BaseActivity;
 import com.cypoem.idea.activity.FansActivity;
 import com.cypoem.idea.activity.PraiseActivity;
 import com.cypoem.idea.activity.SettingActivity;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.bean.UserBean;
-import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.net.IdeaApiService;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.SexView;
@@ -112,7 +110,6 @@ public class MeNewFragment extends BaseFragment {
         mTvAward.setText(String.valueOf(user.getIncome_count()));
         mTvFans.setText(String.valueOf(user.getWatchMeCount()));
         mTvFollow.setText(String.valueOf(user.getMyWatchCount()));
-
     }
 
 
@@ -122,7 +119,6 @@ public class MeNewFragment extends BaseFragment {
             case R.id.iv_right:
                 SettingActivity.start(getContext());
                 break;
-
         }
     }
 }

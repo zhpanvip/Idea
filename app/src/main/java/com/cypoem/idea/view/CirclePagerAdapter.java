@@ -42,7 +42,6 @@ public class CirclePagerAdapter extends PagerAdapter {
                 } else {
                     viewPager.imageClick(position);
                 }
-
             }
         });
         return list.get(position);
@@ -50,6 +49,6 @@ public class CirclePagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView(list.get(position));
+        container.removeView((View)object);
     }
 }

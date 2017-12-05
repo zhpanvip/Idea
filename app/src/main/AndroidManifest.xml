@@ -97,7 +97,10 @@
         <activity
             android:name=".activity.CreateCircleActivity"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".activity.CreateStoryActivity"></activity>
+        <activity android:name=".activity.CreateStoryActivity" />
+        <activity
+            android:name=".activity.WelcomeActivity"
+            android:theme="@style/TranslucentBarTheme" />
     </application>
 
 </manifest>

@@ -96,7 +96,8 @@ public class SplashActivity extends BaseActivity {
     }*/
 
     private void goToMain() {
-        MainActivity.start(SplashActivity.this);
+       // MainActivity.start(SplashActivity.this);
+        WelcomeActivity.start(this);
         overridePendingTransition(0, android.R.anim.fade_out);
         finish();
     }

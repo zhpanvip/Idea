@@ -282,17 +282,22 @@ public class CompleteRegisterActivity extends BaseActivity {
                 .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, true) {
                     @Override
                     public void onSuccess(BasicResponse<UserBean> response) {
-                        EventBus.getDefault().post(new RegisterSuccess("register success"));
-                        UserInfoTools.setIsLogin(getApplication(), true);
-                        UserInfoTools.setUser(getApplicationContext(), response.getResult());
-                        showToast("注册成功，请登陆");
-                        finish();
+                        loginSuccess(response.getResult());
                     }
                 });
     }
 
-    public class RegisterSuccess {
+    private void loginSuccess(UserBean userBean) {
+        EventBus.getDefault().post(new RegisterSuccess("register success"));
+        UserInfoTools.setIsLogin(getApplication(), true);
+        UserInfoTools.setUser(getApplicationContext(), userBean);
+        showToast("注册成功，请登陆");
+        finish();
+    }
+
+    public static class RegisterSuccess {
         public String msg;
+
 
         public RegisterSuccess(String msg) {
             this.msg = msg;
