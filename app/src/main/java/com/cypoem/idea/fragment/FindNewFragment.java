@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.airong.core.recycler.BaseAdapter;
 import com.cypoem.idea.R;
@@ -24,16 +25,33 @@ import com.cypoem.idea.activity.RankingListActivity;
 import com.cypoem.idea.activity.ReadMeetingActivity;
 import com.cypoem.idea.activity.SearchActivity;
 import com.cypoem.idea.activity.WeekSelectActivity;
+import com.cypoem.idea.activity.WelcomeActivity;
 import com.cypoem.idea.adapter.AdapterArticleHList;
 import com.cypoem.idea.adapter.AdapterAuthorHList;
 import com.cypoem.idea.adapter.AdapterGvFind;
+import com.cypoem.idea.constants.Constants;
+import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.module.bean.BannerBean;
+import com.cypoem.idea.module.bean.CommentBean;
+import com.cypoem.idea.module.bean.DiscoverBean;
+import com.cypoem.idea.net.DefaultObserver;
+import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.MScrollView;
+import com.zhpan.viewpager.holder.HolderCreator;
+import com.zhpan.viewpager.holder.ViewHolder;
+import com.zhpan.viewpager.view.CircleViewPager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class FindNewFragment extends BaseFragment implements MScrollView.OnScrollChangedListener, SwipeRefreshLayout.OnRefreshListener, BaseAdapter.OnItemClickListener {
@@ -52,8 +70,8 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
     MScrollView scrollView;
     @BindView(R.id.ll_search_bar)
     LinearLayout mLlSearchBar;
-    @BindView(R.id.iv_banner)
-    ImageView mIvBanner;
+    @BindView(R.id.cvp_banner)
+    CircleViewPager mViewPager;
     @BindView(R.id.line)
     View mLine;
     @BindView(R.id.ll_recommend)
@@ -66,6 +84,7 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
     SwipeRefreshLayout refreshLayout;
     //  Banner高度
     private float mBannerHeight;
+    private int page = 1;
 
     public static FindNewFragment getFragment() {
         return new FindNewFragment();
@@ -146,10 +165,9 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
     }
 
     private void setListener() {
-        ViewTreeObserver vto = mIvBanner.getViewTreeObserver();
-        vto.addOnGlobalLayoutListener(() -> mBannerHeight = mIvBanner.getHeight());
+        ViewTreeObserver vto = mViewPager.getViewTreeObserver();
+        vto.addOnGlobalLayoutListener(() -> mBannerHeight = mViewPager.getHeight());
         scrollView.setOnScrollChangedListener(this);
-
     }
 
     /**
@@ -178,8 +196,56 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
 
     @Override
     public void onRefresh() {
+        getData();
         Handler handler = new Handler();
         handler.postDelayed(() -> refreshLayout.setRefreshing(false), 2000);
+    }
+
+    private void getData() {
+        IdeaApi.getApiService()
+                .getDiscover(UserInfoTools.getUserId(getContext()), page, Constants.NUM)
+                .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<DiscoverBean>>(getActivity(), true) {
+                    @Override
+                    public void onSuccess(BasicResponse<DiscoverBean> response) {
+                        refreshLayout.setRefreshing(false);
+                        DiscoverBean result = response.getResult();
+                        getDataSuccess(result);
+                    }
+
+                    @Override
+                    public void dismissProgress() {
+                        super.dismissProgress();
+                        refreshLayout.setRefreshing(false);
+                    }
+                });
+    }
+
+    private void getDataSuccess(DiscoverBean result) {
+        setBanner(result.getBanners());
+    }
+
+    private void setBanner(List<DiscoverBean.BannersBean> banners) {
+        List<Integer> mListInt=new ArrayList<>();
+
+        for (int i = 1; i <= 4; i++) {
+            mListInt.add(R.layout.welcome_pager2);
+        }
+        mViewPager.setAutoPlay(false);
+        mViewPager.setCanLoop(false);
+        mViewPager.setIndicatorRadius(5);
+        mViewPager.setIndicatorColor(getResources().getColor(R.color.colorAccent),
+                getResources().getColor(R.color.colorPrimary));
+        mViewPager.setPages(mListInt, () -> new WelcomeActivity.MViewHolder());
+        /*for (int i = 1; i <= 4; i++) {
+            int drawable = getResources().getIdentifier("banner" + i, "drawable",  getContext().getPackageName());
+            mListInt.add(drawable);
+        }
+        mViewPager.setPages(mListInt, () -> new MyViewHolder());
+        mViewPager.setIndicatorColor(getResources().getColor(R.color.colorAccent),
+                getResources().getColor(R.color.colorPrimary));*/
     }
 
     @OnClick({R.id.ll_search_bar})

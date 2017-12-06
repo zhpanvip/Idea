@@ -13,16 +13,19 @@
         android:layout_height="@dimen/dp_30"
         android:layout_centerHorizontal="true"
         android:text="立即体验"
+        android:visibility="gone"
         android:textColor="@color/white"
         android:background="@drawable/bg_btn_login"
         android:layout_marginBottom="@dimen/dp_40"
         android:layout_alignParentBottom="true"/>
 
     <ImageView
+        android:id="@+id/iv_dot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/btn_welcome"
+        android:visibility="gone"
         android:layout_marginBottom="@dimen/dp_5"
         android:background="@drawable/blue_dot"/>
 

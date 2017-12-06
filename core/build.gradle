@@ -35,6 +35,7 @@ android {
 
 repositories {
     maven { url "https://jitpack.io" }
+
 }
 
 dependencies {
@@ -76,4 +77,6 @@ dependencies {
     compile 'com.bigkoo:convenientbanner:2.0.5'
     compile project(':libres')
     compile 'com.umeng.analytics:analytics:6.1.2'
+    compile(name: 'viewpager-1.0.3', ext: 'aar')
+
 }

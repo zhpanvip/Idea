@@ -56,7 +56,6 @@ public class MeNewFragment extends BaseFragment {
     TextView mTvFans;
 
 
-
     @OnClick({R.id.rl_user, R.id.ll_follow, R.id.ll_fans, R.id.ll_reward})
     public void onClick(View view) {
         switch (view.getId()) {

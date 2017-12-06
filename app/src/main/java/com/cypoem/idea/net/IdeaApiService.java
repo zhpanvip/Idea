@@ -3,6 +3,7 @@ package com.cypoem.idea.net;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleBean;
 import com.cypoem.idea.module.bean.BannerBean;
+import com.cypoem.idea.module.bean.DiscoverBean;
 import com.cypoem.idea.module.bean.HomeBean;
 import com.cypoem.idea.module.bean.CommentBean;
 import com.cypoem.idea.module.bean.EverydayReBackBean;
@@ -374,4 +375,14 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST("section/updateSection.do")
     Observable<BasicResponse> updateChapter(@FieldMap Map<String, String> chapterMap);
+
+    /**
+     * 发现页面
+     * @param user_id 用户ID
+     * @param page 请求第几页数据
+     * @param rows  每页请求几条数据
+     * @return
+     */
+    @GET("circle/firstPage.do")
+    Observable<BasicResponse<DiscoverBean>> getDiscover(@Query("user_id") String user_id, @Query("rows") int page, @Query("rows") int rows );
 }

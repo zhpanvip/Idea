@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context="com.cypoem.idea.activity.WelcomeActivity">
 
-    <android.support.v4.view.ViewPager
+    <com.zhpan.viewpager.view.CircleViewPager
         android:id="@+id/vp_welcome"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

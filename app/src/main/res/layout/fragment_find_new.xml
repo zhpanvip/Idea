@@ -22,12 +22,10 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-                <ImageView
-                    android:id="@+id/iv_banner"
+                <com.zhpan.viewpager.view.CircleViewPager
+                    android:id="@+id/cvp_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/dp_200"
-                    android:background="@drawable/t2_banner"
-                    android:orientation="horizontal" />
+                    android:layout_height="200dp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/gv_item"
@@ -62,7 +60,6 @@
 
                 <include layout="@layout/base_line10" />
             </LinearLayout>
-
         </com.cypoem.idea.view.MScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>
     <!--搜索状态栏-->

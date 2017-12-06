@@ -11,6 +11,7 @@ import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.utils.SharedPreferencesHelper;
 
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class SplashActivity extends BaseActivity {
     }
 
     private void setCountDown() {
+
+
         CountDownTimer countDownTimer = new CountDownTimer(ANIMATION_DURATION, SECOND) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -59,7 +62,7 @@ public class SplashActivity extends BaseActivity {
             public void onFinish() {
                 mButton.setText("跳过" + 0 + "s");
                 if (isGo2Main)
-                    goToMain();
+                    goToNext();
             }
         };
         countDownTimer.start();
@@ -95,10 +98,14 @@ public class SplashActivity extends BaseActivity {
                 });
     }*/
 
-    private void goToMain() {
-       // MainActivity.start(SplashActivity.this);
-        WelcomeActivity.start(this);
-        overridePendingTransition(0, android.R.anim.fade_out);
+    private void goToNext() {
+        boolean isFirstRun = (boolean) SharedPreferencesHelper.get(this, "firstRunFlag", true);
+        if (isFirstRun) {
+            WelcomeActivity.start(this);
+            overridePendingTransition(0, android.R.anim.fade_out);
+        } else {
+            MainActivity.start(SplashActivity.this);
+        }
         finish();
     }
 
@@ -115,7 +122,7 @@ public class SplashActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.btn_count_down:
                 isGo2Main = false;
-                goToMain();
+                goToNext();
                 break;
             case R.id.tv_publish:
                 isGo2Main = false;

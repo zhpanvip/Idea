@@ -3,10 +3,9 @@ package com.cypoem.idea.net;
 import android.app.Activity;
 import android.text.TextUtils;
 import android.widget.Toast;
-import com.airong.core.BaseImpl;
+
 import com.airong.core.dialog.DialogUtils;
 import com.airong.core.utils.ToastUtils;
-import com.airong.core.utils.Utils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.BasicResponse;
 import com.google.gson.JsonParseException;
@@ -30,47 +29,33 @@ import static com.cypoem.idea.net.DefaultObserver.ExceptionReason.UNKNOWN_ERROR;
  */
 
 public abstract class DefaultObserver<T extends BasicResponse> implements Observer<T> {
-   //private BaseImpl mBaseImpl;
     private Activity activity;
-    //  Activity 是否在执行onStop()时取消订阅
-    private boolean isAddInStop = false;
     private DialogUtils dialogUtils;
 
     public DefaultObserver(Activity activity) {
-        //mBaseImpl = baseImpl;
         if(dialogUtils==null){
             dialogUtils=new DialogUtils(activity);
         }
         dialogUtils.showProgress();
-        //mBaseImpl.showProgress(mBaseImpl);
     }
 
 
     public DefaultObserver(Activity activity, boolean isShowLoading) {
-       // mBaseImpl = baseImpl;
         if (isShowLoading) {
             if(dialogUtils==null){
                 dialogUtils=new DialogUtils(activity);
             }
             dialogUtils.showProgress();
-           // mBaseImpl.showProgress(mBaseImpl);
         }
     }
 
     @Override
     public void onSubscribe(Disposable d) {
-        /*if (isAddInStop) {    //  在onStop中取消订阅
-            mBaseImpl.addRxStop(mBaseImpl, d);
-        } else { //  在onDestroy中取消订阅
-            mBaseImpl.addRxDestroy(mBaseImpl, d);
-        }*/
     }
 
     @Override
     public void onNext(T response) {
-        if(dialogUtils!=null)
-        dialogUtils.dismissProgress();
-        //mBaseImpl.dismissProgress();
+        dismissProgress();
         int code = response.getCode();
         if (code == 200) {
             onSuccess(response);
@@ -79,12 +64,16 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
         }
     }
 
+    public void dismissProgress(){
+        if(dialogUtils!=null)
+            dialogUtils.dismissProgress();
+    }
+
     @Override
     public void onError(Throwable e) {
         if (e != null)
             e.printStackTrace();
-        if(dialogUtils!=null)
-            dialogUtils.dismissProgress();
+        dismissProgress();
         if (e instanceof HttpException) {     //   HTTP错误
             onException(BAD_NETWORK);
         } else if (e instanceof ConnectException
@@ -134,8 +123,7 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
      * @param reason 异常原因
      */
     public void onException(ExceptionReason reason) {
-        if(dialogUtils!=null)
-            dialogUtils.dismissProgress();
+        dismissProgress();
         switch (reason) {
             case CONNECT_ERROR:
                 ToastUtils.show(R.string.connect_error, Toast.LENGTH_SHORT);
