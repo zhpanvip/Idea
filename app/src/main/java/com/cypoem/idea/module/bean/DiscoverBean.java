@@ -734,7 +734,7 @@ public class DiscoverBean {
         private int my_count;
         private String pen_name;
         private long user_id;
-        private String watch_status;
+        private int watch_status;
 
         public int getEnjoy_count() {
             return enjoy_count;
@@ -776,11 +776,11 @@ public class DiscoverBean {
             this.user_id = user_id;
         }
 
-        public String getWatch_status() {
+        public int getWatch_status() {
             return watch_status;
         }
 
-        public void setWatch_status(String watch_status) {
+        public void setWatch_status(int watch_status) {
             this.watch_status = watch_status;
         }
     }

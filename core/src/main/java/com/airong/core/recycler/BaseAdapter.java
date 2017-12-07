@@ -13,6 +13,14 @@ import java.util.List;
 
 public abstract class BaseAdapter<M, VH extends BaseHolder> extends AbsAdapter<M, VH> {
 
+    public BaseAdapter.OnItemClickListener clickListener;
+
+    public BaseAdapter setOnItemClickListener(BaseAdapter.OnItemClickListener clickListener) {
+        this.clickListener = clickListener;
+        return this;
+    }
+
+
     private List<M> dataList;
 
     public BaseAdapter(Context context) {

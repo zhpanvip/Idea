@@ -135,7 +135,7 @@ public class AuthorInfoActivity extends BaseActivity {
     }
 
     private void setUserData(UserBean user) {
-        ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST + user.getCover_photo(), R.drawable.t3_head_people);
+        ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST + user.getIcon(), R.drawable.t3_head_people);
         mTvPenName.setText(user.getPen_name());
         String sex = user.getSex();
         mSexView.setMalePercent(sex);

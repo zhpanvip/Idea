@@ -33,14 +33,16 @@ public abstract class DefaultObserver<T extends BasicResponse> implements Observ
     private DialogUtils dialogUtils;
 
     public DefaultObserver(Activity activity) {
-        if(dialogUtils==null){
+        this.activity=activity;
+        /*if(dialogUtils==null){
             dialogUtils=new DialogUtils(activity);
         }
-        dialogUtils.showProgress();
+        dialogUtils.showProgress();*/
     }
 
 
     public DefaultObserver(Activity activity, boolean isShowLoading) {
+        this.activity=activity;
         if (isShowLoading) {
             if(dialogUtils==null){
                 dialogUtils=new DialogUtils(activity);

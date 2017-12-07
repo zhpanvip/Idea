@@ -28,7 +28,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_10"
-                android:text="一首二进制的歌"
+                android:text="笔名"
                 android:textColor="@color/gray_33"
                 android:textSize="@dimen/sp_14" />
 
@@ -107,7 +107,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="15"
+                    android:text="@string/zero"
                     android:textColor="@color/gray_99"
                     android:textSize="@dimen/sp_15" />
             </LinearLayout>
@@ -136,7 +136,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="15"
+                    android:text="@string/zero"
                     android:textColor="@color/gray_99"
                     android:textSize="@dimen/sp_15" />
             </LinearLayout>
@@ -192,7 +192,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="15"
+                    android:text="@string/zero"
                     android:textColor="@color/gray_99"
                     android:textSize="@dimen/sp_15" />
             </LinearLayout>
@@ -237,6 +237,7 @@
         android:layout_marginEnd="@dimen/mp_15"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginStart="@dimen/mp_15"
+        android:text="简介"
         android:textColor="@color/gray_33"
         android:textSize="@dimen/f_13" />
 
