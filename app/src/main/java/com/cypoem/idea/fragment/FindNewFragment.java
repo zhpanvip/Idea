@@ -16,6 +16,7 @@ import com.airong.core.recycler.BaseAdapter;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.AuthorInfoActivity;
 import com.cypoem.idea.activity.BaseActivity;
+import com.cypoem.idea.activity.BasicWebViewActivity;
 import com.cypoem.idea.activity.CreateEveryDayActivity;
 import com.cypoem.idea.activity.EssayCompetitionActivity;
 import com.cypoem.idea.activity.HotStoryActivity;
@@ -198,9 +199,8 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
 
     @Override
     public void onRefresh() {
+        mLlSearchBar.setVisibility(View.GONE);
         getData();
-        Handler handler = new Handler();
-        handler.postDelayed(() -> refreshLayout.setRefreshing(false), 2000);
     }
 
     @Override
@@ -218,7 +218,7 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
                 .subscribe(new DefaultObserver<BasicResponse<DiscoverBean>>(getActivity()) {
                     @Override
                     public void onSuccess(BasicResponse<DiscoverBean> response) {
-                        refreshLayout.setRefreshing(false);
+                        //refreshLayout.setRefreshing(false);
                         DiscoverBean result = response.getResult();
                         getDataSuccess(result);
                     }
@@ -227,6 +227,7 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
                     public void dismissProgress() {
                         super.dismissProgress();
                         refreshLayout.setRefreshing(false);
+                        mLlSearchBar.setVisibility(View.VISIBLE);
                     }
                 });
     }
@@ -269,33 +270,38 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
             case 0:
                 activity = RankingListActivity.class;
                 bundle.putString("title", "欣赏值排行榜");
+                BaseActivity.start(getContext(), activity, bundle);
                 break;
             case 1:
                 activity = CreateEveryDayActivity.class;
                 bundle.putString("title", "每日一句");
+                BaseActivity.start(getContext(), activity, bundle);
                 break;
             case 2:
-                activity = ReadMeetingActivity.class;
-                bundle.putString("title", "线下读书会");
+                ReadMeetingActivity.start(getContext(),"",Constants.READ_MEETING);
                 break;
             case 3:
                 activity = NearbyActivity.class;
                 bundle.putString("title", "附近");
+                BaseActivity.start(getContext(), activity, bundle);
                 break;
 
             case 4:
                 activity = HotStoryActivity.class;
                 bundle.putString("title", "热门故事");
+                BaseActivity.start(getContext(), activity, bundle);
                 break;
             case 5:
                 activity = WeekSelectActivity.class;
                 bundle.putString("title", "一周精选");
+                BaseActivity.start(getContext(), activity, bundle);
                 break;
             case 6:
                 activity = EssayCompetitionActivity.class;
                 bundle.putString("title", "有奖征文");
+                BaseActivity.start(getContext(), activity, bundle);
                 break;
         }
-        BaseActivity.start(getContext(), activity, bundle);
+
     }
 }

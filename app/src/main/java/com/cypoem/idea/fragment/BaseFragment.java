@@ -73,7 +73,7 @@ public abstract class BaseFragment extends BaseLazyFragment implements SwipeRefr
     protected void setRefreshLayout(boolean isAutoRefresh) {
         mRefreshLayout = (SwipeRefreshLayout) rootView.findViewById(R.id.srl);
         if (mRefreshLayout == null) return;
-        if (isAutoRefresh) {
+        if (false) {
             mRefreshLayout.post(() -> {
                 mRefreshLayout.setRefreshing(true);
                 onRefresh();
@@ -84,10 +84,7 @@ public abstract class BaseFragment extends BaseLazyFragment implements SwipeRefr
 
     @Override
     public void onRefresh() {
-        Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            mRefreshLayout.setRefreshing(false);
-        }, 2000);
+
     }
 
     protected void setPtrHandler(View view) {

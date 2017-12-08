@@ -1,6 +1,7 @@
 package com.cypoem.idea.utils;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.module.bean.UserInfoBean;
@@ -228,8 +229,8 @@ public class UserInfoTools {
         } else {
             userId = getUserInfoBean(context).getUser().getUserId();
         }
-        if (null == userId) {
-            userId = "";
+        if (TextUtils.isEmpty(userId)) {
+            userId = "0";
         }
         return userId;
     }

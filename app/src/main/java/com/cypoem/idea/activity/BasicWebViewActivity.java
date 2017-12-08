@@ -23,7 +23,7 @@ public class BasicWebViewActivity extends BaseActivity {
 
     protected static final String INTENT_KEY_TITLE = "title";
 
-    protected static final String INTENT_KEY_URL = "url";
+    public static final String INTENT_KEY_URL = "url";
 
     WebView mWebView;
 

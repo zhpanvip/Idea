@@ -17,7 +17,6 @@ import com.airong.core.utils.ImageLoaderUtil;
 import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.ArticleActivity;
-import com.cypoem.idea.activity.ArticleWebViewActivity;
 import com.cypoem.idea.activity.AuthorInfoActivity;
 import com.cypoem.idea.activity.LoginActivity;
 import com.cypoem.idea.activity.StartReadActivity;

@@ -15,6 +15,11 @@ public interface Constants {
     String PROTOCOL = "file:///android_asset/www/protocol.html";
     String PROTOCOL_NIGHT = "file:///android_asset/www/protocol_night.html";
 
+    /**
+     * 读书会
+     */
+    String READ_MEETING="http://www.cypoem.com:8080/cys/readparty.html";
+
 
     int MY_START_OPUS = 1;  //  我发起的
     int MY_OWN_OPUS = 2;    //  我原创的
