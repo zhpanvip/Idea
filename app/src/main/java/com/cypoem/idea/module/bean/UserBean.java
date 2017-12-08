@@ -58,8 +58,18 @@ public class UserBean {
     private String user_id;
     private String user_status;
     private int watchMeCount;
+    private String password;
     private String wb_ob;
     private String wx_pay;
+
+
+    public void setPassword(String password){
+        this.password=password;
+    }
+
+    public String getPassword(){
+        return password;
+    }
 
     public String getAddress() {
         return address;

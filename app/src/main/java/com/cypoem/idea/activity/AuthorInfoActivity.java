@@ -123,12 +123,13 @@ public class AuthorInfoActivity extends BaseActivity {
 
     private void setData() {
         UserBean user = UserInfoTools.getUser(this);
-        if (null != user && userId.equals(UserInfoTools.getUserId(this))) {
+
+        if (null != user && userId.equals(UserInfoTools.getUserId(this))) {//  当前用户本人
             setUserData(user);
             setToolBarTitle("我的资料");
             getRightIv().setVisibility(View.VISIBLE);
             getRightIv().setBackgroundResource(R.drawable.t5_edit);
-        } else {
+        } else {//  查看其它作者信息
             getData(false);
             setToolBarTitle("作者简介");
         }
@@ -170,7 +171,7 @@ public class AuthorInfoActivity extends BaseActivity {
 
     private void getData(boolean showLoading) {
         IdeaApi.getApiService()
-                .getUserInfo(userId, userId)
+                .getUserInfo(userId, UserInfoTools.getUserId(this))
                 .subscribeOn(Schedulers.io())
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())

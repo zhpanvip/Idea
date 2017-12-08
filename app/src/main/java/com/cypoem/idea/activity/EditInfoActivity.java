@@ -544,11 +544,13 @@ public class EditInfoActivity extends BaseActivity {
         Map<String, String> map = new HashMap<>();
         map.put("user_id", UserInfoTools.getUserId(this));
         map.put("dictum", sign);
-        map.put("pen_name", penName);
+        //map.put("pen_name", penName);
         map.put("sex", sex);
-        map.put("birthday", birthday);
-        map.put("address", address);
+       // map.put("birthday", birthday);
+       // map.put("address", address);
         map.put("introduction", introduction);
+        map.put("phone",UserInfoTools.getUser(this).getPhone());
+        map.put("password",UserInfoTools.getUser(this).getPassword());
         IdeaApi.getApiService()
                 .updateUserInfo(map)
                 .subscribeOn(Schedulers.io())

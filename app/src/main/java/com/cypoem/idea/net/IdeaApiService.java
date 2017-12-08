@@ -46,6 +46,7 @@ public interface IdeaApiService {
     String API_SERVER_URL = HOST +PORT+ "cys/";
     String WEBSITE="http://www.cypoem.com";
 
+
     /**
      * 注册接口
      *
@@ -56,6 +57,29 @@ public interface IdeaApiService {
     @POST("user/register.do")
     Observable<BasicResponse<UserBean>> register(@Part List<MultipartBody.Part> partList);
 
+
+    /**
+     * 根据用户id获取用户信息
+     *
+     * @param viewUserId       查看的用户id
+     * @param user_id 当前登录的用户id
+     * @return
+     */
+    @GET("user/viewUserInfo.do")
+    Observable<BasicResponse<UserBean>> getUserInfo(@Query("watch_user_id") String viewUserId, @Query("user_id") String user_id);
+
+
+    /**
+     * 发现页面
+     * @param user_id 用户ID
+     * @param page 请求第几页数据
+     * @param rows  每页请求几条数据
+     * @return
+     */
+    @GET("circle/firstPage.do")
+    Observable<BasicResponse<DiscoverBean>> getDiscover(@Query("user_id") String user_id, @Query("rows") int page, @Query("rows") int rows );
+
+
     /**
      * 完善用户信息
      *
@@ -65,6 +89,108 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST("user/updateText.do")
     Observable<BasicResponse> updateUserInfo(@FieldMap Map<String, String> mapUserInfo);
+
+
+
+    /**
+     * 取消关注
+     *
+     * @param userId  用户id
+     * @param focusId 关注用户的id
+     * @return
+     */
+    @POST("watch/delete.do")
+    Observable<BasicResponse<String>> cancelFocus(@Query("user_id") String userId, @Query("watch_user_id") String focusId);
+
+
+    /**
+     * 查询我关注我的
+     *
+     * @param page   显示第几页
+     * @param rows   每页显示几条数据
+     * @param userId 登陆用户id
+     * @param type  1.关注的用户，2。我的粉丝
+     * @return
+     */
+    @GET("watch/myWatchUsers.do")
+    Observable<BasicResponse<List<FansBean>>> getMyFocus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows,@Query("type") int type);
+
+
+
+    /**
+     * 查询圈子分类
+     * @return
+     */
+    @GET("circle/queryCircleCategorys.do")
+    Observable<BasicResponse<List<FansBean>>> getCircleClass();
+
+    /**
+     * 查询圈子分类
+     * @return
+     */
+    @GET("circle/queryCircleIcons.do")
+    Observable<BasicResponse> getCircleIcon();
+
+
+    /**
+     * 创建圈子
+     * @return
+     */
+    @GET("circle/add.do")
+    Observable<BasicResponse> createCircle();
+
+    /**
+     * 删除圈子
+     * @return
+     */
+    @POST("circle/delete.do")
+    Observable<BasicResponse> deleteCircle(@Query("circleId") String circleId);
+
+
+    /**
+     * 我关注的/我创建的圈子
+     * @param type 1.关注的圈子 2.创建的圈子
+     *
+     */
+
+    @POST("circle/findFollowCircles.do")
+    Observable<BasicResponse> getMyCircle(@Query("user_id") String userId,@Query("page") int page,@Query("rows") int rows,@Query("type") int type);
+
+    /**
+     * 查询某个圈子中的作品
+     * @param type 1.最热 2.最新
+     *
+     */
+
+    @POST("circle/queryCircleWrites.do")
+    Observable<BasicResponse> getCircleOpus(@Query("circleId") String userId,@Query("page") int page,@Query("rows") int rows,@Query("type") int type);
+
+
+
+    @POST("circle/queryById.do")
+    Observable<BasicResponse> getCircleById(@Query("user_id") String userId,@Query("circleId") String circleId,@Query("page") int page,@Query("rows") int rows);
+
+
+    /**
+     *
+     * @param circleName 圈子名称   type为4时需要
+     * @param category  类别名称 type为3时需要
+     * @param page
+     * @param rows
+     * @param type 1.根据热度获取圈子排序 2.根据时间排序 3，根据圈子类别搜索圈子 4，根据圈子名称搜索圈子
+     * @return
+     */
+    @POST("circle/queryCircles.do")
+    Observable<BasicResponse> getOrderCircle(@Query("page") int page,@Query("rows") int rows,@Query("type") int type,@Query("name") String circleName,@Query("category") String category);
+
+
+
+
+
+
+
+
+
 
     /**
      * 上传头像/作者照片接口
@@ -104,15 +230,7 @@ public interface IdeaApiService {
     @POST("advice/add.do")
     Observable<BasicResponse<String>> postAdvice(@FieldMap Map<String, String> adviceMap);
 
-    /**
-     * 根据用户id获取用户信息
-     *
-     * @param user_id       查看的用户id
-     * @param login_user_id 当前登录的用户id
-     * @return
-     */
-    @GET("user/viewUser.do")
-    Observable<BasicResponse<UserBean>> getUserInfo(@Query("user_id") String user_id, @Query("login_user_id") String login_user_id);
+
 
     /**
      * 每日一句
@@ -134,22 +252,7 @@ public interface IdeaApiService {
     @GET("everySay/selectAll.do")
     Observable<BasicResponse<List<EverydayReBackBean>>> lookBack(@Query("page") int page, @Query("rows") int number);
 
-    /**
-     * 首页/发现数据
-     *
-     * @param page
-     * @param number
-     * @return
-     */
-    //@Headers("Cache-Control: public, max-age=600")
-    @GET("write/first_page.do")
-    Observable<BasicResponse<List<HomePageBean>>> getHomePageData(@Query("page") int page, @Query("rows") int number);
 
-    /**
-     * 新首页接口
-     */
-    @GET("write/newFirstPage.do")
-    Observable<BasicResponse<HomeBean>> getHomeData(@Query("page") int page, @Query("rows") int number);
 
     /**
      * 获取专题列表
@@ -158,17 +261,6 @@ public interface IdeaApiService {
     @GET("write/querySubjectWrites.do")
     Observable<BasicResponse<SubjectBean>> getSubject(@Query("subject_id") int subject_id,@Query("page") int page, @Query("rows") int number);
 
-    /**
-     * 发现页面数据
-     *
-     * @param page
-     * @param number
-     * @param type   0最新 1最热
-     * @return
-     */
-    //@Headers("Cache-Control: public, max-age=600")
-    @GET("write/discover.do")
-    Observable<BasicResponse<List<HomeBean.WritesBean>>> getDiscoverData(@Query("page") int page, @Query("rows") int number, @Query("type") int type);
 
     /**
      * 发布作品
@@ -235,16 +327,7 @@ public interface IdeaApiService {
     @POST("section/updateLikeCount.do")
     Observable<BasicResponse> lightChapter(@FieldMap Map<String, String> map);
 
-    /**
-     * 查询我关注我的
-     *
-     * @param page   显示第几页
-     * @param rows   每页显示几条数据
-     * @param userId 登陆用户id
-     * @return
-     */
-    @GET("watch/myWatchUsers.do")
-    Observable<BasicResponse<List<FansBean>>> getMyFocus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows);
+
 
 
     /**
@@ -299,15 +382,7 @@ public interface IdeaApiService {
     @POST("watch/add.do")
     Observable<BasicResponse<String>> addFocus(@Query("user_id") String userId, @Query("watch_user_id") String focusId);
 
-    /**
-     * 取消关注
-     *
-     * @param userId  用户id
-     * @param focusId 关注用户的id
-     * @return
-     */
-    @POST("watch/delete.do")
-    Observable<BasicResponse<String>> cancelFocus(@Query("user_id") String userId, @Query("watch_user_id") String focusId);
+
 
     /**
      * 获取章节评论
@@ -376,13 +451,14 @@ public interface IdeaApiService {
     @POST("section/updateSection.do")
     Observable<BasicResponse> updateChapter(@FieldMap Map<String, String> chapterMap);
 
-    /**
-     * 发现页面
-     * @param user_id 用户ID
-     * @param page 请求第几页数据
-     * @param rows  每页请求几条数据
-     * @return
-     */
-    @GET("circle/firstPage.do")
-    Observable<BasicResponse<DiscoverBean>> getDiscover(@Query("user_id") String user_id, @Query("rows") int page, @Query("rows") int rows );
+
+
+
+
+
+
+
+
+
+
 }

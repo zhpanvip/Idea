@@ -110,7 +110,7 @@ public class FansActivity extends BaseActivity {
     private void getData(boolean isRefresh, int currentPage) {
         if (type == Constants.FOCUS) {
             IdeaApi.getApiService()
-                    .getMyFocus(userId, currentPage, Constants.NUM)
+                    .getMyFocus(userId, currentPage, Constants.NUM,2)
                     .subscribeOn(Schedulers.io())
                     .compose(bindToLifecycle())
                     .observeOn(AndroidSchedulers.mainThread())
