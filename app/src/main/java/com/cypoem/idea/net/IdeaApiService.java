@@ -4,6 +4,7 @@ import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleBean;
 import com.cypoem.idea.module.bean.BannerBean;
 import com.cypoem.idea.module.bean.CircleListBean;
+import com.cypoem.idea.module.bean.CreateCircleResponse;
 import com.cypoem.idea.module.bean.DiscoverBean;
 import com.cypoem.idea.module.bean.CommentBean;
 import com.cypoem.idea.module.bean.EverydayReBackBean;
@@ -137,8 +138,9 @@ public interface IdeaApiService {
      *
      * @return
      */
+    @Multipart
     @GET("circle/add.do")
-    Observable<BasicResponse> createCircle();
+    Observable<BasicResponse<CreateCircleResponse>> createCircle(@Part List<MultipartBody.Part> partList);
 
     /**
      * 删除圈子

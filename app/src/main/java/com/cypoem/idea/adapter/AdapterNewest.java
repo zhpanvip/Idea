@@ -1,6 +1,8 @@
 package com.cypoem.idea.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,7 +36,11 @@ public class AdapterNewest extends BaseAdapter<DiscoverBean.HostWritesBean, Adap
         DiscoverBean.HostWritesBean writesBean = getItem(position);
         holder.mTvTitle.setText(writesBean.getWrite_name());
         holder.mTvName.setText(writesBean.getUser().getPen_name());
-        ImageLoaderUtil.loadImg(holder.mIvBackground, IdeaApiService.HOST+writesBean.getPic());
+        if (TextUtils.isEmpty(writesBean.getPic())) {
+            holder.mIvBackground.setVisibility(View.GONE);
+        } else {
+            ImageLoaderUtil.loadImg(holder.mIvBackground, IdeaApiService.HOST + writesBean.getPic());
+        }
         holder.mTvContent.setText(writesBean.getIntroduction());
         holder.mTvReadCount.setText(String.valueOf(writesBean.getRead_count()));
         holder.mTvLikeCount.setText(String.valueOf(writesBean.getLike_count()));

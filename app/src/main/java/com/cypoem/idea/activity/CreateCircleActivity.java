@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -12,10 +13,26 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cypoem.idea.R;
+import com.cypoem.idea.constants.Constants;
+import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.module.bean.CircleListBean;
+import com.cypoem.idea.module.bean.CreateCircleResponse;
+import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.net.DefaultObserver;
+import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.utils.UserInfoTools;
+
+import java.io.File;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class CreateCircleActivity extends BaseActivity {
 
@@ -39,6 +56,9 @@ public class CreateCircleActivity extends BaseActivity {
     RelativeLayout mRlType;
     @BindView(R.id.et_introduce)
     EditText mEtIntroduce;
+    private String picPath="";
+    private java.lang.String circleDescription;
+    private java.lang.String category;
 
     @Override
     protected int getLayoutId() {
@@ -50,6 +70,49 @@ public class CreateCircleActivity extends BaseActivity {
 
     }
 
+
+    private void createCircle() {
+        String circleName = mEtCircleName.getText().toString().trim();
+        String introduce = mEtIntroduce.getText().toString().trim();
+        if (TextUtils.isEmpty(picPath)) {
+            showToast(R.string.select_head_pic);
+            return;
+        }
+        if (TextUtils.isEmpty(circleName)) {
+            showToast("请输入圈子名称");
+            return;
+        }
+        File file = new File(picPath);
+        RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("introduction", introduce)
+                .addFormDataPart("name", circleName)
+                .addFormDataPart("type", "2")
+                .addFormDataPart("style", "1")
+                .addFormDataPart("circleDescription", circleDescription)
+                .addFormDataPart("category",category)
+                .addFormDataPart("uploadFile", file.getName(), imageBody);
+        List<MultipartBody.Part> parts = builder.build().parts();
+
+        IdeaApi.getApiService()
+                .createCircle(parts)
+                .subscribeOn(Schedulers.io())
+                .compose(bindToLifecycle())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<CreateCircleResponse>>(this, true) {
+                    @Override
+                    public void onSuccess(BasicResponse<CreateCircleResponse> response) {
+                        createCircleSuccess(response.getResult());
+                    }
+                });
+    }
+
+    private void createCircleSuccess(CreateCircleResponse result) {
+        showToast("创建成功");
+    }
+
+
     public static void start(Context context) {
         Intent intent = new Intent(context, CreateCircleActivity.class);
         context.startActivity(intent);
@@ -59,6 +122,7 @@ public class CreateCircleActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_save:
+                createCircle();
                 break;
             case R.id.ll_update_icon:
                 break;

@@ -35,37 +35,42 @@
                     layout="@layout/base_line10" />
 
                 <!--热门推荐-->
-                <include layout="@layout/item_title"/>
+                <include
+                    android:id="@+id/rl_recommend"
+                    layout="@layout/item_title" />
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_recommend"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
                 <include layout="@layout/base_line10" />
 
                 <!--热门作者-->
                 <include
-                    android:id="@+id/ll_hot_author"
-                    layout="@layout/layout_follow_user" />
+                    android:id="@+id/rl_hot_author"
+                    layout="@layout/item_title" />
+
+                <include layout="@layout/base_line" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_follow_user"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_220" />
 
                 <include layout="@layout/base_line10" />
 
-                <!--最新-->
-
-                <include layout="@layout/item_title"/>
+                <!--最新故事-->
+                <include
+                    android:id="@+id/ll_title_newest"
+                    layout="@layout/item_title" />
+                <include layout="@layout/base_line" />
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_newest"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
-                <!--<include
-                    android:id="@+id/ll_new"
-                    layout="@layout/layout_hot_recommend" />-->
+                    android:layout_height="match_parent" />
 
                 <include layout="@layout/base_line10" />
-
-                <!--<include layout="@layout/layout_circle_intro" />
-
-                <include layout="@layout/base_line10" />-->
             </LinearLayout>
         </com.cypoem.idea.view.MScrollView>
     </android.support.v4.widget.SwipeRefreshLayout>

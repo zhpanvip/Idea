@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:paddingEnd="@dimen/dp_15"
     android:paddingStart="@dimen/dp_15"
+    android:paddingBottom="@dimen/dp_5"
     android:orientation="vertical">
 
     <LinearLayout
@@ -59,7 +60,7 @@
     <ImageView
         android:id="@+id/iv_background"
         android:layout_width="match_parent"
-        android:background="@drawable/img_placeholder"
+        android:background="@drawable/t3_bg_one"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_height="@dimen/dp_150" />
 

@@ -2,6 +2,8 @@ package com.cypoem.idea.adapter;
 
 import android.content.Context;
 import android.support.annotation.LayoutRes;
+import android.text.TextUtils;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,11 +41,17 @@ public class AdapterArticleHList extends BaseAdapter<DiscoverBean.HostCirclesBea
         holder.mTvName.setText(user.getPen_name());
         holder.mTvDate.setText(writesBean.getDelivery_time());
         holder.mTvLabel.setText(writesBean.getStoryLables().get(0).getLableName());
-        ImageLoaderUtil.loadImg(holder.mIvBackground, IdeaApiService.HOST+writesBean.getPic());
         holder.mTvContent.setText(writesBean.getIntroduction());
         holder.mTvReadCount.setText(String.valueOf(writesBean.getRead_count()));
         holder.mTvContinueCount.setText(String.valueOf(writesBean.getWriteStoryCount()));
         holder.mTvPraise.setText(String.valueOf(writesBean.getLike_count()));
+        ImageLoaderUtil.loadImg(holder.mIvBackground, IdeaApiService.HOST + writesBean.getPic());
+       /* if (TextUtils.isEmpty(writesBean.getPic())) {
+           // holder.mIvBackground.setVisibility(View.GONE);
+        } else {
+            ImageLoaderUtil.loadImg(holder.mIvBackground, IdeaApiService.HOST + writesBean.getPic());
+        }*/
+
     }
 
     @Override
@@ -64,15 +72,15 @@ public class AdapterArticleHList extends BaseAdapter<DiscoverBean.HostCirclesBea
 
         public ArticleHHolder(ViewGroup parent, @LayoutRes int resId) {
             super(parent, resId);
-            mTvName=getView(R.id.tv_name);
-            mTvTitle=getView(R.id.tv_title);
-            mTvDate=getView(R.id.tv_date);
-            mTvLabel=getView(R.id.tv_label);
-            mIvBackground =getView(R.id.iv_background);
-            mTvContent=getView(R.id.tv_content);
-            mTvContinueCount=getView(R.id.tv_rewrite_count);
-            mTvReadCount=getView(R.id.tv_read_count);
-            mTvPraise=getView(R.id.tv_prise);
+            mTvName = getView(R.id.tv_name);
+            mTvTitle = getView(R.id.tv_title);
+            mTvDate = getView(R.id.tv_date);
+            mTvLabel = getView(R.id.tv_label);
+            mIvBackground = getView(R.id.iv_background);
+            mTvContent = getView(R.id.tv_content);
+            mTvContinueCount = getView(R.id.tv_rewrite_count);
+            mTvReadCount = getView(R.id.tv_read_count);
+            mTvPraise = getView(R.id.tv_prise);
         }
     }
 

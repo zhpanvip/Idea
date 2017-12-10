@@ -63,6 +63,7 @@
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
                 android:button="@null"
+                android:visibility="gone"
                 android:drawableTop="@drawable/tab4_selector"
                 android:gravity="center_horizontal|bottom"
                 android:paddingBottom="5dp"

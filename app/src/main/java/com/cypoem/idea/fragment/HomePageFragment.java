@@ -1,7 +1,6 @@
 package com.cypoem.idea.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,17 +11,14 @@ import android.widget.TextView;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.CreateCircleActivity;
-import com.cypoem.idea.adapter.AdapterRecommend;
 import com.cypoem.idea.adapter.CircleAdapter;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
-import com.cypoem.idea.module.bean.CircleBean;
 import com.cypoem.idea.module.bean.CircleListBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -78,7 +74,6 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                 .subscribe(new DefaultObserver<BasicResponse<CircleListBean>>(getActivity()) {
                     @Override
                     public void onSuccess(BasicResponse<CircleListBean> response) {
-                        //refreshLayout.setRefreshing(false);
                         CircleListBean circleListBean = response.getResult();
                         List<CircleListBean.CirclesBean> circles = circleListBean.getCircles();
                         setRecyclerView(circles);
@@ -92,23 +87,13 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                 });
     }
 
-    /*private void getDataSuccess(List<CircleListBean.CirclesBean> circleList) {
-        if (circleList.size() <= 1) {
+    private void setRecyclerView(List<CircleListBean.CirclesBean> list) {
+        if (list.size() <= 1) {
             mLlDefault.setVisibility(View.VISIBLE);
         } else {
             mLlDefault.setVisibility(View.GONE);
         }
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setNestedScrollingEnabled(false);
         adapter = new CircleAdapter(getContext());
-        adapter.fillList(circleList);
-        recyclerView.setAdapter(adapter);
-    }*/
-
-    private void setRecyclerView(List<CircleListBean.CirclesBean> list) {
-        adapter=new CircleAdapter(getContext());
         adapter.fillList(list);
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
@@ -122,7 +107,6 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
         toolbarSubtitle.setText("创建圈子");
         toolbarTitle.setText("关注");
         toolbarSubtitle.setOnClickListener(v -> CreateCircleActivity.start(getContext()));
-        // mViewStub.inflate();
     }
 
 }

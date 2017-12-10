@@ -9,8 +9,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.airong.core.recycler.BaseAdapter;
 import com.cypoem.idea.R;
@@ -53,8 +56,6 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
 
     @BindView(R.id.gv_item)
     RecyclerView gvItem;
-    @BindView(R.id.iv_hot_recommend)
-    ImageView ivHotRecommend;
     @BindView(R.id.iv_hot_arrow)
     ImageView ivHotArrow;
     @BindView(R.id.scroll_view)
@@ -68,9 +69,9 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
     @BindView(R.id.rv_recommend)
     RecyclerView mRvRecommend;
     @BindView(R.id.rv_newest)
-    RecyclerView mRvNewest;
+    RecyclerView mRvNewest;/*
     @BindView(R.id.ll_hot_author)
-    LinearLayout mLlAuthor;
+    LinearLayout mLlAuthor;*/
     @BindView(R.id.srl)
     SwipeRefreshLayout refreshLayout;
     @BindView(R.id.line_recommend)
@@ -97,6 +98,36 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
     }
 
     private void setData() {
+        View hotRecommend = rootView.findViewById(R.id.rl_recommend);
+        hotRecommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+        //  设置最新故事的title
+        View newestTitle = rootView.findViewById(R.id.ll_title_newest);
+
+        newestTitle.findViewById(R.id.iv_title_icon).setBackgroundResource(R.drawable.t2_new);
+        ((TextView) newestTitle.findViewById(R.id.tv_title)).setText("最新故事");
+        newestTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("最新故事");
+            }
+        });
+
+        //  设置热门作者title
+        View hotAuthor = rootView.findViewById(R.id.rl_hot_author);
+        hotAuthor.findViewById(R.id.iv_title_icon).setBackgroundResource(R.drawable.t2_fire);
+        ((TextView) hotAuthor.findViewById(R.id.tv_title)).setText("热门作者");
+        hotAuthor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showToast("热门作者");
+            }
+        });
+
         setGridView();
         setNew();
     }
@@ -136,7 +167,7 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
 
     //  设置热门作者
     private void setUserList(List<DiscoverBean.UsersBean> list) {
-        RecyclerView recyclerView = mLlAuthor.findViewById(R.id.rv_follow_user);
+        RecyclerView recyclerView = rootView.findViewById(R.id.rv_follow_user);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -144,13 +175,9 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
         adapter.fillList(list);
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
-        adapter.setOnItemClickListener(new BaseAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                List<DiscoverBean.UsersBean> list1 = adapter.getList();
-                DiscoverBean.UsersBean usersBean = list.get(position);
-                AuthorInfoActivity.start(getContext(), usersBean.getUser_id() + "");
-            }
+        adapter.setOnItemClickListener(position -> {
+            DiscoverBean.UsersBean usersBean = list.get(position);
+            AuthorInfoActivity.start(getContext(), usersBean.getUser_id() + "");
         });
     }
 
@@ -186,6 +213,9 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
 
     @Override
     public void onRefresh() {
+        /*Animation animation = new AlphaAnimation(1.0f, 0f);
+        animation.setDuration(500);
+        mLlSearchBar.setAnimation(animation);*/
         mLlSearchBar.setVisibility(View.GONE);
         getData();
     }
@@ -215,6 +245,9 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
                     public void dismissProgress() {
                         super.dismissProgress();
                         refreshLayout.setRefreshing(false);
+                        Animation animation = new AlphaAnimation(0.1f, 1.0f);
+                        animation.setDuration(500);
+                        mLlSearchBar.setAnimation(animation);
                         mLlSearchBar.setVisibility(View.VISIBLE);
                     }
                 });
@@ -223,7 +256,6 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
     private void getDataSuccess(DiscoverBean result) {
         setUserList(result.getUsers());
         setRecommend(result.getHostCircles());
-        setHotCircle(result.getHostWrites());
         setHotOpus(result.getHostWrites());
     }
 
@@ -254,11 +286,6 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
         adapter.fillList(hostWrites);
         mRvNewest.setAdapter(adapter);
         mRvNewest.setNestedScrollingEnabled(false);
-
-    }
-
-    //  最新
-    public void setHotCircle(List<DiscoverBean.HostWritesBean> hotCircle) {
 
     }
 

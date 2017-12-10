@@ -2,7 +2,7 @@
 <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_50"
+    android:layout_height="@dimen/dp_45"
     android:background="@color/toolbar_background"
     android:fitsSystemWindows="true"
     android:minHeight="@dimen/dp_45">
