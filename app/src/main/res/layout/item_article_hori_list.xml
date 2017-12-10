@@ -17,6 +17,7 @@
         android:paddingTop="@dimen/dp_10">
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:text="你爸是我爸"
@@ -38,7 +39,7 @@
                 android:textSize="@dimen/sp_12" />
 
             <TextView
-                android:id="@+id/tv_time"
+                android:id="@+id/tv_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
@@ -46,6 +47,7 @@
                 android:textSize="@dimen/sp_12" />
 
             <TextView
+                android:id="@+id/tv_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="共创体故事"
@@ -53,11 +55,13 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/iv_background"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_90"
             android:background="@drawable/t3_bg_three" />
 
         <TextView
+            android:id="@+id/tv_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_7"
@@ -102,6 +106,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_read_count"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/dp_7_5"
@@ -122,6 +127,7 @@
                     android:textSize="@dimen/sp_14" />
 
                 <TextView
+                    android:id="@+id/tv_prise"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="30"

@@ -3,12 +3,11 @@ package com.cypoem.idea.net;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleBean;
 import com.cypoem.idea.module.bean.BannerBean;
+import com.cypoem.idea.module.bean.CircleListBean;
 import com.cypoem.idea.module.bean.DiscoverBean;
-import com.cypoem.idea.module.bean.HomeBean;
 import com.cypoem.idea.module.bean.CommentBean;
 import com.cypoem.idea.module.bean.EverydayReBackBean;
 import com.cypoem.idea.module.bean.FansBean;
-import com.cypoem.idea.module.bean.HomePageBean;
 import com.cypoem.idea.module.bean.LoginResponse;
 import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.PublishBean;
@@ -42,9 +41,9 @@ public interface IdeaApiService {
 
     //String HOST = "http://hansanshao.cn:8080/";
     String HOST = "http://cypoem.com";
-    String PORT=":8080/";
-    String API_SERVER_URL = HOST +PORT+ "cys/";
-    String WEBSITE="http://www.cypoem.com";
+    String PORT = ":8080/";
+    String API_SERVER_URL = HOST + PORT + "cys/";
+    String WEBSITE = "http://www.cypoem.com";
 
 
     /**
@@ -61,8 +60,8 @@ public interface IdeaApiService {
     /**
      * 根据用户id获取用户信息
      *
-     * @param viewUserId       查看的用户id
-     * @param user_id 当前登录的用户id
+     * @param viewUserId 查看的用户id
+     * @param user_id    当前登录的用户id
      * @return
      */
     @GET("user/viewUserInfo.do")
@@ -71,13 +70,14 @@ public interface IdeaApiService {
 
     /**
      * 发现页面
+     *
      * @param user_id 用户ID
-     * @param page 请求第几页数据
-     * @param rows  每页请求几条数据
+     * @param page    请求第几页数据
+     * @param rows    每页请求几条数据
      * @return
      */
     @GET("circle/firstPage.do")
-    Observable<BasicResponse<DiscoverBean>> getDiscover(@Query("user_id") String user_id, @Query("rows") int page, @Query("rows") int rows );
+    Observable<BasicResponse<DiscoverBean>> getDiscover(@Query("user_id") String user_id, @Query("rows") int page, @Query("rows") int rows);
 
 
     /**
@@ -89,7 +89,6 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST("user/updateText.do")
     Observable<BasicResponse> updateUserInfo(@FieldMap Map<String, String> mapUserInfo);
-
 
 
     /**
@@ -109,16 +108,16 @@ public interface IdeaApiService {
      * @param page   显示第几页
      * @param rows   每页显示几条数据
      * @param userId 登陆用户id
-     * @param type  1.关注的用户，2。我的粉丝
+     * @param type   1.关注的用户，2。我的粉丝
      * @return
      */
     @GET("watch/myWatchUsers.do")
-    Observable<BasicResponse<List<FansBean>>> getMyFocus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows,@Query("type") int type);
-
+    Observable<BasicResponse<List<FansBean>>> getMyFocus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
 
 
     /**
      * 查询圈子分类
+     *
      * @return
      */
     @GET("circle/queryCircleCategorys.do")
@@ -126,6 +125,7 @@ public interface IdeaApiService {
 
     /**
      * 查询圈子分类
+     *
      * @return
      */
     @GET("circle/queryCircleIcons.do")
@@ -134,6 +134,7 @@ public interface IdeaApiService {
 
     /**
      * 创建圈子
+     *
      * @return
      */
     @GET("circle/add.do")
@@ -141,6 +142,7 @@ public interface IdeaApiService {
 
     /**
      * 删除圈子
+     *
      * @return
      */
     @POST("circle/delete.do")
@@ -149,48 +151,214 @@ public interface IdeaApiService {
 
     /**
      * 我关注的/我创建的圈子
-     * @param type 1.关注的圈子 2.创建的圈子
      *
+     * @param type 1.关注的圈子 2.创建的圈子
      */
 
-    @POST("circle/findFollowCircles.do")
-    Observable<BasicResponse> getMyCircle(@Query("user_id") String userId,@Query("page") int page,@Query("rows") int rows,@Query("type") int type);
+    @GET("circle/findFollowCircles.do")
+    Observable<BasicResponse<CircleListBean>> getMyCircle(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
 
     /**
      * 查询某个圈子中的作品
-     * @param type 1.最热 2.最新
      *
+     * @param type 1.最热 2.最新
      */
 
-    @POST("circle/queryCircleWrites.do")
-    Observable<BasicResponse> getCircleOpus(@Query("circleId") String userId,@Query("page") int page,@Query("rows") int rows,@Query("type") int type);
+    @GET("circle/queryCircleWrites.do")
+    Observable<BasicResponse> getCircleOpus(@Query("circleId") String userId, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
 
 
-
-    @POST("circle/queryById.do")
-    Observable<BasicResponse> getCircleById(@Query("user_id") String userId,@Query("circleId") String circleId,@Query("page") int page,@Query("rows") int rows);
+    @GET("circle/queryById.do")
+    Observable<BasicResponse> getCircleById(@Query("user_id") String userId, @Query("circleId") String circleId, @Query("page") int page, @Query("rows") int rows);
 
 
     /**
-     *
      * @param circleName 圈子名称   type为4时需要
-     * @param category  类别名称 type为3时需要
+     * @param category   类别名称 type为3时需要
      * @param page
      * @param rows
-     * @param type 1.根据热度获取圈子排序 2.根据时间排序 3，根据圈子类别搜索圈子 4，根据圈子名称搜索圈子
+     * @param type       1.根据热度获取圈子排序 2.根据时间排序 3，根据圈子类别搜索圈子 4，根据圈子名称搜索圈子
      * @return
      */
-    @POST("circle/queryCircles.do")
-    Observable<BasicResponse> getOrderCircle(@Query("page") int page,@Query("rows") int rows,@Query("type") int type,@Query("name") String circleName,@Query("category") String category);
+    @GET("circle/queryCircles.do")
+    Observable<BasicResponse> getOrderCircle(@Query("page") int page, @Query("rows") int rows, @Query("type") int type, @Query("name") String circleName, @Query("category") String category);
+
+    /**
+     * 查询故事标签
+     *
+     * @return
+     */
+    @GET("write/findStoryLable.do")
+    Observable<BasicResponse> getStoryLable();
+
+    /**
+     * 关注/取消关注故事
+     *
+     * @param type 1.关注 2.取消关注
+     * @return
+     */
+    @GET("write/followWrite.do")
+    Observable<BasicResponse> followStory(@Query("user_id") String userId, @Query("write_id") String storyId, @Query("type") int type);
+
+    /**
+     * 创建故事
+     *
+     * @param mapLogin 所需参数
+     * @return
+     */
+    @POST("write/save.do")
+    Observable<BasicResponse> createStory(@FieldMap Map<String, Object> mapLogin);
+
+    /**
+     * 通过id查询故事所有章节
+     *
+     * @param userId
+     * @param storyId
+     * @return
+     */
+    @GET("write/queryWriteSections.do")
+    Observable<BasicResponse> findStoryById(@Query("user_id") String userId, @Query("write_id") String storyId);
+
+    /**
+     * 最新、最热、按照名字搜索的故事，我创建的，我参与的，我关注的故事和我的草稿
+     *
+     * @param type 1,查询结果为最新故事（默认）；2，查询结果用最热故事；3，查询结果为按照名字搜索到的故事；
+     *             4，我关注的；5，我创建的；6，我参与的；7，我的草稿
+     * @return
+     */
+    @GET("write/discover.do")
+    Observable<BasicResponse> findStory(@Query("user_id") String userId, @Query("type") int type, @Query("page") int page, @Query("rows") int rows);
+
+    /**
+     * 删除草稿
+     *
+     * @param userId
+     * @return
+     */
+    @POST("write/deleteDraft.do")
+    Observable<BasicResponse> deleteDraft(@Query("user_id") String userId, @Query("write_id") int write_id);
+
+    /**
+     * 修改草稿/发布草稿
+     *
+     * @return
+     */
+    @POST("write/updateWrite.do")
+    Observable<BasicResponse> updateStory(@FieldMap Map<String, Object> mapLogin);
+
+    /**
+     * 续写章节
+     *
+     * @param mapLogin
+     * @return
+     */
+    @POST("write/updateWrite.do")
+    Observable<BasicResponse> upWrite(@FieldMap Map<String, Object> mapLogin);
+
+    /**
+     * 删除章节
+     *
+     * @return
+     */
+    @POST("write/deleteSection.do")
+    Observable<BasicResponse> deleteChapter(@Query("user_id") String user_id, @Query("section_id") String section_id);
+
+    /**
+     * 查看章节详情
+     *
+     * @param userId
+     * @return
+     */
+    @GET("write/querySectionContent.do")
+    Observable<BasicResponse> findChapter(@Query("user_id") String userId, @Query("section_id") int sectionId);
+
+    /**
+     * 章节点赞/取消章节点赞
+     *
+     * @return
+     */
+    @POST("write/updateLikeCount.do")
+    Observable<BasicResponse> priseChapter(@FieldMap Map<String, Object> mapLogin);
 
 
+    @POST("write/messagePush.do")
+    Observable<BasicResponse> getPushMessage(@FieldMap Map<String, Object> mapLogin);
+
+    /**
+     * 查看消息
+     *
+     * @return
+     */
+    @POST("write/queryJpushMsg.do")
+    Observable<BasicResponse> findJpushMsg(@Query("user_id") String user_id, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
+
+    /**
+     * 评论章节
+     *
+     * @param userId    用户id
+     * @param sectionId 章节id
+     * @param content   评论内容
+     * @return
+     */
+    @POST("comment/add.do")
+    Observable<BasicResponse<String>> comment(@Query("user_id") String userId, @Query("section_id") String sectionId, @Query("content") String content);
+
+    @POST("comment/delete.do")
+    Observable<BasicResponse<String>> deleteComment(@Query("comment_id") String comment_id, @Query("section_id") String sectionId);
+
+    /**
+     * 查看章节评论
+     *
+     * @return
+     */
+    @POST("comment/viewComment.do")
+    Observable<BasicResponse<List<CommentBean>>> getComment(@FieldMap Map<String, Object> map);
 
 
+    /**
+     * 为评论点赞
+     *
+     * @param userId     用户id
+     * @param comment_id 要点赞的评论的uid
+     * @param status     点赞/取消点赞
+     * @return
+     */
+    @POST("comment/updateLike.do")
+    Observable<BasicResponse<String>> lightComment(@Query("user_id") String userId, @Query("comment_id") String comment_id, @Query("status") String status);
 
 
+    /**
+     * 排行榜
+     *
+     * @param userId
+     * @param type   1.土豪榜  2.明星排行榜
+     * @return
+     */
+    @GET("user/rankingList.do")
+    Observable<BasicResponse<String>> getRanking(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
+
+    /**
+     * 搜索
+     *
+     * @param type 1.圈子 故事 人  2.圈子  3.故事  4 人
+     * @return
+     */
+    @GET("circle/search.do")
+    Observable<BasicResponse<String>> search(@Query("user_id") String userId, @Query("name") String name, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
+
+    @GET("user/nearbyUsers.do")
+    Observable<BasicResponse<String>> getNearbyUsers(@FieldMap Map<String, Object> mapLogin);
 
 
-
+    /**
+     * 意见反馈
+     *
+     * @param adviceMap 意见信息
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("advice/add.do")
+    Observable<BasicResponse<String>> postAdvice(@FieldMap Map<String, String> adviceMap);
 
     /**
      * 上传头像/作者照片接口
@@ -201,6 +369,7 @@ public interface IdeaApiService {
     @Multipart
     @POST("user/updatePic.do")
     Observable<BasicResponse> updateHeadPic(@Part List<MultipartBody.Part> userInfo);
+
 
     /**
      * 登陆
@@ -214,22 +383,31 @@ public interface IdeaApiService {
 
     /**
      * 第三方登录
+     *
      * @return
      */
     @FormUrlEncoded
     @POST("user/thirdPartyLogin.do")
-    Observable<BasicResponse<UserBean>> thirdPartLogin(@FieldMap Map<String,Object> map);
+    Observable<BasicResponse<UserBean>> thirdPartLogin(@FieldMap Map<String, Object> map);
 
     /**
-     * 意见反馈
+     * 忘记密码 通过手机验证修改密码
      *
-     * @param adviceMap 意见信息
+     * @param phone    手机号
+     * @param password 密码
+     * @return 修改结果
+     */
+    @POST("user/updatePwd.do")
+    Observable<BasicResponse<String>> updatePsw(@Query("phone") String phone, @Query("password") String password);
+
+    /**
+     * 验证该手机号是否注册
+     *
+     * @param phone 验证的手机号
      * @return
      */
-    @FormUrlEncoded
-    @POST("advice/add.do")
-    Observable<BasicResponse<String>> postAdvice(@FieldMap Map<String, String> adviceMap);
-
+    @GET("user/getUser.do")
+    Observable<BasicResponse> isRegistered(@Query("phone") String phone);
 
 
     /**
@@ -253,13 +431,13 @@ public interface IdeaApiService {
     Observable<BasicResponse<List<EverydayReBackBean>>> lookBack(@Query("page") int page, @Query("rows") int number);
 
 
-
     /**
      * 获取专题列表
+     *
      * @return
      */
     @GET("write/querySubjectWrites.do")
-    Observable<BasicResponse<SubjectBean>> getSubject(@Query("subject_id") int subject_id,@Query("page") int page, @Query("rows") int number);
+    Observable<BasicResponse<SubjectBean>> getSubject(@Query("subject_id") int subject_id, @Query("page") int page, @Query("rows") int number);
 
 
     /**
@@ -274,6 +452,7 @@ public interface IdeaApiService {
 
     /**
      * 添加章节
+     *
      * @param partList 添加章节参数集合
      * @return
      */
@@ -326,8 +505,6 @@ public interface IdeaApiService {
     @FormUrlEncoded
     @POST("section/updateLikeCount.do")
     Observable<BasicResponse> lightChapter(@FieldMap Map<String, String> map);
-
-
 
 
     /**
@@ -383,60 +560,9 @@ public interface IdeaApiService {
     Observable<BasicResponse<String>> addFocus(@Query("user_id") String userId, @Query("watch_user_id") String focusId);
 
 
-
-    /**
-     * 获取章节评论
-     *
-     * @param params
-     * @return
-     */
-    @GET("comment/viewComment.do")
-    Observable<BasicResponse<List<CommentBean>>> getComment(@QueryMap Map<String, String> params);
-
-    /**
-     * 评论章节
-     *
-     * @param userId    用户id
-     * @param sectionId 章节id
-     * @param content   评论内容
-     * @return
-     */
-    @POST("comment/add.do")
-    Observable<BasicResponse<String>> comment(@Query("user_id") String userId, @Query("section_id") String sectionId, @Query("content") String content);
-
-
-    /**
-     * 为评论点赞
-     *
-     * @param userId     用户id
-     * @param comment_id 要点赞的评论的uid
-     * @param status     点赞/取消点赞
-     * @return
-     */
-    @POST("comment/updateLike.do")
-    Observable<BasicResponse<String>> lightComment(@Query("user_id") String userId, @Query("comment_id") String comment_id, @Query("status") String status);
-
-    /**
-     * 忘记密码 通过手机验证修改密码
-     *
-     * @param phone    手机号
-     * @param password 密码
-     * @return 修改结果
-     */
-    @POST("user/updatePwd.do")
-    Observable<BasicResponse<String>> updatePsw(@Query("phone") String phone, @Query("password") String password);
-
-    /**
-     * 验证该手机号是否注册
-     *
-     * @param phone 验证的手机号
-     * @return
-     */
-    @GET("user/getUser.do")
-    Observable<BasicResponse> isRegistered(@Query("phone") String phone);
-
     /**
      * 添加收藏
+     *
      * @param chapterMap
      * @return
      */
@@ -445,20 +571,9 @@ public interface IdeaApiService {
     Observable<BasicResponse> addCollect(@FieldMap Map<String, String> chapterMap);
 
     @GET("banner/viewBanner.do")
-    Observable<BasicResponse<List<BannerBean>>> getBanner(@Query("page") String page,@Query("rows") String row );
+    Observable<BasicResponse<List<BannerBean>>> getBanner(@Query("page") String page, @Query("rows") String row);
 
     @FormUrlEncoded
     @POST("section/updateSection.do")
     Observable<BasicResponse> updateChapter(@FieldMap Map<String, String> chapterMap);
-
-
-
-
-
-
-
-
-
-
-
 }

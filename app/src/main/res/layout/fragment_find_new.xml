@@ -4,75 +4,83 @@
     android:layout_height="match_parent">
 
     <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/srl"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-            <com.cypoem.idea.view.MScrollView
-                android:id="@+id/scroll_view"
+        <com.cypoem.idea.view.MScrollView
+            android:id="@+id/scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true"
-                android:background="@color/white"
-                tools:context="com.cypoem.idea.fragment.FindNewFragment">
+                android:orientation="vertical">
 
-                <LinearLayout
+                <com.zhpan.viewpager.view.CircleViewPager
+                    android:id="@+id/cvp_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="180dp" />
 
-                    <com.zhpan.viewpager.view.CircleViewPager
-                        android:id="@+id/cvp_banner"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"/>
+                <!--Banner下方的GridView-->
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/gv_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_170" />
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/gv_item"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_170" />
+                <include
+                    android:id="@+id/line_recommend"
+                    layout="@layout/base_line10" />
 
-                    <include layout="@layout/base_line10" />
+                <!--热门推荐-->
+                <include layout="@layout/item_title"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_recommend"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-                    <!--热门推荐-->
-                    <include
-                        android:id="@+id/ll_recommend"
-                        layout="@layout/layout_hot_recommend" />
+                <include layout="@layout/base_line10" />
 
-                    <include layout="@layout/base_line10" />
+                <!--热门作者-->
+                <include
+                    android:id="@+id/ll_hot_author"
+                    layout="@layout/layout_follow_user" />
 
+                <include layout="@layout/base_line10" />
 
-                    <!--热门作者-->
-                    <include
-                        android:id="@+id/ll_hot_author"
-                        layout="@layout/layout_follow_user" />
+                <!--最新-->
 
-                    <include layout="@layout/base_line10" />
+                <include layout="@layout/item_title"/>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_newest"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+                <!--<include
+                    android:id="@+id/ll_new"
+                    layout="@layout/layout_hot_recommend" />-->
 
-                    <!--最新-->
-                    <include
-                        android:id="@+id/ll_new"
-                        layout="@layout/layout_hot_recommend" />
+                <include layout="@layout/base_line10" />
 
-                    <include layout="@layout/base_line10" />
+                <!--<include layout="@layout/layout_circle_intro" />
 
-                    <include layout="@layout/layout_circle_intro" />
+                <include layout="@layout/base_line10" />-->
+            </LinearLayout>
+        </com.cypoem.idea.view.MScrollView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 
-                    <include layout="@layout/base_line10" />
-                </LinearLayout>
-            </com.cypoem.idea.view.MScrollView>
-        </android.support.v4.widget.SwipeRefreshLayout>
-        <!--搜索状态栏-->
-        <include
-            android:id="@+id/ll_search_bar"
-            layout="@layout/layout_find_search_bar" />
+    <!--搜索状态栏-->
+    <include
+        android:id="@+id/ll_search_bar"
+        layout="@layout/layout_find_search_bar" />
 
-        <!--状态栏下划线-->
-        <View
-            android:id="@+id/line"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0_5"
-            android:layout_below="@id/ll_search_bar"
-            android:background="#00DDDDDD" />
+    <!--状态栏下划线-->
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0_5"
+        android:layout_below="@id/ll_search_bar"
+        android:background="#00DDDDDD" />
 
 </RelativeLayout>

@@ -76,7 +76,7 @@ public class DiscoverBean {
         private int privateStoryCount;
         private int publicStoryCount;
         private int shareCount;
-        private String status;
+        private int status;
         private int stick;
         private int storyCount;
         private String type;
@@ -164,11 +164,11 @@ public class DiscoverBean {
             this.shareCount = shareCount;
         }
 
-        public String getStatus() {
+        public int getStatus() {
             return status;
         }
 
-        public void setStatus(String status) {
+        public void setStatus(int status) {
             this.status = status;
         }
 

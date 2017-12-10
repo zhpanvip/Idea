@@ -30,6 +30,7 @@ import com.airong.core.view.PtrClassicListFooter;
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CommentAdapter;
 import com.cypoem.idea.adapter.StartReadAdapter;
+import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.event.RewriteSuccess;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleBean;
@@ -479,8 +480,8 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
         map.put("write_id", write_id);
         map.put("user_id", user_id);
         map.put("status", String.valueOf(status));
-        map.put("write_name",title);
-        map.put("type","1");
+        map.put("write_name", title);
+        map.put("type", "1");
         IdeaApi.getApiService()
                 .lightChapter(map)
                 .subscribeOn(Schedulers.io())
@@ -601,11 +602,11 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
      */
     private void getComment(int page, boolean isLoadMore) {
 
-        Map<String, String> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("section_id", section_id);
         map.put("user_id", user_id);
-        map.put("page", page + "");
-        map.put("rows", "10");
+        map.put("page", page);
+        map.put("rows", Constants.NUM);
         IdeaApi.getApiService()
                 .getComment(map)
                 .subscribeOn(Schedulers.io())
@@ -728,7 +729,6 @@ public class StartReadActivity extends BaseActivity implements View.OnClickListe
                     }
                 });
     }
-
 
 
     @Override
