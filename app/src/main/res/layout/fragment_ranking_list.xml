@@ -22,21 +22,21 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/rl_first"
                 android:layout_width="wrap_content"
                 android:layout_height="@dimen/dp_80">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <ImageView
+                    android:id="@+id/iv_head1"
                     android:layout_width="@dimen/dp_75"
                     android:layout_height="@dimen/dp_75"
-                    android:background="@drawable/login_photo"
-                    app:civ_border_color="@color/no1_pink"
-                    app:civ_border_width="@dimen/dp_2" />
+                    android:background="@drawable/login_photo" />
 
                 <ImageView
                     android:layout_width="@dimen/dp_75"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:layout_marginTop="@dimen/dp_20"
+                    android:layout_marginTop="@dimen/dp_18"
                     android:background="@drawable/t2_no1" />
 
                 <TextView
@@ -50,6 +50,7 @@
             </RelativeLayout>
 
             <TextView
+                android:id="@+id/tv_name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="韩三少"
@@ -57,6 +58,7 @@
                 android:textSize="@dimen/sp_18" />
 
             <TextView
+                android:id="@+id/tv_value1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="送出  15000"
@@ -65,6 +67,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/ll_second"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dp_10"
@@ -78,15 +81,17 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/rl_second"
                     android:layout_width="@dimen/dp_75"
                     android:layout_height="@dimen/dp_80">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <ImageView
+                        android:id="@+id/iv_head2"
                         android:layout_width="@dimen/dp_75"
                         android:layout_height="@dimen/dp_75"
-                        android:background="@drawable/login_photo"
-                        app:civ_border_color="@color/no2_orange"
-                        app:civ_border_width="@dimen/dp_2" />
+                        android:layout_alignBottom="@+id/textView11"
+                        android:layout_alignParentStart="true"
+                        android:background="@drawable/login_photo" />
 
                     <ImageView
                         android:layout_width="@dimen/dp_75"
@@ -101,11 +106,13 @@
                         android:layout_centerHorizontal="true"
                         android:layout_marginBottom="@dimen/dp_5"
                         android:text="NO.2"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:id="@+id/textView11" />
                 </RelativeLayout>
 
 
                 <TextView
+                    android:id="@+id/tv_name2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="韩三少"
@@ -113,6 +120,7 @@
                     android:textSize="@dimen/sp_18" />
 
                 <TextView
+                    android:id="@+id/tv_value2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="送出  15000"
@@ -121,6 +129,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/ll_third"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -128,15 +137,15 @@
                 android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/rl_third"
                     android:layout_width="@dimen/dp_75"
                     android:layout_height="@dimen/dp_80">
 
-                    <de.hdodenhof.circleimageview.CircleImageView
+                    <ImageView
+                        android:id="@+id/iv_head3"
                         android:layout_width="@dimen/dp_75"
                         android:layout_height="@dimen/dp_75"
-                        android:background="@drawable/login_photo"
-                        app:civ_border_color="@color/no3_purple"
-                        app:civ_border_width="@dimen/dp_2" />
+                        android:background="@drawable/login_photo"/>
 
                     <ImageView
                         android:layout_width="@dimen/dp_75"
@@ -156,6 +165,7 @@
 
 
                 <TextView
+                    android:id="@+id/tv_name3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="韩三少"
@@ -163,6 +173,7 @@
                     android:textSize="@dimen/sp_18" />
 
                 <TextView
+                    android:id="@+id/tv_value3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="送出  15000"

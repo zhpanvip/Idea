@@ -12,6 +12,7 @@ import com.cypoem.idea.module.bean.FansBean;
 import com.cypoem.idea.module.bean.LoginResponse;
 import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.PublishBean;
+import com.cypoem.idea.module.bean.RankingBean;
 import com.cypoem.idea.module.bean.SubjectBean;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
@@ -337,7 +338,7 @@ public interface IdeaApiService {
      * @return
      */
     @GET("user/rankingList.do")
-    Observable<BasicResponse<String>> getRanking(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
+    Observable<BasicResponse<List<RankingBean>>> getRanking(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
 
     /**
      * 搜索
