@@ -3,6 +3,8 @@ package com.cypoem.idea.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -15,23 +17,29 @@ import android.view.animation.LinearInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.AdapterSearchHistory;
+import com.cypoem.idea.adapter.CircleListAdapter;
 import com.cypoem.idea.adapter.CollectAdapter;
+import com.cypoem.idea.adapter.UserListAdapter;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
-import com.cypoem.idea.module.bean.HomePageBean;
+import com.cypoem.idea.module.bean.CircleBean;
 import com.cypoem.idea.module.bean.OpusBean;
+import com.cypoem.idea.module.bean.SearchBean;
 import com.cypoem.idea.module.bean.SearchHistoryBean;
+import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.module.bean.WriteBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.SearchHistoryDao;
-import com.cypoem.idea.view.GridViewForScrollView;
+import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.InScrollListView;
 import com.cypoem.idea.view.MaxByteLengthEditText;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -69,11 +77,9 @@ public class SearchActivity extends BaseActivity {
     @BindView(R.id.ll_search_history)
     LinearLayout llSearchHistory;
     @BindView(R.id.ll_search_default)
-    LinearLayout llSearch;
+    FrameLayout llSearch;
     @BindView(R.id.ll_loading)
     LinearLayout llLoading;
-    @BindView(R.id.lv_search)
-    ListView mLvSearch;
     @BindView(R.id.iv_loading)
     ImageView ivLoading;
     private CollectAdapter mAdapter;
@@ -83,6 +89,26 @@ public class SearchActivity extends BaseActivity {
     TagFlowLayout mFlowLayout;
     @BindView(R.id.ll_search)
     LinearLayout mLlSearch;
+    @BindView(R.id.rv_circle)
+    RecyclerView mRvCircle;
+    @BindView(R.id.rv_story)
+    RecyclerView mRvStory;
+    @BindView(R.id.rv_user)
+    RecyclerView mRvUsers;
+    @BindView(R.id.rl_item_title)
+    RelativeLayout mRlCircleTitle;
+    @BindView(R.id.rl_user_title)
+    RelativeLayout mRlUserTile;
+    @BindView(R.id.rl_story_title)
+    RelativeLayout mRlStoryTitle;
+    @BindView(R.id.ll_story)
+    LinearLayout mLlMoreStory;
+    @BindView(R.id.ll_user)
+    LinearLayout mLlMoreUser;
+    @BindView(R.id.ll_circle)
+    LinearLayout mLlMoreCircle;
+    CircleListAdapter mCircleAdapter;
+    UserListAdapter mUserAdapter;
 
     private TagAdapter<String> mTagAdapter;
 
@@ -94,6 +120,7 @@ public class SearchActivity extends BaseActivity {
     private int page = 1;
     private Animation mAnimation;
     private String[] labelArray;
+    private int type = 1;
 
     @Override
     protected int getLayoutId() {
@@ -133,11 +160,9 @@ public class SearchActivity extends BaseActivity {
         getSearchHistory();
         adapterHistory.setList(mListHistory);
         mListView.setAdapter(adapterHistory);
-
         mAdapter = new CollectAdapter(this, R.layout.item_collect);
         List<OpusBean> mList = new ArrayList<>();
         mAdapter.setList(mList);
-        mLvSearch.setAdapter(mAdapter);
 
         mAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate);
         LinearInterpolator linearInterpolator = new LinearInterpolator();
@@ -203,14 +228,6 @@ public class SearchActivity extends BaseActivity {
             }
         });
 
-        mLvSearch.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
-            OpusBean opusBean = mAdapter.getList().get(position);
-            String writeId = String.valueOf(opusBean.getWrite_id());
-            String authorId = opusBean.getUser_id();
-            String write_name = opusBean.getWrite_name();
-            StartReadActivity.start(SearchActivity.this, writeId, authorId, write_name);
-        });
-
         mFlowLayout.setOnTagClickListener((View view, int position, FlowLayout parent) -> {
             etSearchText.setText(labelArray[position]);
             etSearchText.setSelection(labelArray[position].length());
@@ -259,7 +276,7 @@ public class SearchActivity extends BaseActivity {
                 break;
             case R.id.tv_cancel:
                 finish();
-               // onBackPress();
+                // onBackPress();
                 break;
             case R.id.tv_clear_history:
                 clearHistory();
@@ -277,45 +294,79 @@ public class SearchActivity extends BaseActivity {
     private void getData(int page) {
         showLoading();
         IdeaApi.getApiService()
-                .getSearchData(editContent, page, Constants.NUM)
+                .search(UserInfoTools.getUserId(this), editContent, page, Constants.NUM, type)
                 .subscribeOn(Schedulers.io())
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<List<OpusBean>>>(this, false) {
+                .subscribe(new DefaultObserver<BasicResponse<SearchBean>>(this, false) {
                     @Override
-                    public void onSuccess(BasicResponse<List<OpusBean>> response) {
-                        getDataSuccess(response);
+                    public void onSuccess(BasicResponse<SearchBean> response) {
+                        SearchBean result = response.getResult();
+                        getDataSuccess(result);
                     }
 
                     @Override
-                    public void onFail(BasicResponse<List<OpusBean>> response,int code) {
-                        super.onFail(response,code);
-                        dismissLoading();
-                    }
-
-                    @Override
-                    public void onException(ExceptionReason reason) {
-                        super.onException(reason);
+                    public void dismissProgress() {
+                        super.dismissProgress();
                         dismissLoading();
                     }
                 });
     }
 
-    private void getDataSuccess(BasicResponse<List<OpusBean>> response) {
+    private void getDataSuccess(SearchBean searchBean) {
         llSearch.setVisibility(View.VISIBLE);
         dismissLoading();
-        List<OpusBean> result = response.getResult();
-        if (result != null) {
-            if (result.size() == 0) {
+        if (searchBean != null) {
+            List<CircleBean> circles = searchBean.getCircles();
+            List<UserBean> users = searchBean.getUsers();
+            List<WriteBean> writes = searchBean.getWrites();
+            if (circles.size() == 0 && users.size() == 0 && writes.size() == 0) {
                 mTvNoData.setVisibility(View.VISIBLE);
             } else {
                 mTvNoData.setVisibility(View.GONE);
             }
-            mAdapter.getList().addAll(response.getResult());
-            mAdapter.notifyDataSetChanged();
+            searchUserList(users);
+            setCircleList(circles);
+            setStoryList(writes);
+            /*mAdapter.getList().addAll(response.getResult());
+            mAdapter.notifyDataSetChanged();*/
         } else {
             mTvNoData.setVisibility(View.VISIBLE);
         }
+    }
+
+    private void setStoryList(List<WriteBean> writes) {
+        if(writes.size()<=0){
+            mRlUserTile.setVisibility(View.GONE);
+        }else if(writes.size()<=3){
+            mLlMoreUser.setVisibility(View.GONE);
+        }
+    }
+
+    private void setCircleList(List<CircleBean> circles) {
+        if(circles.size()<=0){
+            mRlUserTile.setVisibility(View.GONE);
+        }else if(circles.size()<=3){
+            mLlMoreUser.setVisibility(View.GONE);
+        }
+        CircleListAdapter adapter = new CircleListAdapter(this);
+        adapter.fillList(circles);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        mRvCircle.setLayoutManager(manager);
+        mRvCircle.setAdapter(adapter);
+    }
+
+    private void searchUserList(List<UserBean> searchBean) {
+        if(searchBean.size()<=0){
+            mRlUserTile.setVisibility(View.GONE);
+        }else if(searchBean.size()<=3){
+            mLlMoreUser.setVisibility(View.GONE);
+        }
+        UserListAdapter adapter = new UserListAdapter(this);
+        adapter.fillList(searchBean);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        mRvUsers.setLayoutManager(manager);
+        mRvUsers.setAdapter(adapter);
     }
 
     @Override

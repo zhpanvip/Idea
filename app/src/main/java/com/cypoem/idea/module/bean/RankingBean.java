@@ -22,7 +22,7 @@ public class RankingBean {
     private int enjoy_count;
     private String icon;
     private String pen_name;
-    private int rollout_count;
+    private String rollout_count;
     private String sex;
     private String user_id;
     private String watch_status;
@@ -59,11 +59,11 @@ public class RankingBean {
         this.pen_name = pen_name;
     }
 
-    public int getRollout_count() {
+    public String getRollout_count() {
         return rollout_count;
     }
 
-    public void setRollout_count(int rollout_count) {
+    public void setRollout_count(String rollout_count) {
         this.rollout_count = rollout_count;
     }
 

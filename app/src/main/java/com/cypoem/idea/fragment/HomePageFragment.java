@@ -14,6 +14,7 @@ import com.cypoem.idea.activity.CreateCircleActivity;
 import com.cypoem.idea.adapter.CircleAdapter;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.module.bean.CircleBean;
 import com.cypoem.idea.module.bean.CircleListBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
@@ -75,7 +76,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                     @Override
                     public void onSuccess(BasicResponse<CircleListBean> response) {
                         CircleListBean circleListBean = response.getResult();
-                        List<CircleListBean.CirclesBean> circles = circleListBean.getCircles();
+                        List<CircleBean> circles = circleListBean.getCircles();
                         setRecyclerView(circles);
                     }
 
@@ -87,7 +88,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                 });
     }
 
-    private void setRecyclerView(List<CircleListBean.CirclesBean> list) {
+    private void setRecyclerView(List<CircleBean> list) {
         if (list.size() <= 1) {
             mLlDefault.setVisibility(View.VISIBLE);
         } else {

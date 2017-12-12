@@ -26,7 +26,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Created by zhpan on 2017/11/11.
  */
 
-public class AdapterAuthorHList extends BaseAdapter<DiscoverBean.UsersBean, AdapterAuthorHList.AuthorHHolder> {
+public class AdapterAuthorHList extends BaseAdapter<UserBean, AdapterAuthorHList.AuthorHHolder> {
 
     public AdapterAuthorHList(Context context) {
         super(context);
@@ -39,7 +39,7 @@ public class AdapterAuthorHList extends BaseAdapter<DiscoverBean.UsersBean, Adap
 
     @Override
     public void bindCustomViewHolder(AuthorHHolder holder, int position) {
-        DiscoverBean.UsersBean usersBean = getItem(position);
+        UserBean usersBean = getItem(position);
         holder.mTvName.setText(usersBean.getPen_name());
 //        holder.mSexView.setMalePercent(usersBean.);
         // holder.mTvAddress.setText(usersBean.);

@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:focusable="true"
@@ -7,18 +6,18 @@
     android:layout_height="@dimen/mp_75">
 
     <ImageView
-        android:id="@+id/iv_hot_pic"
-        android:layout_width="@dimen/mp_58"
-        android:layout_height="@dimen/mp_50"
+        android:id="@+id/iv_head"
+        android:layout_width="@dimen/mp_35"
+        android:layout_height="@dimen/mp_35"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/mp_15"
-        android:src="@drawable/t3_head_circle" />
+        android:background="@drawable/login_photo" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_marginStart="@dimen/mp_15"
-        android:layout_toEndOf="@id/iv_hot_pic"
+        android:layout_toEndOf="@id/iv_head"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -28,7 +27,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_circle_name"
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/mp_10"
@@ -36,14 +35,11 @@
                 android:textColor="@color/gray_33"
                 android:textSize="@dimen/mp_15" />
 
-            <TextView
-                android:id="@+id/tv_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/mp_5"
-                android:background="@drawable/bg_lable_pink"
-                android:text="番外类"
-                android:textColor="#FE80B8" />
+            <com.cypoem.idea.view.SexView
+                android:id="@+id/sex_view"
+                android:layout_width="@dimen/dp_15"
+                android:layout_height="@dimen/dp_15"
+                android:layout_marginStart="@dimen/mp_5" />
 
         </LinearLayout>
 
@@ -69,10 +65,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/mp_10"
-                android:text="关注" />
+                android:text="粉丝" />
 
             <TextView
-                android:id="@+id/tv_follow_count"
+                android:id="@+id/tv_fans_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/mp_5"

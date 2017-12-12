@@ -17,7 +17,7 @@ import com.cypoem.idea.net.IdeaApiService;
  * Created by zhpan on 2017/11/25.
  */
 
-public class CircleAdapter extends BaseAdapter<CircleListBean.CirclesBean,CircleAdapter.CircleViewHolder> {
+public class CircleAdapter extends BaseAdapter<CircleBean,CircleAdapter.CircleViewHolder> {
 
 
     public CircleAdapter(Context context) {
@@ -32,7 +32,7 @@ public class CircleAdapter extends BaseAdapter<CircleListBean.CirclesBean,Circle
 
     @Override
     public void bindCustomViewHolder(CircleViewHolder holder, int position) {
-        CircleListBean.CirclesBean circlesBean = getItem(position);
+        CircleBean circlesBean = getItem(position);
         ImageLoaderUtil.loadImg( holder.mIvPic, IdeaApiService.HOST+circlesBean.getIcon());
         holder.mTvCircleName.setText(circlesBean.getName());
         holder.mLabel.setText(circlesBean.getType()+"");

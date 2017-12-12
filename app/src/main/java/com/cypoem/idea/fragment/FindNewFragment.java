@@ -37,6 +37,7 @@ import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.holder.BannerViewHolder;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.DiscoverBean;
+import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
@@ -166,7 +167,7 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
     }
 
     //  设置热门作者
-    private void setUserList(List<DiscoverBean.UsersBean> list) {
+    private void setUserList(List<UserBean> list) {
         RecyclerView recyclerView = rootView.findViewById(R.id.rv_follow_user);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -176,7 +177,7 @@ public class FindNewFragment extends BaseFragment implements MScrollView.OnScrol
         recyclerView.setAdapter(adapter);
         recyclerView.setNestedScrollingEnabled(false);
         adapter.setOnItemClickListener(position -> {
-            DiscoverBean.UsersBean usersBean = list.get(position);
+            UserBean usersBean = list.get(position);
             AuthorInfoActivity.start(getContext(), usersBean.getUser_id() + "");
         });
     }

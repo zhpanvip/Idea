@@ -1,30 +1,16 @@
 package com.cypoem.idea.fragment;
 
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.cypoem.idea.R;
-import com.cypoem.idea.activity.StartReadActivity;
 import com.cypoem.idea.activity.WelcomeActivity;
-import com.cypoem.idea.adapter.HomeAdapter;
-import com.cypoem.idea.module.BasicResponse;
-import com.cypoem.idea.module.bean.BaseOpusBean;
-import com.cypoem.idea.module.bean.HomeBean;
-import com.cypoem.idea.net.DefaultObserver;
-import com.cypoem.idea.net.IdeaApi;
 import com.zhpan.viewpager.view.CircleViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import in.srain.cube.views.ptr.PtrFrameLayout;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by zhpan on 2017/4/21.

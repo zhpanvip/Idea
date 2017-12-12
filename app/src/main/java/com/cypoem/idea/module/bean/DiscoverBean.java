@@ -11,7 +11,7 @@ public class DiscoverBean {
     private List<HostCirclesBean> hostCircles;
     private List<HostWritesBean> hostWrites;
     private List<BannersBean> banners;
-    private List<UsersBean> users;
+    private List<UserBean> users;
 
     public List<HostCirclesBean> getHostCircles() {
         return hostCircles;
@@ -37,11 +37,11 @@ public class DiscoverBean {
         this.banners = banners;
     }
 
-    public List<UsersBean> getUsers() {
+    public List<UserBean> getUsers() {
         return users;
     }
 
-    public void setUsers(List<UsersBean> users) {
+    public void setUsers(List<UserBean> users) {
         this.users = users;
     }
 
@@ -719,15 +719,15 @@ public class DiscoverBean {
         }
     }
 
-    public static class UsersBean {
-        /**
+    /*public static class UsersBean {
+        *//**
          * enjoy_count : 0
          * icon : /cys/upload/img/user/uid/icon/20171113222932162不依诗集.jpg
          * my_count : 0
          * pen_name : 匿名
          * user_id : 212345689839
          * watch_status : 0
-         */
+         *//*
 
         private int enjoy_count;
         private String icon;
@@ -783,5 +783,5 @@ public class DiscoverBean {
         public void setWatch_status(int watch_status) {
             this.watch_status = watch_status;
         }
-    }
+    }*/
 }

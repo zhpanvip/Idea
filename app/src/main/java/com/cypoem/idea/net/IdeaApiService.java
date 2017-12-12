@@ -13,6 +13,7 @@ import com.cypoem.idea.module.bean.LoginResponse;
 import com.cypoem.idea.module.bean.OpusBean;
 import com.cypoem.idea.module.bean.PublishBean;
 import com.cypoem.idea.module.bean.RankingBean;
+import com.cypoem.idea.module.bean.SearchBean;
 import com.cypoem.idea.module.bean.SubjectBean;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
@@ -347,7 +348,7 @@ public interface IdeaApiService {
      * @return
      */
     @GET("circle/search.do")
-    Observable<BasicResponse<String>> search(@Query("user_id") String userId, @Query("name") String name, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
+    Observable<BasicResponse<SearchBean>> search(@Query("user_id") String userId, @Query("name") String name, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
 
     @GET("user/nearbyUsers.do")
     Observable<BasicResponse<String>> getNearbyUsers(@FieldMap Map<String, Object> mapLogin);
@@ -530,16 +531,6 @@ public interface IdeaApiService {
      */
     @GET("section/viewUpSection.do")
     Observable<BasicResponse<List<ArticleBean>>> getArticle(@QueryMap Map<String, String> params);
-
-    /**
-     * 获取作品章节内容
-     *
-     * @param page 显示第几页
-     * @param rows 每页显示几条数据
-     * @return
-     */
-    @GET("write/viewByName.do")
-    Observable<BasicResponse<List<OpusBean>>> getSearchData(@Query("write_name") String content, @Query("page") int page, @Query("rows") int rows);
 
 
     /**

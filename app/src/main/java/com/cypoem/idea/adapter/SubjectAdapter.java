@@ -13,8 +13,6 @@ import com.airong.core.recycler.BaseAdapter;
 import com.airong.core.recycler.BaseHolder;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
-import com.cypoem.idea.module.bean.BaseOpusBean;
-import com.cypoem.idea.module.bean.HomeBean;
 import com.cypoem.idea.module.bean.SubjectBean;
 import com.cypoem.idea.net.IdeaApiService;
 

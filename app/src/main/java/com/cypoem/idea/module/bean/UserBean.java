@@ -4,7 +4,7 @@ package com.cypoem.idea.module.bean;
  * Created by zhpan on 2017/7/2.
  */
 
-public class UserBean {
+public class UserBean extends SearchBaseBean {
 
 
     /**
@@ -41,33 +41,58 @@ public class UserBean {
     private String cover_photo;
     private int create_count;
     private String dictum;
-    private String icon;
-    private int income_count;
     private String introduction;
     private int keep_count;
     private int myWatchCount;
-    private int my_count;
-    private String pen_name;
     private String phone;
     private String qq_ob;
     private String reg_date;
     private String registrationId;
-    private int rollout_count;
+    private double rollout_count;
+    private double income_count;
     private String sex;
     private int start_count;
-    private String user_id;
     private String user_status;
     private int watchMeCount;
     private String password;
     private String wb_ob;
     private String wx_pay;
+    private int enjoy_count;
+    private String icon;
+    private int my_count;
+    private String pen_name;
+    private String user_id;
+    private int watch_status;
 
-
-    public void setPassword(String password){
-        this.password=password;
+    public int getEnjoy_count() {
+        return enjoy_count;
     }
 
-    public String getPassword(){
+    public void setEnjoy_count(int enjoy_count) {
+        this.enjoy_count = enjoy_count;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void String(String user_id) {
+        this.user_id = user_id;
+    }
+
+    public int getWatch_status() {
+        return watch_status;
+    }
+
+    public void setWatch_status(int watch_status) {
+        this.watch_status = watch_status;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
         return password;
     }
 
@@ -127,11 +152,11 @@ public class UserBean {
         this.icon = icon;
     }
 
-    public int getIncome_count() {
+    public double getIncome_count() {
         return income_count;
     }
 
-    public void setIncome_count(int income_count) {
+    public void setIncome_count(double income_count) {
         this.income_count = income_count;
     }
 
@@ -207,11 +232,11 @@ public class UserBean {
         this.registrationId = registrationId;
     }
 
-    public int getRollout_count() {
+    public double getRollout_count() {
         return rollout_count;
     }
 
-    public void setRollout_count(int rollout_count) {
+    public void setRollout_count(double rollout_count) {
         this.rollout_count = rollout_count;
     }
 

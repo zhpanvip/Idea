@@ -2,6 +2,8 @@ package com.cypoem.idea.fragment;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
+import com.cypoem.idea.adapter.RankingAdapter;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.RankingBean;
@@ -84,11 +87,11 @@ public class RankingListFragment extends BaseFragment {
     @Override
     public void onRefresh() {
         super.onRefresh();
-        getData();
+        getData(true);
     }
 
     //  请求数据
-    private void getData() {
+    private void getData(boolean isRefresh) {
         IdeaApi.getApiService()
                 .getRanking(UserInfoTools.getUserId(getContext()), page, Constants.NUM, type)
                 .subscribeOn(Schedulers.io())
@@ -98,7 +101,7 @@ public class RankingListFragment extends BaseFragment {
                     @Override
                     public void onSuccess(BasicResponse<List<RankingBean>> response) {
                         List<RankingBean> result = response.getResult();
-                        getDataSuccess(result);
+                        getDataSuccess(result, isRefresh);
                     }
 
                     @Override
@@ -109,43 +112,59 @@ public class RankingListFragment extends BaseFragment {
                 });
     }
 
-    private void getDataSuccess(List<RankingBean> result) {
-        if(result.size()==1){
-           setFirst(result.get(0));
+    private void getDataSuccess(List<RankingBean> result, boolean isRefresh) {
+        if (result.size() == 1) {
+            setFirst(result.get(0));
             mLlSecond.setVisibility(View.GONE);
-        }else if(result.size()==2){
+        } else if (result.size() == 2) {
             setFirst(result.get(0));
             setSecond(result.get(1));
             mLlThird.setVisibility(View.GONE);
-        }else {
+        } else {
             setFirst(result.get(0));
             setSecond(result.get(1));
             setThird(result.get(2));
-            for(int i=0;i<result.size();i++){
-                if(i==0||i==1||i==2){
-                    continue;
+            if (isRefresh) {
+                mList.clear();
+                for (int i = 0; i < result.size(); i++) {
+                    if (i == 0 || i == 1 || i == 2) {
+                        continue;
+                    }
+                    mList.add(result.get(i));
                 }
-                mList.add(result.get(i));
+            } else {
+                mList.addAll(result);
             }
+            setRecyclerView();
         }
     }
 
+    private void setRecyclerView() {
+        RankingAdapter adapter = new RankingAdapter(getContext());
+        adapter.fillList(mList);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        mRvRanking.setLayoutManager(manager);
+        mRvRanking.setAdapter(adapter);
+        mRvRanking.setNestedScrollingEnabled(false);
+        // mRvRanking.addItemDecoration(new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL));
+    }
+
     private void setThird(RankingBean rankingBean) {
-        ImageLoaderUtil.loadCircleImg(mIvHead3, IdeaApiService.HOST+rankingBean.getIcon(),R.drawable.login_logo);
+        ImageLoaderUtil.loadCircleImg(mIvHead3, IdeaApiService.HOST + rankingBean.getIcon(), R.drawable.login_photo);
         mTvName3.setText(rankingBean.getPen_name());
-        mTvValue3.setText(type==1?"送出  ":"收获  "+rankingBean.getRollout_count());
+        mTvValue3.setText(type == 1 ? "送出  " : "收获  " + rankingBean.getRollout_count());
     }
 
     private void setSecond(RankingBean rankingBean) {
-        ImageLoaderUtil.loadCircleImg(mIvHead2, IdeaApiService.HOST+rankingBean.getIcon(),R.drawable.login_logo);
+        ImageLoaderUtil.loadCircleImg(mIvHead2, IdeaApiService.HOST + rankingBean.getIcon(), R.drawable.login_photo);
         mTvName2.setText(rankingBean.getPen_name());
-        mTvValue2.setText(type==1?"送出  ":"收获  "+rankingBean.getRollout_count());
+        mTvValue2.setText(type == 1 ? "送出  " : "收获  " + rankingBean.getRollout_count());
     }
 
-    private void setFirst(RankingBean rankingBean){
-        ImageLoaderUtil.loadCircleImg(mIvHead1, IdeaApiService.HOST+rankingBean.getIcon(),R.drawable.login_logo);
+    private void setFirst(RankingBean rankingBean) {
+        ImageLoaderUtil.loadCircleImg(mIvHead1, IdeaApiService.HOST + rankingBean.getIcon(), R.drawable.login_photo);
         mTvName1.setText(rankingBean.getPen_name());
-        mTvValue1.setText(type==1?"送出  ":"收获  "+rankingBean.getRollout_count());
+        mTvValue1.setText(type == 1 ? "送出  " : "收获  " + rankingBean.getRollout_count());
     }
 
     @Override
@@ -156,16 +175,9 @@ public class RankingListFragment extends BaseFragment {
     @Override
     protected void init(Bundle savedInstanceState) {
         Bundle arguments = getArguments();
-        type=arguments.getInt("type");
-        mList=new ArrayList<>();
+        type = arguments.getInt("type");
+        mList = new ArrayList<>();
         setRefreshLayout(true);
-    }
-
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 
     @OnClick({R.id.rl_first, R.id.rl_second, R.id.rl_third})
