@@ -61,10 +61,11 @@ public abstract class BaseActivity extends BaseCoreActivity implements SwipeRefr
         super.onCreate(savedInstanceState);
       //  setTranslucentStatus(this,true);
        // setStatusBarTransparent();
-        setStatusBarColor(R.color.white);
+       // setStatusBarColor(R.color.white);
         mRootView = View.inflate(this, R.layout.activity_base, null);
         addContent();
         setContentView(mRootView);
+        setStatusBarColor(R.color.white);
         BarUtils.StatusBarLightMode(this);
         initToolBar();
         init(savedInstanceState);

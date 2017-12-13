@@ -82,7 +82,6 @@ public class SearchActivity extends BaseActivity {
     LinearLayout llLoading;
     @BindView(R.id.iv_loading)
     ImageView ivLoading;
-    private CollectAdapter mAdapter;
     @BindView(R.id.tv_no_data)
     TextView mTvNoData;
     @BindView(R.id.fl_hot)
@@ -107,6 +106,7 @@ public class SearchActivity extends BaseActivity {
     LinearLayout mLlMoreUser;
     @BindView(R.id.ll_circle)
     LinearLayout mLlMoreCircle;
+
 
     private TagAdapter<String> mTagAdapter;
 
@@ -144,7 +144,7 @@ public class SearchActivity extends BaseActivity {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 View view = LayoutInflater.from(SearchActivity.this).inflate(R.layout.item_label2, mFlowLayout, false);
-                TextView tv = (TextView) view.findViewById(R.id.tv_label);
+                TextView tv = view.findViewById(R.id.tv_label);
                 tv.setText(s);
                 return tv;
             }
@@ -157,10 +157,7 @@ public class SearchActivity extends BaseActivity {
         mListHistory = new ArrayList<>();
         getSearchHistory();
         adapterHistory.setList(mListHistory);
-        mListView.setAdapter(adapterHistory);/*
-        mAdapter = new CollectAdapter(this, R.layout.item_collect);
-        List<OpusBean> mList = new ArrayList<>();
-        mAdapter.setList(mList);*/
+        mListView.setAdapter(adapterHistory);
 
         mAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate);
         LinearInterpolator linearInterpolator = new LinearInterpolator();
@@ -180,7 +177,7 @@ public class SearchActivity extends BaseActivity {
                 //  输入框不为空时插入数据库
                 if (!TextUtils.isEmpty(editContent)) {
                     insertHistory();
-                   // mAdapter.getList().clear();
+                    // mAdapter.getList().clear();
                     getData(page);
                 }
                 return true;
@@ -188,19 +185,16 @@ public class SearchActivity extends BaseActivity {
             return false;
         });
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                AdapterSearchHistory adapter = (AdapterSearchHistory) parent.getAdapter();
-                List<SearchHistoryBean> list = adapter.getList();
-                //  设置搜索输入框最大可以输入60个字节
-                //mBinding.etSearchText.setMaxByteLength(60);
-                String item = list.get(position).getItem();
-                etSearchText.setText(item);
-                etSearchText.setSelection(item.length());
-               // mAdapter.getList().clear();
-                getData(page);
-            }
+        mListView.setOnItemClickListener((parent, view, position, id) -> {
+            AdapterSearchHistory adapter = (AdapterSearchHistory) parent.getAdapter();
+            List<SearchHistoryBean> list = adapter.getList();
+            //  设置搜索输入框最大可以输入60个字节
+            //mBinding.etSearchText.setMaxByteLength(60);
+            String item = list.get(position).getItem();
+            etSearchText.setText(item);
+            etSearchText.setSelection(item.length());
+            // mAdapter.getList().clear();
+            getData(page);
         });
 
         etSearchText.addTextChangedListener(new TextWatcher() {
@@ -229,7 +223,7 @@ public class SearchActivity extends BaseActivity {
         mFlowLayout.setOnTagClickListener((View view, int position, FlowLayout parent) -> {
             etSearchText.setText(labelArray[position]);
             etSearchText.setSelection(labelArray[position].length());
-           // mAdapter.getList().clear();
+            // mAdapter.getList().clear();
             getData(page);
             return false;
         });
@@ -274,7 +268,6 @@ public class SearchActivity extends BaseActivity {
                 break;
             case R.id.tv_cancel:
                 finish();
-                // onBackPress();
                 break;
             case R.id.tv_clear_history:
                 clearHistory();
@@ -332,13 +325,13 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void setStoryList(List<WriteBean> writes) {
-        if(writes!=null){
+        if (writes != null) {
             if (writes.size() <= 0) {
                 mRlStoryTitle.setVisibility(View.GONE);
             } else if (writes.size() <= 3) {
                 mLlMoreStory.setVisibility(View.GONE);
             }
-        }else {
+        } else {
             mRlStoryTitle.setVisibility(View.GONE);
             mLlMoreStory.setVisibility(View.GONE);
         }
@@ -349,7 +342,7 @@ public class SearchActivity extends BaseActivity {
             mRlCircleTitle.setVisibility(View.GONE);
         } else if (circles.size() <= 3) {
             mLlMoreCircle.setVisibility(View.GONE);
-        }else {
+        } else {
             mRlCircleTitle.setVisibility(View.VISIBLE);
             mLlMoreCircle.setVisibility(View.VISIBLE);
         }
@@ -365,7 +358,7 @@ public class SearchActivity extends BaseActivity {
             mRlUserTile.setVisibility(View.GONE);
         } else if (searchBean.size() <= 3) {
             mLlMoreUser.setVisibility(View.GONE);
-        }else {
+        } else {
             mRlUserTile.setVisibility(View.VISIBLE);
             mLlMoreUser.setVisibility(View.VISIBLE);
         }
