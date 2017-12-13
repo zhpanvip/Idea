@@ -51,23 +51,20 @@ public class WritingFragment extends BaseFragment {
 
     @OnClick({R.id.fl_create_circle, R.id.fl_person_story, R.id.fl_everyday_sentence, R.id.fl_public_story})
     public void onClick(View view) {
-        Class<? extends BaseActivity> activity = null;
         switch (view.getId()) {
             case R.id.fl_create_circle:
-                activity = CreateCircleActivity.class;
+                CreateCircleActivity.start(getContext(), CreateCircleActivity.class);
                 break;
             case R.id.fl_person_story:
-                activity = CreateStoryActivity.class;
+                CreateStoryActivity.start(getContext(), CreateStoryActivity.class);
                 break;
             case R.id.fl_everyday_sentence:
-                activity = CreateEveryDayActivity.class;
+                CreateEveryDayActivity.start(getContext(), CreateEveryDayActivity.class);
                 break;
             case R.id.fl_public_story:
-                activity = CreateStoryActivity.class;
+                CreateStoryActivity.start(getContext(), CreateStoryActivity.class);
                 break;
         }
-        if (activity != null)
-            BaseActivity.start(getContext(), activity);
     }
 
    /* @OnClick({R.id.toolbar_subtitle, R.id.toolbar_title, R.id.tv_publish, R.id.tv_join})

@@ -33,7 +33,9 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".activity.MainActivity" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:theme="@style/TranslucentBarTheme" />
         <!-- <activity android:name=".activity.BaseActivity" /> -->
         <activity
             android:name=".activity.SplashActivity"

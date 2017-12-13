@@ -134,4 +134,13 @@ public class CreateCircleActivity extends BaseActivity {
                 break;
         }
     }
+
+    /**
+     * @param context      跳转起始页面
+     * @param baseActivity 跳转目的页面
+     */
+    public static void start(Context context, Class<? extends BaseActivity> baseActivity) {
+        Intent intent = new Intent(context, baseActivity);
+        context.startActivity(intent);
+    }
 }

@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -49,34 +50,34 @@ public abstract class BaseActivity extends BaseCoreActivity implements SwipeRefr
     protected static final int REQUEST_STORAGE_READ_ACCESS_PERMISSION = 101;
     protected static final int REQUEST_STORAGE_WRITE_ACCESS_PERMISSION = 102;
     protected LinearLayout parentLinearLayout;
-    //把父类activity和子类activity的view都add到这里
-    // private LinearLayout parentLinearLayout;
     private TextView mToolbarTitle;
     private TextView mToolbarSubTitle;
-    //  对话框
-    private CustomDialog dialog;
     protected PtrClassicFrameLayout mPtrFrame;
     protected SwipeRefreshLayout mRefreshLayout;
+    private View mRootView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        //getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        //setTranslucentStatus(this,true);
-        /*StatusBarManager.getInstance().setActivityWindowStyle(getWindow());
-        StatusBarManager.getInstance().setStatusBar(getWindow(), Color.TRANSPARENT);*/
-        initContentView(R.layout.activity_base);
+      //  setTranslucentStatus(this,true);
+       // setStatusBarTransparent();
         setStatusBarColor(R.color.white);
+        mRootView = View.inflate(this, R.layout.activity_base, null);
+        addContent();
+        setContentView(mRootView);
         BarUtils.StatusBarLightMode(this);
-        //  注入子Activity布局
-        setContentView(getLayoutId());
         initToolBar();
         init(savedInstanceState);
+    }
 
-        Bundle bundle = getIntent().getBundleExtra("bundle");
-        if (bundle != null) {
-            String title = bundle.getString("title");
-            setToolBarTitle(title);
+    private void addContent() {
+        FrameLayout contentView = mRootView.findViewById(R.id.fl_content);
+        View content = View.inflate(this, getLayoutId(), null);
+        if (content != null) {
+            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT);
+            contentView.addView(content, params);
+            ButterKnife.bind(this, mRootView);
         }
     }
 
@@ -211,9 +212,9 @@ public abstract class BaseActivity extends BaseCoreActivity implements SwipeRefr
     /******************************************* TollBar相关 ******************************************************/
     private void initToolBar() {
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        mToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
-        mToolbarSubTitle = (TextView) findViewById(R.id.toolbar_subtitle);
+        Toolbar mToolbar =  findViewById(R.id.toolbar);
+        mToolbarTitle =  findViewById(R.id.toolbar_title);
+        mToolbarSubTitle =  findViewById(R.id.toolbar_subtitle);
         mToolbarSubTitle.setVisibility(View.GONE);
          /*
         toolbar.setLogo(R.mipmap.ic_launcher);
@@ -329,40 +330,6 @@ public abstract class BaseActivity extends BaseCoreActivity implements SwipeRefr
 
 /******************************************* TollBar相关结束 ******************************************************/
 
-    /**
-     * 初始化contentiew
-     */
-    private void initContentView(@LayoutRes int layoutResID) {
-        ViewGroup viewGroup = (ViewGroup) getWindow().getDecorView().findViewById(android.R.id.content);
-        viewGroup.removeAllViews();
-        parentLinearLayout = (LinearLayout) LayoutInflater.from(this).inflate(layoutResID, parentLinearLayout, true);
-        viewGroup.addView(parentLinearLayout);
-    }
-
-    /**
-     * 重写setContentView方法，子类Activity会调用该方法
-     *
-     * @param layoutResID 子类布局文件的id
-     */
-    @Override
-    public void setContentView(@LayoutRes int layoutResID) {
-        //  将子类布局添加到parentLinearLayout
-        LayoutInflater.from(this).inflate(layoutResID, parentLinearLayout, true);
-        ButterKnife.bind(this);
-    }
-
-    @Override
-    public void setContentView(View view) {
-        parentLinearLayout.addView(view);
-        ButterKnife.bind(this);
-    }
-
-    @Override
-    public void setContentView(View view, ViewGroup.LayoutParams params) {
-        parentLinearLayout.addView(view, params);
-        ButterKnife.bind(this);
-    }
-
     private void setStatusBarTransparent() {
         //  把状态栏去掉
         getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -439,15 +406,6 @@ public abstract class BaseActivity extends BaseCoreActivity implements SwipeRefr
         } else {
             ActivityCompat.requestPermissions(this, new String[]{permission}, requestCode);
         }
-    }
-
-    /**
-     * @param context      跳转起始页面
-     * @param baseActivity 跳转目的页面
-     */
-    public static void start(Context context, Class<? extends BaseActivity> baseActivity) {
-        Intent intent = new Intent(context, baseActivity);
-        context.startActivity(intent);
     }
 
     /**
