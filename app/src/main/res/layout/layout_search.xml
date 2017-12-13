@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_search"
     android:layout_width="match_parent"
     android:layout_height="45dp"
-    android:id="@+id/ll_search"
     android:background="@color/toolbar_background"
     android:orientation="horizontal">
 
@@ -20,6 +20,13 @@
         android:transitionName="sharedView"
         android:weightSum="14">
 
+        <ImageView
+            android:id="@+id/search_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/t2_search" />
+
         <com.cypoem.idea.view.MaxByteLengthEditText
             android:id="@+id/et_search_text"
             android:layout_width="0dp"
@@ -30,7 +37,6 @@
             android:background="@null"
             android:hint="@string/search_hint"
             android:imeOptions="actionSearch"
-            android:paddingStart="@dimen/mp_10"
             android:singleLine="true"
             android:textColor="@color/text_theme"
             android:textColorHint="@color/text_hint"
@@ -38,20 +44,13 @@
 
 
         <ImageView
-            android:id="@+id/search_imageview"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="@dimen/mp_10"
-            android:layout_marginStart="@dimen/mp_10"
-            android:layout_weight="1"
-            android:src="@drawable/t2_search" />
-        <ImageView
             android:id="@+id/iv_clear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:src="@drawable/t5_dustbin"
+            android:layout_marginEnd="@dimen/dp_5"
+            android:src="@drawable/delete_search"
             android:visibility="gone" />
 
     </LinearLayout>

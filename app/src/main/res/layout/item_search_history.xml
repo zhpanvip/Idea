@@ -23,7 +23,6 @@
             android:layout_weight="11"
             android:textColor="@color/item_text_color"
             android:gravity="center_vertical"
-            android:text="信诚信货币"
             android:textSize="@dimen/f_15" />
 
         <ImageView
@@ -34,7 +33,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:padding="5dp"
-            android:src="@drawable/t5_dustbin" />
+            android:src="@drawable/delete_search" />
     </LinearLayout>
 
     <include layout="@layout/base_line" />

@@ -107,8 +107,6 @@ public class SearchActivity extends BaseActivity {
     LinearLayout mLlMoreUser;
     @BindView(R.id.ll_circle)
     LinearLayout mLlMoreCircle;
-    CircleListAdapter mCircleAdapter;
-    UserListAdapter mUserAdapter;
 
     private TagAdapter<String> mTagAdapter;
 
@@ -159,10 +157,10 @@ public class SearchActivity extends BaseActivity {
         mListHistory = new ArrayList<>();
         getSearchHistory();
         adapterHistory.setList(mListHistory);
-        mListView.setAdapter(adapterHistory);
+        mListView.setAdapter(adapterHistory);/*
         mAdapter = new CollectAdapter(this, R.layout.item_collect);
         List<OpusBean> mList = new ArrayList<>();
-        mAdapter.setList(mList);
+        mAdapter.setList(mList);*/
 
         mAnimation = AnimationUtils.loadAnimation(this, R.anim.rotate);
         LinearInterpolator linearInterpolator = new LinearInterpolator();
@@ -182,7 +180,7 @@ public class SearchActivity extends BaseActivity {
                 //  输入框不为空时插入数据库
                 if (!TextUtils.isEmpty(editContent)) {
                     insertHistory();
-                    mAdapter.getList().clear();
+                   // mAdapter.getList().clear();
                     getData(page);
                 }
                 return true;
@@ -200,7 +198,7 @@ public class SearchActivity extends BaseActivity {
                 String item = list.get(position).getItem();
                 etSearchText.setText(item);
                 etSearchText.setSelection(item.length());
-                mAdapter.getList().clear();
+               // mAdapter.getList().clear();
                 getData(page);
             }
         });
@@ -231,7 +229,7 @@ public class SearchActivity extends BaseActivity {
         mFlowLayout.setOnTagClickListener((View view, int position, FlowLayout parent) -> {
             etSearchText.setText(labelArray[position]);
             etSearchText.setSelection(labelArray[position].length());
-            mAdapter.getList().clear();
+           // mAdapter.getList().clear();
             getData(page);
             return false;
         });
@@ -320,7 +318,7 @@ public class SearchActivity extends BaseActivity {
             List<CircleBean> circles = searchBean.getCircles();
             List<UserBean> users = searchBean.getUsers();
             List<WriteBean> writes = searchBean.getWrites();
-            if (circles.size() == 0 && users.size() == 0 && writes.size() == 0) {
+            if (circles.size() == 0 && users.size() == 0 && writes != null && writes.size() == 0) {
                 mTvNoData.setVisibility(View.VISIBLE);
             } else {
                 mTvNoData.setVisibility(View.GONE);
@@ -328,26 +326,32 @@ public class SearchActivity extends BaseActivity {
             searchUserList(users);
             setCircleList(circles);
             setStoryList(writes);
-            /*mAdapter.getList().addAll(response.getResult());
-            mAdapter.notifyDataSetChanged();*/
         } else {
             mTvNoData.setVisibility(View.VISIBLE);
         }
     }
 
     private void setStoryList(List<WriteBean> writes) {
-        if(writes.size()<=0){
-            mRlUserTile.setVisibility(View.GONE);
-        }else if(writes.size()<=3){
-            mLlMoreUser.setVisibility(View.GONE);
+        if(writes!=null){
+            if (writes.size() <= 0) {
+                mRlStoryTitle.setVisibility(View.GONE);
+            } else if (writes.size() <= 3) {
+                mLlMoreStory.setVisibility(View.GONE);
+            }
+        }else {
+            mRlStoryTitle.setVisibility(View.GONE);
+            mLlMoreStory.setVisibility(View.GONE);
         }
     }
 
     private void setCircleList(List<CircleBean> circles) {
-        if(circles.size()<=0){
-            mRlUserTile.setVisibility(View.GONE);
-        }else if(circles.size()<=3){
-            mLlMoreUser.setVisibility(View.GONE);
+        if (circles.size() <= 0) {
+            mRlCircleTitle.setVisibility(View.GONE);
+        } else if (circles.size() <= 3) {
+            mLlMoreCircle.setVisibility(View.GONE);
+        }else {
+            mRlCircleTitle.setVisibility(View.VISIBLE);
+            mLlMoreCircle.setVisibility(View.VISIBLE);
         }
         CircleListAdapter adapter = new CircleListAdapter(this);
         adapter.fillList(circles);
@@ -357,10 +361,13 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void searchUserList(List<UserBean> searchBean) {
-        if(searchBean.size()<=0){
+        if (searchBean.size() <= 0) {
             mRlUserTile.setVisibility(View.GONE);
-        }else if(searchBean.size()<=3){
+        } else if (searchBean.size() <= 3) {
             mLlMoreUser.setVisibility(View.GONE);
+        }else {
+            mRlUserTile.setVisibility(View.VISIBLE);
+            mLlMoreUser.setVisibility(View.VISIBLE);
         }
         UserListAdapter adapter = new UserListAdapter(this);
         adapter.fillList(searchBean);

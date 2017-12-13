@@ -12,14 +12,13 @@
             android:id="@+id/rl_item_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/mp_35"
-            android:background="?android:attr/selectableItemBackground"
-            android:paddingEnd="@dimen/mp_15"
-            android:paddingStart="@dimen/mp_20">
+            android:background="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/iv_circle"
                 android:layout_width="@dimen/mp_20"
                 android:layout_height="@dimen/mp_20"
+                android:layout_marginStart="@dimen/dp_15"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dp_15"
                 android:background="@drawable/t2_jewel" />
@@ -52,11 +51,18 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_15"
                     android:src="@drawable/t2_more_arrow" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_5"
+                android:layout_alignParentBottom="true"
+                android:background="@color/line_color" />
+
         </RelativeLayout>
 
-        <include layout="@layout/base_line" />
+
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_circle"
@@ -67,14 +73,13 @@
             android:id="@+id/rl_story_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/mp_35"
-            android:background="?android:attr/selectableItemBackground"
-            android:paddingEnd="@dimen/mp_15"
-            android:paddingStart="@dimen/mp_20">
+            android:background="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/iv_story"
                 android:layout_width="@dimen/mp_20"
                 android:layout_height="@dimen/mp_20"
+                android:layout_marginStart="@dimen/dp_15"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dp_15"
                 android:background="@drawable/t2_jewel" />
@@ -88,13 +93,6 @@
                 android:text="文章"
                 android:textColor="@color/item_title_color" />
 
-            <ImageView
-                android:id="@+id/iv_story_arrow"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/t2_more_arrow" />
 
             <LinearLayout
                 android:id="@+id/ll_story"
@@ -115,11 +113,16 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_15"
                     android:src="@drawable/t2_more_arrow" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_5"
+                android:layout_alignParentBottom="true"
+                android:background="@color/line_color" />
         </RelativeLayout>
 
-        <include layout="@layout/base_line" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_story"
@@ -131,14 +134,13 @@
             android:id="@+id/rl_user_title"
             android:layout_width="match_parent"
             android:layout_height="@dimen/mp_35"
-            android:background="?android:attr/selectableItemBackground"
-            android:paddingEnd="@dimen/mp_15"
-            android:paddingStart="@dimen/mp_20">
+            android:background="?android:attr/selectableItemBackground">
 
             <ImageView
                 android:id="@+id/iv_user"
                 android:layout_width="@dimen/mp_20"
                 android:layout_height="@dimen/mp_20"
+                android:layout_marginStart="@dimen/dp_15"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="@dimen/dp_15"
                 android:background="@drawable/t2_jewel" />
@@ -171,17 +173,21 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/dp_15"
                     android:src="@drawable/t2_more_arrow" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_5"
+                android:layout_alignParentBottom="true"
+                android:background="@color/line_color" />
         </RelativeLayout>
-        <include layout="@layout/base_line"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_user"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
-        <include layout="@layout/base_line" />
 
 
     </LinearLayout>
