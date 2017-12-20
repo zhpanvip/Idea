@@ -335,6 +335,12 @@ public class SearchActivity extends BaseActivity {
             mRlStoryTitle.setVisibility(View.GONE);
             mLlMoreStory.setVisibility(View.GONE);
         }
+        ArticleAdapter adapter=new ArticleAdapter(this);
+        adapter.fillList(writes);
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        mRvStory.setLayoutManager(manager);
+        mRvStory.setAdapter(adapter);
+        mRvStory.setNestedScrollingEnabled(false);
     }
 
     private void setCircleList(List<CircleBean> circles) {
@@ -351,6 +357,7 @@ public class SearchActivity extends BaseActivity {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRvCircle.setLayoutManager(manager);
         mRvCircle.setAdapter(adapter);
+        mRvCircle.setNestedScrollingEnabled(false);
     }
 
     private void searchUserList(List<UserBean> searchBean) {
@@ -367,6 +374,7 @@ public class SearchActivity extends BaseActivity {
         LinearLayoutManager manager = new LinearLayoutManager(this);
         mRvUsers.setLayoutManager(manager);
         mRvUsers.setAdapter(adapter);
+        mRvUsers.setNestedScrollingEnabled(false);
     }
 
     @Override

@@ -50,7 +50,7 @@
 
         <Button
             android:id="@+id/btn_follow"
-            android:layout_width="@dimen/dp_60"
+            android:layout_width="@dimen/dp_70"
             android:layout_height="@dimen/dp_30"
             android:layout_marginBottom="@dimen/dp_15"
             android:layout_marginTop="@dimen/dp_10"

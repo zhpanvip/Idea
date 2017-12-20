@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_height="match_parent">
 
-    <include layout="@layout/layout_user_info"/>
+    <include layout="@layout/item_circle_info"/>
     <include layout="@layout/base_line"/>
     <TextView
         android:layout_width="wrap_content"

@@ -264,7 +264,7 @@ public class AuthorInfoActivity extends BaseActivity {
     //  关注
     private void addFocus(String focusId) {
         IdeaApi.getApiService()
-                .addFocus(UserInfoTools.getUserId(this), focusId)
+                .addFocus(UserInfoTools.getUserId(this), focusId,1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {

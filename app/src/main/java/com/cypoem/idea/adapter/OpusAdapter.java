@@ -137,7 +137,7 @@ public class OpusAdapter extends RecyclerView.Adapter<OpusAdapter.StartReadViewH
 
     private void addFocus(String focusId, TextView tvFocus) {
         IdeaApi.getApiService()
-                .addFocus(UserInfoTools.getUserId(mContext), focusId)
+                .addFocus(UserInfoTools.getUserId(mContext), focusId,1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(((StartReadActivity) mContext), true) {

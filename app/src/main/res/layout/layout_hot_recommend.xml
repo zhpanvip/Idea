@@ -2,15 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:paddingBottom="@dimen/dp_10"
     android:orientation="vertical">
 
 
-    <include layout="@layout/base_line" />
 
-    <include layout="@layout/layout_user_info" />
-    <include layout="@layout/base_line" />
+    <include layout="@layout/item_circle_info" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_hot_recommend"

@@ -13,6 +13,8 @@ import com.airong.core.recycler.BaseHolder;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.bean.DiscoverBean;
+import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.module.bean.WriteBean;
 import com.cypoem.idea.net.IdeaApiService;
 
 import java.util.List;
@@ -21,7 +23,7 @@ import java.util.List;
  * Created by zhpan on 2017/11/11.
  */
 
-public class AdapterArticleHList extends BaseAdapter<DiscoverBean.HostCirclesBean.WritesBean, AdapterArticleHList.ArticleHHolder> {
+public class AdapterArticleHList extends BaseAdapter<WriteBean, AdapterArticleHList.ArticleHHolder> {
 
 
     public AdapterArticleHList(Context context) {
@@ -35,12 +37,12 @@ public class AdapterArticleHList extends BaseAdapter<DiscoverBean.HostCirclesBea
 
     @Override
     public void bindCustomViewHolder(ArticleHHolder holder, int position) {
-        DiscoverBean.HostCirclesBean.WritesBean writesBean = getItem(position);
+        WriteBean writesBean = getItem(position);
         holder.mTvTitle.setText(writesBean.getWrite_name());
-        DiscoverBean.HostCirclesBean.WritesBean.UserBeanX user = writesBean.getUser();
+        UserBean user = writesBean.getUser();
         holder.mTvName.setText(user.getPen_name());
         holder.mTvDate.setText(writesBean.getDelivery_time());
-        holder.mTvLabel.setText(writesBean.getStoryLables().get(0).getLableName());
+       // holder.mTvLabel.setText(writesBean.getStoryLables().get(0).getLableName());
         holder.mTvContent.setText(writesBean.getIntroduction());
         holder.mTvReadCount.setText(String.valueOf(writesBean.getRead_count()));
         holder.mTvContinueCount.setText(String.valueOf(writesBean.getWriteStoryCount()));

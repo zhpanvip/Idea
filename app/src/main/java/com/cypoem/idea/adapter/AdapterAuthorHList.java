@@ -11,25 +11,46 @@ import android.widget.TextView;
 import com.airong.core.recycler.BaseAdapter;
 import com.airong.core.recycler.BaseHolder;
 import com.airong.core.utils.ImageLoaderUtil;
+import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
+import com.cypoem.idea.event.FollowSuccess;
+import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.DiscoverBean;
 import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.net.DefaultObserver;
+import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.net.IdeaApiService;
+import com.cypoem.idea.utils.UserInfoTools;
 import com.cypoem.idea.view.SexView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by zhpan on 2017/11/11.
  */
 
 public class AdapterAuthorHList extends BaseAdapter<UserBean, AdapterAuthorHList.AuthorHHolder> {
+    private Context mContext;
+    private FollowListener mFollowListener;
+
+    public void setFollowListener(FollowListener followListener) {
+        mFollowListener = followListener;
+    }
+
+    public interface FollowListener {
+        void onFollowButtonClick(int position, int type);
+    }
 
     public AdapterAuthorHList(Context context) {
         super(context);
+        mContext = context;
     }
 
     @Override
@@ -41,17 +62,18 @@ public class AdapterAuthorHList extends BaseAdapter<UserBean, AdapterAuthorHList
     public void bindCustomViewHolder(AuthorHHolder holder, int position) {
         UserBean usersBean = getItem(position);
         holder.mTvName.setText(usersBean.getPen_name());
-//        holder.mSexView.setMalePercent(usersBean.);
-        // holder.mTvAddress.setText(usersBean.);
         ImageLoaderUtil.loadImg(holder.mIvHeader, IdeaApiService.HOST + usersBean.getIcon());
 
         int watch_status = usersBean.getWatch_status();
-        if(watch_status==1){
+        double sex = Double.parseDouble(usersBean.getSex());
+        holder.mSexView.setMalePercent(1 - sex);
+        if (watch_status == 1) {
             holder.mBtn.setText("已关注");
-        }else {
+            holder.mBtn.setOnClickListener(v -> mFollowListener.onFollowButtonClick(position, 0));
+        } else {
             holder.mBtn.setText("关注");
+            holder.mBtn.setOnClickListener(v -> mFollowListener.onFollowButtonClick(position, 1));
         }
-
         holder.mCardView.setOnClickListener(v -> clickListener.onItemClick(position));
     }
 
@@ -74,8 +96,8 @@ public class AdapterAuthorHList extends BaseAdapter<UserBean, AdapterAuthorHList
             mIvHeader = getView(R.id.iv_header);
             mSexView = getView(R.id.sex_view);
             mTvAddress = getView(R.id.tv_address);
-            mTvName=getView(R.id.tv_name);
-            mCardView=getView(R.id.cv_author);
+            mTvName = getView(R.id.tv_name);
+            mCardView = getView(R.id.cv_author);
         }
     }
 }

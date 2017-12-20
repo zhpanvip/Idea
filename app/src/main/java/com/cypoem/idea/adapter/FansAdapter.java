@@ -9,6 +9,7 @@ import com.airong.core.adapter.CommonViewHolder;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.bean.FansBean;
+import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.net.IdeaApiService;
 import com.cypoem.idea.view.SexView;
 
@@ -19,14 +20,14 @@ import java.util.List;
  *
  */
 
-public class FansAdapter extends CommonAdapter<FansBean> {
+public class FansAdapter extends CommonAdapter<UserBean> {
 
     public FansAdapter(Context context, int layoutId) {
         super(context, layoutId);
     }
 
     @Override
-    public void convert(CommonViewHolder holder, FansBean fansBean, List<FansBean> list) {
+    public void convert(CommonViewHolder holder, UserBean fansBean, List<UserBean> list) {
         ImageView ivHead=holder.getView(R.id.iv_head_pic);
         TextView tvName=holder.getView(R.id.tv_name);
         TextView tvSign=holder.getView(R.id.tv_sign);

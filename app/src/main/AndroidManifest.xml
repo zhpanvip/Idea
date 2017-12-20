@@ -103,6 +103,8 @@
         <activity
             android:name=".activity.WelcomeActivity"
             android:theme="@style/TranslucentBarTheme" />
+        <activity android:name=".activity.CircleActivity" />
+        <activity android:name=".activity.NewestArticleActivity"></activity>
     </application>
 
 </manifest>

@@ -13,6 +13,8 @@ import com.airong.core.recycler.BaseHolder;
 import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.module.bean.DiscoverBean;
+import com.cypoem.idea.module.bean.HotCircleBean;
+import com.cypoem.idea.module.bean.WriteBean;
 import com.cypoem.idea.net.IdeaApiService;
 
 import java.util.List;
@@ -22,12 +24,14 @@ import java.util.List;
  * 发现页面热门推荐RecyclerView的Adapter
  */
 
-public class AdapterRecommend extends BaseAdapter<DiscoverBean.HostCirclesBean, AdapterRecommend.ViewHolder> {
+public class AdapterRecommend extends BaseAdapter<HotCircleBean, AdapterRecommend.ViewHolder> {
     private Context mContext;
+    private int type;
 
-    public AdapterRecommend(Context context) {
+    public AdapterRecommend(Context context,int type) {
         super(context);
         mContext = context;
+        this.type=type;
     }
 
     @Override
@@ -38,13 +42,16 @@ public class AdapterRecommend extends BaseAdapter<DiscoverBean.HostCirclesBean, 
 
     @Override
     public void bindCustomViewHolder(ViewHolder holder, int position) {
-        DiscoverBean.HostCirclesBean hotCirclesBean = getItem(position);
+        HotCircleBean hotCirclesBean = getItem(position);
         ImageLoaderUtil.loadImg(holder.mIvHeader, IdeaApiService.HOST + hotCirclesBean.getIcon());
         holder.mTvCircleName.setText(hotCirclesBean.getName());
         holder.mTvStoryCount.setText(String.valueOf(hotCirclesBean.getStoryCount()));
         holder.mTvFollowCount.setText(String.valueOf(hotCirclesBean.getShareCount()));
-        List<DiscoverBean.HostCirclesBean.WritesBean> writes = hotCirclesBean.getWrites();
-        if (writes == null || writes.size() == 0) {
+        List<WriteBean> writes = hotCirclesBean.getWrites();
+
+
+
+        if (writes == null || writes.size() == 0||type==1) {
             holder.mRecyclerView.setVisibility(View.GONE);
         } else {
             holder.mRecyclerView.setVisibility(View.VISIBLE);

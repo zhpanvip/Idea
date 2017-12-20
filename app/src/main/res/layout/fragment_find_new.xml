@@ -51,8 +51,6 @@
                     android:id="@+id/rl_hot_author"
                     layout="@layout/item_title" />
 
-                <include layout="@layout/base_line" />
-
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_follow_user"
                     android:layout_width="match_parent"
@@ -64,7 +62,7 @@
                 <include
                     android:id="@+id/ll_title_newest"
                     layout="@layout/item_title" />
-                <include layout="@layout/base_line" />
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_newest"
                     android:layout_width="match_parent"

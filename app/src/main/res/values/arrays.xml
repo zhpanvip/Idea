@@ -55,6 +55,11 @@
         <item>收获赞赏榜</item>
     </string-array>
 
+    <string-array name="circle_type">
+        <item>热门圈子</item>
+        <item>最新圈子</item>
+    </string-array>
+
 
     <string-array name="gv_find_text">
         <item>排行榜</item>

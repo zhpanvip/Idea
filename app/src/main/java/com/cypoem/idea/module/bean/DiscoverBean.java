@@ -8,16 +8,16 @@ import java.util.List;
 
 public class DiscoverBean {
 
-    private List<HostCirclesBean> hostCircles;
+    private List<HotCircleBean> hostCircles;
     private List<HostWritesBean> hostWrites;
     private List<BannersBean> banners;
     private List<UserBean> users;
 
-    public List<HostCirclesBean> getHostCircles() {
+    public List<HotCircleBean> getHostCircles() {
         return hostCircles;
     }
 
-    public void setHostCircles(List<HostCirclesBean> hostCircles) {
+    public void setHostCircles(List<HotCircleBean> hostCircles) {
         this.hostCircles = hostCircles;
     }
 

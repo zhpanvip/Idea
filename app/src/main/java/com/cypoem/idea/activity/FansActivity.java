@@ -13,13 +13,15 @@ import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.FansAdapter;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
-import com.cypoem.idea.module.bean.FansBean;
+import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.module.bean.UserList;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
-import com.cypoem.idea.utils.UserInfoTools;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import in.srain.cube.views.ptr.PtrFrameLayout;
@@ -53,7 +55,7 @@ public class FansActivity extends BaseActivity {
     private void setListener() {
         lvFans.setOnItemClickListener((AdapterView<?> parent, View view, int position, long id) -> {
             FansAdapter adapter = (FansAdapter) parent.getAdapter();
-            List<FansBean> list = adapter.getList();
+            List<UserBean> list = adapter.getList();
             AuthorInfoActivity.start(FansActivity.this, list.get(position).getUserId());
 
         });
@@ -69,7 +71,7 @@ public class FansActivity extends BaseActivity {
         else if (type == Constants.FOLLOWS)
             setToolBarTitle("粉丝");
 
-        List<FansBean> mList = new ArrayList<>();
+        List<UserBean> mList = new ArrayList<>();
         mAdapter = new FansAdapter(this, R.layout.item_fans);
         mAdapter.setList(mList);
         lvFans.setAdapter(mAdapter);
@@ -110,40 +112,45 @@ public class FansActivity extends BaseActivity {
     private void getData(boolean isRefresh, int currentPage) {
         if (type == Constants.FOCUS) {
             IdeaApi.getApiService()
-                    .getMyFocus(userId, currentPage, Constants.NUM,2)
+                    .getMyFocus(userId, currentPage, Constants.NUM, type)
                     .subscribeOn(Schedulers.io())
                     .compose(bindToLifecycle())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new DefaultObserver<BasicResponse<List<FansBean>>>(this, false) {
+                    .subscribe(new DefaultObserver<BasicResponse<UserList>>(this, false) {
                         @Override
-                        public void onSuccess(BasicResponse<List<FansBean>> response) {
+                        public void onSuccess(BasicResponse<UserList> response) {
                             getDataSuccess(response, isRefresh);
                         }
                     });
-        } else if (type == Constants.FOLLOWS) {
+        } else if (type == Constants.HOT_AUTHOR) {
+            Map<String, Object> params = new HashMap<>();
+            params.put("page", page);
+            params.put("rows", Constants.NUM);
+            params.put("type", 1);
             IdeaApi.getApiService()
-                    .getMyFollows(userId, currentPage, Constants.NUM)
+                    .getHotUsers(params)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new DefaultObserver<BasicResponse<List<FansBean>>>(this, true) {
+                    .subscribe(new DefaultObserver<BasicResponse<UserList>>(this, true) {
                         @Override
-                        public void onSuccess(BasicResponse<List<FansBean>> response) {
+                        public void onSuccess(BasicResponse<UserList> response) {
                             getDataSuccess(response, isRefresh);
                         }
                     });
         }
     }
 
-    private void getDataSuccess(BasicResponse<List<FansBean>> response, boolean isRefresh) {
-        if (response.getResult().size() < Constants.NUM) {
+    private void getDataSuccess(BasicResponse<UserList> response, boolean isRefresh) {
+        List<UserBean> users = response.getResult().getUsers();
+        if (users.size() < Constants.NUM) {
             mPtrFrame.setMode(PtrFrameLayout.Mode.REFRESH);
         } else {
             mPtrFrame.setMode(PtrFrameLayout.Mode.BOTH);
         }
         page++;
-        mAdapter.getList().addAll(response.getResult());
+        mAdapter.getList().addAll(users);
         mAdapter.notifyDataSetChanged();
-        if (response.getResult().size() == 0 && isRefresh) {
+        if (users.size() == 0 && isRefresh) {
             mLlDefault.setVisibility(View.VISIBLE);
             if (type == Constants.FOLLOWS)
                 mTvNoData.setText("没有粉丝");

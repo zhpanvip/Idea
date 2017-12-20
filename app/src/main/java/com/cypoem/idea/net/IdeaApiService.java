@@ -2,8 +2,10 @@ package com.cypoem.idea.net;
 
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleBean;
+import com.cypoem.idea.module.bean.ArticleListBean;
 import com.cypoem.idea.module.bean.BannerBean;
 import com.cypoem.idea.module.bean.CircleListBean;
+import com.cypoem.idea.module.bean.CircleResponse;
 import com.cypoem.idea.module.bean.CreateCircleResponse;
 import com.cypoem.idea.module.bean.DiscoverBean;
 import com.cypoem.idea.module.bean.CommentBean;
@@ -16,6 +18,7 @@ import com.cypoem.idea.module.bean.RankingBean;
 import com.cypoem.idea.module.bean.SearchBean;
 import com.cypoem.idea.module.bean.SubjectBean;
 import com.cypoem.idea.module.bean.UserBean;
+import com.cypoem.idea.module.bean.UserList;
 import com.cypoem.idea.module.wrapper.ChaptersWrapper;
 
 import java.util.List;
@@ -112,10 +115,10 @@ public interface IdeaApiService {
      * @param rows   每页显示几条数据
      * @param userId 登陆用户id
      * @param type   1.关注的用户，2。我的粉丝
-     * @return
+     * @returnf
      */
     @GET("watch/myWatchUsers.do")
-    Observable<BasicResponse<List<FansBean>>> getMyFocus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
+    Observable<BasicResponse<UserList>> getMyFocus(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
 
 
     /**
@@ -185,7 +188,7 @@ public interface IdeaApiService {
      * @return
      */
     @GET("circle/queryCircles.do")
-    Observable<BasicResponse> getOrderCircle(@Query("page") int page, @Query("rows") int rows, @Query("type") int type, @Query("name") String circleName, @Query("category") String category);
+    Observable<BasicResponse<CircleResponse>> getOrderCircle(@Query("page") int page, @Query("rows") int rows, @Query("type") int type, @Query("name") String circleName, @Query("category") String category);
 
     /**
      * 查询故事标签
@@ -231,7 +234,7 @@ public interface IdeaApiService {
      * @return
      */
     @GET("write/discover.do")
-    Observable<BasicResponse> findStory(@Query("user_id") String userId, @Query("type") int type, @Query("page") int page, @Query("rows") int rows);
+    Observable<BasicResponse<ArticleListBean>> findStory(@Query("user_id") String userId, @Query("type") int type, @Query("page") int page, @Query("rows") int rows);
 
     /**
      * 删除草稿
@@ -350,8 +353,9 @@ public interface IdeaApiService {
     @GET("circle/search.do")
     Observable<BasicResponse<SearchBean>> search(@Query("user_id") String userId, @Query("name") String name, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
 
-    @GET("user/nearbyUsers.do")
-    Observable<BasicResponse<String>> getNearbyUsers(@FieldMap Map<String, Object> mapLogin);
+    @FormUrlEncoded
+    @POST("user/nearbyUsers.do")
+    Observable<BasicResponse<UserList>> getHotUsers(@FieldMap Map<String, Object> params);
 
 
     /**
@@ -548,10 +552,11 @@ public interface IdeaApiService {
      *
      * @param userId  用户id
      * @param focusId 关注用户的id
+     * @param type    0.取消关注 1.添加关注
      * @return
      */
-    @POST("watch/add.do")
-    Observable<BasicResponse<String>> addFocus(@Query("user_id") String userId, @Query("watch_user_id") String focusId);
+    @POST("watch/followUser.do")
+    Observable<BasicResponse<String>> addFocus(@Query("user_id") String userId, @Query("watch_user_id") String focusId, @Query("type") int type);
 
 
     /**
