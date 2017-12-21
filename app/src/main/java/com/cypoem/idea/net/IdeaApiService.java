@@ -71,7 +71,7 @@ public interface IdeaApiService {
      * @return
      */
     @GET("user/viewUserInfo.do")
-    Observable<BasicResponse<UserBean>> getUserInfo(@Query("watch_user_id") String viewUserId, @Query("user_id") String user_id);
+    Observable<BasicResponse<LoginResponse>> getUserInfo(@Query("watch_user_id") String viewUserId, @Query("user_id") String user_id);
 
 
     /**
@@ -163,7 +163,7 @@ public interface IdeaApiService {
      */
 
     @GET("circle/findFollowCircles.do")
-    Observable<BasicResponse<CircleListBean>> getMyCircle(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
+    Observable<BasicResponse<CircleResponse>> getMyCircle(@Query("user_id") String userId, @Query("page") int page, @Query("rows") int rows, @Query("type") int type);
 
     /**
      * 查询某个圈子中的作品

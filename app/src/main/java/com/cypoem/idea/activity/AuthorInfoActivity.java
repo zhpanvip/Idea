@@ -28,6 +28,7 @@ import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.event.FollowSuccess;
 import com.cypoem.idea.fragment.AuthorFragment;
 import com.cypoem.idea.module.BasicResponse;
+import com.cypoem.idea.module.bean.LoginResponse;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
@@ -61,7 +62,7 @@ import static com.cypoem.idea.constants.Constants.TAG;
 public class AuthorInfoActivity extends BaseActivity {
 
     @BindView(R.id.iv_author)
-    CircleImageView mIvAuthor;
+    ImageView mIvAuthor;
     @BindView(R.id.tv_pen_name)
     TextView mTvPenName;
     @BindView(R.id.sex_view)
@@ -72,6 +73,8 @@ public class AuthorInfoActivity extends BaseActivity {
     TextView mTvFocus;
     @BindView(R.id.tv_follow)
     TextView mTvFollow;
+    @BindView(R.id.tv_message)
+    TextView mTvMessage;
     @BindView(R.id.tv_like)
     TextView mTvLike;
     @BindView(R.id.tv_fans)
@@ -136,7 +139,7 @@ public class AuthorInfoActivity extends BaseActivity {
     }
 
     private void setUserData(UserBean user) {
-        ImageLoaderUtil.loadImg(mIvAuthor, IdeaApiService.HOST + user.getIcon(), R.drawable.t3_head_people);
+        ImageLoaderUtil.loadCircleImg(mIvAuthor, IdeaApiService.HOST + user.getIcon(), R.drawable.login_photo);
         mTvPenName.setText(user.getPen_name());
         String sex = user.getSex();
         mSexView.setMalePercent(sex);
@@ -144,7 +147,11 @@ public class AuthorInfoActivity extends BaseActivity {
         mTvIntroduce.setText(user.getIntroduction());
         mTvFans.setText(String.valueOf(user.getWatchMeCount()));
         mTvFocus.setText(String.valueOf(user.getMyWatchCount()));
-       // mTvLike.setText(String.valueOf(user.getEnjoy_count()));
+        if (userBean.getWatch_status() == 0) {
+            mTvFollow.setText("关注");
+        } else {
+            mTvFollow.setText("已关注");
+        }
     }
 
     private void setListener() {
@@ -175,16 +182,11 @@ public class AuthorInfoActivity extends BaseActivity {
                 .subscribeOn(Schedulers.io())
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<UserBean>>(this, showLoading) {
+                .subscribe(new DefaultObserver<BasicResponse<LoginResponse>>(this, showLoading) {
                     @Override
-                    public void onSuccess(BasicResponse<UserBean> response) {
-                        userBean = response.getResult();
+                    public void onSuccess(BasicResponse<LoginResponse> response) {
+                        userBean = response.getResult().getUserBean();
                         mTvFollow.setVisibility(View.VISIBLE);
-                        /*if (userBean.getWatch_status() == 0) {
-                            mTvFollow.setText("关注");
-                        } else {
-                            mTvFollow.setText("已关注");
-                        }*/
                         setUserData(userBean);
                     }
                 });
@@ -194,8 +196,6 @@ public class AuthorInfoActivity extends BaseActivity {
         Intent intent = getIntent();
         userId = intent.getStringExtra("userId");
         mList = new ArrayList<>();
-        /*Bundle bundle = new Bundle();
-        bundle.putString("userId",userId);*/
         AuthorFragment fragmentStart = AuthorFragment.getFragment(Constants.MY_START_OPUS, userId);
         AuthorFragment fragmentJoin = AuthorFragment.getFragment(Constants.MY_JOIN_OPUS, userId);
         AuthorFragment fragmentCreate = AuthorFragment.getFragment(Constants.MY_OWN_OPUS, userId);
@@ -254,17 +254,32 @@ public class AuthorInfoActivity extends BaseActivity {
 
 
     private void follow() {
-       /* if (userBean.getWatch_status() == 1) {
-            cancelFocus(userBean.getUserId());
+        if (userBean.getWatch_status() == 1) {
+            addFocus(0);
         } else {
-            addFocus(userBean.getUserId());
-        }*/
+            addFocus(1);
+        }
+    }
+
+    private void addFocus(int type) {
+        IdeaApi.getApiService()
+                .addFocus(UserInfoTools.getUserId(this), userBean.getUser_id(), type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new DefaultObserver<BasicResponse<String>>(this) {
+                    @Override
+                    public void onSuccess(BasicResponse<String> response) {
+                        ToastUtils.show(response.getMsg());
+                        userBean.setWatch_status(type);
+                        setUserData(userBean);
+                    }
+                });
     }
 
     //  关注
     private void addFocus(String focusId) {
         IdeaApi.getApiService()
-                .addFocus(UserInfoTools.getUserId(this), focusId,1)
+                .addFocus(UserInfoTools.getUserId(this), focusId, 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DefaultObserver<BasicResponse<String>>(this, true) {
@@ -273,7 +288,7 @@ public class AuthorInfoActivity extends BaseActivity {
                         ToastUtils.show(response.getMsg());
                         mTvFollow.setText("已关注");
                         //userBean.setWatch_status(1);
-                        int followCount=userBean.getMyWatchCount()+1;
+                        int followCount = userBean.getMyWatchCount() + 1;
                         userBean.setMyWatchCount(followCount);
                         EventBus.getDefault().post(new FollowSuccess(followCount));
                     }
@@ -291,8 +306,8 @@ public class AuthorInfoActivity extends BaseActivity {
                     public void onSuccess(BasicResponse<String> response) {
                         ToastUtils.show(response.getMsg());
                         mTvFollow.setText(R.string.focus);
-                       // userBean.setWatch_status(0);
-                        userBean.setMyWatchCount(userBean.getMyWatchCount()-1);
+                        // userBean.setWatch_status(0);
+                        userBean.setMyWatchCount(userBean.getMyWatchCount() - 1);
                         EventBus.getDefault().post(new FollowSuccess(userBean.getMyWatchCount()));
                     }
                 });

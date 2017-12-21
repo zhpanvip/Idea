@@ -190,7 +190,9 @@
 
             <include layout="@layout/base_line10" />
 
-            <RelativeLayout style="@style/item_me">
+            <RelativeLayout
+                android:id="@+id/rl_my_circle"
+                style="@style/item_me">
 
                 <ImageView
                     android:id="@+id/iv_create_circle"
@@ -225,7 +227,9 @@
 
             <include layout="@layout/base_line" />
 
-            <RelativeLayout style="@style/item_me">
+            <RelativeLayout
+                android:id="@+id/rl_focus_circle"
+                style="@style/item_me">
 
                 <ImageView
                     android:id="@+id/iv_follow_circle"

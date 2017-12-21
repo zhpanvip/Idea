@@ -67,7 +67,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
 
     //  请求数据
     private void getData() {
-        IdeaApi.getApiService()
+       /* IdeaApi.getApiService()
                 .getMyCircle(UserInfoTools.getUserId(getContext()), page, Constants.NUM, 1)
                 .subscribeOn(Schedulers.io())
                 .compose(bindToLifecycle())
@@ -85,7 +85,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                         super.dismissProgress();
                         refreshLayout.setRefreshing(false);
                     }
-                });
+                });*/
     }
 
     private void setRecyclerView(List<CircleBean> list) {

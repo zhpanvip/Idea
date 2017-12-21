@@ -9,22 +9,19 @@ import android.support.v4.view.ViewPager;
 
 import com.cypoem.idea.R;
 import com.cypoem.idea.adapter.CommonFragmentAdapter;
-import com.cypoem.idea.fragment.CircleFragment;
+import com.cypoem.idea.fragment.MyCircleFragment;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 
-public class CircleActivity extends BaseActivity {
-    public static final int HOT_CIRCLE = 0;
-    public static final int MY_CIRCLE = 1;
-    public static final int MY_FOCUS_CIRCLE = 2;
-
+public class MyCircleActivity extends BaseActivity {
 
     @BindView(R.id.tl_find)
     TabLayout mTabLayout;
     @BindView(R.id.vp_circle)
     ViewPager mViewPager;
+    private int position;
 
     @Override
     protected int getLayoutId() {
@@ -33,14 +30,16 @@ public class CircleActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        position = intent.getIntExtra("position", 0);
         setViewPager();
     }
 
     private void setViewPager() {
-        String[] mTitleList = getApplication().getResources().getStringArray(R.array.circle_type);
-        ArrayList<CircleFragment> mList = new ArrayList<>();
-        mList.add(CircleFragment.getFragment(CircleFragment.HOT));
-        mList.add(CircleFragment.getFragment(CircleFragment.TIME));
+        String[] mTitleList = getApplication().getResources().getStringArray(R.array.my_circle);
+        ArrayList<MyCircleFragment> mList = new ArrayList<>();
+        mList.add(MyCircleFragment.getFragment(MyCircleFragment.MY_CIRCLE));
+        mList.add(MyCircleFragment.getFragment(MyCircleFragment.FOCUS_CIRCLE));
         FragmentManager fragmentManager = getSupportFragmentManager();
         CommonFragmentAdapter mFragmentAdapter = new CommonFragmentAdapter(fragmentManager, this);
         mFragmentAdapter.setFragmentList(mList);
@@ -48,10 +47,12 @@ public class CircleActivity extends BaseActivity {
         mViewPager.setAdapter(mFragmentAdapter);
         mViewPager.setCurrentItem(0);
         mTabLayout.setupWithViewPager(mViewPager);
+        mViewPager.setCurrentItem(position);
     }
 
-    public static void start(Context context) {
-        Intent intent = new Intent(context, CircleActivity.class);
+    public static void start(Context context, int position) {
+        Intent intent = new Intent(context, MyCircleActivity.class);
+        intent.putExtra("position", position);
         context.startActivity(intent);
     }
 }

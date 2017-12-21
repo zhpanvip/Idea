@@ -15,6 +15,7 @@ import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.AuthorInfoActivity;
 import com.cypoem.idea.activity.FansActivity;
+import com.cypoem.idea.activity.MyCircleActivity;
 import com.cypoem.idea.activity.PraiseActivity;
 import com.cypoem.idea.activity.SettingActivity;
 import com.cypoem.idea.constants.Constants;
@@ -56,7 +57,7 @@ public class MeNewFragment extends BaseFragment {
     TextView mTvFans;
 
 
-    @OnClick({R.id.rl_user, R.id.ll_follow, R.id.ll_fans, R.id.ll_reward})
+    @OnClick({R.id.rl_user, R.id.ll_follow, R.id.ll_fans, R.id.ll_reward,R.id.rl_focus_circle,R.id.rl_my_circle})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_user:
@@ -70,6 +71,12 @@ public class MeNewFragment extends BaseFragment {
                 break;
             case R.id.ll_reward:
                 PraiseActivity.start(getContext());
+                break;
+            case R.id.rl_focus_circle:
+                MyCircleActivity.start(getContext(),1);
+                break;
+            case R.id.rl_my_circle:
+                MyCircleActivity.start(getContext(),0);
                 break;
         }
     }

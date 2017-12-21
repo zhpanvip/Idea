@@ -12,6 +12,7 @@ import com.cypoem.idea.module.bean.CircleBean;
 import com.cypoem.idea.module.bean.CircleResponse;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
+import com.cypoem.idea.utils.UserInfoTools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,19 +25,18 @@ import io.reactivex.schedulers.Schedulers;
  * Created by zhpan on 2017/12/20.
  */
 
-public class CircleFragment extends BaseFragment {
+public class MyCircleFragment extends BaseFragment {
 
-    public static final int TIME = 2;
-    public static final int HOT = 1;
+    public static final int FOCUS_CIRCLE = 2;
+    public static final int MY_CIRCLE = 1;
 
     @BindView(R.id.rv_circle)
     RecyclerView mRecyclerView;
     private int page = 1;
     private int type;
-    private ArrayList mList;
 
-    public static CircleFragment getFragment(int type) {
-        CircleFragment fragment = new CircleFragment();
+    public static MyCircleFragment getFragment(int type) {
+        MyCircleFragment fragment = new MyCircleFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("type", type);
         fragment.setArguments(bundle);
@@ -52,14 +52,10 @@ public class CircleFragment extends BaseFragment {
     protected void init(Bundle savedInstanceState) {
         Bundle arguments = getArguments();
         type = arguments.getInt("type");
-        mList = new ArrayList<>();
         setRefreshLayout(true);
     }
 
-
-    //  热门推荐
     private void setCircleList(List<CircleBean> hostWrites) {
-
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -72,7 +68,7 @@ public class CircleFragment extends BaseFragment {
     //  请求数据
     private void getData() {
         IdeaApi.getApiService()
-                .getOrderCircle(page, Constants.NUM, type, "", "")
+                .getMyCircle(UserInfoTools.getUserId(getContext()),page, Constants.NUM, type)
                 .subscribeOn(Schedulers.io())
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())

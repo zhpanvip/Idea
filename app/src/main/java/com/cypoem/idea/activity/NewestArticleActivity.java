@@ -6,18 +6,14 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.airong.core.utils.ToastUtils;
 import com.cypoem.idea.R;
 import com.cypoem.idea.constants.Constants;
-import com.cypoem.idea.event.FollowSuccess;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.ArticleListBean;
 import com.cypoem.idea.module.bean.WriteBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.List;
 

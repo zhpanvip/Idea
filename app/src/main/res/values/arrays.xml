@@ -59,7 +59,10 @@
         <item>热门圈子</item>
         <item>最新圈子</item>
     </string-array>
-
+    <string-array name="my_circle">
+        <item>我的圈子</item>
+        <item>关注圈子</item>
+    </string-array>
 
     <string-array name="gv_find_text">
         <item>排行榜</item>
