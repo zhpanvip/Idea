@@ -9,7 +9,6 @@ public interface Constants {
 
     int REQUEST_SELECT_PICTURE = 0x01;
     String TAG = "CropImage";
-    String SAMPLE_CROPPED_IMAGE_NAME = "CropImage";
     /**
      * 关于我们
      */

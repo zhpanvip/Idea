@@ -26,32 +26,39 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/iv_circle_icon"
-                android:layout_width="@dimen/dp_60"
-                android:layout_height="@dimen/dp_60"
-                android:layout_marginTop="@dimen/dp_15"
-                android:background="@drawable/login_photo" />
-
             <LinearLayout
-                android:id="@+id/ll_update_icon"
+                android:id="@+id/ll_add_pic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingTop="@dimen/dp_10">
+                android:layout_marginTop="@dimen/dp_15"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/dp_5"
-                    android:background="@drawable/t3_edit" />
+                    android:id="@+id/iv_circle_icon"
+                    android:layout_width="@dimen/dp_60"
+                    android:layout_height="@dimen/dp_60"
+                    android:background="@drawable/login_photo" />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="点击修改图片"
-                    android:textColor="#93C1E3" />
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingTop="@dimen/dp_10">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dp_5"
+                        android:background="@drawable/t3_edit" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="点击修改图片"
+                        android:textColor="#93C1E3" />
+                </LinearLayout>
             </LinearLayout>
 
             <android.support.v7.widget.RecyclerView

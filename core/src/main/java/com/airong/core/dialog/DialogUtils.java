@@ -31,7 +31,7 @@ public class DialogUtils {
      * 显示ProgressDialog
      */
     public void showProgress(String msg) {
-        if (activity == null && activity.isFinishing()) {
+        if (activity == null || activity.isFinishing()) {
             return;
         }
         if (mProgressDialog == null) {
@@ -50,7 +50,7 @@ public class DialogUtils {
      * 显示ProgressDialog
      */
     public void showProgress() {
-        if (activity == null && activity.isFinishing()) {
+        if (activity == null || activity.isFinishing()) {
             return;
         }
         if (mProgressDialog == null) {

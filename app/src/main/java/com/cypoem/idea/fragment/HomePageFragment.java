@@ -16,6 +16,7 @@ import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
 import com.cypoem.idea.module.bean.CircleBean;
 import com.cypoem.idea.module.bean.CircleListBean;
+import com.cypoem.idea.module.bean.CircleResponse;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
 import com.cypoem.idea.utils.UserInfoTools;
@@ -67,16 +68,18 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
 
     //  请求数据
     private void getData() {
-       /* IdeaApi.getApiService()
+        IdeaApi.getApiService()
                 .getMyCircle(UserInfoTools.getUserId(getContext()), page, Constants.NUM, 1)
                 .subscribeOn(Schedulers.io())
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DefaultObserver<BasicResponse<CircleListBean>>(getActivity()) {
+                .subscribe(new DefaultObserver<BasicResponse<CircleResponse>>(getActivity()) {
                     @Override
-                    public void onSuccess(BasicResponse<CircleListBean> response) {
-                        CircleListBean circleListBean = response.getResult();
-                        List<CircleBean> circles = circleListBean.getCircles();
+                    public void onSuccess(BasicResponse<CircleResponse> response) {
+                        CircleResponse result = response.getResult();
+                        List<CircleBean> circles = result.getCircles();
+                       /* CircleListBean circleListBean = response.getResult();
+                        List<CircleBean> circles = circleListBean.getCircles();*/
                         setRecyclerView(circles);
                     }
 
@@ -85,7 +88,7 @@ public class HomePageFragment extends BaseFragment implements SwipeRefreshLayout
                         super.dismissProgress();
                         refreshLayout.setRefreshing(false);
                     }
-                });*/
+                });
     }
 
     private void setRecyclerView(List<CircleBean> list) {

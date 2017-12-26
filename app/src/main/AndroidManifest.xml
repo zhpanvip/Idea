@@ -105,7 +105,8 @@
             android:theme="@style/TranslucentBarTheme" />
         <activity android:name=".activity.CircleActivity" />
         <activity android:name=".activity.MyCircleActivity" />
-        <activity android:name=".activity.NewestArticleActivity"/>
+        <activity android:name=".activity.NewestArticleActivity" />
+        <activity android:name=".activity.MyArticleActivity"></activity>
     </application>
 
 </manifest>

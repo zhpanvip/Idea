@@ -144,7 +144,7 @@ public interface IdeaApiService {
      * @return
      */
     @Multipart
-    @GET("circle/add.do")
+    @POST("circle/add.do")
     Observable<BasicResponse<CreateCircleResponse>> createCircle(@Part List<MultipartBody.Part> partList);
 
     /**

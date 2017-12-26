@@ -56,7 +56,6 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 import static com.cypoem.idea.constants.Constants.REQUEST_SELECT_PICTURE;
-import static com.cypoem.idea.constants.Constants.SAMPLE_CROPPED_IMAGE_NAME;
 import static com.cypoem.idea.constants.Constants.TAG;
 
 public class AuthorInfoActivity extends BaseActivity {
@@ -87,7 +86,10 @@ public class AuthorInfoActivity extends BaseActivity {
     TabLayout mTabLayout;
     @BindView(R.id.sl_view)
     ScrollableLayout mScrollView;
+    @BindView(R.id.ll_message)
+    LinearLayout mLlMessage;
     List<AuthorFragment> mList;
+
     private String userId = "";
     private boolean isFollow;
     private UserBean userBean;
@@ -132,6 +134,7 @@ public class AuthorInfoActivity extends BaseActivity {
             setToolBarTitle("我的资料");
             getRightIv().setVisibility(View.VISIBLE);
             getRightIv().setBackgroundResource(R.drawable.t5_edit);
+            mLlMessage.setVisibility(View.GONE);
         } else {//  查看其它作者信息
             getData(false);
             setToolBarTitle("作者简介");
@@ -147,7 +150,7 @@ public class AuthorInfoActivity extends BaseActivity {
         mTvIntroduce.setText(user.getIntroduction());
         mTvFans.setText(String.valueOf(user.getWatchMeCount()));
         mTvFocus.setText(String.valueOf(user.getMyWatchCount()));
-        if (userBean.getWatch_status() == 0) {
+        if (user.getWatch_status() == 0) {
             mTvFollow.setText("关注");
         } else {
             mTvFollow.setText("已关注");
@@ -246,8 +249,8 @@ public class AuthorInfoActivity extends BaseActivity {
                     LoginActivity.start(this);
                 break;
             case R.id.iv_author:
-                if (userId.equals(UserInfoTools.getUserId(this)))
-                    pickFromGallery();
+                /*if (userId.equals(UserInfoTools.getUserId(this)))
+                    pickFromGallery();*/
                 break;
         }
     }
@@ -392,7 +395,7 @@ public class AuthorInfoActivity extends BaseActivity {
     }*/
 
     private void startCropActivity(@NonNull Uri uri) {
-        String destinationFileName = SAMPLE_CROPPED_IMAGE_NAME;
+        String destinationFileName = System.currentTimeMillis()+"";
         destinationFileName += ".png";
         UCrop uCrop = UCrop.of(uri, Uri.fromFile(new File(getCacheDir(), destinationFileName)));
         uCrop = uCrop.withAspectRatio(2, 3);

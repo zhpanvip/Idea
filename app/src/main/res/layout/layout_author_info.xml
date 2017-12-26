@@ -51,6 +51,7 @@
             android:textSize="@dimen/f_14" />
 
         <LinearLayout
+            android:id="@+id/ll_message"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_25"
             android:gravity="center_horizontal"

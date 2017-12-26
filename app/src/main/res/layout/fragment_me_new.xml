@@ -266,7 +266,8 @@
             <include layout="@layout/base_line10" />
 
 
-            <RelativeLayout style="@style/item_me">
+            <RelativeLayout style="@style/item_me"
+                android:id="@+id/rl_my_article">
 
                 <ImageView
                     android:id="@+id/iv_create_story"
@@ -301,7 +302,8 @@
 
             <include layout="@layout/base_line" />
 
-            <RelativeLayout style="@style/item_me">
+            <RelativeLayout style="@style/item_me"
+                android:id="@+id/rl_focus_article">
 
                 <ImageView
                     android:id="@+id/iv_collect_story"
@@ -336,7 +338,9 @@
 
             <include layout="@layout/base_line" />
 
-            <RelativeLayout style="@style/item_me">
+            <RelativeLayout
+                android:id="@+id/rl_join_article"
+                style="@style/item_me">
 
                 <ImageView
                     android:id="@+id/iv_join_story"
@@ -372,7 +376,8 @@
             <include layout="@layout/base_line10" />
 
 
-            <RelativeLayout style="@style/item_me">
+            <RelativeLayout style="@style/item_me"
+                android:id="@+id/rl_wallet">
 
                 <ImageView
                     android:id="@+id/iv_wallet"
@@ -407,7 +412,8 @@
 
             <include layout="@layout/base_line" />
 
-            <RelativeLayout style="@style/item_me">
+            <RelativeLayout style="@style/item_me"
+                android:id="@+id/rl_draft">
 
                 <ImageView
                     android:id="@+id/iv_draft"
@@ -444,7 +450,8 @@
             <include layout="@layout/base_line10" />
 
 
-            <RelativeLayout style="@style/item_me">
+            <RelativeLayout style="@style/item_me"
+                android:id="@+id/rl_advice">
 
                 <ImageView
                     android:id="@+id/iv_advice"
@@ -469,7 +476,8 @@
 
             <include layout="@layout/base_line" />
 
-            <RelativeLayout style="@style/item_me">
+            <RelativeLayout style="@style/item_me"
+                android:id="@+id/rl_question">
 
                 <ImageView
                     android:id="@+id/iv_question"
@@ -495,7 +503,8 @@
 
             <include layout="@layout/base_line" />
 
-            <RelativeLayout style="@style/item_me">
+            <RelativeLayout style="@style/item_me"
+                android:id="@+id/rl_share">
 
                 <ImageView
                     android:id="@+id/iv_share"
@@ -521,8 +530,8 @@
 
             <include layout="@layout/base_line" />
 
-            <RelativeLayout style="@style/item_me">
-
+            <RelativeLayout style="@style/item_me"
+                android:id="@+id/rl_about_cypoem">
                 <ImageView
                     android:id="@+id/iv_about_us"
                     android:layout_width="@dimen/dp_24"

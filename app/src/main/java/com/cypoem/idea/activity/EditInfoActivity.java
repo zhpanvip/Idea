@@ -64,7 +64,6 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 import static com.cypoem.idea.constants.Constants.REQUEST_SELECT_PICTURE;
-import static com.cypoem.idea.constants.Constants.SAMPLE_CROPPED_IMAGE_NAME;
 import static com.cypoem.idea.constants.Constants.TAG;
 
 public class EditInfoActivity extends BaseActivity {
@@ -264,7 +263,7 @@ public class EditInfoActivity extends BaseActivity {
 
 
     private void startCropActivity(@NonNull Uri uri) {
-        String destinationFileName = SAMPLE_CROPPED_IMAGE_NAME;
+        String destinationFileName = System.currentTimeMillis()+"";
         destinationFileName += ".png";
         UCrop uCrop = UCrop.of(uri, Uri.fromFile(new File(getCacheDir(), destinationFileName)));
         uCrop = uCrop.withAspectRatio(1, 1);

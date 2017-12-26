@@ -15,9 +15,12 @@ import com.airong.core.utils.ImageLoaderUtil;
 import com.cypoem.idea.R;
 import com.cypoem.idea.activity.AuthorInfoActivity;
 import com.cypoem.idea.activity.FansActivity;
+import com.cypoem.idea.activity.MyArticleActivity;
 import com.cypoem.idea.activity.MyCircleActivity;
 import com.cypoem.idea.activity.PraiseActivity;
 import com.cypoem.idea.activity.SettingActivity;
+import com.cypoem.idea.activity.SuggestActivity;
+import com.cypoem.idea.activity.WalletActivity;
 import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.net.IdeaApiService;
@@ -57,7 +60,8 @@ public class MeNewFragment extends BaseFragment {
     TextView mTvFans;
 
 
-    @OnClick({R.id.rl_user, R.id.ll_follow, R.id.ll_fans, R.id.ll_reward,R.id.rl_focus_circle,R.id.rl_my_circle})
+    @OnClick({R.id.rl_user, R.id.ll_follow, R.id.ll_fans, R.id.ll_reward,R.id.rl_focus_circle,R.id.rl_my_circle,R.id.rl_my_article,
+            R.id.rl_focus_article,R.id.rl_join_article,R.id.rl_wallet,R.id.rl_draft,R.id.rl_advice,R.id.rl_question,R.id.rl_share,R.id.rl_about_cypoem})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_user:
@@ -76,6 +80,33 @@ public class MeNewFragment extends BaseFragment {
                 MyCircleActivity.start(getContext(),1);
                 break;
             case R.id.rl_my_circle:
+                MyCircleActivity.start(getContext(),0);
+                break;
+            case R.id.rl_my_article:
+                MyArticleActivity.start(getContext(),0);
+                break;
+            case R.id.rl_focus_article:
+                MyArticleActivity.start(getContext(),0);
+                break;
+            case R.id.rl_join_article:
+                MyArticleActivity.start(getContext(),0);
+                break;
+            case R.id.rl_wallet:
+                WalletActivity.start(getContext());
+                break;
+            case R.id.rl_draft:
+                MyArticleActivity.start(getContext(),0);
+                break;
+            case R.id.rl_advice:
+                SuggestActivity.start(getContext(),"我的");
+                break;
+            case R.id.rl_question:
+                MyCircleActivity.start(getContext(),0);
+                break;
+            case R.id.rl_share:
+                MyCircleActivity.start(getContext(),0);
+                break;
+            case R.id.rl_about_cypoem:
                 MyCircleActivity.start(getContext(),0);
                 break;
         }
