@@ -28,10 +28,6 @@ public class WritingFragment extends BaseFragment {
     TextView toolbarSubtitle;
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-   /* @BindView(R.id.tv_publish)
-    TextView mTvPublish;
-    @BindView(R.id.tv_join)
-    TextView mTvJoin;*/
 
     @Override
     protected int getLayoutId() {
@@ -66,30 +62,4 @@ public class WritingFragment extends BaseFragment {
                 break;
         }
     }
-
-   /* @OnClick({R.id.toolbar_subtitle, R.id.toolbar_title, R.id.tv_publish, R.id.tv_join})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.toolbar_subtitle:
-                SuggestActivity.start(getContext(), "发布");
-                break;
-            case R.id.toolbar_title:
-                break;
-            case R.id.tv_publish:
-                if (UserInfoTools.getIsLogin(getContext())) {
-                    PublishActivity.start(getContext());
-                } else {
-                    LoginActivity.start(getContext());
-                }
-                break;
-            case R.id.tv_join:
-                EventBus.getDefault().post(new JoinOpus());
-                break;
-        }
-    }*/
-
-    public static class JoinOpus {
-
-    }
-
 }

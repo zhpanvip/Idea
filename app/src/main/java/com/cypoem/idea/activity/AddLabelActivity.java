@@ -30,6 +30,7 @@ public class AddLabelActivity extends BaseActivity {
     private String[] mLabels;
     // private String[] labelArray;
     Set<Integer> selectedList;
+    private int selectedPosition;
     private TagAdapter<String> mAdapter;
     private EditText mEtCustom;
 
@@ -43,14 +44,14 @@ public class AddLabelActivity extends BaseActivity {
         getSubTitle().setText("完成");
         getSubTitle().setTextColor(getResources().getColor(R.color.text_theme));
         getSubTitle().setVisibility(View.VISIBLE);
-        int positions = getIntent().getIntExtra("positions", 200);
+        selectedPosition = getIntent().getIntExtra("selectedPosition", 200);
         selectedList = new ArraySet<>();
         mLabels = getApplicationContext().getResources().getStringArray(R.array.label);
         mAdapter = new TagAdapter<String>(mLabels) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
                 View view = LayoutInflater.from(AddLabelActivity.this).inflate(R.layout.item_label, mFlowLayout, false);
-                TextView tv = (TextView) view.findViewById(R.id.tv_label);
+                TextView tv =  view.findViewById(R.id.tv_label);
                 tv.setText(s);
                 return tv;
             }
@@ -58,36 +59,29 @@ public class AddLabelActivity extends BaseActivity {
 
 
         mFlowLayout.setAdapter(mAdapter);
-        // mFlowLayout.setMaxSelectCount(3);
-        // mAdapter.setSelectedList(1,2,4);
-       /* for (int i = 0; i < positions.length; i++) {
-            mAdapter.setSelectedList(Integer.parseInt(positions[i]));
-        }*/
-       // mAdapter.setSelected(positions, "");
+        if(selectedPosition!=-1)
+        mAdapter.setSelectedList(selectedPosition);
         mFlowLayout.setOnSelectListener((Set<Integer> selectPosSet) -> {
-            selectedList = selectPosSet;
-        });
-        /*mFlowLayout.setOnTagClickListener((View view, int position, FlowLayout parent) -> {
-            if (position == mLabels.length - 1) {
-                showCustomDialog();
+            if(selectPosSet.size()==0){
+                selectedPosition=-1;
+                return;
             }
-            return true;
-        });*/
-
-
+            for (int i : selectPosSet)
+                selectedPosition = i;
+        });
     }
 
-    public void selfLabel(View view){
+    public void selfLabel(View view) {
         showCustomDialog();
     }
 
     private void showCustomDialog() {
-        DialogUtils dialogUtils=new DialogUtils(this);
+        DialogUtils dialogUtils = new DialogUtils(this);
         View dialog = dialogUtils.createDialog(R.layout.input_dialog, true);
-        mEtCustom = (EditText) dialog.findViewById(R.id.et_dialog_content);
+        mEtCustom =  dialog.findViewById(R.id.et_dialog_content);
         dialog.findViewById(R.id.tv_confirm).setOnClickListener((View v) -> {
             String customStr = mEtCustom.getText().toString();
-            selectedLabel(customStr, 200);
+            selectedLabel(customStr);
             dialogUtils.dismissDialog();
             finish();
         });
@@ -125,26 +119,24 @@ public class AddLabelActivity extends BaseActivity {
 
     private void setValues() {
         String labels = "";
-        int positions = 200;
         selectedList = mFlowLayout.getSelectedList();
         for (Integer i : selectedList) {
             labels += mLabels[i];
-            positions = i;
         }
-        selectedLabel(labels, positions + 3);
+        selectedLabel(labels);
         finish();
     }
 
-    private void selectedLabel(String labels, int positions) {
+    private void selectedLabel(String labels) {
         Intent intent = new Intent();
         intent.putExtra("label", labels);
-        intent.putExtra("positions", positions);
+        intent.putExtra("selectedPosition", selectedPosition);
         setResult(PublishActivity.SELECT_LABEL, intent);
     }
 
     private void showDig() {
-        DialogUtils dialogUtils=new DialogUtils(this);
-        dialogUtils.showTwoButtonDialog("您还没有选择标签，\n确定要退出吗？",(View v) -> {
+        DialogUtils dialogUtils = new DialogUtils(this);
+        dialogUtils.showTwoButtonDialog("您还没有选择标签，\n确定要退出吗？", (View v) -> {
             dialogUtils.dismissDialog();
             Intent intent = new Intent();
             setResult(PublishActivity.SELECT_LABEL, intent);

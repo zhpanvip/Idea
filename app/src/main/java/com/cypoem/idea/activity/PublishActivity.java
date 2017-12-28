@@ -27,7 +27,6 @@ import android.widget.ScrollView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.airong.core.utils.LogUtils;
 import com.cypoem.idea.R;

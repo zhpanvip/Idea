@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,27 +17,21 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airong.core.utils.ImageLoaderUtil;
+import com.airong.core.utils.LocationUtils;
 import com.airong.core.utils.LogUtils;
 import com.cypoem.idea.R;
-import com.cypoem.idea.adapter.CircleListAdapter;
-import com.cypoem.idea.constants.Constants;
 import com.cypoem.idea.module.BasicResponse;
-import com.cypoem.idea.module.bean.CircleListBean;
 import com.cypoem.idea.module.bean.CreateCircleResponse;
-import com.cypoem.idea.module.bean.UserBean;
 import com.cypoem.idea.net.DefaultObserver;
 import com.cypoem.idea.net.IdeaApi;
-import com.cypoem.idea.net.IdeaApiService;
 import com.cypoem.idea.utils.UserInfoTools;
 import com.yalantis.ucrop.UCrop;
 
-import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.List;
@@ -75,6 +70,8 @@ public class CreateCircleActivity extends BaseActivity {
     private String picPath = "";
     private String circleDescription = "";
     private String category = "";
+    private double lat;
+    private double lon;
 
     @Override
     protected int getLayoutId() {
@@ -83,9 +80,16 @@ public class CreateCircleActivity extends BaseActivity {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-
+        getLocation();
     }
 
+    private void getLocation() {
+        Location location = LocationUtils.getInstance(this).location();
+        if (location != null) {
+            lon = location.getLongitude();
+            lat = location.getLatitude();
+        }
+    }
 
     private void createCircle() {
         String circleName = mEtCircleName.getText().toString().trim();
@@ -98,21 +102,8 @@ public class CreateCircleActivity extends BaseActivity {
             showToast("请输入圈子名称");
             return;
         }
-        File file = new File(picPath);
-        RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-        MultipartBody.Builder builder = new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("introduction", introduce)
-                .addFormDataPart("name", circleName)
-                .addFormDataPart("type", "2")
-                .addFormDataPart("style", "1")
-                .addFormDataPart("circleDescription", circleDescription)
-                .addFormDataPart("category", category)
-                .addFormDataPart("uploadFile", file.getName(), imageBody);
-        List<MultipartBody.Part> parts = builder.build().parts();
-
         IdeaApi.getApiService()
-                .createCircle(parts)
+                .createCircle(createRequestBody(introduce, circleName))
                 .subscribeOn(Schedulers.io())
                 .compose(bindToLifecycle())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -120,8 +111,28 @@ public class CreateCircleActivity extends BaseActivity {
                     @Override
                     public void onSuccess(BasicResponse<CreateCircleResponse> response) {
                         createCircleSuccess(response.getResult());
+                        onBackPress();
                     }
                 });
+    }
+
+    private List<MultipartBody.Part> createRequestBody(String introduce, String circleName) {
+        File file = new File(picPath);
+        RequestBody imageBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("user.user_id", UserInfoTools.getUserId(this))
+                .addFormDataPart("introduction", introduce)
+                .addFormDataPart("name", circleName)
+                .addFormDataPart("type", "2")
+                .addFormDataPart("style", "1")
+                .addFormDataPart("circleDescription", circleDescription)
+                .addFormDataPart("category", category)
+                .addFormDataPart("lat", lat + "")
+                .addFormDataPart("lon", lon + "")
+                .addFormDataPart("uploadFile", file.getName(), imageBody);
+        List<MultipartBody.Part> parts = builder.build().parts();
+        return parts;
     }
 
     private void createCircleSuccess(CreateCircleResponse result) {

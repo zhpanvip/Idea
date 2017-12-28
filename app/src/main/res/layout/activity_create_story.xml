@@ -62,6 +62,7 @@
                     android:textSize="@dimen/sp_16" />
 
                 <EditText
+                    android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -99,13 +100,14 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/dp_10"
-                    android:checked="true"
+                    android:checked="false"
                     android:theme="@style/Color1SwitchStyle" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/rl_add_pic"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="@dimen/dp_85">
 
                 <ImageView
@@ -119,6 +121,7 @@
             <include layout="@layout/base_line10" />
 
             <RelativeLayout
+                android:id="@+id/rl_belong"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_50"
                 android:layout_alignParentBottom="true"
@@ -197,11 +200,12 @@
                     android:textSize="@dimen/sp_18" />
 
                 <EditText
+                    android:id="@+id/et_start"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:hint="请输入故事开头..."
+                    android:hint="请输入故事简介..."
                     android:minHeight="@dimen/dp_50"
                     android:paddingBottom="@dimen/dp_10"
                     android:paddingTop="@dimen/dp_10"

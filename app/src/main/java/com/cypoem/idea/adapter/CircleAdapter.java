@@ -37,7 +37,7 @@ public class CircleAdapter extends BaseAdapter<CircleBean,CircleAdapter.CircleVi
         holder.mTvCircleName.setText(circlesBean.getName());
         holder.mLabel.setText(circlesBean.getType()+"");
         holder.mTvUpdateCount.setText(String.valueOf(circlesBean.getPublicStoryCount()));
-        holder.mTvCircleName.setText(String.valueOf(circlesBean.getStoryCount()));
+        holder.mTvStoryCount.setText(String.valueOf(circlesBean.getStoryCount()));
         holder.mTvFollowCount.setText(String.valueOf(circlesBean.getUserCount()));
     }
 

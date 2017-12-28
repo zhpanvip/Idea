@@ -210,11 +210,22 @@ public interface IdeaApiService {
     /**
      * 创建故事
      *
-     * @param mapLogin 所需参数
+     * @param partList 所需参数
      * @return
      */
+    @Multipart
     @POST("write/save.do")
-    Observable<BasicResponse> createStory(@FieldMap Map<String, Object> mapLogin);
+    Observable<BasicResponse<PublishBean>> createStoryWithStory(@Part List<MultipartBody.Part> partList);
+
+    /**
+     * 创建故事
+     *
+     * @param map 所需参数
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("write/save.do")
+    Observable<BasicResponse<PublishBean>> createStory(@FieldMap Map<String, Object> map);
 
     /**
      * 通过id查询故事所有章节
@@ -250,6 +261,7 @@ public interface IdeaApiService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST("write/updateWrite.do")
     Observable<BasicResponse> updateStory(@FieldMap Map<String, Object> mapLogin);
 
@@ -259,6 +271,7 @@ public interface IdeaApiService {
      * @param mapLogin
      * @return
      */
+    @FormUrlEncoded
     @POST("write/updateWrite.do")
     Observable<BasicResponse> upWrite(@FieldMap Map<String, Object> mapLogin);
 
@@ -284,10 +297,11 @@ public interface IdeaApiService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST("write/updateLikeCount.do")
     Observable<BasicResponse> priseChapter(@FieldMap Map<String, Object> mapLogin);
 
-
+    @FormUrlEncoded
     @POST("write/messagePush.do")
     Observable<BasicResponse> getPushMessage(@FieldMap Map<String, Object> mapLogin);
 
@@ -318,6 +332,7 @@ public interface IdeaApiService {
      *
      * @return
      */
+    @FormUrlEncoded
     @POST("comment/viewComment.do")
     Observable<BasicResponse<List<CommentBean>>> getComment(@FieldMap Map<String, Object> map);
 

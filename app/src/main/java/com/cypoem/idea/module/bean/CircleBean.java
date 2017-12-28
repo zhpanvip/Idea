@@ -158,40 +158,4 @@ public class CircleBean extends SearchBaseBean {
     public void setUserCount(int userCount) {
         this.userCount = userCount;
     }
-
-    public static class UserBean {
-        /**
-         * icon : /cys/upload/img/user/uid/icon/20170912174506318sss.png
-         * pen_name : 棉花草
-         * user_id : 2017060025
-         */
-
-        private String icon;
-        private String pen_name;
-        private int user_id;
-
-        public String getIcon() {
-            return icon;
-        }
-
-        public void setIcon(String icon) {
-            this.icon = icon;
-        }
-
-        public String getPen_name() {
-            return pen_name;
-        }
-
-        public void setPen_name(String pen_name) {
-            this.pen_name = pen_name;
-        }
-
-        public int getUser_id() {
-            return user_id;
-        }
-
-        public void setUser_id(int user_id) {
-            this.user_id = user_id;
-        }
-    }
 }

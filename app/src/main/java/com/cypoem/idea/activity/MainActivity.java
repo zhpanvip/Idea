@@ -39,8 +39,6 @@ public class MainActivity extends BaseActivity {
     RadioGroup rgTab;
     @BindView(R.id.vp_fragment)
     MViewPaper mViewPager;
-    /* @BindView(R.id.iv_add)
-     ImageView mIvBackground;*/
     //  退出时间间隔
     private long exitTime = 0;
     //  上一次RadioGroup选中的Id
@@ -98,23 +96,19 @@ public class MainActivity extends BaseActivity {
     }
 
     private boolean isLogin() {
-        boolean isLogin = UserInfoTools.getIsLogin(this);
-        return isLogin;
+        return UserInfoTools.getIsLogin(this);
     }
 
     private void setListener() {
         rgTab.setOnCheckedChangeListener((RadioGroup group, @IdRes int checkedId) -> {
             switch (checkedId) {
                 case R.id.rb_home:
-                    // setStatusBarColor(R.color.colorPrimaryDark);
                     mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_HOME, false);
                     break;
                 case R.id.rb_find:
-                    // setStatusBarColor(R.color.colorPrimaryDark);
                     mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_FIND, false);
                     break;
                 case R.id.rb_add:
-                    // setStatusBarColor(R.color.colorPrimaryDark);
                     mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_PUBLISH, false);
                     break;
                 case R.id.rb_message:
@@ -136,7 +130,6 @@ public class MainActivity extends BaseActivity {
     private boolean meClicked() {
         if (isLogin()) {
             mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_ME, false);
-            //  setStatusBarColor(R.color.themDark);
             return false;
         } else {
             goToLogin();
@@ -147,7 +140,6 @@ public class MainActivity extends BaseActivity {
 
     private boolean messageClicked() {
         if (isLogin()) {
-            // setStatusBarColor(R.color.colorPrimaryDark);
             mViewPager.setCurrentItem(AdapterFragmentPager.PAGE_MESSAGE, false);
             return false;
         } else {
@@ -173,7 +165,6 @@ public class MainActivity extends BaseActivity {
                 exitTime = System.currentTimeMillis();
             } else {
                  finish();
-              //  System.exit(0);
             }
             return true;
         }
@@ -198,15 +189,5 @@ public class MainActivity extends BaseActivity {
     @Subscribe
     public void logout(LogoutEvent event) {
         mRbHome.setChecked(true);
-    }
-
-    /**
-     * 接受点击参与已有作品的事件
-     *
-     * @param joinOpus
-     */
-    @Subscribe
-    public void joinOpus(WritingFragment.JoinOpus joinOpus) {
-        // mIvBackground.setVisibility(View.VISIBLE);
     }
 }
