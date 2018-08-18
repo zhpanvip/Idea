@@ -14,7 +14,7 @@ android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
     defaultConfig {
-        applicationId "com.cypoem.idea"
+        applicationId "com.cypoem.idea1"
         minSdkVersion 21
         targetSdkVersion 25
         versionCode 2

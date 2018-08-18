@@ -64,8 +64,6 @@ public class MainActivity extends BaseActivity {
             MobclickAgent.onEvent(this,"download");
         }
         SharedPreferencesHelper.put(this, "isFirstIn", true);
-
-        showToast(""+ Utils.isDebugBuild());
     }
 
     @Override
