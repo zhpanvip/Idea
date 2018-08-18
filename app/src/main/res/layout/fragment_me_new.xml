@@ -198,13 +198,15 @@
                     android:id="@+id/iv_create_circle"
                     android:layout_width="@dimen/dp_24"
                     android:layout_height="@dimen/dp_24"
-                    android:layout_centerVertical="true"
+                    android:layout_alignBottom="@+id/textView12"
+                    android:layout_alignParentStart="true"
                     android:background="@drawable/t5_mycreative" />
 
                 <TextView
                     style="@style/item_me_text"
                     android:layout_toEndOf="@id/iv_create_circle"
-                    android:text="@string/circle_of_me" />
+                    android:text="@string/circle_of_me"
+                    android:id="@+id/textView12" />
 
                 <ImageView
                     android:id="@+id/iv_arrow1"

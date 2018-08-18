@@ -1,12 +1,8 @@
 package com.cypoem.idea.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -134,7 +130,7 @@ public class MeNewFragment extends BaseFragment {
     private void initData() {
         toolbarTitle.setText("我的");
         mIvRight.setVisibility(View.VISIBLE);
-        mIvRight.setBackgroundResource(R.drawable.t3_set);
+        mIvRight.setBackgroundResource(R.drawable.ic_setting);
 
     }
 

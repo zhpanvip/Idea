@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Idea.iml" filepath="$PROJECT_DIR$/Idea.iml" />
       <module fileurl="file://E:\work\cypoem\Idea.iml" filepath="E:\work\cypoem\Idea.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/cypoem.iml" filepath="$PROJECT_DIR$/cypoem.iml" />
+      <module fileurl="file://D:\work\cypoem\Idea\cypoem.iml" filepath="D:\work\cypoem\Idea\cypoem.iml" />
       <module fileurl="file://E:\work\cypoem\cypoem\cypoem_android.iml" filepath="E:\work\cypoem\cypoem\cypoem_android.iml" />
       <module fileurl="file://$PROJECT_DIR$/libres/libres.iml" filepath="$PROJECT_DIR$/libres/libres.iml" />
       <module fileurl="file://$PROJECT_DIR$/thirdparty/thirdparty.iml" filepath="$PROJECT_DIR$/thirdparty/thirdparty.iml" />

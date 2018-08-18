@@ -49,7 +49,7 @@
                 android:layout_marginEnd="@dimen/mp_5"
                 android:layout_toStartOf="@id/iv_hot_arrow"
                 android:text="更多"
-                android:textColor="@color/text_theme"
+                android:textColor="@color/text_more"
                 android:textSize="@dimen/f_15" />
         </RelativeLayout>
 

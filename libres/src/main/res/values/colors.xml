@@ -65,4 +65,7 @@
     <color name="radio_text_checked">#829349</color>
     <color name="btn_focus">#829349</color>
     <color name="gray_48">#F4F8FB</color>
+
+    <color name="line_10_color">#F4F8FB</color>
+    <color name="text_more">#1a9bef</color>
 </resources>

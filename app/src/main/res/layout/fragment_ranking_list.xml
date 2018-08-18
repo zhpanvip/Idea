@@ -53,7 +53,7 @@
                 android:id="@+id/tv_name1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="韩三少"
+                android:text="Name"
                 android:textColor="@color/no1_pink"
                 android:textSize="@dimen/sp_18" />
 
@@ -61,7 +61,7 @@
                 android:id="@+id/tv_value1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="送出  15000"
+                android:text="送出  0"
                 android:textColor="@color/no1_pink"
                 android:textSize="@dimen/sp_12" />
         </LinearLayout>
@@ -115,7 +115,7 @@
                     android:id="@+id/tv_name2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="韩三少"
+                    android:text="Name"
                     android:textColor="@color/no2_orange"
                     android:textSize="@dimen/sp_18" />
 
@@ -123,7 +123,7 @@
                     android:id="@+id/tv_value2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="送出  15000"
+                    android:text="送出  0"
                     android:textColor="@color/no2_orange"
                     android:textSize="@dimen/sp_12" />
             </LinearLayout>
@@ -168,7 +168,7 @@
                     android:id="@+id/tv_name3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="韩三少"
+                    android:text="Name"
                     android:textColor="@color/no3_purple"
                     android:textSize="@dimen/sp_18" />
 
@@ -176,7 +176,7 @@
                     android:id="@+id/tv_value3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="送出  15000"
+                    android:text="送出  0"
                     android:textColor="@color/no3_purple"
                     android:textSize="@dimen/sp_12" />
             </LinearLayout>

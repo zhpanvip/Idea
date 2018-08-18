@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#1a9bef</color>
-    <color name="colorPrimaryDark">#003D91</color>
+    <color name="colorPrimaryDark">#1B1B1B</color>
     <color name="colorAccent">#1a9bef</color>
     <color name="themDark">#1a9bef</color>
 
-    <color name="gray_66">#666666</color>
-    <color name="gray_99">#BBBBBB</color>
-    <color name="gray_a2">#A2A2A2</color>
-    <color name="gray_cc">#CCCCCC</color>
-    <color name="gray_dd">#BBBBBB</color>
-    <color name="gray_ee">#EEEEEE</color>
-    <color name="gray_f6">#F6F6F6</color>
-    <color name="white">#FFFFFF</color>
-    <color name="gray_a5">#BBBBBB</color>
-    <color name="gray_ea">#EAEAEA</color>
+    <color name="white">#1B1B1B</color>
 
     <color name="read_bg">#000000</color>
     <color name="theme_style">#1C1C1C</color>
@@ -23,13 +14,13 @@
     <color name="text_light">#FFFFFF</color>
     <color name="female_red">#D4237A</color>
     <color name="male_blue">#1296DB</color>
-    <color name="item_text_color_dark">#BBBBBB</color>
-    <color name="item_text_color">#9E9E9E</color>
+    <color name="item_text_color_dark">#1B1B1B</color>
+    <color name="item_text_color">#1B1B1B</color>
     <color name="tab_color">#292929</color>
     <color name="item_color">#1B1B1B</color>
     <color name="tab_normal_text">#BEBEBE</color>
     <color name="tab_selected_text">#878785</color>
-    <color name="line_color">#BDBDBD</color>
+    <color name="line_color">#878785</color>
     <color name="item_title">#282828</color>
     <color name="item_title_text">#FFFFFF</color>
     <color name="text_hint">#6D6E6F</color>
@@ -38,11 +29,17 @@
 
     <color name="toolbar_title">#FEFFFF</color>
     <color name="toolbar_background">#282828</color>
-    <color name="item_theme">#BBBBBB</color>
+    <color name="item_theme">#1B1B1B</color>
     <color name="me_background">#282828</color>
     <color name="radio_bg">#1C1C1C</color>
     <color name="radio_bg_checked">#F6F6F6</color>
     <color name="radio_text_checked">#1C1C1C</color>
     <color name="btn_focus">#BBBBBB</color>
     <color name="tab_selected">#878785</color>
+    <color name="text_black">#FFFFFF</color>
+    <color name="item_me_text">#FFFFFF</color>
+    <color name="item_title_color">#FFFFFF</color>
+    <color name="text_more">#FFFFFF</color>
+    <color name="line_10_color">#282828</color>
+    <color name="gray_48">#282828</color>
 </resources>

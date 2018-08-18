@@ -43,7 +43,8 @@ public interface IdeaApiService {
     /**
      * 网络请求超时时间毫秒
      */
-    int DEFAULT_TIMEOUT = 20000;
+
+    int DEFAULT_TIMEOUT = 3000;
 
     //String HOST = "http://hansanshao.cn:8080/";
     String HOST = "http://cypoem.com";
